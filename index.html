@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Ventas | Roberto Fibonacci</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1e1e2f',       // Fondo principal (Oscuro Prospecta)
+                            panel: '#2A2A42',      // Paneles y tarjetas (Prospecta)
+                            primary: '#3E3E61',    // Color principal Prospecta (Cabeceras)
+                            accentText: '#A3A1CA', // Texto secundario suave Prospecta
+                            gold: '#fbbf24',       // Premium Gold para botones/destaques
+                            success: '#4CAF50',    // Emerald / Verde Prospecta
+                            cardPrimary: '#3E3E61' 
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; overflow: hidden; }
+        
+        .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .slide.active { display: flex; opacity: 1; }
+        
+        /* Custom Scrollbar for notes & presentation */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #1e1e2f; }
+        ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #A3A1CA; }
+
+        /* =========================================
+           ESTILOS DE LA TARJETA DE PERFIL (PORTADA)
+           ========================================= */
+        .hamburger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 5px; }
+        .hamburger-btn span { display: block; width: 22px; height: 3px; background-color: #A3A1CA; border-radius: 2px; }
+
+        .profile-card {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.94); 
+            backdrop-filter: blur(15px);
+            border-radius: 25px; 
+            padding: 70px 20px 25px; 
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4); 
+            border: 1px solid rgba(255,255,255,0.6);
+            position: relative; 
+            overflow: hidden;
+            color: #3E3E61;
+            margin-top: 0; /* Sin margen para pegarlo arriba */
+            transition: padding-top 0.3s ease;
+        }
+        
+        .cover-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 120px;
+            background-color: #A3A1CA;
+            background-size: cover; background-position: center; z-index: 0;
+            transition: height 0.3s ease, background-image 0.3s ease;
+        }
+        
+        .btn-cambiar-portada {
+            position: absolute; top: 12px; right: 12px; width: 42px; height: 42px;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.4); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; cursor: pointer; z-index: 2; transition: all 0.2s ease;
+        }
+        .btn-cambiar-portada:hover { background: rgba(0,0,0,0.5); transform: scale(1.05); }
+
+        .avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px; z-index: 1; }
+        
+        .avatar-img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            border: 4px solid white; box-shadow: 0 0 25px rgba(163, 161, 202, 0.8), 0 5px 15px rgba(0,0,0,0.2);
+            background: #3E3E61; display: flex; align-items: center; justify-content: center;
+            transition: src 0.3s ease;
+        }
+        
+        .btn-edit-avatar {
+            position: absolute; bottom: 0; right: 0; width: 36px; height: 36px;
+            background: #3E3E61; border-radius: 50%; border: 3px solid white;
+            display: flex; align-items: center; justify-content: center; color: white; 
+            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.2s;
+        }
+        .btn-edit-avatar:hover { transform: scale(1.1); }
+        
+        .profile-name { font-size: 22px; font-weight: 800; color: #3E3E61; margin-bottom: 2px; z-index: 1; position: relative; line-height: 1.2; }
+        .profile-role { font-size: 13px; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: 1px; z-index: 1; position: relative; }
+        .empresa-text { font-size: 11px; color: #888; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; margin-bottom: 15px; z-index: 1; position: relative; }
+        
+        .pill-contact {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(62,62,97,0.08); color: #3E3E61;
+            padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            z-index: 1; position: relative; border: 1px solid rgba(62,62,97,0.2);
+            transition: all 0.2s ease; cursor: pointer;
+        }
+        .pill-contact:hover { background: rgba(62,62,97,0.15); transform: translateY(-1px); }
+
+        .stats-row {
+            display: flex; justify-content: space-between; margin-top: 20px;
+            padding-top: 15px; border-top: 1px solid rgba(62,62,97,0.1); z-index: 1; position: relative;
+        }
+        .stat-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
+        .stat-label { font-size: 11px; color: #888; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+        .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
+    </style>
+</head>
+<body class="h-screen w-full flex flex-col bg-brand-dark">
+
+    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
+    <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'bg_portada', true)">
+    <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'img_avatar', false)">
+
+    <!-- Top Navigation / Header (Estilo PROSPECTA - Centrado Perfecto) -->
+    <header class="h-16 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
+        
+        <!-- Contenedor Izquierdo (Hamburguesa) -->
+        <div class="flex items-center w-1/3 z-10">
+            <button class="hamburger-btn">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        
+        <!-- Contenedor Central (Título Prospecta centrado) -->
+        <div class="w-1/3 text-center z-10 pointer-events-none">
+            <span style="font-weight: 800; color: #fff; font-size: 18px; letter-spacing: 0.5px;">Prospecta</span>
+        </div>
+
+        <!-- Contenedor Derecho (Botón de Guión / Progreso) -->
+        <div class="flex items-center justify-end w-1/3 z-10 gap-4">
+            <div class="hidden lg:flex items-center gap-2 mr-4 opacity-50">
+                <span id="slide-counter" class="text-xs text-white font-mono">1/9</span>
+            </div>
+            <button onclick="toggleNotes()" class="text-slate-200 hover:text-white transition-colors flex items-center gap-2 text-sm border border-[#A3A1CA] px-4 py-1.5 rounded-full bg-[#2A2A42] shadow">
+                <i class="far fa-comment-alt"></i> <span class="hidden sm:inline font-semibold">Mi Guión</span>
+            </button>
+        </div>
+        
+        <!-- Progress Bar Background (Fondo absoluto debajo de los elementos) -->
+        <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
+            <div id="progress-bar" class="bg-[#A3A1CA] h-full transition-all duration-300" style="width: 10%"></div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 flex relative overflow-hidden">
+        
+        <!-- Presentation Screen (What the client sees) -->
+        <!-- FIX: py-4 en lugar de py-12 para acortar la separación superior drásticamente -->
+        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 py-4 md:px-8 md:py-6 lg:p-12 transition-all duration-300 overflow-y-auto">
+            
+            <!-- SLIDE 1: Frontal - Tarjeta Digital Únicamente -->
+            <div class="slide active flex-col items-center justify-center w-full my-auto" data-slide="1">
+                
+                <!-- TU TARJETA DE PERFIL -->
+                <div class="profile-card shrink-0" id="tarjeta_perfil">
+                    <div class="cover-bg" id="bg_portada">
+                        <div class="btn-cambiar-portada" title="Cambiar Portada" onclick="document.getElementById('input-portada').click();">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="avatar-container">
+                        <div class="avatar-img" id="view_avatar">
+                            <img id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
+                        </div>
+                        <div class="btn-edit-avatar" title="Editar Avatar" onclick="document.getElementById('input-avatar').click();">
+                            <i class="fas fa-pencil-alt text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="profile-name">Roberto Fibonacci</div>
+                    <div class="profile-role">Founder Prospecta</div>
+                    
+                    <!-- Verified Strategy Badge -->
+                    <div class="flex justify-center mt-2 mb-4">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-slate-600 tracking-wide uppercase shadow-sm">
+                            <svg class="w-3.5 h-3.5 text-brand-success" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
+                            </svg>
+                            Verified Strategy
+                        </div>
+                    </div>
+                    
+                    <!-- Píldoras de Redes y Contacto (Color Monocromático Unificado) -->
+                    <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
+                        <div class="pill-contact">
+                            <i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678
+                        </div>
+                        <div class="pill-contact">
+                            <i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx
+                        </div>
+                        <div class="pill-contact">
+                            <i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro
+                        </div>
+                    </div>
+                    
+                    <!-- Píldoras Secundarias (Redes Unificadas en color primario) -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-4">
+                        <div class="pill-contact" title="Facebook">
+                            <i class="fab fa-facebook text-brand-primary"></i> Facebook
+                        </div>
+                        <div class="pill-contact" title="Instagram">
+                            <i class="fab fa-instagram text-brand-primary"></i> Instagram
+                        </div>
+                        <div class="pill-contact" title="LinkedIn">
+                            <i class="fab fa-linkedin text-brand-primary"></i> LinkedIn
+                        </div>
+                        <div class="pill-contact" title="TikTok">
+                            <i class="fab fa-tiktok text-brand-primary"></i> TikTok
+                        </div>
+                        <div class="pill-contact" title="YouTube">
+                            <i class="fab fa-youtube text-brand-primary"></i> YouTube
+                        </div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <span class="stat-label">Prospecta</span>
+                            <span class="stat-value">Activo</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Fecha</span>
+                            <span class="stat-value" id="display_fecha">Hoy</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Hora</span>
+                            <span class="stat-value" id="display_hora">--:--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: Sondeo -->
+            <div class="slide flex-col w-full max-w-4xl my-auto" data-slide="2">
+                <h2 class="text-brand-gold text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-12">Análisis de Situación Actual</h1>
+                
+                <div class="grid md:grid-cols-2 gap-8 w-full">
+                    <div class="bg-brand-panel p-8 rounded-xl border border-brand-primary shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
+                        <i class="fas fa-heart-crack text-3xl text-[#A3A1CA] mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">El Dolor del Cliente</h3>
+                        <p class="text-brand-accentText">¿Qué es lo que más les duele antes de contratarte? ¿Por qué te buscan?</p>
+                    </div>
+                    <div class="bg-brand-panel p-8 rounded-xl border border-brand-primary shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-[#A3A1CA]"></div>
+                        <i class="fas fa-bullseye text-3xl text-[#A3A1CA] mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">El Perfil Ideal</h3>
+                        <p class="text-brand-accentText">¿Quién es tu cliente ideal hoy? ¿En qué sector te enfocas?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: Reseñas / Auditoría -->
+            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="3">
+                <h2 class="text-brand-gold text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8">Tú vs. La Competencia</h1>
+                
+                <div class="flex flex-col md:flex-row gap-6 w-full items-stretch">
+                    <div class="flex-1 bg-brand-primary/20 p-8 rounded-xl border border-brand-primary/50">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-building text-brand-accentText text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-brand-accentText">Tus Competidores</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3"><i class="fas fa-check text-brand-accentText mt-1"></i> <span class="text-slate-300">Servicio inferior al tuyo</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check text-brand-accentText mt-1"></i> <span class="text-slate-300">Producto estándar</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-brand-gold mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0">
+                        <div class="bg-brand-panel rounded-full p-4 border-4 border-brand-dark font-bold text-xl text-brand-accentText">VS</div>
+                    </div>
+
+                    <div class="flex-1 bg-brand-success/10 p-8 rounded-xl border border-brand-success/30">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-crown text-brand-success text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-brand-success">Tu Negocio</h3>
+                        </div>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-brand-gold mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-brand-gold mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-times text-[#A3A1CA] mt-1"></i> <span class="text-slate-300 border-b border-[#A3A1CA]/50">Silencio digital (Catálogo vacío)</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 text-center text-xl text-brand-accentText italic">
+                    "Pierdes ventas porque la competencia es más fácil de entender."
+                </div>
+            </div>
+
+            <!-- SLIDE 4: El Reto -->
+            <div class="slide flex-col text-center w-full max-w-4xl my-auto" data-slide="4">
+                <div class="inline-block p-6 rounded-full bg-brand-panel text-brand-gold mb-6 mx-auto border border-brand-gold/20 shadow-[0_0_30px_rgba(251,191,36,0.1)]">
+                    <i class="fas fa-stopwatch fa-4x"></i>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">La Prueba del Caos</h1>
+                <p class="text-2xl text-brand-accentText mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
+                
+                <div class="bg-brand-panel p-8 rounded-2xl border border-brand-primary max-w-2xl mx-auto w-full">
+                    <h3 class="text-xl font-semibold mb-6 text-white">¿Qué sucede en tu proceso actual?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-brand-primary/50 text-slate-300">
+                            <i class="fas fa-times-circle text-brand-accentText text-xl"></i>
+                            <span>"Te lo mando al rato"</span>
+                        </div>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-brand-primary/50 text-slate-300">
+                            <i class="fas fa-times-circle text-brand-accentText text-xl"></i>
+                            <span>Copiar y pegar precios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: Seguimiento -->
+            <div class="slide flex-col w-full max-w-4xl text-center my-auto" data-slide="5">
+                <i class="fas fa-ghost text-6xl text-brand-primary mb-8"></i>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">El Silencio del Prospecto</h1>
+                <p class="text-2xl text-brand-accentText mb-8 max-w-2xl mx-auto">
+                    "Sí lo quiero... luego te aviso."
+                </p>
+                
+                <div class="bg-brand-panel p-8 rounded-xl border border-brand-gold/30 text-left max-w-3xl mx-auto w-full relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-brand-gold"></div>
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-slate-200">
+                        En los negocios, la venta <span class="font-bold text-white">no se pierde</span>...<br>
+                        tú te rindes porque te quedas <span class="text-brand-gold font-semibold">sin material estratégico</span> que enviar.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: Los 3 Asesinos -->
+            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="6">
+                <h2 class="text-brand-gold text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
+                <h1 class="text-4xl font-bold mb-10">Los 3 Asesinos de Ventas</h1>
+                
+                <div class="grid md:grid-cols-3 gap-6 w-full">
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-brand-primary shadow-lg">
+                        <div class="text-4xl font-black text-brand-primary mb-4">01</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Improvisación</h3>
+                        <p class="text-brand-accentText text-sm">Presentaciones no estructuradas, falta de guion de ventas diseñado para cerrar.</p>
+                    </div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-[#A3A1CA] shadow-lg">
+                        <div class="text-4xl font-black text-brand-primary mb-4">02</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Caos de Contenido</h3>
+                        <p class="text-brand-accentText text-sm">Catálogo vacío, obligando al cliente a hacer el esfuerzo mental de entenderte.</p>
+                    </div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-brand-gold shadow-lg">
+                        <div class="text-4xl font-black text-brand-primary mb-4">03</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Rendición Prematura</h3>
+                        <p class="text-brand-accentText text-sm">Abandonar ventas por miedo a molestar, por no saber qué más aportar en el seguimiento.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center">
+                    <button class="bg-brand-gold text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-white transition-colors shadow-lg shadow-brand-gold/20">
+                        ¿Diseñamos la Solución?
+                    </button>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: Solución 1 -->
+            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="7">
+                <h2 class="text-brand-success text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8">El Escaparate Digital</h1>
+                
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <p class="text-xl text-slate-200 mb-6 leading-relaxed">
+                            Configuramos tu WhatsApp Business para proyectar autoridad inmediata desde el segundo uno. La tienda armada para que no improvises.
+                        </p>
+                        <ul class="space-y-4 text-brand-accentText">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-success"></i> Optimización de imagen con IA</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-success"></i> Redacción de 4 portadas con psicología de ventas</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-success"></i> Respuestas rápidas automáticas configuradas</li>
+                            <li class="flex items-center gap-3 text-brand-gold mt-4 pt-4 border-t border-brand-primary"><i class="fas fa-gift"></i> Bono: Bóveda de Entrenamiento en Micro-tareas</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 w-full relative">
+                        <div class="bg-brand-panel rounded-3xl p-4 border-8 border-brand-primary shadow-2xl mx-auto w-64 h-96 relative flex flex-col">
+                            <div class="w-20 h-4 bg-brand-dark rounded-b-xl mx-auto absolute top-0 left-0 right-0"></div>
+                            <div class="mt-8 flex gap-3 items-center border-b border-brand-primary pb-4">
+                                <div class="w-12 h-12 bg-[#3E3E61] rounded-full"></div>
+                                <div>
+                                    <div class="h-4 w-24 bg-[#3E3E61] rounded mb-2"></div>
+                                    <div class="h-2 w-16 bg-[#A3A1CA] rounded"></div>
+                                </div>
+                            </div>
+                            <div class="mt-4 space-y-3">
+                                <div class="h-20 w-full bg-brand-success/10 rounded-lg border border-brand-success/30 flex items-center justify-center text-brand-success text-xs font-bold">Catálogo Optimizado</div>
+                                <div class="h-20 w-full bg-brand-gold/10 rounded-lg border border-brand-gold/30 flex items-center justify-center text-brand-gold text-xs font-bold">Copywriting Persuasivo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: Solución 2 -->
+            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="8">
+                <h2 class="text-brand-success text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8">Acelerador Magnético</h1>
+                
+                <div class="bg-brand-panel p-8 rounded-2xl border border-brand-primary shadow-xl mb-8">
+                    <div class="flex flex-col md:flex-row items-start gap-6">
+                        <div class="p-4 bg-brand-gold/10 rounded-xl shrink-0 border border-brand-gold/20">
+                            <i class="fas fa-filter text-4xl text-brand-gold"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">Filtro Interactivo 24/7</h3>
+                            <p class="text-brand-accentText leading-relaxed mb-4">
+                                Reemplazamos los aburridos PDFs por una herramienta interactiva. Tu prospecto responde preguntas, recibe una victoria rápida y el sistema lo califica.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-3 py-1 bg-brand-dark text-brand-accentText text-xs rounded-full border border-brand-primary">Cero costos técnicos</span>
+                                <span class="px-3 py-1 bg-brand-dark text-brand-accentText text-xs rounded-full border border-brand-primary">Sin servidores</span>
+                                <span class="px-3 py-1 bg-brand-dark text-brand-accentText text-xs rounded-full border border-brand-primary">Link para IG/TikTok/WA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-brand-accentText italic">
+                    "Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados."
+                </div>
+            </div>
+
+            <!-- SLIDE 9: Solución 3 y Cierre -->
+            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="9">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Entregable 3 -->
+                    <div class="bg-gradient-to-br from-brand-panel to-brand-dark p-8 rounded-2xl border border-brand-primary">
+                        <h2 class="text-brand-success text-sm font-bold tracking-widest uppercase mb-2">Entregable #3</h2>
+                        <h3 class="text-2xl font-bold mb-4">2 Licencias de Prospecta</h3>
+                        <p class="text-brand-accentText mb-6">
+                            La bóveda exclusiva para profesionales. Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic.
+                        </p>
+                        <i class="fas fa-mobile-alt text-5xl text-[#3E3E61]"></i>
+                    </div>
+
+                    <!-- Blueprint Maestro -->
+                    <div class="bg-gradient-to-br from-brand-gold/10 to-brand-panel p-8 rounded-2xl border border-brand-gold/30 shadow-[0_0_30px_rgba(251,191,36,0.1)]">
+                        <h2 class="text-brand-gold text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
+                        <ul class="space-y-3 mb-6 text-brand-accentText">
+                            <li><i class="fas fa-caret-right text-brand-gold"></i> Sondeo Profundo</li>
+                            <li><i class="fas fa-caret-right text-brand-gold"></i> Argumentación de Transformación</li>
+                            <li><i class="fas fa-caret-right text-brand-gold"></i> Cierre Inteligente</li>
+                        </ul>
+                        <p class="text-sm font-bold text-white bg-brand-dark/50 p-3 rounded-lg border border-brand-primary">
+                            "Dejarás de improvisar y tendrás el control total."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Presenter Notes Sidebar (Hidden from client if shared correctly) -->
+        <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-brand-primary flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
+            <div class="p-4 bg-[#3E3E61] border-b border-[#2A2A42] flex justify-between items-center shrink-0">
+                <h2 class="font-bold text-brand-gold flex items-center gap-2">
+                    <i class="fas fa-user-tie"></i> Tu Guión (No visible)
+                </h2>
+                <button onclick="toggleNotes()" class="text-[#A3A1CA] hover:text-white transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 text-slate-200 text-sm leading-relaxed" id="script-content">
+                <!-- Text injected via JS based on current slide -->
+            </div>
+            
+            <!-- Controls inside notes -->
+            <div class="p-4 bg-brand-panel border-t border-brand-primary flex justify-between shrink-0">
+                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-brand-primary rounded text-[#A3A1CA] hover:text-white transition">Anterior</button>
+                <button onclick="nextSlide()" class="px-4 py-2 bg-brand-gold hover:bg-yellow-300 text-brand-dark font-bold rounded transition shadow-md">Siguiente</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation (Client View) -->
+    <footer class="h-16 bg-brand-panel border-t border-brand-primary flex justify-center items-center px-6 shrink-0 z-20">
+        <div class="flex gap-4">
+            <button onclick="prevSlide()" class="w-10 h-10 rounded-full border border-[#A3A1CA] flex items-center justify-center text-[#A3A1CA] hover:bg-[#3E3E61] hover:text-white transition">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <button onclick="nextSlide()" class="w-10 h-10 rounded-full border border-[#A3A1CA] flex items-center justify-center text-[#A3A1CA] hover:bg-[#3E3E61] hover:text-white transition">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // --- Cálculo dinámico de la altura de la portada (Igual que en tu HTML original) ---
+        function ajustarAlturaPortada(src) {
+            if (!src) return;
+            const img = new Image();
+            img.onload = function() {
+                const ratio = this.height / this.width;
+                const card = document.getElementById('tarjeta_perfil');
+                const coverEl = document.getElementById('bg_portada');
+                if (!card || !coverEl) return;
+                
+                let newHeight = card.offsetWidth * ratio;
+                if (newHeight > 220) newHeight = 220; 
+                if (newHeight < 100) newHeight = 100;
+                
+                coverEl.style.height = newHeight + 'px';
+                // Restamos 50px para el efecto de superposición del avatar
+                card.style.paddingTop = (newHeight - 50) + 'px';
+            };
+            img.src = src;
+        }
+
+        // --- Cargar Imágenes del Dispositivo ---
+        function actualizarImagen(event, targetId, isBackground) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    if (isBackground) {
+                        const target = document.getElementById(targetId);
+                        target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${e.target.result}')`;
+                        ajustarAlturaPortada(e.target.result); // Recalcular tamaño
+                    } else {
+                        const target = document.getElementById(targetId);
+                        target.src = e.target.result;
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Llamar a la función con una imagen por defecto para inicializar la tarjeta
+        window.addEventListener('DOMContentLoaded', () => {
+            ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+        });
+
+        // --- Actualizar Reloj de Tarjeta Digital ---
+        function setDateTime() {
+            const now = new Date();
+            const fechaEl = document.getElementById('display_fecha');
+            const horaEl = document.getElementById('display_hora');
+            if(fechaEl) fechaEl.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'});
+            if(horaEl) horaEl.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+        }
+        setInterval(setDateTime, 60000); 
+        setDateTime(); 
+
+        // --- Presenter Scripts Data ---
+        const scripts = {
+            1: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
+                <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
+                <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
+            
+            2: `<p class="mb-4 text-brand-gold font-bold">SONDEO (Haz las preguntas y CALLA)</p>
+                <p class="mb-4">1. Para darme una idea cuéntame, ¿Qué es lo que les pasa a tus clientes, qué es lo que más les duele antes de contratarte? ¿Por qué te buscan? <br><span class="text-[#A3A1CA] italic">(Escuchas y Callas)</span>.</p>
+                <p>2. Para entender hacia dónde vamos: ¿quién es tu cliente ideal hoy? ¿en qué sector o perfil específico te estás enfocando?</p>`,
+            
+            3: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
+                <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
+                <p class="mb-4 text-brand-gold italic">(AQUI MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
+                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-brand-primary">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
+                <p class="text-brand-success font-bold mt-2">💚 (Acción: Abre su perfil de WhatsApp).</p>
+                <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
+            
+            4: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
+                <p class="mb-4 text-[#A3A1CA] italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." -> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
+                <p class="mb-4">Entiendo lo que dices. Lo que sucede es que muchos profesionales confunden 'atender' con 'vender'. La base de toda conversión es comunicar adecuadamente el valor de tu negocio, y eso es imposible si el sistema se reduce a tratar de responder escribiendo, solo copiar y pegar precios, o el típico 'Estoy ocupado ahorita te lo mando'.</p>
+                <p class="mb-4 font-bold text-red-400">Hagamos una prueba de Caos de Contenido:</p>
+                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-brand-gold italic">(ESPERAS Y CALLAS)</span></p>
+                <p>"Te agradezco la honestidad... hoy la atención en el celular dura apenas 8 segundos. En el momento en que le dices 'luego te lo mando', la confianza se rompe. Si solo mandas el precio, le estás pidiendo a tu prospecto que te compare por ser el más barato. Si el cliente tiene que esforzarse para comprarte, no te compra."</p>`,
+            
+            5: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí', pero no te dice cuándo?"</p>
+                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-brand-gold italic">(ESPERAS Y CALLAS)</span></p>
+                <p class="mb-4 text-brand-gold font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
+                <p>"La mayoría de los profesionales abandonan la venta después del segundo mensaje por miedo a molestar, o simplemente porque no saben qué más decir fuera del típico '¿qué has pensado?'"</p>`,
+            
+            6: `<p class="mb-4">"Con esto, [Nombre], cerramos oficialmente la fase de diagnóstico. Hemos identificado los tres 'Asesinos de Venta' que están deteniendo tu crecimiento: la improvisación en la presentación, el caos de contenido y tu actual 'rendición prematura'."</p>
+                <p class="mb-6 italic text-sm text-brand-accentText">(Este análisis fue totalmente gratuito)</p>
+                <div class="p-4 bg-brand-dark border border-brand-gold rounded-lg mb-4 shadow-lg">
+                    <p class="font-bold text-brand-gold mb-2">LA TRANSICIÓN:</p>
+                    <p>"Basado en lo que acabamos de descubrir sobre cómo esto te está costando clientes... ¿Te haría sentido que te muestre exactamente cómo nosotros estructuramos esto para resolverlo, o prefieres seguir intentando solucionarlo por tu cuenta de forma manual?"</p>
+                </div>
+                <p>"Para resolver tu primer gran problema, vamos a instalar tu Arquitectura de Persuasión. Mi labor aquí no es venderte un 'cursito'; es entregarte YA las palabras exactas que necesitas para que el cliente te 'jale' hacia la venta."</p>
+                <p class="mt-4 text-[#A3A1CA] italic font-bold">(Aquí haces la pausa y pasas a la demostración).</p>`,
+            
+            7: `<p class="mb-4 font-bold text-brand-success">🏁 Entregable #1</p>
+                <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
+                <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
+                <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las 4 portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>
+                <p>"Básicamente, te dejamos la tienda armada. Y para que no tengas que enseñarle a tu equipo, te incluyo como bono el acceso a nuestra 'Bóveda de Entrenamiento en Micro-tareas'."</p>`,
+            
+            8: `<p class="mb-4 font-bold text-brand-success">🏁 Entregable #2</p>
+                <p class="mb-4">"Mira [Nombre], el 'Nuevo Juego' en las redes ya no se trata de publicar para ver quién cae. Se trata de atraer y filtrar."</p>
+                <p class="mb-4">"Hoy nadie tiene tiempo de leer un PDF largo de 20 páginas. En lugar de un archivo aburrido, nosotros te vamos a construir tu propio Acelerador Magnético para convertir desconocidos en Clientes Ideales las 24 horas del día."</p>
+                <p class="mb-4">"Tu prospecto entra desde un enlace. Toca la pantalla, responde preguntas rápidas y el sistema le da un diagnóstico o premio (victoria rápida). Mientras siente que juega, la herramienta lo califica para ti."</p>
+                <p class="mb-4">"Lo puedes pegar en IG, TikTok o WhatsApp. Cero costos técnicos: no pagas mantenimiento, servidores ni rentas. Nosotros absorbemos la infraestructura."</p>
+                <p class="italic text-brand-accentText">"Al dominar esta tecnología interactiva, los límites no existen. Podemos construir calculadoras, tests, cotizadores... ¿Cómo ves funcionando este Filtro en tus redes hoy mismo?"</p>`,
+            
+            9: `<p class="mb-4 font-bold text-brand-success">🏁 Entregable #3: 2 Licencias de Prospecta.</p>
+                <p class="mb-6">"La Bóveda exclusiva para Profesionales: Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic."</p>
+                
+                <p class="mb-4 font-bold text-brand-gold">🏁 El Pilar / Blueprint Maestro</p>
+                <p class="mb-4">"Diseñamos tu paso a paso lógico específicamente para tu Producto Principal:"</p>
+                <ul class="list-disc pl-5 mb-4 text-sm space-y-2">
+                    <li>Sondeo Profundo</li>
+                    <li>Argumentación de Transformación</li>
+                    <li>Cierre Inteligente</li>
+                </ul>
+                <p class="font-bold text-brand-gold">"Dejarás de improvisar y tendrás el control total de la conversación desde el primer segundo."</p>`
+        };
+
+        // --- Logic ---
+        let currentSlide = 1;
+        const totalSlides = 9;
+        let notesVisible = false;
+
+        function updateUI() {
+            // Update Slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+                if (parseInt(slide.dataset.slide) === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            // Update Progress Bar
+            const progress = (currentSlide / totalSlides) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            // Update Script
+            document.getElementById('script-content').innerHTML = scripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
+            
+            // Scroll notes to top
+            const notesPanel = document.getElementById('script-content');
+            if(notesPanel) notesPanel.scrollTop = 0;
+            
+            // Scroll presentation area to top smoothly
+            const presentationArea = document.getElementById('presentation-area');
+            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function toggleNotes() {
+            const sidebar = document.getElementById('notes-sidebar');
+            notesVisible = !notesVisible;
+            
+            if (notesVisible) {
+                sidebar.classList.remove('w-0');
+                sidebar.classList.add('w-full', 'md:w-[400px]');
+            } else {
+                sidebar.classList.add('w-0');
+                sidebar.classList.remove('w-full', 'md:w-[400px]');
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Init
+        updateUI();
+    </script>
+</body>
+</html>
