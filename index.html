@@ -666,16 +666,21 @@
     </footer>
 
     <script>
-        // --- Fullscreen Toggle ---
+        // Variable para recordar la intención del usuario de usar pantalla completa
+        let intendedFullscreen = false;
+
+        // --- Fullscreen Toggle Mejorado ---
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(err => {
                     console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
                 });
+                intendedFullscreen = true; // El usuario quiere pantalla completa
             } else {
                 if (document.exitFullscreen) {
                     document.exitFullscreen();
                 }
+                intendedFullscreen = false; // El usuario quitó la pantalla completa
             }
         }
 
@@ -699,28 +704,56 @@
             img.src = src;
         }
 
-        // --- Cargar Imágenes del Dispositivo ---
+        // --- Cargar Imágenes del Dispositivo y Guardar en Memoria ---
         function actualizarImagen(event, targetId, isBackground) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    const result = e.target.result;
                     if (isBackground) {
                         const target = document.getElementById(targetId);
-                        target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${e.target.result}')`;
-                        ajustarAlturaPortada(e.target.result); // Recalcular tamaño
+                        target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
+                        ajustarAlturaPortada(result); 
+                        // Guardar en la memoria del dispositivo
+                        localStorage.setItem('prospecta_portada', result); 
                     } else {
                         const target = document.getElementById(targetId);
-                        target.src = e.target.result;
+                        target.src = result;
+                        // Guardar en la memoria del dispositivo
+                        localStorage.setItem('prospecta_avatar', result); 
                     }
                 }
                 reader.readAsDataURL(file);
             }
+
+            // Restaurar pantalla completa automáticamente si fue interrumpida por la galería
+            setTimeout(() => {
+                if (intendedFullscreen && !document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado por navegador", err));
+                }
+            }, 500); // Pequeño delay para asegurar que el diálogo del OS cerró
         }
 
-        // Inicializar la tarjeta digital
+        // --- Inicialización: Cargar desde la Memoria ---
         window.addEventListener('DOMContentLoaded', () => {
-            ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+            // Verificar si hay fotos guardadas en el dispositivo
+            const savedPortada = localStorage.getItem('prospecta_portada');
+            const savedAvatar = localStorage.getItem('prospecta_avatar');
+
+            if (savedPortada) {
+                const target = document.getElementById('bg_portada');
+                if(target) target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
+                ajustarAlturaPortada(savedPortada);
+            } else {
+                // Foto por defecto
+                ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+            }
+
+            if (savedAvatar) {
+                const avatarImg = document.getElementById('img_avatar');
+                if(avatarImg) avatarImg.src = savedAvatar;
+            }
         });
 
         // --- Actualizar Reloj de Tarjeta Digital ---
