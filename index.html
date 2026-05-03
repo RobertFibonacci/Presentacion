@@ -232,17 +232,14 @@
     <main class="flex-1 flex relative overflow-hidden">
         
         <!-- Presentation Screen -->
-        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 py-4 md:px-8 md:py-6 lg:p-12 transition-all duration-300 overflow-y-auto">
+        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 md:px-8 md:py-6 lg:p-12 transition-all duration-300 overflow-y-auto">
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
-            <!-- CORRECCIÓN DE DIAGNÓSTICO APLICADA AQUÍ: 
-                 Se ajusta a height-full con flex-col justify-between para asegurar que todo cuadre perfecto y 
-                 el chatbot flote exactamente en el medio del contenido libre de cajas extra -->
-            <div class="slide active flex-col w-full max-w-xl mx-auto h-full relative z-10 bg-pattern-dark p-4 sm:p-6 rounded-3xl border border-brand-panel shadow-2xl shrink-0" data-slide="1">
+            <!-- CORRECCIÓN APLICADA: Flujo natural sin forzar la caja fuerte de 'h-full'. Se amolda fluidamente. -->
+            <div class="slide active flex-col w-full max-w-xl mx-auto mt-4 mb-8 relative z-10 bg-pattern-dark p-5 sm:p-6 rounded-3xl border border-brand-panel shadow-2xl shrink-0" data-slide="1">
                 
-                <div class="flex flex-col h-full justify-between items-center w-full">
+                <div class="flex flex-col items-center w-full gap-6">
                     
-                    <!-- TOP: Textos Superior -->
                     <div class="text-center w-full mt-2">
                         <!-- Subtítulo Superior -->
                         <span class="text-[12px] font-black tracking-widest text-white uppercase mb-3 block text-center drop-shadow-md">
@@ -258,13 +255,13 @@
                         </h1>
                         
                         <!-- Descripción Secundaria Justificada -->
-                        <h2 class="text-[15px] md:text-[18px] font-extrabold text-white mt-4 leading-snug text-justify w-full">
+                        <h2 class="text-[15px] md:text-[18px] font-extrabold text-white mt-5 leading-snug text-justify w-full px-1">
                             En los próximos 3 minutos vamos a configurar tu perfil de autoridad y revelaremos el error invisible en tu comunicación que hoy espanta a tus clientes.
                         </h2>
                     </div>
 
-                    <!-- MIDDLE: Animación Chatbot (ELIMINADO EL CUADRO/CAJA EXTRA - Solo el bot flotando libre) -->
-                    <div class="relative w-full flex justify-center my-4">
+                    <!-- MIDDLE: Animación Chatbot (Alineado en su propio contenedor sin cajas extra) -->
+                    <div class="relative w-full flex justify-center">
                         <div class="flex items-center w-full max-w-sm relative">
                             <!-- Icono Bot -->
                             <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
@@ -299,10 +296,10 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- BOTTOM: Cuadro de texto Justificado y Botón -->
-                    <div class="w-full flex flex-col items-center mb-2">
-                        <div class="bg-[#2A2A42] rounded-2xl p-5 shadow-sm border border-white w-full mb-4">
+                    <div class="w-full flex flex-col items-center">
+                        <div class="bg-[#2A2A42] rounded-2xl p-5 shadow-sm border border-white w-full mb-5">
                             <p class="text-[14px] md:text-[16px] font-bold text-white leading-relaxed text-justify">
                                 "Construye una fachada de autoridad que genere confianza inmediata. Deja de perder grandes ventas ante competidores que simplemente se ven más profesionales que tú."
                             </p>
@@ -343,7 +340,7 @@
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
                     
-                    <!-- Verified Strategy Badge (Icono Azul Corporativo) -->
+                    <!-- Verified Strategy Badge -->
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
