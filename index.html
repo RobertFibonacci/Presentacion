@@ -232,23 +232,28 @@
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
             <div class="slide active flex-col items-center justify-center w-full max-w-xl mx-auto my-auto relative z-10 bg-pattern-dark p-6 rounded-3xl border border-brand-panel shadow-2xl" data-slide="1">
-                <h1 class="text-[38px] md:text-5xl font-black text-white leading-[1.05] mb-2 uppercase tracking-tight text-center">
-                    REVELAR MIS FUGAS DE VENTAS
-                </h1>
-
-                <!-- Color ajustado a la paleta, ya no es amarillo chillón -->
+                
+                <!-- Subtítulo Superior -->
                 <span class="text-[12px] font-black tracking-widest text-[#A3A1CA] uppercase mb-4 block text-center">
                     PARA PROFESIONALES Y DUEÑOS DE NEGOCIO
                 </span>
+
+                <!-- Título Principal -->
+                <h1 class="text-[32px] md:text-[42px] font-black text-white leading-[1.05] mb-2 uppercase tracking-tight text-center">
+                    Crea tu Tarjeta de Presentación Digital
+                    <span class="block normal-case text-brand-gold text-[20px] md:text-[26px] mt-2 leading-tight">
+                        (y descubre por qué te dejan en "visto").
+                    </span>
+                </h1>
                 
-                <!-- Texto Justificado -->
-                <h2 class="text-[18px] md:text-[20px] font-extrabold text-slate-300 mb-8 leading-snug text-justify">
-                    EL ESCÁNER DE FUGAS DE VENTAS: Descubre en 60 segundos por qué tu perfil de WhatsApp espanta clientes.
+                <!-- Descripción Secundaria Justificada -->
+                <h2 class="text-[16px] md:text-[18px] font-extrabold text-slate-300 mt-6 mb-8 leading-snug text-justify">
+                    En los próximos 3 minutos vamos a configurar tu perfil de autoridad y revelaremos el error invisible en tu comunicación que hoy espanta a tus clientes.
                 </h2>
 
                 <div class="relative w-full flex justify-center mb-8">
                     <div class="bg-brand-panel rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-brand-primary p-3 flex items-center w-full relative">
-                        <!-- Icono Bot - Ahora es Blanco Elegante en lugar de Cyan -->
+                        <!-- Icono Bot - Blanco Elegante -->
                         <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
                             <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
@@ -259,7 +264,7 @@
                                 <rect x="34" y="44" width="32" height="10" rx="5" fill="#FFFFFF"/>
                                 <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
                             </svg>
-                            <!-- Estrellas en tono suave, no amarillo -->
+                            <!-- Estrellas en tono suave -->
                             <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-[#A3A1CA] animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                             <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-[#A3A1CA] animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                             <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-[#A3A1CA] animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
@@ -284,17 +289,21 @@
                 </div>
                 
                 <!-- Cuadro de texto Justificado -->
-                <div class="bg-[#2A2A42] rounded-2xl p-6 mb-8 shadow-sm border border-[#3E3E61]">
-                    <p class="text-[16px] font-bold text-slate-200 leading-relaxed text-justify">
-                        "Haz que tus prospectos confíen en ti y te compren al instante, sin que te dejen en 'visto' ni regalarle ventas a tu competencia por tener un perfil poco profesional."
+                <div class="bg-[#2A2A42] rounded-2xl p-6 mb-6 shadow-sm border border-[#3E3E61]">
+                    <p class="text-[15px] md:text-[16px] font-bold text-slate-200 leading-relaxed text-justify">
+                        "Construye una fachada de autoridad que genere confianza inmediata. Deja de perder grandes ventas ante competidores que simplemente se ven más profesionales que tú."
                     </p>
                 </div>
                 
-                <div class="flex-1 w-full">
-                    <!-- Botón Blanco Elegante en lugar de amarillo -->
-                    <button onclick="nextSlide()" class="w-full bg-white text-brand-dark font-extrabold text-[16px] md:text-[18px] py-4 px-4 rounded-xl shadow-xl shadow-white/10 hover:bg-slate-200 transition-all active:scale-95 transform flex items-center justify-center gap-3 border-b-4 border-slate-300 mt-4 uppercase">
-                        <i class="fas fa-search"></i> VER POR QUÉ PIERDO CLIENTES
+                <div class="flex-1 w-full flex flex-col items-center">
+                    <!-- Botón Principal -->
+                    <button onclick="nextSlide()" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl shadow-white/10 hover:bg-slate-200 transition-all active:scale-95 transform flex items-center justify-center gap-3 border-b-4 border-slate-300 mt-2 uppercase">
+                        <i class="fas fa-id-card text-lg"></i> INICIAR EL DISEÑO DE MI TARJETA
                     </button>
+                    <!-- Texto de soporte abajo -->
+                    <div class="text-[#A3A1CA] text-[11px] md:text-xs mt-3 font-bold uppercase tracking-wider">
+                        Toma menos de 3 minutos
+                    </div>
                 </div>
             </div>
 
