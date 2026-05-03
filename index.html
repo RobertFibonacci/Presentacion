@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
-    <!-- Meta tags PWA para blindar el modo app (Sin barras de navegador si se instala en inicio) -->
+    <!-- Meta tags PWA para blindar el modo pantalla completa -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -38,7 +38,7 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; }
+        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; overflow: hidden; }
         
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
@@ -83,7 +83,7 @@
         }
         @keyframes twinkle-star {
             0%, 100% { opacity: 0.1; transform: scale(0.8); }
-            50% { opacity: 0.6; transform: scale(1.1); }
+            50% { opacity: 0.6; transform: scale(1.1); box-shadow: 0 0 4px rgba(255,255,255,0.4); }
         }
 
         /* =========================================
@@ -207,7 +207,6 @@
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
     </style>
 </head>
-<!-- CORRECCIÓN DE CIMENTACIÓN: 'h-[100dvh]' corrige el bug móvil, y 'overflow-hidden overscroll-y-none' bloquea el arrastre de la página completa -->
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
 
     <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
@@ -220,12 +219,14 @@
     <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
         
+        <!-- Contenedor Izquierdo (Hamburguesa) -->
         <div class="flex items-center w-1/4 z-10">
             <button class="hamburger-btn">
                 <span></span><span></span><span></span>
             </button>
         </div>
         
+        <!-- Contenedor Central (Título Prospecta + Estrella + Subtítulo) -->
         <div class="w-2/4 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
             <div class="brand-name-menu">
                 Prospect<span class="char-a-container">a
@@ -237,6 +238,7 @@
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
 
+        <!-- Contenedor Derecho (Botón Pantalla Completa + Guión) -->
         <div class="flex items-center justify-end w-1/4 z-10 gap-2 md:gap-4">
             <button onclick="toggleFullScreen()" class="text-white hover:text-slate-300 transition-colors flex items-center justify-center w-8 h-8 rounded-full bg-[#2A2A42] shadow border border-white" title="Pantalla Completa">
                 <i class="fas fa-expand"></i>
@@ -246,6 +248,7 @@
             </button>
         </div>
         
+        <!-- Progress Bar Background -->
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
             <div id="progress-bar" class="bg-white h-full transition-all duration-300" style="width: 10%"></div>
         </div>
@@ -254,33 +257,35 @@
     <!-- Main Content Area -->
     <main class="flex-1 flex relative overflow-hidden bg-pattern-dark z-10">
         
-        <!-- CORRECCIÓN DE CIMENTACIÓN: Solo esta zona scrollea, previniendo que se arruine la cabecera -->
-        <!-- Se añade pt-6/pt-8 para que el texto principal respire elegantemente lejos del techo -->
-        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-8 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
+        <!-- Área de presentación con scroll propio -->
+        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
             <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
-            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12" data-slide="1">
+            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 
+                <!-- Textos Superiores estructurados con "Enters" limpios -->
                 <div class="text-center w-full mb-10">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
                         PARA DUEÑOS DE NEGOCIO
                     </span>
                     
-                    <div class="h-4"></div> 
+                    <div class="h-5"></div> <!-- Enter 1 -->
 
                     <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
                         Descubre el error en tu comunicación que destruye la confianza de tus clientes
                     </h1>
                     
-                    <div class="h-4"></div>
+                    <div class="h-4"></div> <!-- Enter 2 -->
 
                     <span class="block normal-case text-white text-[16px] md:text-[22px] leading-tight drop-shadow-md font-bold">
                         (y te deja en "visto").
                     </span>
                 </div>
 
+                <!-- Animación Chatbot (Con 3 frases exactas) -->
                 <div class="relative w-full flex justify-center mb-10">
                     <div class="flex items-center w-full max-w-sm relative justify-center md:justify-start">
+                        <!-- Icono Bot -->
                         <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
                             <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
@@ -295,6 +300,7 @@
                             <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                             <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                         </div>
+                        <!-- Burbujas Animadas -->
                         <div class="relative flex-1 h-14 ml-4 pointer-events-none">
                             <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
                                 <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
@@ -308,7 +314,8 @@
                     </div>
                 </div>
                 
-                <div class="w-full px-4 mb-10 flex flex-col gap-4">
+                <!-- Subtítulos -->
+                <div class="w-full px-4 mb-10 flex flex-col gap-5">
                     <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm">
                         El internet está lleno de ruido, "gurús" y promesas falsas. Hoy los clientes tienen miedo a comprar. Si no logras comunicar tu valor y generar confianza en 3 segundos, dudarán de ti.
                     </p>
@@ -317,6 +324,7 @@
                     </p>
                 </div>
                 
+                <!-- Botón CTA -->
                 <div class="w-full flex flex-col items-center">
                     <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
                         👉 DESCUBRIR MI ERROR AHORA
@@ -329,7 +337,8 @@
             </div>
 
             <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
-            <div class="slide flex-col items-center justify-start w-full pb-16 shrink-0" data-slide="2">
+            <div class="slide flex-col items-center justify-center w-full my-auto pb-16" data-slide="2">
+                
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     <div class="portada-sync cover-bg" id="bg_portada">
                         <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
@@ -337,6 +346,7 @@
                             <i class="fas fa-camera"></i>
                         </label>
                     </div>
+                    
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
                             <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
@@ -346,8 +356,11 @@
                             <i class="fas fa-pencil-alt text-xs"></i>
                         </label>
                     </div>
+
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
+                    
+                    <!-- Verified Strategy Badge (Icono Azul Corporativo) -->
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
@@ -356,30 +369,61 @@
                             Verified Strategy
                         </div>
                     </div>
+                    
+                    <!-- Píldoras de Redes y Contacto -->
                     <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
-                        <div class="pill-contact"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
-                        <div class="pill-contact"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
-                        <div class="pill-contact"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
+                        <div class="pill-contact">
+                            <i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678
+                        </div>
+                        <div class="pill-contact">
+                            <i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx
+                        </div>
+                        <div class="pill-contact">
+                            <i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro
+                        </div>
                     </div>
+                    
+                    <!-- Píldoras Secundarias (Redes Unificadas con sus íconos restaurados) -->
                     <div class="flex flex-wrap justify-center gap-2 mb-4">
-                        <div class="pill-contact">Facebook</div>
-                        <div class="pill-contact">Instagram</div>
-                        <div class="pill-contact">LinkedIn</div>
-                        <div class="pill-contact">TikTok</div>
-                        <div class="pill-contact">YouTube</div>
+                        <div class="pill-contact" title="Facebook">
+                            <i class="fab fa-facebook text-brand-primary"></i> Facebook
+                        </div>
+                        <div class="pill-contact" title="Instagram">
+                            <i class="fab fa-instagram text-brand-primary"></i> Instagram
+                        </div>
+                        <div class="pill-contact" title="LinkedIn">
+                            <i class="fab fa-linkedin text-brand-primary"></i> LinkedIn
+                        </div>
+                        <div class="pill-contact" title="TikTok">
+                            <i class="fab fa-tiktok text-brand-primary"></i> TikTok
+                        </div>
+                        <div class="pill-contact" title="YouTube">
+                            <i class="fab fa-youtube text-brand-primary"></i> YouTube
+                        </div>
                     </div>
+
                     <div class="stats-row">
-                        <div class="stat-item"><span class="stat-label">Prospecta</span><span class="stat-value">Activo</span></div>
-                        <div class="stat-item"><span class="stat-label">Fecha</span><span class="stat-value" id="display_fecha">Hoy</span></div>
-                        <div class="stat-item"><span class="stat-label">Hora</span><span class="stat-value" id="display_hora">--:--</span></div>
+                        <div class="stat-item">
+                            <span class="stat-label">Prospecta</span>
+                            <span class="stat-value">Activo</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Fecha</span>
+                            <span class="stat-value" id="display_fecha">Hoy</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Hora</span>
+                            <span class="stat-value" id="display_hora">--:--</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- SLIDE 3: Sondeo -->
-            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0" data-slide="3">
+            <div class="slide flex-col w-full max-w-4xl my-auto pb-12" data-slide="3">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
+                
                 <div class="grid md:grid-cols-2 gap-8 w-full">
                     <div class="bg-brand-panel p-8 rounded-xl border border-white shadow-xl relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-white"></div>
@@ -397,21 +441,32 @@
             </div>
 
             <!-- SLIDE 4: Reseñas / Auditoría -->
-            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
+            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
+                
                 <div class="flex flex-col md:flex-row gap-6 w-full items-stretch">
                     <div class="flex-1 bg-brand-primary/20 p-8 rounded-xl border border-brand-primary/50">
-                        <div class="flex items-center gap-3 mb-6"><h3 class="text-2xl font-bold text-white">Tus Competidores</h3></div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-building text-white text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-white">Tus Competidores</h3>
+                        </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Servicio inferior al tuyo</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Producto estándar</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
                         </ul>
                     </div>
-                    <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0"><div class="bg-brand-panel rounded-full p-4 border-4 border-white font-bold text-xl text-white">VS</div></div>
+
+                    <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0">
+                        <div class="bg-brand-panel rounded-full p-4 border-4 border-white font-bold text-xl text-white">VS</div>
+                    </div>
+
                     <div class="flex-1 bg-brand-primary/50 p-8 rounded-xl border border-white">
-                        <div class="flex items-center gap-3 mb-6"><h3 class="text-2xl font-bold text-white">Tu Negocio</h3></div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fas fa-crown text-white text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-white">Tu Negocio</h3>
+                        </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
@@ -419,89 +474,213 @@
                         </ul>
                     </div>
                 </div>
+                <div class="mt-8 text-center text-xl text-white italic">
+                    "Pierdes ventas porque la competencia es más fácil de entender."
+                </div>
             </div>
 
             <!-- SLIDE 5: El Reto -->
-            <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
-                <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg"><i class="fas fa-stopwatch fa-4x"></i></div>
+            <div class="slide flex-col text-center w-full max-w-4xl my-auto pb-12" data-slide="5">
+                <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
+                    <i class="fas fa-stopwatch fa-4x"></i>
+                </div>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">La Prueba del Caos</h1>
                 <p class="text-2xl text-white mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
+                
                 <div class="bg-brand-panel p-8 rounded-2xl border border-white max-w-2xl mx-auto w-full">
+                    <h3 class="text-xl font-semibold mb-6 text-white">¿Qué sucede en tu proceso actual?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white"><span>"Te lo mando al rato"</span></div>
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white"><span>Copiar y pegar precios</span></div>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
+                            <i class="fas fa-times-circle text-white text-xl"></i>
+                            <span>"Te lo mando al rato"</span>
+                        </div>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
+                            <i class="fas fa-times-circle text-white text-xl"></i>
+                            <span>Copiar y pegar precios</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- SLIDE 6: Seguimiento -->
-            <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
+            <div class="slide flex-col w-full max-w-4xl text-center my-auto pb-12" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
+                <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
+                    "Sí lo quiero... luego te aviso."
+                </p>
+                
                 <div class="bg-brand-panel p-8 rounded-xl border border-white text-left max-w-3xl mx-auto w-full relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-2 h-full bg-white"></div>
-                    <p class="text-xl md:text-2xl font-light leading-relaxed text-white">En los negocios, la venta <span class="font-bold text-white">no se pierde</span>... tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.</p>
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-white">
+                        En los negocios, la venta <span class="font-bold text-white">no se pierde</span>...<br>
+                        tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.
+                    </p>
                 </div>
             </div>
 
             <!-- SLIDE 7: Los 3 Asesinos -->
-            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
+            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
+                
                 <div class="grid md:grid-cols-3 gap-6 w-full">
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg"><h3 class="text-xl font-bold mb-3 text-white">Improvisación</h3></div>
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg"><h3 class="text-xl font-bold mb-3 text-white">Caos de Contenido</h3></div>
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg"><h3 class="text-xl font-bold mb-3 text-white">Rendición Prematura</h3></div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
+                        <div class="text-4xl font-black text-white mb-4">01</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Improvisación</h3>
+                        <p class="text-white text-sm">Presentaciones no estructuradas, falta de guion de ventas diseñado para cerrar.</p>
+                    </div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
+                        <div class="text-4xl font-black text-white mb-4">02</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Caos de Contenido</h3>
+                        <p class="text-white text-sm">Catálogo vacío, obligando al cliente a hacer el esfuerzo mental de entenderte.</p>
+                    </div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
+                        <div class="text-4xl font-black text-white mb-4">03</div>
+                        <h3 class="text-xl font-bold mb-3 text-white">Rendición Prematura</h3>
+                        <p class="text-white text-sm">Abandonar ventas por miedo a molestar, por no saber qué más aportar en el seguimiento.</p>
+                    </div>
                 </div>
-                <div class="mt-12 text-center"><button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg">¿Diseñamos la Solución?</button></div>
+
+                <div class="mt-12 text-center">
+                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
+                        ¿Diseñamos la Solución?
+                    </button>
+                </div>
             </div>
 
             <!-- SLIDE 8: Solución 1 -->
-            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
+            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="8">
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
-                <p class="text-xl text-white mb-6 leading-relaxed">Configuramos tu WhatsApp Business para proyectar autoridad inmediata.</p>
+                
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="flex-1">
+                        <p class="text-xl text-white mb-6 leading-relaxed">
+                            Configuramos tu WhatsApp Business para proyectar autoridad inmediata desde el segundo uno. La tienda armada para que no improvises.
+                        </p>
+                        <ul class="space-y-4 text-white">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Optimización de imagen con IA</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Redacción de 4 portadas con psicología de ventas</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Respuestas rápidas automáticas configuradas</li>
+                            <li class="flex items-center gap-3 text-white mt-4 pt-4 border-t border-white"><i class="fas fa-gift"></i> Bono: Bóveda de Entrenamiento en Micro-tareas</li>
+                        </ul>
+                    </div>
+                    <div class="flex-1 w-full relative">
+                        <div class="bg-brand-panel rounded-3xl p-4 border-8 border-white shadow-2xl mx-auto w-64 h-96 relative flex flex-col">
+                            <div class="w-20 h-4 bg-brand-dark rounded-b-xl mx-auto absolute top-0 left-0 right-0"></div>
+                            <div class="mt-8 flex gap-3 items-center border-b border-white pb-4">
+                                <div class="w-12 h-12 bg-[#3E3E61] rounded-full border border-white"></div>
+                                <div>
+                                    <div class="h-4 w-24 bg-white rounded mb-2"></div>
+                                    <div class="h-2 w-16 bg-white opacity-70 rounded"></div>
+                                </div>
+                            </div>
+                            <div class="mt-4 space-y-3">
+                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Catálogo Optimizado</div>
+                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Copywriting Persuasivo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- SLIDE 9: Solución 2 -->
-            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="9">
+            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="9">
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
-                <p class="text-white leading-relaxed mb-4">Reemplazamos los aburridos PDFs por una herramienta interactiva.</p>
+                
+                <div class="bg-brand-panel p-8 rounded-2xl border border-white shadow-xl mb-8">
+                    <div class="flex flex-col md:flex-row items-start gap-6">
+                        <div class="p-4 bg-brand-primary rounded-xl shrink-0 border border-white">
+                            <i class="fas fa-filter text-4xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2 text-white">Filtro Interactivo 24/7</h3>
+                            <p class="text-white leading-relaxed mb-4">
+                                Reemplazamos los aburridos PDFs por una herramienta interactiva. Tu prospecto responde preguntas, recibe una victoria rápida y el sistema lo califica.
+                            </p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Cero costos técnicos</span>
+                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Sin servidores</span>
+                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Link para IG/TikTok/WA</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center text-white italic">
+                    "Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados."
+                </div>
             </div>
 
             <!-- SLIDE 10: Solución 3 y Cierre -->
-            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="10">
-                <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
-                <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
+            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="10">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Entregable 3 -->
+                    <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
+                        <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">Entregable #3</h2>
+                        <h3 class="text-2xl font-bold mb-4 text-white">2 Licencias de Prospecta</h3>
+                        <p class="text-white mb-6">
+                            La bóveda exclusiva para profesionales. Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic.
+                        </p>
+                        <i class="fas fa-mobile-alt text-5xl text-white"></i>
+                    </div>
+
+                    <!-- Blueprint Maestro -->
+                    <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white shadow-xl">
+                        <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
+                        <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
+                        <ul class="space-y-3 mb-6 text-white">
+                            <li><i class="fas fa-caret-right text-white"></i> Sondeo Profundo</li>
+                            <li><i class="fas fa-caret-right text-white"></i> Argumentación de Transformación</li>
+                            <li><i class="fas fa-caret-right text-white"></i> Cierre Inteligente</li>
+                        </ul>
+                        <p class="text-sm font-bold text-brand-dark bg-white p-3 rounded-lg border border-white">
+                            "Dejarás de improvisar y tendrás el control total."
+                        </p>
+                    </div>
+                </div>
             </div>
+
         </div>
 
         <!-- Presenter Notes Sidebar -->
         <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
             <div class="p-4 bg-[#3E3E61] border-b border-white flex justify-between items-center shrink-0">
-                <h2 class="font-bold text-white flex items-center gap-2"><i class="fas fa-user-tie"></i> Tu Guión</h2>
-                <button onclick="toggleNotes()" class="text-white hover:text-slate-300 transition"><i class="fas fa-times"></i></button>
+                <h2 class="font-bold text-white flex items-center gap-2">
+                    <i class="fas fa-user-tie"></i> Tu Guión (No visible)
+                </h2>
+                <button onclick="toggleNotes()" class="text-white hover:text-slate-300 transition">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed" id="script-content"></div>
+            
+            <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed" id="script-content">
+                <!-- Text injected via JS based on current slide -->
+            </div>
+            
+            <!-- Controls inside notes -->
             <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0">
-                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark border border-white rounded text-white transition">Anterior</button>
-                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition">Siguiente</button>
+                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition">Anterior</button>
+                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200">Siguiente</button>
             </div>
         </div>
+
     </main>
 
-    <!-- Footer Carrusel Deslizable -->
+    <!-- Bottom Navigation (Client View) - CARRUSEL DESLIZABLE -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
-            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
-            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 2: Perfil</button>
-            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 3: Sondeo</button>
-            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 4: Competencia</button>
-            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 5: El Reto</button>
-            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 6: Seguimiento</button>
-            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 7: Diagnóstico</button>
-            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 8: Solución 1</button>
-            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 9: Solución 2</button>
-            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 10: Solución 3</button>
+            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
+            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 2: Perfil</button>
+            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 3: Sondeo</button>
+            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 4: Competencia</button>
+            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 5: El Reto</button>
+            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 6: Seguimiento</button>
+            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 7: Diagnóstico</button>
+            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 8: Solución 1</button>
+            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 9: Solución 2</button>
+            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 10: Solución 3</button>
         </div>
     </footer>
 
@@ -528,11 +707,15 @@
         let intendedFullscreen = false;
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => console.log(err));
-                intendedFullscreen = true;
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                });
+                intendedFullscreen = true; 
             } else {
-                if(document.exitFullscreen) document.exitFullscreen();
-                intendedFullscreen = false;
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                intendedFullscreen = false; 
             }
         }
 
@@ -544,11 +727,17 @@
                 const cards = document.querySelectorAll('.profile-card-sync');
                 const covers = document.querySelectorAll('.portada-sync');
                 if (!cards.length || !covers.length) return;
+                
                 let newHeight = cards[0].offsetWidth * ratio;
                 if (newHeight > 220) newHeight = 220; 
                 if (newHeight < 100) newHeight = 100;
-                covers.forEach(c => c.style.height = newHeight + 'px');
-                cards.forEach(c => c.style.paddingTop = (newHeight - 50) + 'px');
+                
+                covers.forEach(coverEl => {
+                    coverEl.style.height = newHeight + 'px';
+                });
+                cards.forEach(card => {
+                    card.style.paddingTop = (newHeight - 50) + 'px';
+                });
             };
             img.src = src;
         }
@@ -560,69 +749,212 @@
                 reader.onload = function(e) {
                     const result = e.target.result;
                     const targets = document.querySelectorAll('.' + targetClass);
-                    targets.forEach(t => {
-                        if (isBackground) t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
-                        else t.src = result;
+                    
+                    targets.forEach(target => {
+                        if (isBackground) {
+                            target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
+                        } else {
+                            target.src = result;
+                        }
                     });
-                    if (isBackground) { ajustarAlturaPortada(result); localStorage.setItem('prospecta_portada', result); }
-                    else localStorage.setItem('prospecta_avatar', result);
+
+                    if (isBackground) {
+                        ajustarAlturaPortada(result); 
+                        localStorage.setItem('prospecta_portada', result); 
+                    } else {
+                        localStorage.setItem('prospecta_avatar', result); 
+                    }
                 }
                 reader.readAsDataURL(file);
             }
+
+            setTimeout(() => {
+                if (intendedFullscreen && !document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado por navegador", err));
+                }
+            }, 500);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            initBackgroundStars();
+            initBackgroundStars(); 
+            
             const savedPortada = localStorage.getItem('prospecta_portada');
             const savedAvatar = localStorage.getItem('prospecta_avatar');
+
             if (savedPortada) {
-                document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`);
+                const covers = document.querySelectorAll('.portada-sync');
+                covers.forEach(target => {
+                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
+                });
                 ajustarAlturaPortada(savedPortada);
-            } else ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
-            if (savedAvatar) document.querySelectorAll('.avatar-sync').forEach(i => i.src = savedAvatar);
+            } else {
+                ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+            }
+
+            if (savedAvatar) {
+                const avatars = document.querySelectorAll('.avatar-sync');
+                avatars.forEach(img => {
+                    img.src = savedAvatar;
+                });
+            }
         });
 
         function setDateTime() {
             const now = new Date();
-            document.querySelectorAll('#display_fecha').forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
-            document.querySelectorAll('#display_hora').forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
+            const fechaEls = document.querySelectorAll('#display_fecha');
+            const horaEls = document.querySelectorAll('#display_hora');
+            fechaEls.forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
+            horaEls.forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
         }
-        setInterval(setDateTime, 60000); setDateTime();
+        setInterval(setDateTime, 60000); 
+        setDateTime(); 
 
+        // GUIÓN ÍNTEGRO RESTAURADO AL 100%
         const scripts = {
-            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p><p><em>Deja que el prospecto lea la pantalla y vea las animaciones...</em></p>`,
-            2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong>...</p>`,
-            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas y CALLA)</p>`,
-            4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti...</p>`,
-            5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte...</p>`,
-            6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí'...</p>`,
-            7: `<p class="mb-4">"Con esto, cerramos oficialmente la fase de diagnóstico...</p>`,
-            8: `<p class="mb-4 font-bold text-white">🏁 Entregable #1</p>`,
-            9: `<p class="mb-4 font-bold text-white">🏁 Entregable #2</p>`,
-            10: `<p class="mb-4 font-bold text-white">🏁 Entregable #3: 2 Licencias de Prospecta.</p>`
+            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
+                <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
+                <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
+                <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
+                <p class="mb-4 text-white">👉 (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
+
+            2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
+                <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
+                <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
+            
+            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas y CALLA)</p>
+                <p class="mb-4">1. Para darme una idea cuéntame, ¿Qué es lo que les pasa a tus clientes, qué es lo que más les duele antes de contratarte? ¿Por qué te buscan? <br><span class="text-white italic">(Escuchas y Callas)</span>.</p>
+                <p>2. Para entender hacia dónde vamos: ¿quién es tu cliente ideal hoy? ¿en qué sector o perfil específico te estás enfocando?</p>`,
+            
+            4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
+                <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
+                <p class="mb-4 text-white italic">(AQUI MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
+                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-white">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
+                <p class="text-white font-bold mt-2">💚 (Acción: Abre su perfil de WhatsApp).</p>
+                <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
+            
+            5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
+                <p class="mb-4 text-white italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." -> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
+                <p class="mb-4">Entiendo lo que dices. Lo que sucede es que muchos profesionales confunden 'atender' con 'vender'. La base de toda conversión es comunicar adecuadamente el valor de tu negocio, y eso es imposible si el sistema se reduce a tratar de responder escribiendo, solo copiar y pegar precios, o el típico 'Estoy ocupado ahorita te lo mando'.</p>
+                <p class="mb-4 font-bold text-white">Hagamos una prueba de Caos de Contenido:</p>
+                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
+                <p>"Te agradezco la honestidad... hoy la atención en el celular dura apenas 8 segundos. En el momento en que le dices 'luego te lo mando', la confianza se rompe. Si solo mandas el precio, le estás pidiendo a tu prospecto que te compare por ser el más barato. Si el cliente tiene que esforzarse para comprarte, no te compra."</p>`,
+            
+            6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí', pero no te dice cuándo?"</p>
+                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
+                <p class="mb-4 text-white font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
+                <p>"La mayoría de los profesionales abandonan la venta después del segundo mensaje por miedo a molestar, o simplemente porque no saben qué más decir fuera del típico '¿qué has pensado?'"</p>`,
+            
+            7: `<p class="mb-4">"Con esto, [Nombre], cerramos oficialmente la fase de diagnóstico. Hemos identificado los tres 'Asesinos de Venta' que están deteniendo tu crecimiento: la improvisación en la presentación, el caos de contenido y tu actual 'rendición prematura'."</p>
+                <p class="mb-6 italic text-sm text-white">(Este análisis fue totalmente gratuito)</p>
+                <div class="p-4 bg-brand-dark border border-white rounded-lg mb-4 shadow-lg">
+                    <p class="font-bold text-white mb-2">LA TRANSICIÓN:</p>
+                    <p>"Basado en lo que acabamos de descubrir sobre cómo esto te está costando clientes... ¿Te haría sentido que te muestre exactamente cómo nosotros estructuramos esto para resolverlo, o prefieres seguir intentando solucionarlo por tu cuenta de forma manual?"</p>
+                </div>
+                <p>"Para resolver tu primer gran problema, vamos a instalar tu Arquitectura de Persuasión. Mi labor aquí no es venderte un 'cursito'; es entregarte YA las palabras exactas que necesitas para que el cliente te 'jale' hacia la venta."</p>
+                <p class="mt-4 text-white italic font-bold">(Aquí haces la pausa y pasas a la demostración).</p>`,
+            
+            8: `<p class="mb-4 font-bold text-white">🏁 Entregable #1</p>
+                <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
+                <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
+                <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las 4 portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>
+                <p>"Básicamente, te dejamos la tienda armada. Y para que no tengas que enseñarle a tu equipo, te incluyo como bono el acceso a nuestra 'Bóveda de Entrenamiento en Micro-tareas'."</p>`,
+            
+            9: `<p class="mb-4 font-bold text-white">🏁 Entregable #2</p>
+                <p class="mb-4">"Mira [Nombre], el 'Nuevo Juego' en las redes ya no se trata de publicar para ver quién cae. Se trata de atraer y filtrar."</p>
+                <p class="mb-4">"Hoy nadie tiene tiempo de leer un PDF largo de 20 páginas. En lugar de un archivo aburrido, nosotros te vamos a construir tu propio Acelerador Magnético para convertir desconocidos en Clientes Ideales las 24 horas del día."</p>
+                <p class="mb-4">"Tu prospecto entra desde un enlace. Toca la pantalla, responde preguntas rápidas y el sistema le da un diagnóstico o premio (victoria rápida). Mientras siente que juega, la herramienta lo califica para ti."</p>
+                <p class="mb-4">"Lo puedes pegar en IG, TikTok o WhatsApp. Cero costos técnicos: no pagas mantenimiento, servidores ni rentas. Nosotros absorbemos la infraestructura."</p>
+                <p class="italic text-white">"Al dominar esta tecnología interactiva, los límites no existen. Podemos construir calculadoras, tests, cotizadores... ¿Cómo ves funcionando este Filtro en tus redes hoy mismo?"</p>`,
+            
+            10: `<p class="mb-4 font-bold text-white">🏁 Entregable #3: 2 Licencias de Prospecta.</p>
+                <p class="mb-6">"La Bóveda exclusiva para Profesionales: Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic."</p>
+                
+                <p class="mb-4 font-bold text-white">🏁 El Pilar / Blueprint Maestro</p>
+                <p class="mb-4">"Diseñamos tu paso a paso lógico específicamente para tu Producto Principal:"</p>
+                <ul class="list-disc pl-5 mb-4 text-sm space-y-2">
+                    <li>Sondeo Profundo</li>
+                    <li>Argumentación de Transformación</li>
+                    <li>Cierre Inteligente</li>
+                </ul>
+                <p class="font-bold text-white">"Dejarás de improvisar y tendrás el control total de la conversación desde el primer segundo."</p>`
         };
 
         let currentSlide = 1;
         const totalSlides = 10;
-        function goToSlide(index) { if (index >= 1 && index <= totalSlides) { currentSlide = index; updateUI(); } }
+        let notesVisible = false;
+
+        function goToSlide(index) {
+            if (index >= 1 && index <= totalSlides) {
+                currentSlide = index;
+                updateUI();
+            }
+        }
+
         function updateUI() {
-            document.querySelectorAll('.slide').forEach(s => {
-                s.classList.remove('active');
-                if (parseInt(s.dataset.slide) === currentSlide) s.classList.add('active');
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+                if (parseInt(slide.dataset.slide) === currentSlide) {
+                    slide.classList.add('active');
+                }
             });
+
             document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
-            document.getElementById('script-content').innerHTML = scripts[currentSlide] || "";
+            document.getElementById('script-content').innerHTML = scripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
+            
+            const notesPanel = document.getElementById('script-content');
+            if(notesPanel) notesPanel.scrollTop = 0;
+            
+            const presentationArea = document.getElementById('presentation-area');
+            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
+
             for(let i = 1; i <= totalSlides; i++) {
-                const p = document.getElementById('nav-pill-' + i);
-                if(p) {
-                    if(i === currentSlide) { p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md"; p.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
-                    else p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
+                const pill = document.getElementById('nav-pill-' + i);
+                if(pill) {
+                    if(i === currentSlide) {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md";
+                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } else {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
+                    }
                 }
             }
         }
-        function nextSlide() { if (currentSlide < totalSlides) { currentSlide++; updateUI(); } }
-        function prevSlide() { if (currentSlide > 1) { currentSlide--; updateUI(); } }
-        function toggleNotes() { const s = document.getElementById('notes-sidebar'); s.classList.toggle('w-0'); s.classList.toggle('w-96'); }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function toggleNotes() {
+            const sidebar = document.getElementById('notes-sidebar');
+            notesVisible = !notesVisible;
+            
+            if (notesVisible) {
+                sidebar.classList.remove('w-0');
+                sidebar.classList.add('w-full', 'md:w-[400px]');
+            } else {
+                sidebar.classList.add('w-0');
+                sidebar.classList.remove('w-full', 'md:w-[400px]');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
         updateUI();
     </script>
 </body>
