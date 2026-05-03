@@ -43,7 +43,7 @@
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
         
-        /* Custom Scrollbar for notes & presentation */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e1e2f; }
         ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
@@ -53,7 +53,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
-           ESTILOS DE LA CABECERA (PROSPECTA LOGO)
+           ESTILOS DE LA CABECERA
            ========================================= */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
         .char-a-container { position: relative; display: inline-block; }
@@ -70,7 +70,7 @@
         .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: #FFFFFF; }
 
         /* =========================================
-           ESTRELLAS DE FONDO (TWINKLING STARS)
+           ESTRELLAS DE FONDO
            ========================================= */
         .bg-star {
             position: absolute;
@@ -87,7 +87,7 @@
         }
 
         /* =========================================
-           ESTILOS DE LA NUEVA PORTADA ANIMADA (SLIDE 1)
+           PORTADA ANIMADA (SLIDE 1)
            ========================================= */
         .bg-pattern-dark {
             background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px);
@@ -213,20 +213,16 @@
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
     <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
-    <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
-    <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
+    <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'bg_portada', true)">
+    <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'img_avatar', false)">
 
     <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
-        
-        <!-- Contenedor Izquierdo (Hamburguesa) -->
         <div class="flex items-center w-1/4 z-10">
             <button class="hamburger-btn">
                 <span></span><span></span><span></span>
             </button>
         </div>
-        
-        <!-- Contenedor Central (Título Prospecta + Estrella + Subtítulo) -->
         <div class="w-2/4 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
             <div class="brand-name-menu">
                 Prospect<span class="char-a-container">a
@@ -237,8 +233,6 @@
             </div>
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
-
-        <!-- Contenedor Derecho (Botón Pantalla Completa + Guión) -->
         <div class="flex items-center justify-end w-1/4 z-10 gap-2 md:gap-4">
             <button onclick="toggleFullScreen()" class="text-white hover:text-slate-300 transition-colors flex items-center justify-center w-8 h-8 rounded-full bg-[#2A2A42] shadow border border-white" title="Pantalla Completa">
                 <i class="fas fa-expand"></i>
@@ -247,8 +241,6 @@
                 <i class="far fa-comment-alt"></i> <span class="hidden sm:inline font-semibold">Mi Guión</span>
             </button>
         </div>
-        
-        <!-- Progress Bar Background -->
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
             <div id="progress-bar" class="bg-white h-full transition-all duration-300" style="width: 10%"></div>
         </div>
@@ -257,13 +249,11 @@
     <!-- Main Content Area -->
     <main class="flex-1 flex relative overflow-hidden bg-pattern-dark z-10">
         
-        <!-- Área de presentación con scroll propio -->
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
             <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 
-                <!-- Textos Superiores estructurados con "Enters" limpios -->
                 <div class="text-center w-full mb-10">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
                         PARA DUEÑOS DE NEGOCIO
@@ -282,10 +272,8 @@
                     </span>
                 </div>
 
-                <!-- Animación Chatbot (Con 3 frases exactas) -->
                 <div class="relative w-full flex justify-center mb-10">
                     <div class="flex items-center w-full max-w-sm relative justify-center md:justify-start">
-                        <!-- Icono Bot -->
                         <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
                             <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
@@ -297,10 +285,7 @@
                                 <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
                             </svg>
                             <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-white animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                            <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                            <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                         </div>
-                        <!-- Burbujas Animadas -->
                         <div class="relative flex-1 h-14 ml-4 pointer-events-none">
                             <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
                                 <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
@@ -314,8 +299,7 @@
                     </div>
                 </div>
                 
-                <!-- Subtítulos -->
-                <div class="w-full px-4 mb-10 flex flex-col gap-5">
+                <div class="w-full px-4 mb-12 flex flex-col gap-4">
                     <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm">
                         El internet está lleno de ruido, "gurús" y promesas falsas. Hoy los clientes tienen miedo a comprar. Si no logras comunicar tu valor y generar confianza en 3 segundos, dudarán de ti.
                     </p>
@@ -324,8 +308,7 @@
                     </p>
                 </div>
                 
-                <!-- Botón CTA -->
-                <div class="w-full flex flex-col items-center">
+                <div class="w-full flex flex-col items-center mb-10">
                     <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
                         👉 DESCUBRIR MI ERROR AHORA
                     </button>
@@ -337,30 +320,25 @@
             </div>
 
             <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
-            <div class="slide flex-col items-center justify-center w-full my-auto pb-16" data-slide="2">
-                
-                <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
-                    <div class="portada-sync cover-bg" id="bg_portada">
+            <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
+                <div class="profile-card" id="tarjeta_perfil">
+                    <div class="cover-bg" id="bg_portada">
                         <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
-                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'bg_portada', true)">
                             <i class="fas fa-camera"></i>
                         </label>
                     </div>
-                    
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
-                            <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
+                            <img id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
                         </div>
                         <label class="btn-edit-avatar cursor-pointer" title="Editar Avatar">
-                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'img_avatar', false)">
                             <i class="fas fa-pencil-alt text-xs"></i>
                         </label>
                     </div>
-
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
-                    
-                    <!-- Verified Strategy Badge (Icono Azul Corporativo) -->
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
@@ -370,57 +348,30 @@
                         </div>
                     </div>
                     
-                    <!-- Píldoras de Redes y Contacto -->
+                    <!-- ÍCONOS RESTAURADOS EXACTAMENTE COMO ESTABAN -->
                     <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
-                        <div class="pill-contact">
-                            <i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678
-                        </div>
-                        <div class="pill-contact">
-                            <i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx
-                        </div>
-                        <div class="pill-contact">
-                            <i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro
-                        </div>
+                        <div class="pill-contact"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
+                        <div class="pill-contact"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
+                        <div class="pill-contact"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
                     </div>
-                    
-                    <!-- Píldoras Secundarias (Redes Unificadas con sus íconos restaurados) -->
                     <div class="flex flex-wrap justify-center gap-2 mb-4">
-                        <div class="pill-contact" title="Facebook">
-                            <i class="fab fa-facebook text-brand-primary"></i> Facebook
-                        </div>
-                        <div class="pill-contact" title="Instagram">
-                            <i class="fab fa-instagram text-brand-primary"></i> Instagram
-                        </div>
-                        <div class="pill-contact" title="LinkedIn">
-                            <i class="fab fa-linkedin text-brand-primary"></i> LinkedIn
-                        </div>
-                        <div class="pill-contact" title="TikTok">
-                            <i class="fab fa-tiktok text-brand-primary"></i> TikTok
-                        </div>
-                        <div class="pill-contact" title="YouTube">
-                            <i class="fab fa-youtube text-brand-primary"></i> YouTube
-                        </div>
+                        <div class="pill-contact" title="Facebook"><i class="fab fa-facebook text-brand-primary"></i> Facebook</div>
+                        <div class="pill-contact" title="Instagram"><i class="fab fa-instagram text-brand-primary"></i> Instagram</div>
+                        <div class="pill-contact" title="LinkedIn"><i class="fab fa-linkedin text-brand-primary"></i> LinkedIn</div>
+                        <div class="pill-contact" title="TikTok"><i class="fab fa-tiktok text-brand-primary"></i> TikTok</div>
+                        <div class="pill-contact" title="YouTube"><i class="fab fa-youtube text-brand-primary"></i> YouTube</div>
                     </div>
-
                     <div class="stats-row">
-                        <div class="stat-item">
-                            <span class="stat-label">Prospecta</span>
-                            <span class="stat-value">Activo</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Fecha</span>
-                            <span class="stat-value" id="display_fecha">Hoy</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">Hora</span>
-                            <span class="stat-value" id="display_hora">--:--</span>
-                        </div>
+                        <div class="stat-item"><span class="stat-label">Prospecta</span><span class="stat-value">Activo</span></div>
+                        <div class="stat-item"><span class="stat-label">Fecha</span><span class="stat-value" id="display_fecha">Hoy</span></div>
+                        <div class="stat-item"><span class="stat-label">Hora</span><span class="stat-value" id="display_hora">--:--</span></div>
                     </div>
                 </div>
             </div>
 
+            <!-- SLIDES 3 a la 10 RESTAURADAS EXACTAMENTE COMO ESTABAN -->
             <!-- SLIDE 3: Sondeo -->
-            <div class="slide flex-col w-full max-w-4xl my-auto pb-12" data-slide="3">
+            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0" data-slide="3">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
                 
@@ -441,7 +392,7 @@
             </div>
 
             <!-- SLIDE 4: Reseñas / Auditoría -->
-            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="4">
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
@@ -480,7 +431,7 @@
             </div>
 
             <!-- SLIDE 5: El Reto -->
-            <div class="slide flex-col text-center w-full max-w-4xl my-auto pb-12" data-slide="5">
+            <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
                     <i class="fas fa-stopwatch fa-4x"></i>
                 </div>
@@ -503,7 +454,7 @@
             </div>
 
             <!-- SLIDE 6: Seguimiento -->
-            <div class="slide flex-col w-full max-w-4xl text-center my-auto pb-12" data-slide="6">
+            <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
                 <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
@@ -520,7 +471,7 @@
             </div>
 
             <!-- SLIDE 7: Los 3 Asesinos -->
-            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="7">
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
                 
@@ -550,7 +501,7 @@
             </div>
 
             <!-- SLIDE 8: Solución 1 -->
-            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="8">
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
                 
@@ -586,7 +537,7 @@
             </div>
 
             <!-- SLIDE 9: Solución 2 -->
-            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="9">
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="9">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
                 
@@ -614,7 +565,7 @@
             </div>
 
             <!-- SLIDE 10: Solución 3 y Cierre -->
-            <div class="slide flex-col w-full max-w-5xl my-auto pb-12" data-slide="10">
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Entregable 3 -->
                     <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
@@ -707,9 +658,7 @@
         let intendedFullscreen = false;
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.log(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
-                });
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
                 intendedFullscreen = true; 
             } else {
                 if (document.exitFullscreen) {
@@ -719,50 +668,49 @@
             }
         }
 
+        // --- SOLUCIÓN DEL BUG DE MEMORIA QUE APLASTABA LA FOTO ---
         function ajustarAlturaPortada(src) {
             if (!src) return;
             const img = new Image();
             img.onload = function() {
                 const ratio = this.height / this.width;
-                const cards = document.querySelectorAll('.profile-card-sync');
-                const covers = document.querySelectorAll('.portada-sync');
-                if (!cards.length || !covers.length) return;
+                const card = document.getElementById('tarjeta_perfil');
+                const coverEl = document.getElementById('bg_portada');
+                if (!card || !coverEl) return;
                 
-                let newHeight = cards[0].offsetWidth * ratio;
+                // Si la tarjeta está oculta en memoria (offsetWidth = 0), calculamos el ancho basado en la pantalla
+                let cardWidth = card.offsetWidth;
+                if (cardWidth === 0) {
+                    cardWidth = Math.min(window.innerWidth - 32, 450);
+                }
+
+                let newHeight = cardWidth * ratio;
                 if (newHeight > 220) newHeight = 220; 
                 if (newHeight < 100) newHeight = 100;
                 
-                covers.forEach(coverEl => {
-                    coverEl.style.height = newHeight + 'px';
-                });
-                cards.forEach(card => {
-                    card.style.paddingTop = (newHeight - 50) + 'px';
-                });
+                coverEl.style.height = newHeight + 'px';
+                card.style.paddingTop = (newHeight - 50) + 'px';
             };
             img.src = src;
         }
 
-        function actualizarImagen(event, targetClass, isBackground) {
+        function actualizarImagen(event, targetId, isBackground) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const result = e.target.result;
-                    const targets = document.querySelectorAll('.' + targetClass);
+                    const target = document.getElementById(targetId);
                     
-                    targets.forEach(target => {
+                    if (target) {
                         if (isBackground) {
                             target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
+                            ajustarAlturaPortada(result); 
+                            localStorage.setItem('prospecta_portada', result); 
                         } else {
                             target.src = result;
+                            localStorage.setItem('prospecta_avatar', result); 
                         }
-                    });
-
-                    if (isBackground) {
-                        ajustarAlturaPortada(result); 
-                        localStorage.setItem('prospecta_portada', result); 
-                    } else {
-                        localStorage.setItem('prospecta_avatar', result); 
                     }
                 }
                 reader.readAsDataURL(file);
@@ -770,9 +718,9 @@
 
             setTimeout(() => {
                 if (intendedFullscreen && !document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado por navegador", err));
+                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado", err));
                 }
-            }, 500);
+            }, 500); 
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -782,20 +730,16 @@
             const savedAvatar = localStorage.getItem('prospecta_avatar');
 
             if (savedPortada) {
-                const covers = document.querySelectorAll('.portada-sync');
-                covers.forEach(target => {
-                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
-                });
+                const target = document.getElementById('bg_portada');
+                if(target) target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
                 ajustarAlturaPortada(savedPortada);
             } else {
                 ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
             }
 
             if (savedAvatar) {
-                const avatars = document.querySelectorAll('.avatar-sync');
-                avatars.forEach(img => {
-                    img.src = savedAvatar;
-                });
+                const avatarImg = document.getElementById('img_avatar');
+                if(avatarImg) avatarImg.src = savedAvatar;
             }
         });
 
@@ -809,7 +753,7 @@
         setInterval(setDateTime, 60000); 
         setDateTime(); 
 
-        // GUIÓN ÍNTEGRO RESTAURADO AL 100%
+        // --- GUIÓN DE VENTAS ÍNTEGRO RESTAURADO ---
         const scripts = {
             1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
                 <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
