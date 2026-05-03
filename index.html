@@ -235,10 +235,10 @@
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 py-4 md:px-8 md:py-6 lg:p-12 transition-all duration-300 overflow-y-auto">
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
-            <!-- Centrado perfecto usando h-full, justify-center y una distribución en gaps -->
-            <div class="slide active flex-col items-center justify-center w-full max-w-xl mx-auto h-full relative z-10 bg-pattern-dark p-6 rounded-3xl border border-brand-panel shadow-2xl" data-slide="1">
+            <!-- CORRECCIÓN DE FLEXBOX: mt-4 mb-auto md:my-auto shrink-0 asegura que en celular empiece desde arriba y permita scroll sin cortar contenido -->
+            <div class="slide active flex-col items-center justify-start w-full max-w-xl mx-auto mt-4 mb-auto md:my-auto relative z-10 bg-pattern-dark p-6 rounded-3xl border border-brand-panel shadow-2xl shrink-0" data-slide="1">
                 
-                <div class="flex flex-col items-center justify-center flex-1 w-full gap-6">
+                <div class="flex flex-col items-center justify-start w-full gap-5 sm:gap-6">
                     
                     <div class="text-center w-full">
                         <!-- Subtítulo Superior: Todo blanco -->
@@ -305,7 +305,7 @@
                         </p>
                     </div>
                     
-                    <div class="flex-1 w-full flex flex-col items-center">
+                    <div class="w-full flex flex-col items-center">
                         <!-- Botón Principal -->
                         <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl shadow-white/10 hover:bg-slate-200 transition-all active:scale-95 transform flex items-center justify-center gap-3 border-b-4 border-slate-300 uppercase">
                             <i class="fas fa-id-card text-lg"></i> INICIAR EL DISEÑO DE MI TARJETA
@@ -320,7 +320,8 @@
             </div>
 
             <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
-            <div class="slide flex-col items-center justify-center w-full my-auto" data-slide="2">
+            <!-- CORRECCIÓN DE FLEXBOX APLICADA TAMBIÉN AQUÍ -->
+            <div class="slide flex-col items-center justify-start w-full mt-4 mb-auto md:my-auto shrink-0" data-slide="2">
                 
                 <div class="profile-card shrink-0" id="tarjeta_perfil">
                     <div class="cover-bg" id="bg_portada">
@@ -341,7 +342,7 @@
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
                     
-                    <!-- Verified Strategy Badge -->
+                    <!-- Verified Strategy Badge (Icono Azul Corporativo) -->
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
@@ -401,7 +402,7 @@
             </div>
 
             <!-- SLIDE 3: Sondeo -->
-            <div class="slide flex-col w-full max-w-4xl my-auto" data-slide="3">
+            <div class="slide flex-col w-full max-w-4xl mt-4 mb-auto md:my-auto shrink-0" data-slide="3">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
                 
@@ -422,7 +423,7 @@
             </div>
 
             <!-- SLIDE 4: Reseñas / Auditoría -->
-            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="4">
+            <div class="slide flex-col w-full max-w-5xl mt-4 mb-auto md:my-auto shrink-0" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
@@ -461,7 +462,7 @@
             </div>
 
             <!-- SLIDE 5: El Reto -->
-            <div class="slide flex-col text-center w-full max-w-4xl my-auto" data-slide="5">
+            <div class="slide flex-col text-center w-full max-w-4xl mt-4 mb-auto md:my-auto shrink-0" data-slide="5">
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
                     <i class="fas fa-stopwatch fa-4x"></i>
                 </div>
@@ -484,7 +485,7 @@
             </div>
 
             <!-- SLIDE 6: Seguimiento -->
-            <div class="slide flex-col w-full max-w-4xl text-center my-auto" data-slide="6">
+            <div class="slide flex-col w-full max-w-4xl text-center mt-4 mb-auto md:my-auto shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
                 <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
@@ -501,7 +502,7 @@
             </div>
 
             <!-- SLIDE 7: Los 3 Asesinos -->
-            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="7">
+            <div class="slide flex-col w-full max-w-5xl mt-4 mb-auto md:my-auto shrink-0" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
                 
@@ -531,7 +532,7 @@
             </div>
 
             <!-- SLIDE 8: Solución 1 -->
-            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="8">
+            <div class="slide flex-col w-full max-w-5xl mt-4 mb-auto md:my-auto shrink-0" data-slide="8">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
                 
@@ -567,7 +568,7 @@
             </div>
 
             <!-- SLIDE 9: Solución 2 -->
-            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="9">
+            <div class="slide flex-col w-full max-w-5xl mt-4 mb-auto md:my-auto shrink-0" data-slide="9">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
                 
@@ -595,7 +596,7 @@
             </div>
 
             <!-- SLIDE 10: Solución 3 y Cierre -->
-            <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="10">
+            <div class="slide flex-col w-full max-w-5xl mt-4 mb-auto md:my-auto shrink-0" data-slide="10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Entregable 3 -->
                     <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
