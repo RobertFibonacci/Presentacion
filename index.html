@@ -86,7 +86,8 @@
         .floating-bubble {
             position: absolute;
             opacity: 0;
-            animation: floatBubbleCycle 14s infinite;
+            /* Se redujo el ciclo a 10.5s para las 3 burbujas exactas */
+            animation: floatBubbleCycle 10.5s infinite;
             background: #3E3E61; 
             color: #FFFFFF;
             font-size: 0.8rem;
@@ -102,8 +103,8 @@
         @keyframes floatBubbleCycle {
             0% { opacity: 0; transform: translateY(10px) scale(0.95); }
             5% { opacity: 1; transform: translateY(0) scale(1); }
-            15% { opacity: 1; transform: translateY(0) scale(1); }
-            20% { opacity: 0; transform: translateY(-15px) scale(0.95); }
+            25% { opacity: 1; transform: translateY(0) scale(1); }
+            30% { opacity: 0; transform: translateY(-15px) scale(0.95); }
             100% { opacity: 0; transform: translateY(-15px) scale(0.95); }
         }
         .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
@@ -238,24 +239,24 @@
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto">
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
-            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0" data-slide="1">
+            <!-- Se agregó mt-6 md:mt-10 para crear el efecto inicial de cascada hacia abajo -->
+            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 mt-6 md:mt-10" data-slide="1">
                 
-                <!-- Textos Superiores (Encabezado real) -->
-                <div class="text-center w-full mb-6">
-                    <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase mb-2 block text-center drop-shadow-md">
+                <!-- Textos Superiores con generoso margen inferior (mb-10) -->
+                <div class="text-center w-full mb-10">
+                    <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase mb-3 block text-center drop-shadow-md">
                         PARA DUEÑOS DE NEGOCIO
                     </span>
-                    <!-- CORRECCIÓN DE TAMAÑO DE TEXTO (Aumentado drásticamente para dominar la pantalla) -->
-                    <h1 class="text-[36px] sm:text-[42px] md:text-[52px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg">
-                        Crea tu Tarjeta de Presentación Digital
-                        <span class="block normal-case text-white text-[18px] sm:text-[22px] md:text-[30px] mt-2 leading-tight drop-shadow-md">
-                            (y descubre por qué te dejan en "visto").
+                    <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
+                        Descubre el error en tu comunicación que destruye la confianza de tus clientes
+                        <span class="block normal-case text-white text-[16px] md:text-[22px] mt-3 leading-tight drop-shadow-md">
+                            (y te deja en "visto").
                         </span>
                     </h1>
                 </div>
 
-                <!-- Animación Chatbot -->
-                <div class="relative w-full flex justify-center mb-6">
+                <!-- Animación Chatbot (Con margen mb-10 para seguir la cascada) -->
+                <div class="relative w-full flex justify-center mb-10">
                     <div class="flex items-center w-full max-w-sm relative justify-center md:justify-start">
                         <!-- Icono Bot -->
                         <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
@@ -272,7 +273,7 @@
                             <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                             <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                         </div>
-                        <!-- Burbujas Animadas -->
+                        <!-- Burbujas Animadas Reducidas a las 3 principales (separadas cada 3.5s) -->
                         <div class="relative flex-1 h-14 ml-4 pointer-events-none">
                             <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
                                 <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
@@ -280,27 +281,28 @@
                                 <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.4s;"></div>
                             </div>
                             <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 0s;">"Me dejan en visto..."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 2s;">"Solo me piden 'info'."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 4s;">"Puros curiosos, nadie compra."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 6s;">"Me dicen 'está muy caro'."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 8s;">"Pierdo horas en WhatsApp."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 10s;">"Siento que ruego por ventas."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 12s;">"Me leen y desaparecen."</div>
+                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 3.5s;">"Solo piden 'info' y desaparecen..."</div>
+                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 7s;">"Me dicen que 'está muy caro'..."</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Subtítulo / Problema a resolver (Libre) -->
-                <h2 class="text-[14px] md:text-[16px] font-semibold text-white mb-6 leading-relaxed text-center w-full px-2">
-                    Configura tu perfil de autoridad en 3 minutos y deja de perder ventas ante competidores que simplemente se ven más profesionales que tú.
-                </h2>
+                <!-- Subtítulo / Problema a resolver (Dos párrafos limpios, justificados) mb-12 para dar aire al botón -->
+                <div class="w-full px-4 mb-12 flex flex-col gap-4">
+                    <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm">
+                        El internet está lleno de ruido, "gurús" y promesas falsas. Hoy los clientes tienen miedo a comprar. Si no logras comunicar tu valor y generar confianza en 3 segundos, dudarán de ti.
+                    </p>
+                    <p class="text-[16px] md:text-[18px] font-bold text-white text-center drop-shadow-md">
+                        Evalúa tu proceso hoy mismo.
+                    </p>
+                </div>
                 
-                <!-- Botón CTA (Y deja la zona inferior libre a futuro) -->
-                <div class="w-full flex flex-col items-center">
+                <!-- Botón CTA con acción inmediata -->
+                <div class="w-full flex flex-col items-center mb-10">
                     <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
-                        👉 CREAR MI TARJETA AHORA
+                        👉 DESCUBRIR MI ERROR AHORA
                     </button>
-                    <div class="text-white text-[10px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
+                    <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
                         ⏱️ Toma menos de 3 minutos.
                     </div>
                 </div>
@@ -312,9 +314,6 @@
                 
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     <div class="portada-sync cover-bg" id="bg_portada">
-                        <!-- CORRECCIÓN DE NAVEGADOR PWA/FULLSCREEN: 
-                             Cambiamos de un div con javascript onclick a un Label Nativo 
-                             que activa el input. El OS asume un clic genuino y no te saca de pantalla completa. -->
                         <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
                             <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
                             <i class="fas fa-camera"></i>
@@ -325,7 +324,6 @@
                         <div class="avatar-img" id="view_avatar">
                             <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
                         </div>
-                        <!-- Label nativo para avatar -->
                         <label class="btn-edit-avatar cursor-pointer" title="Editar Avatar">
                             <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
                             <i class="fas fa-pencil-alt text-xs"></i>
