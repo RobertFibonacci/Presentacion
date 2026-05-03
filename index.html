@@ -235,35 +235,38 @@
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 py-4 md:px-8 md:py-6 lg:p-12 transition-all duration-300 overflow-y-auto">
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
-            <!-- CORRECCIÓN DE FLEXBOX: mt-4 mb-auto md:my-auto shrink-0 asegura que en celular empiece desde arriba y permita scroll sin cortar contenido -->
-            <div class="slide active flex-col items-center justify-start w-full max-w-xl mx-auto mt-4 mb-auto md:my-auto relative z-10 bg-pattern-dark p-6 rounded-3xl border border-brand-panel shadow-2xl shrink-0" data-slide="1">
+            <!-- CORRECCIÓN DE DIAGNÓSTICO APLICADA AQUÍ: 
+                 Se ajusta a height-full con flex-col justify-between para asegurar que todo cuadre perfecto y 
+                 el chatbot flote exactamente en el medio del contenido libre de cajas extra -->
+            <div class="slide active flex-col w-full max-w-xl mx-auto h-full relative z-10 bg-pattern-dark p-4 sm:p-6 rounded-3xl border border-brand-panel shadow-2xl shrink-0" data-slide="1">
                 
-                <div class="flex flex-col items-center justify-start w-full gap-5 sm:gap-6">
+                <div class="flex flex-col h-full justify-between items-center w-full">
                     
-                    <div class="text-center w-full">
-                        <!-- Subtítulo Superior: Todo blanco -->
+                    <!-- TOP: Textos Superior -->
+                    <div class="text-center w-full mt-2">
+                        <!-- Subtítulo Superior -->
                         <span class="text-[12px] font-black tracking-widest text-white uppercase mb-3 block text-center drop-shadow-md">
                             PARA PROFESIONALES Y DUEÑOS DE NEGOCIO
                         </span>
                         
-                        <!-- Título Principal: Todo blanco -->
-                        <h1 class="text-[32px] md:text-[42px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg">
+                        <!-- Título Principal -->
+                        <h1 class="text-[30px] md:text-[42px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg">
                             Crea tu Tarjeta de Presentación Digital
-                            <span class="block normal-case text-white text-[20px] md:text-[26px] mt-2 leading-tight drop-shadow-md">
+                            <span class="block normal-case text-white text-[18px] md:text-[26px] mt-1 leading-tight drop-shadow-md">
                                 (y descubre por qué te dejan en "visto").
                             </span>
                         </h1>
+                        
+                        <!-- Descripción Secundaria Justificada -->
+                        <h2 class="text-[15px] md:text-[18px] font-extrabold text-white mt-4 leading-snug text-justify w-full">
+                            En los próximos 3 minutos vamos a configurar tu perfil de autoridad y revelaremos el error invisible en tu comunicación que hoy espanta a tus clientes.
+                        </h2>
                     </div>
-                    
-                    <!-- Descripción Secundaria Justificada: Todo blanco -->
-                    <h2 class="text-[16px] md:text-[18px] font-extrabold text-white leading-snug text-justify w-full px-2">
-                        En los próximos 3 minutos vamos a configurar tu perfil de autoridad y revelaremos el error invisible en tu comunicación que hoy espanta a tus clientes.
-                    </h2>
 
-                    <!-- Animación Chatbot centrado visualmente -->
-                    <div class="relative w-full flex justify-center">
-                        <div class="bg-brand-panel rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white p-3 flex items-center w-full relative">
-                            <!-- Icono Bot - Blanco Elegante -->
+                    <!-- MIDDLE: Animación Chatbot (ELIMINADO EL CUADRO/CAJA EXTRA - Solo el bot flotando libre) -->
+                    <div class="relative w-full flex justify-center my-4">
+                        <div class="flex items-center w-full max-w-sm relative">
+                            <!-- Icono Bot -->
                             <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
                                 <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
                                     <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
@@ -282,7 +285,6 @@
                             <!-- Burbujas Animadas -->
                             <div class="relative flex-1 h-14 ml-4 pointer-events-none">
                                 <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
-                                    <!-- Puntos Blancos -->
                                     <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
                                     <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.2s;"></div>
                                     <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.4s;"></div>
@@ -297,20 +299,20 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Cuadro de texto Justificado: Todo blanco -->
-                    <div class="bg-[#2A2A42] rounded-2xl p-6 shadow-sm border border-white w-full">
-                        <p class="text-[15px] md:text-[16px] font-bold text-white leading-relaxed text-justify">
-                            "Construye una fachada de autoridad que genere confianza inmediata. Deja de perder grandes ventas ante competidores que simplemente se ven más profesionales que tú."
-                        </p>
-                    </div>
-                    
-                    <div class="w-full flex flex-col items-center">
+
+                    <!-- BOTTOM: Cuadro de texto Justificado y Botón -->
+                    <div class="w-full flex flex-col items-center mb-2">
+                        <div class="bg-[#2A2A42] rounded-2xl p-5 shadow-sm border border-white w-full mb-4">
+                            <p class="text-[14px] md:text-[16px] font-bold text-white leading-relaxed text-justify">
+                                "Construye una fachada de autoridad que genere confianza inmediata. Deja de perder grandes ventas ante competidores que simplemente se ven más profesionales que tú."
+                            </p>
+                        </div>
+                        
                         <!-- Botón Principal -->
                         <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl shadow-white/10 hover:bg-slate-200 transition-all active:scale-95 transform flex items-center justify-center gap-3 border-b-4 border-slate-300 uppercase">
                             <i class="fas fa-id-card text-lg"></i> INICIAR EL DISEÑO DE MI TARJETA
                         </button>
-                        <!-- Texto de soporte abajo: Todo blanco -->
+                        <!-- Texto de soporte abajo -->
                         <div class="text-white text-[11px] md:text-xs mt-3 font-bold uppercase tracking-wider">
                             Toma menos de 3 minutos
                         </div>
@@ -320,7 +322,6 @@
             </div>
 
             <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
-            <!-- CORRECCIÓN DE FLEXBOX APLICADA TAMBIÉN AQUÍ -->
             <div class="slide flex-col items-center justify-start w-full mt-4 mb-auto md:my-auto shrink-0" data-slide="2">
                 
                 <div class="profile-card shrink-0" id="tarjeta_perfil">
