@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
+    
+    <!-- Meta tags PWA para blindar el modo pantalla completa (App-like experience) -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e1e2f">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -184,12 +191,7 @@
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
     </style>
 </head>
-<!-- CORRECCIÓN 1: 'fixed inset-0 w-full h-full' ancla la app al espacio visible del navegador. Evita el recorte de cabecera y footer. -->
 <body class="fixed inset-0 w-full h-full flex flex-col bg-brand-dark">
-
-    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
-    <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'bg_portada', true)">
-    <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'img_avatar', false)">
 
     <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
@@ -236,23 +238,23 @@
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto">
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
-            <!-- CORRECCIÓN 2: Eliminación de márgenes engañosos. Cascada natural desde arriba, dejando libre el área inferior. -->
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0" data-slide="1">
                 
-                <!-- Textos Superiores (Encabezado real, anclado arriba cerca de la barra) -->
+                <!-- Textos Superiores (Encabezado real) -->
                 <div class="text-center w-full mb-6">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase mb-2 block text-center drop-shadow-md">
                         PARA DUEÑOS DE NEGOCIO
                     </span>
-                    <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg">
+                    <!-- CORRECCIÓN DE TAMAÑO DE TEXTO (Aumentado drásticamente para dominar la pantalla) -->
+                    <h1 class="text-[36px] sm:text-[42px] md:text-[52px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg">
                         Crea tu Tarjeta de Presentación Digital
-                        <span class="block normal-case text-white text-[16px] md:text-[22px] mt-1.5 leading-tight drop-shadow-md">
+                        <span class="block normal-case text-white text-[18px] sm:text-[22px] md:text-[30px] mt-2 leading-tight drop-shadow-md">
                             (y descubre por qué te dejan en "visto").
                         </span>
                     </h1>
                 </div>
 
-                <!-- Animación Chatbot (Alineado proporcionalmente debajo del título) -->
+                <!-- Animación Chatbot -->
                 <div class="relative w-full flex justify-center mb-6">
                     <div class="flex items-center w-full max-w-sm relative justify-center md:justify-start">
                         <!-- Icono Bot -->
@@ -308,20 +310,26 @@
             <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
                 
-                <div class="profile-card shrink-0" id="tarjeta_perfil">
-                    <div class="cover-bg" id="bg_portada">
-                        <div class="btn-cambiar-portada" title="Cambiar Portada" onclick="document.getElementById('input-portada').click();">
+                <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
+                    <div class="portada-sync cover-bg" id="bg_portada">
+                        <!-- CORRECCIÓN DE NAVEGADOR PWA/FULLSCREEN: 
+                             Cambiamos de un div con javascript onclick a un Label Nativo 
+                             que activa el input. El OS asume un clic genuino y no te saca de pantalla completa. -->
+                        <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
                             <i class="fas fa-camera"></i>
-                        </div>
+                        </label>
                     </div>
                     
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
-                            <img id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
+                            <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
                         </div>
-                        <div class="btn-edit-avatar" title="Editar Avatar" onclick="document.getElementById('input-avatar').click();">
+                        <!-- Label nativo para avatar -->
+                        <label class="btn-edit-avatar cursor-pointer" title="Editar Avatar">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
                             <i class="fas fa-pencil-alt text-xs"></i>
-                        </div>
+                        </label>
                     </div>
 
                     <div class="profile-name">Roberto Fibonacci</div>
@@ -676,44 +684,54 @@
             const img = new Image();
             img.onload = function() {
                 const ratio = this.height / this.width;
-                const card = document.getElementById('tarjeta_perfil');
-                const coverEl = document.getElementById('bg_portada');
-                if (!card || !coverEl) return;
+                // Update all items with sync classes so Slide 1 and Slide 2 stay identical
+                const cards = document.querySelectorAll('.profile-card-sync');
+                const covers = document.querySelectorAll('.portada-sync');
+                if (!cards.length || !covers.length) return;
                 
-                let newHeight = card.offsetWidth * ratio;
+                let newHeight = cards[0].offsetWidth * ratio;
                 if (newHeight > 220) newHeight = 220; 
                 if (newHeight < 100) newHeight = 100;
                 
-                coverEl.style.height = newHeight + 'px';
-                card.style.paddingTop = (newHeight - 50) + 'px';
+                covers.forEach(coverEl => {
+                    coverEl.style.height = newHeight + 'px';
+                });
+                cards.forEach(card => {
+                    card.style.paddingTop = (newHeight - 50) + 'px';
+                });
             };
             img.src = src;
         }
 
         // --- Cargar Imágenes del Dispositivo y Guardar en Memoria ---
-        function actualizarImagen(event, targetId, isBackground) {
+        function actualizarImagen(event, targetClass, isBackground) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const result = e.target.result;
+                    // Sincronizar en todos los slides con esa clase
+                    const targets = document.querySelectorAll('.' + targetClass);
+                    
+                    targets.forEach(target => {
+                        if (isBackground) {
+                            target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
+                        } else {
+                            target.src = result;
+                        }
+                    });
+
                     if (isBackground) {
-                        const target = document.getElementById(targetId);
-                        target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
                         ajustarAlturaPortada(result); 
-                        // Guardar en la memoria del dispositivo
                         localStorage.setItem('prospecta_portada', result); 
                     } else {
-                        const target = document.getElementById(targetId);
-                        target.src = result;
-                        // Guardar en la memoria del dispositivo
                         localStorage.setItem('prospecta_avatar', result); 
                     }
                 }
                 reader.readAsDataURL(file);
             }
 
-            // Restaurar pantalla completa automáticamente si fue interrumpida por la galería
+            // Restaurar pantalla completa automáticamente si fue interrumpida por la galería del sistema operativo
             setTimeout(() => {
                 if (intendedFullscreen && !document.fullscreenElement) {
                     document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado por navegador", err));
@@ -723,32 +741,34 @@
 
         // --- Inicialización: Cargar desde la Memoria ---
         window.addEventListener('DOMContentLoaded', () => {
-            // Verificar si hay fotos guardadas en el dispositivo
             const savedPortada = localStorage.getItem('prospecta_portada');
             const savedAvatar = localStorage.getItem('prospecta_avatar');
 
             if (savedPortada) {
-                const target = document.getElementById('bg_portada');
-                if(target) target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
+                const covers = document.querySelectorAll('.portada-sync');
+                covers.forEach(target => {
+                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
+                });
                 ajustarAlturaPortada(savedPortada);
             } else {
-                // Foto por defecto
                 ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
             }
 
             if (savedAvatar) {
-                const avatarImg = document.getElementById('img_avatar');
-                if(avatarImg) avatarImg.src = savedAvatar;
+                const avatars = document.querySelectorAll('.avatar-sync');
+                avatars.forEach(img => {
+                    img.src = savedAvatar;
+                });
             }
         });
 
         // --- Actualizar Reloj de Tarjeta Digital ---
         function setDateTime() {
             const now = new Date();
-            const fechaEl = document.getElementById('display_fecha');
-            const horaEl = document.getElementById('display_hora');
-            if(fechaEl) fechaEl.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'});
-            if(horaEl) horaEl.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'});
+            const fechaEls = document.querySelectorAll('#display_fecha');
+            const horaEls = document.querySelectorAll('#display_hora');
+            fechaEls.forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
+            horaEls.forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
         }
         setInterval(setDateTime, 60000); 
         setDateTime(); 
