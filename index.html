@@ -15,10 +15,10 @@
                             dark: '#1e1e2f',       // Fondo principal (Oscuro Prospecta)
                             panel: '#2A2A42',      // Paneles y tarjetas (Prospecta)
                             primary: '#3E3E61',    // Color principal Prospecta (Cabeceras)
-                            accentText: '#A3A1CA', // Texto secundario suave Prospecta
-                            gold: '#D4AF37',       // Premium Metallic Gold (Elegante, no chillón)
+                            accentText: '#FFFFFF', // Todo a blanco puro como solicitaste
+                            gold: '#FFFFFF',       // Sustituido conceptualmente a blanco
                             success: '#4CAF50',    // Emerald / Verde Prospecta
-                            accent: '#38bdf8',     // Cyan (solo como fallback)
+                            accent: '#FFFFFF',     // Sustituido conceptualmente a blanco
                             cardPrimary: '#3E3E61' 
                         }
                     },
@@ -40,7 +40,11 @@
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e1e2f; }
         ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #A3A1CA; }
+        ::-webkit-scrollbar-thumb:hover { background: #ffffff; }
+
+        /* No Scrollbar for the footer carousel */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
            ESTILOS DE LA CABECERA (PROSPECTA LOGO)
@@ -57,7 +61,7 @@
             0%, 100% { transform: translateX(-50%) scale(0.8) rotate(0deg); opacity: 0.7; }
             50% { transform: translateX(-50%) scale(1.3) rotate(20deg); opacity: 1; filter: drop-shadow(0 0 12px #fff); }
         }
-        .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: rgba(255,255,255,0.8); }
+        .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: #FFFFFF; }
 
         /* =========================================
            ESTILOS DE LA NUEVA PORTADA ANIMADA (SLIDE 1)
@@ -83,7 +87,7 @@
             padding: 8px 14px;
             border-radius: 12px;
             border-bottom-left-radius: 2px;
-            border: 1px solid #A3A1CA;
+            border: 1px solid #FFFFFF;
             white-space: nowrap;
             pointer-events: none;
             z-index: 10;
@@ -107,7 +111,7 @@
            ESTILOS DE LA TARJETA DE PERFIL
            ========================================= */
         .hamburger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 5px; }
-        .hamburger-btn span { display: block; width: 22px; height: 3px; background-color: #A3A1CA; border-radius: 2px; }
+        .hamburger-btn span { display: block; width: 22px; height: 3px; background-color: #FFFFFF; border-radius: 2px; }
 
         .profile-card {
             width: 100%;
@@ -128,7 +132,7 @@
         
         .cover-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 120px;
-            background-color: #A3A1CA;
+            background-color: #3E3E61;
             background-size: cover; background-position: center; z-index: 0;
             transition: height 0.3s ease, background-image 0.3s ease;
         }
@@ -210,17 +214,17 @@
 
         <!-- Contenedor Derecho (Botón Pantalla Completa + Guión) -->
         <div class="flex items-center justify-end w-1/4 z-10 gap-2 md:gap-4">
-            <button onclick="toggleFullScreen()" class="text-slate-200 hover:text-white transition-colors flex items-center justify-center w-8 h-8 rounded-full bg-[#2A2A42] shadow border border-[#A3A1CA]" title="Pantalla Completa">
+            <button onclick="toggleFullScreen()" class="text-white hover:text-slate-300 transition-colors flex items-center justify-center w-8 h-8 rounded-full bg-[#2A2A42] shadow border border-white" title="Pantalla Completa">
                 <i class="fas fa-expand"></i>
             </button>
-            <button onclick="toggleNotes()" class="text-slate-200 hover:text-white transition-colors flex items-center gap-2 text-sm border border-[#A3A1CA] px-3 md:px-4 py-1.5 rounded-full bg-[#2A2A42] shadow">
+            <button onclick="toggleNotes()" class="text-white hover:text-slate-300 transition-colors flex items-center gap-2 text-sm border border-white px-3 md:px-4 py-1.5 rounded-full bg-[#2A2A42] shadow">
                 <i class="far fa-comment-alt"></i> <span class="hidden sm:inline font-semibold">Mi Guión</span>
             </button>
         </div>
         
         <!-- Progress Bar Background -->
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
-            <div id="progress-bar" class="bg-[#A3A1CA] h-full transition-all duration-300" style="width: 10%"></div>
+            <div id="progress-bar" class="bg-white h-full transition-all duration-300" style="width: 10%"></div>
         </div>
     </header>
 
@@ -231,79 +235,87 @@
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 py-4 md:px-8 md:py-6 lg:p-12 transition-all duration-300 overflow-y-auto">
             
             <!-- SLIDE 1: NUEVA PORTADA (GANCHO VISUAL ANIMADO) -->
-            <div class="slide active flex-col items-center justify-center w-full max-w-xl mx-auto my-auto relative z-10 bg-pattern-dark p-6 rounded-3xl border border-brand-panel shadow-2xl" data-slide="1">
+            <!-- Centrado perfecto usando h-full, justify-center y una distribución en gaps -->
+            <div class="slide active flex-col items-center justify-center w-full max-w-xl mx-auto h-full relative z-10 bg-pattern-dark p-6 rounded-3xl border border-brand-panel shadow-2xl" data-slide="1">
                 
-                <!-- Subtítulo Superior -->
-                <span class="text-[12px] font-black tracking-widest text-[#A3A1CA] uppercase mb-4 block text-center">
-                    PARA PROFESIONALES Y DUEÑOS DE NEGOCIO
-                </span>
+                <div class="flex flex-col items-center justify-center flex-1 w-full gap-6">
+                    
+                    <div class="text-center w-full">
+                        <!-- Subtítulo Superior: Todo blanco -->
+                        <span class="text-[12px] font-black tracking-widest text-white uppercase mb-3 block text-center drop-shadow-md">
+                            PARA PROFESIONALES Y DUEÑOS DE NEGOCIO
+                        </span>
+                        
+                        <!-- Título Principal: Todo blanco -->
+                        <h1 class="text-[32px] md:text-[42px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg">
+                            Crea tu Tarjeta de Presentación Digital
+                            <span class="block normal-case text-white text-[20px] md:text-[26px] mt-2 leading-tight drop-shadow-md">
+                                (y descubre por qué te dejan en "visto").
+                            </span>
+                        </h1>
+                    </div>
+                    
+                    <!-- Descripción Secundaria Justificada: Todo blanco -->
+                    <h2 class="text-[16px] md:text-[18px] font-extrabold text-white leading-snug text-justify w-full px-2">
+                        En los próximos 3 minutos vamos a configurar tu perfil de autoridad y revelaremos el error invisible en tu comunicación que hoy espanta a tus clientes.
+                    </h2>
 
-                <!-- Título Principal -->
-                <h1 class="text-[32px] md:text-[42px] font-black text-white leading-[1.05] mb-2 uppercase tracking-tight text-center">
-                    Crea tu Tarjeta de Presentación Digital
-                    <span class="block normal-case text-brand-gold text-[20px] md:text-[26px] mt-2 leading-tight">
-                        (y descubre por qué te dejan en "visto").
-                    </span>
-                </h1>
-                
-                <!-- Descripción Secundaria Justificada -->
-                <h2 class="text-[16px] md:text-[18px] font-extrabold text-slate-300 mt-6 mb-8 leading-snug text-justify">
-                    En los próximos 3 minutos vamos a configurar tu perfil de autoridad y revelaremos el error invisible en tu comunicación que hoy espanta a tus clientes.
-                </h2>
-
-                <div class="relative w-full flex justify-center mb-8">
-                    <div class="bg-brand-panel rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-brand-primary p-3 flex items-center w-full relative">
-                        <!-- Icono Bot - Blanco Elegante -->
-                        <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
-                            <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <circle cx="50" cy="12" r="5" fill="#FFFFFF"/>
-                                <rect x="22" y="34" width="56" height="38" rx="10" fill="transparent" stroke="#FFFFFF" stroke-width="4"/>
-                                <line x1="22" y1="53" x2="12" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <line x1="78" y1="53" x2="88" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <rect x="34" y="44" width="32" height="10" rx="5" fill="#FFFFFF"/>
-                                <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
-                            </svg>
-                            <!-- Estrellas en tono suave -->
-                            <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-[#A3A1CA] animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                            <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-[#A3A1CA] animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                            <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-[#A3A1CA] animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                        </div>
-                        <!-- Burbujas Animadas -->
-                        <div class="relative flex-1 h-14 ml-4 pointer-events-none">
-                            <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
-                                <!-- Puntos Blancos -->
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.2s;"></div>
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.4s;"></div>
+                    <!-- Animación Chatbot centrado visualmente -->
+                    <div class="relative w-full flex justify-center">
+                        <div class="bg-brand-panel rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-white p-3 flex items-center w-full relative">
+                            <!-- Icono Bot - Blanco Elegante -->
+                            <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
+                                <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
+                                    <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+                                    <circle cx="50" cy="12" r="5" fill="#FFFFFF"/>
+                                    <rect x="22" y="34" width="56" height="38" rx="10" fill="transparent" stroke="#FFFFFF" stroke-width="4"/>
+                                    <line x1="22" y1="53" x2="12" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+                                    <line x1="78" y1="53" x2="88" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+                                    <rect x="34" y="44" width="32" height="10" rx="5" fill="#FFFFFF"/>
+                                    <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                </svg>
+                                <!-- Estrellas en blanco -->
+                                <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-white animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+                                <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+                                <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                             </div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 0s;">"Me dejan en visto..."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 2s;">"Solo me piden 'info'."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 4s;">"Puros curiosos, nadie compra."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 6s;">"Me dicen 'está muy caro'."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 8s;">"Pierdo horas en WhatsApp."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 10s;">"Siento que ruego por ventas."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 12s;">"Me leen y desaparecen."</div>
+                            <!-- Burbujas Animadas -->
+                            <div class="relative flex-1 h-14 ml-4 pointer-events-none">
+                                <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
+                                    <!-- Puntos Blancos -->
+                                    <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
+                                    <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.2s;"></div>
+                                    <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.4s;"></div>
+                                </div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 0s;">"Me dejan en visto..."</div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 2s;">"Solo me piden 'info'."</div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 4s;">"Puros curiosos, nadie compra."</div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 6s;">"Me dicen 'está muy caro'."</div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 8s;">"Pierdo horas en WhatsApp."</div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 10s;">"Siento que ruego por ventas."</div>
+                                <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 12s;">"Me leen y desaparecen."</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Cuadro de texto Justificado -->
-                <div class="bg-[#2A2A42] rounded-2xl p-6 mb-6 shadow-sm border border-[#3E3E61]">
-                    <p class="text-[15px] md:text-[16px] font-bold text-slate-200 leading-relaxed text-justify">
-                        "Construye una fachada de autoridad que genere confianza inmediata. Deja de perder grandes ventas ante competidores que simplemente se ven más profesionales que tú."
-                    </p>
-                </div>
-                
-                <div class="flex-1 w-full flex flex-col items-center">
-                    <!-- Botón Principal -->
-                    <button onclick="nextSlide()" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl shadow-white/10 hover:bg-slate-200 transition-all active:scale-95 transform flex items-center justify-center gap-3 border-b-4 border-slate-300 mt-2 uppercase">
-                        <i class="fas fa-id-card text-lg"></i> INICIAR EL DISEÑO DE MI TARJETA
-                    </button>
-                    <!-- Texto de soporte abajo -->
-                    <div class="text-[#A3A1CA] text-[11px] md:text-xs mt-3 font-bold uppercase tracking-wider">
-                        Toma menos de 3 minutos
+                    
+                    <!-- Cuadro de texto Justificado: Todo blanco -->
+                    <div class="bg-[#2A2A42] rounded-2xl p-6 shadow-sm border border-white w-full">
+                        <p class="text-[15px] md:text-[16px] font-bold text-white leading-relaxed text-justify">
+                            "Construye una fachada de autoridad que genere confianza inmediata. Deja de perder grandes ventas ante competidores que simplemente se ven más profesionales que tú."
+                        </p>
                     </div>
+                    
+                    <div class="flex-1 w-full flex flex-col items-center">
+                        <!-- Botón Principal -->
+                        <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl shadow-white/10 hover:bg-slate-200 transition-all active:scale-95 transform flex items-center justify-center gap-3 border-b-4 border-slate-300 uppercase">
+                            <i class="fas fa-id-card text-lg"></i> INICIAR EL DISEÑO DE MI TARJETA
+                        </button>
+                        <!-- Texto de soporte abajo: Todo blanco -->
+                        <div class="text-white text-[11px] md:text-xs mt-3 font-bold uppercase tracking-wider">
+                            Toma menos de 3 minutos
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -329,7 +341,7 @@
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
                     
-                    <!-- Verified Strategy Badge (Icono Azul Corporativo) -->
+                    <!-- Verified Strategy Badge -->
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
@@ -390,81 +402,81 @@
 
             <!-- SLIDE 3: Sondeo -->
             <div class="slide flex-col w-full max-w-4xl my-auto" data-slide="3">
-                <h2 class="text-brand-gold text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-12">Análisis de Situación Actual</h1>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
                 
                 <div class="grid md:grid-cols-2 gap-8 w-full">
-                    <div class="bg-brand-panel p-8 rounded-xl border border-brand-primary shadow-xl relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-brand-gold"></div>
-                        <i class="fas fa-heart-crack text-3xl text-[#A3A1CA] mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2">El Dolor del Cliente</h3>
-                        <p class="text-brand-accentText">¿Qué es lo que más les duele antes de contratarte? ¿Por qué te buscan?</p>
+                    <div class="bg-brand-panel p-8 rounded-xl border border-white shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-white"></div>
+                        <i class="fas fa-heart-crack text-3xl text-white mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2 text-white">El Dolor del Cliente</h3>
+                        <p class="text-white">¿Qué es lo que más les duele antes de contratarte? ¿Por qué te buscan?</p>
                     </div>
-                    <div class="bg-brand-panel p-8 rounded-xl border border-brand-primary shadow-xl relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-[#A3A1CA]"></div>
-                        <i class="fas fa-bullseye text-3xl text-[#A3A1CA] mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2">El Perfil Ideal</h3>
-                        <p class="text-brand-accentText">¿Quién es tu cliente ideal hoy? ¿En qué sector te enfocas?</p>
+                    <div class="bg-brand-panel p-8 rounded-xl border border-white shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-white"></div>
+                        <i class="fas fa-bullseye text-3xl text-white mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2 text-white">El Perfil Ideal</h3>
+                        <p class="text-white">¿Quién es tu cliente ideal hoy? ¿En qué sector te enfocas?</p>
                     </div>
                 </div>
             </div>
 
             <!-- SLIDE 4: Reseñas / Auditoría -->
             <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="4">
-                <h2 class="text-brand-gold text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-8">Tú vs. La Competencia</h1>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
                 <div class="flex flex-col md:flex-row gap-6 w-full items-stretch">
                     <div class="flex-1 bg-brand-primary/20 p-8 rounded-xl border border-brand-primary/50">
                         <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-building text-brand-accentText text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-brand-accentText">Tus Competidores</h3>
+                            <i class="fas fa-building text-white text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-white">Tus Competidores</h3>
                         </div>
                         <ul class="space-y-4">
-                            <li class="flex items-start gap-3"><i class="fas fa-check text-brand-accentText mt-1"></i> <span class="text-slate-300">Servicio inferior al tuyo</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-check text-brand-accentText mt-1"></i> <span class="text-slate-300">Producto estándar</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-star text-brand-gold mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Servicio inferior al tuyo</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Producto estándar</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
                         </ul>
                     </div>
 
                     <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0">
-                        <div class="bg-brand-panel rounded-full p-4 border-4 border-brand-dark font-bold text-xl text-brand-accentText">VS</div>
+                        <div class="bg-brand-panel rounded-full p-4 border-4 border-white font-bold text-xl text-white">VS</div>
                     </div>
 
-                    <div class="flex-1 bg-brand-success/10 p-8 rounded-xl border border-brand-success/30">
+                    <div class="flex-1 bg-brand-primary/50 p-8 rounded-xl border border-white">
                         <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-crown text-brand-success text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-brand-success">Tu Negocio</h3>
+                            <i class="fas fa-crown text-white text-2xl"></i>
+                            <h3 class="text-2xl font-bold text-white">Tu Negocio</h3>
                         </div>
                         <ul class="space-y-4">
-                            <li class="flex items-start gap-3"><i class="fas fa-star text-brand-gold mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-star text-brand-gold mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-times text-[#A3A1CA] mt-1"></i> <span class="text-slate-300 border-b border-[#A3A1CA]/50">Silencio digital (Catálogo vacío)</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-times text-white mt-1"></i> <span class="text-white border-b border-white">Silencio digital (Catálogo vacío)</span></li>
                         </ul>
                     </div>
                 </div>
-                <div class="mt-8 text-center text-xl text-brand-accentText italic">
+                <div class="mt-8 text-center text-xl text-white italic">
                     "Pierdes ventas porque la competencia es más fácil de entender."
                 </div>
             </div>
 
             <!-- SLIDE 5: El Reto -->
             <div class="slide flex-col text-center w-full max-w-4xl my-auto" data-slide="5">
-                <div class="inline-block p-6 rounded-full bg-brand-panel text-brand-gold mb-6 mx-auto border border-brand-gold/20 shadow-[0_0_30px_rgba(251,191,36,0.1)]">
+                <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
                     <i class="fas fa-stopwatch fa-4x"></i>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6">La Prueba del Caos</h1>
-                <p class="text-2xl text-brand-accentText mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">La Prueba del Caos</h1>
+                <p class="text-2xl text-white mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
                 
-                <div class="bg-brand-panel p-8 rounded-2xl border border-brand-primary max-w-2xl mx-auto w-full">
+                <div class="bg-brand-panel p-8 rounded-2xl border border-white max-w-2xl mx-auto w-full">
                     <h3 class="text-xl font-semibold mb-6 text-white">¿Qué sucede en tu proceso actual?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-brand-primary/50 text-slate-300">
-                            <i class="fas fa-times-circle text-brand-accentText text-xl"></i>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
+                            <i class="fas fa-times-circle text-white text-xl"></i>
                             <span>"Te lo mando al rato"</span>
                         </div>
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-brand-primary/50 text-slate-300">
-                            <i class="fas fa-times-circle text-brand-accentText text-xl"></i>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
+                            <i class="fas fa-times-circle text-white text-xl"></i>
                             <span>Copiar y pegar precios</span>
                         </div>
                     </div>
@@ -473,46 +485,46 @@
 
             <!-- SLIDE 6: Seguimiento -->
             <div class="slide flex-col w-full max-w-4xl text-center my-auto" data-slide="6">
-                <i class="fas fa-ghost text-6xl text-brand-primary mb-8"></i>
-                <h1 class="text-4xl md:text-5xl font-bold mb-6">El Silencio del Prospecto</h1>
-                <p class="text-2xl text-brand-accentText mb-8 max-w-2xl mx-auto">
+                <i class="fas fa-ghost text-6xl text-white mb-8"></i>
+                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
+                <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
                     "Sí lo quiero... luego te aviso."
                 </p>
                 
-                <div class="bg-brand-panel p-8 rounded-xl border border-brand-gold/30 text-left max-w-3xl mx-auto w-full relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-brand-gold"></div>
-                    <p class="text-xl md:text-2xl font-light leading-relaxed text-slate-200">
+                <div class="bg-brand-panel p-8 rounded-xl border border-white text-left max-w-3xl mx-auto w-full relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-2 h-full bg-white"></div>
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-white">
                         En los negocios, la venta <span class="font-bold text-white">no se pierde</span>...<br>
-                        tú te rindes porque te quedas <span class="text-brand-gold font-semibold">sin material estratégico</span> que enviar.
+                        tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.
                     </p>
                 </div>
             </div>
 
             <!-- SLIDE 7: Los 3 Asesinos -->
             <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="7">
-                <h2 class="text-brand-gold text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
-                <h1 class="text-4xl font-bold mb-10">Los 3 Asesinos de Ventas</h1>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
+                <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
                 
                 <div class="grid md:grid-cols-3 gap-6 w-full">
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-brand-primary shadow-lg">
-                        <div class="text-4xl font-black text-brand-primary mb-4">01</div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
+                        <div class="text-4xl font-black text-white mb-4">01</div>
                         <h3 class="text-xl font-bold mb-3 text-white">Improvisación</h3>
-                        <p class="text-brand-accentText text-sm">Presentaciones no estructuradas, falta de guion de ventas diseñado para cerrar.</p>
+                        <p class="text-white text-sm">Presentaciones no estructuradas, falta de guion de ventas diseñado para cerrar.</p>
                     </div>
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-[#A3A1CA] shadow-lg">
-                        <div class="text-4xl font-black text-brand-primary mb-4">02</div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
+                        <div class="text-4xl font-black text-white mb-4">02</div>
                         <h3 class="text-xl font-bold mb-3 text-white">Caos de Contenido</h3>
-                        <p class="text-brand-accentText text-sm">Catálogo vacío, obligando al cliente a hacer el esfuerzo mental de entenderte.</p>
+                        <p class="text-white text-sm">Catálogo vacío, obligando al cliente a hacer el esfuerzo mental de entenderte.</p>
                     </div>
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-brand-gold shadow-lg">
-                        <div class="text-4xl font-black text-brand-primary mb-4">03</div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
+                        <div class="text-4xl font-black text-white mb-4">03</div>
                         <h3 class="text-xl font-bold mb-3 text-white">Rendición Prematura</h3>
-                        <p class="text-brand-accentText text-sm">Abandonar ventas por miedo a molestar, por no saber qué más aportar en el seguimiento.</p>
+                        <p class="text-white text-sm">Abandonar ventas por miedo a molestar, por no saber qué más aportar en el seguimiento.</p>
                     </div>
                 </div>
 
                 <div class="mt-12 text-center">
-                    <button class="bg-brand-gold text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-white transition-colors shadow-lg shadow-brand-gold/20">
+                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
                         ¿Diseñamos la Solución?
                     </button>
                 </div>
@@ -520,34 +532,34 @@
 
             <!-- SLIDE 8: Solución 1 -->
             <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="8">
-                <h2 class="text-brand-success text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-8">El Escaparate Digital</h1>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
                 
                 <div class="flex flex-col md:flex-row gap-8 items-center">
                     <div class="flex-1">
-                        <p class="text-xl text-slate-200 mb-6 leading-relaxed">
+                        <p class="text-xl text-white mb-6 leading-relaxed">
                             Configuramos tu WhatsApp Business para proyectar autoridad inmediata desde el segundo uno. La tienda armada para que no improvises.
                         </p>
-                        <ul class="space-y-4 text-brand-accentText">
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-success"></i> Optimización de imagen con IA</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-success"></i> Redacción de 4 portadas con psicología de ventas</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-brand-success"></i> Respuestas rápidas automáticas configuradas</li>
-                            <li class="flex items-center gap-3 text-brand-gold mt-4 pt-4 border-t border-brand-primary"><i class="fas fa-gift"></i> Bono: Bóveda de Entrenamiento en Micro-tareas</li>
+                        <ul class="space-y-4 text-white">
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Optimización de imagen con IA</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Redacción de 4 portadas con psicología de ventas</li>
+                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Respuestas rápidas automáticas configuradas</li>
+                            <li class="flex items-center gap-3 text-white mt-4 pt-4 border-t border-white"><i class="fas fa-gift"></i> Bono: Bóveda de Entrenamiento en Micro-tareas</li>
                         </ul>
                     </div>
                     <div class="flex-1 w-full relative">
-                        <div class="bg-brand-panel rounded-3xl p-4 border-8 border-brand-primary shadow-2xl mx-auto w-64 h-96 relative flex flex-col">
+                        <div class="bg-brand-panel rounded-3xl p-4 border-8 border-white shadow-2xl mx-auto w-64 h-96 relative flex flex-col">
                             <div class="w-20 h-4 bg-brand-dark rounded-b-xl mx-auto absolute top-0 left-0 right-0"></div>
-                            <div class="mt-8 flex gap-3 items-center border-b border-brand-primary pb-4">
-                                <div class="w-12 h-12 bg-[#3E3E61] rounded-full"></div>
+                            <div class="mt-8 flex gap-3 items-center border-b border-white pb-4">
+                                <div class="w-12 h-12 bg-[#3E3E61] rounded-full border border-white"></div>
                                 <div>
-                                    <div class="h-4 w-24 bg-[#3E3E61] rounded mb-2"></div>
-                                    <div class="h-2 w-16 bg-[#A3A1CA] rounded"></div>
+                                    <div class="h-4 w-24 bg-white rounded mb-2"></div>
+                                    <div class="h-2 w-16 bg-white opacity-70 rounded"></div>
                                 </div>
                             </div>
                             <div class="mt-4 space-y-3">
-                                <div class="h-20 w-full bg-brand-success/10 rounded-lg border border-brand-success/30 flex items-center justify-center text-brand-success text-xs font-bold">Catálogo Optimizado</div>
-                                <div class="h-20 w-full bg-brand-gold/10 rounded-lg border border-brand-gold/30 flex items-center justify-center text-brand-gold text-xs font-bold">Copywriting Persuasivo</div>
+                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Catálogo Optimizado</div>
+                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Copywriting Persuasivo</div>
                             </div>
                         </div>
                     </div>
@@ -556,28 +568,28 @@
 
             <!-- SLIDE 9: Solución 2 -->
             <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="9">
-                <h2 class="text-brand-success text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-8">Acelerador Magnético</h1>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
                 
-                <div class="bg-brand-panel p-8 rounded-2xl border border-brand-primary shadow-xl mb-8">
+                <div class="bg-brand-panel p-8 rounded-2xl border border-white shadow-xl mb-8">
                     <div class="flex flex-col md:flex-row items-start gap-6">
-                        <div class="p-4 bg-brand-gold/10 rounded-xl shrink-0 border border-brand-gold/20">
-                            <i class="fas fa-filter text-4xl text-brand-gold"></i>
+                        <div class="p-4 bg-brand-primary rounded-xl shrink-0 border border-white">
+                            <i class="fas fa-filter text-4xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold mb-2">Filtro Interactivo 24/7</h3>
-                            <p class="text-brand-accentText leading-relaxed mb-4">
+                            <h3 class="text-2xl font-bold mb-2 text-white">Filtro Interactivo 24/7</h3>
+                            <p class="text-white leading-relaxed mb-4">
                                 Reemplazamos los aburridos PDFs por una herramienta interactiva. Tu prospecto responde preguntas, recibe una victoria rápida y el sistema lo califica.
                             </p>
                             <div class="flex flex-wrap gap-3">
-                                <span class="px-3 py-1 bg-brand-dark text-brand-accentText text-xs rounded-full border border-brand-primary">Cero costos técnicos</span>
-                                <span class="px-3 py-1 bg-brand-dark text-brand-accentText text-xs rounded-full border border-brand-primary">Sin servidores</span>
-                                <span class="px-3 py-1 bg-brand-dark text-brand-accentText text-xs rounded-full border border-brand-primary">Link para IG/TikTok/WA</span>
+                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Cero costos técnicos</span>
+                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Sin servidores</span>
+                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Link para IG/TikTok/WA</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="text-center text-brand-accentText italic">
+                <div class="text-center text-white italic">
                     "Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados."
                 </div>
             </div>
@@ -586,25 +598,25 @@
             <div class="slide flex-col w-full max-w-5xl my-auto" data-slide="10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Entregable 3 -->
-                    <div class="bg-gradient-to-br from-brand-panel to-brand-dark p-8 rounded-2xl border border-brand-primary">
-                        <h2 class="text-brand-success text-sm font-bold tracking-widest uppercase mb-2">Entregable #3</h2>
-                        <h3 class="text-2xl font-bold mb-4">2 Licencias de Prospecta</h3>
-                        <p class="text-brand-accentText mb-6">
+                    <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
+                        <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">Entregable #3</h2>
+                        <h3 class="text-2xl font-bold mb-4 text-white">2 Licencias de Prospecta</h3>
+                        <p class="text-white mb-6">
                             La bóveda exclusiva para profesionales. Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic.
                         </p>
-                        <i class="fas fa-mobile-alt text-5xl text-[#3E3E61]"></i>
+                        <i class="fas fa-mobile-alt text-5xl text-white"></i>
                     </div>
 
                     <!-- Blueprint Maestro -->
-                    <div class="bg-gradient-to-br from-brand-gold/10 to-brand-panel p-8 rounded-2xl border border-brand-gold/30 shadow-[0_0_30px_rgba(251,191,36,0.1)]">
-                        <h2 class="text-brand-gold text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
+                    <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white shadow-xl">
+                        <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
                         <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
-                        <ul class="space-y-3 mb-6 text-brand-accentText">
-                            <li><i class="fas fa-caret-right text-brand-gold"></i> Sondeo Profundo</li>
-                            <li><i class="fas fa-caret-right text-brand-gold"></i> Argumentación de Transformación</li>
-                            <li><i class="fas fa-caret-right text-brand-gold"></i> Cierre Inteligente</li>
+                        <ul class="space-y-3 mb-6 text-white">
+                            <li><i class="fas fa-caret-right text-white"></i> Sondeo Profundo</li>
+                            <li><i class="fas fa-caret-right text-white"></i> Argumentación de Transformación</li>
+                            <li><i class="fas fa-caret-right text-white"></i> Cierre Inteligente</li>
                         </ul>
-                        <p class="text-sm font-bold text-white bg-brand-dark/50 p-3 rounded-lg border border-brand-primary">
+                        <p class="text-sm font-bold text-brand-dark bg-white p-3 rounded-lg border border-white">
                             "Dejarás de improvisar y tendrás el control total."
                         </p>
                     </div>
@@ -614,38 +626,42 @@
         </div>
 
         <!-- Presenter Notes Sidebar -->
-        <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-brand-primary flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
-            <div class="p-4 bg-[#3E3E61] border-b border-[#2A2A42] flex justify-between items-center shrink-0">
-                <h2 class="font-bold text-brand-gold flex items-center gap-2">
+        <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
+            <div class="p-4 bg-[#3E3E61] border-b border-white flex justify-between items-center shrink-0">
+                <h2 class="font-bold text-white flex items-center gap-2">
                     <i class="fas fa-user-tie"></i> Tu Guión (No visible)
                 </h2>
-                <button onclick="toggleNotes()" class="text-[#A3A1CA] hover:text-white transition">
+                <button onclick="toggleNotes()" class="text-white hover:text-slate-300 transition">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
             
-            <div class="flex-1 overflow-y-auto p-6 text-slate-200 text-sm leading-relaxed" id="script-content">
+            <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed" id="script-content">
                 <!-- Text injected via JS based on current slide -->
             </div>
             
             <!-- Controls inside notes -->
-            <div class="p-4 bg-brand-panel border-t border-brand-primary flex justify-between shrink-0">
-                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-brand-primary rounded text-[#A3A1CA] hover:text-white transition">Anterior</button>
-                <button onclick="nextSlide()" class="px-4 py-2 bg-brand-gold hover:bg-[#E5C07B] text-brand-dark font-bold rounded transition shadow-md">Siguiente</button>
+            <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0">
+                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition">Anterior</button>
+                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200">Siguiente</button>
             </div>
         </div>
 
     </main>
 
-    <!-- Bottom Navigation (Client View) -->
-    <footer class="h-16 bg-brand-panel border-t border-brand-primary flex justify-center items-center px-6 shrink-0 z-20">
-        <div class="flex gap-4">
-            <button onclick="prevSlide()" class="w-10 h-10 rounded-full border border-[#A3A1CA] flex items-center justify-center text-[#A3A1CA] hover:bg-[#3E3E61] hover:text-white transition">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button onclick="nextSlide()" class="w-10 h-10 rounded-full border border-[#A3A1CA] flex items-center justify-center text-[#A3A1CA] hover:bg-[#3E3E61] hover:text-white transition">
-                <i class="fas fa-chevron-right"></i>
-            </button>
+    <!-- Bottom Navigation (Client View) - CARRUSEL DESLIZABLE -->
+    <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full">
+        <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
+            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
+            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 2: Perfil</button>
+            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 3: Sondeo</button>
+            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 4: Competencia</button>
+            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 5: El Reto</button>
+            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 6: Seguimiento</button>
+            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 7: Diagnóstico</button>
+            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 8: Solución 1</button>
+            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 9: Solución 2</button>
+            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 10: Solución 3</button>
         </div>
     </footer>
 
@@ -720,78 +736,85 @@
 
         // --- Presenter Scripts Data ---
         const scripts = {
-            1: `<p class="mb-4 text-brand-gold font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
+            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
                 <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
                 <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
                 <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
-                <p class="mb-4 text-[#A3A1CA]">👉 (Haz clic en 'Siguiente' o en el botón blanco central para avanzar a tu tarjeta de presentación).</p>`,
+                <p class="mb-4 text-white">👉 (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
 
             2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
                 <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
                 <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
             
-            3: `<p class="mb-4 text-brand-gold font-bold">SONDEO (Haz las preguntas y CALLA)</p>
-                <p class="mb-4">1. Para darme una idea cuéntame, ¿Qué es lo que les pasa a tus clientes, qué es lo que más les duele antes de contratarte? ¿Por qué te buscan? <br><span class="text-[#A3A1CA] italic">(Escuchas y Callas)</span>.</p>
+            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas y CALLA)</p>
+                <p class="mb-4">1. Para darme una idea cuéntame, ¿Qué es lo que les pasa a tus clientes, qué es lo que más les duele antes de contratarte? ¿Por qué te buscan? <br><span class="text-white italic">(Escuchas y Callas)</span>.</p>
                 <p>2. Para entender hacia dónde vamos: ¿quién es tu cliente ideal hoy? ¿en qué sector o perfil específico te estás enfocando?</p>`,
             
             4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
                 <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
-                <p class="mb-4 text-brand-gold italic">(AQUI MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
-                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-brand-primary">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
-                <p class="text-brand-success font-bold mt-2">💚 (Acción: Abre su perfil de WhatsApp).</p>
+                <p class="mb-4 text-white italic">(AQUI MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
+                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-white">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
+                <p class="text-white font-bold mt-2">💚 (Acción: Abre su perfil de WhatsApp).</p>
                 <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
             
             5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
-                <p class="mb-4 text-[#A3A1CA] italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." -> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
+                <p class="mb-4 text-white italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." -> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
                 <p class="mb-4">Entiendo lo que dices. Lo que sucede es que muchos profesionales confunden 'atender' con 'vender'. La base de toda conversión es comunicar adecuadamente el valor de tu negocio, y eso es imposible si el sistema se reduce a tratar de responder escribiendo, solo copiar y pegar precios, o el típico 'Estoy ocupado ahorita te lo mando'.</p>
-                <p class="mb-4 font-bold text-red-400">Hagamos una prueba de Caos de Contenido:</p>
-                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-brand-gold italic">(ESPERAS Y CALLAS)</span></p>
+                <p class="mb-4 font-bold text-white">Hagamos una prueba de Caos de Contenido:</p>
+                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
                 <p>"Te agradezco la honestidad... hoy la atención en el celular dura apenas 8 segundos. En el momento en que le dices 'luego te lo mando', la confianza se rompe. Si solo mandas el precio, le estás pidiendo a tu prospecto que te compare por ser el más barato. Si el cliente tiene que esforzarse para comprarte, no te compra."</p>`,
             
             6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí', pero no te dice cuándo?"</p>
-                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-brand-gold italic">(ESPERAS Y CALLAS)</span></p>
-                <p class="mb-4 text-brand-gold font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
+                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
+                <p class="mb-4 text-white font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
                 <p>"La mayoría de los profesionales abandonan la venta después del segundo mensaje por miedo a molestar, o simplemente porque no saben qué más decir fuera del típico '¿qué has pensado?'"</p>`,
             
             7: `<p class="mb-4">"Con esto, [Nombre], cerramos oficialmente la fase de diagnóstico. Hemos identificado los tres 'Asesinos de Venta' que están deteniendo tu crecimiento: la improvisación en la presentación, el caos de contenido y tu actual 'rendición prematura'."</p>
-                <p class="mb-6 italic text-sm text-brand-accentText">(Este análisis fue totalmente gratuito)</p>
-                <div class="p-4 bg-brand-dark border border-brand-gold rounded-lg mb-4 shadow-lg">
-                    <p class="font-bold text-brand-gold mb-2">LA TRANSICIÓN:</p>
+                <p class="mb-6 italic text-sm text-white">(Este análisis fue totalmente gratuito)</p>
+                <div class="p-4 bg-brand-dark border border-white rounded-lg mb-4 shadow-lg">
+                    <p class="font-bold text-white mb-2">LA TRANSICIÓN:</p>
                     <p>"Basado en lo que acabamos de descubrir sobre cómo esto te está costando clientes... ¿Te haría sentido que te muestre exactamente cómo nosotros estructuramos esto para resolverlo, o prefieres seguir intentando solucionarlo por tu cuenta de forma manual?"</p>
                 </div>
                 <p>"Para resolver tu primer gran problema, vamos a instalar tu Arquitectura de Persuasión. Mi labor aquí no es venderte un 'cursito'; es entregarte YA las palabras exactas que necesitas para que el cliente te 'jale' hacia la venta."</p>
-                <p class="mt-4 text-[#A3A1CA] italic font-bold">(Aquí haces la pausa y pasas a la demostración).</p>`,
+                <p class="mt-4 text-white italic font-bold">(Aquí haces la pausa y pasas a la demostración).</p>`,
             
-            8: `<p class="mb-4 font-bold text-brand-success">🏁 Entregable #1</p>
+            8: `<p class="mb-4 font-bold text-white">🏁 Entregable #1</p>
                 <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
                 <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
                 <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las 4 portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>
                 <p>"Básicamente, te dejamos la tienda armada. Y para que no tengas que enseñarle a tu equipo, te incluyo como bono el acceso a nuestra 'Bóveda de Entrenamiento en Micro-tareas'."</p>`,
             
-            9: `<p class="mb-4 font-bold text-brand-success">🏁 Entregable #2</p>
+            9: `<p class="mb-4 font-bold text-white">🏁 Entregable #2</p>
                 <p class="mb-4">"Mira [Nombre], el 'Nuevo Juego' en las redes ya no se trata de publicar para ver quién cae. Se trata de atraer y filtrar."</p>
                 <p class="mb-4">"Hoy nadie tiene tiempo de leer un PDF largo de 20 páginas. En lugar de un archivo aburrido, nosotros te vamos a construir tu propio Acelerador Magnético para convertir desconocidos en Clientes Ideales las 24 horas del día."</p>
                 <p class="mb-4">"Tu prospecto entra desde un enlace. Toca la pantalla, responde preguntas rápidas y el sistema le da un diagnóstico o premio (victoria rápida). Mientras siente que juega, la herramienta lo califica para ti."</p>
                 <p class="mb-4">"Lo puedes pegar en IG, TikTok o WhatsApp. Cero costos técnicos: no pagas mantenimiento, servidores ni rentas. Nosotros absorbemos la infraestructura."</p>
-                <p class="italic text-brand-accentText">"Al dominar esta tecnología interactiva, los límites no existen. Podemos construir calculadoras, tests, cotizadores... ¿Cómo ves funcionando este Filtro en tus redes hoy mismo?"</p>`,
+                <p class="italic text-white">"Al dominar esta tecnología interactiva, los límites no existen. Podemos construir calculadoras, tests, cotizadores... ¿Cómo ves funcionando este Filtro en tus redes hoy mismo?"</p>`,
             
-            10: `<p class="mb-4 font-bold text-brand-success">🏁 Entregable #3: 2 Licencias de Prospecta.</p>
+            10: `<p class="mb-4 font-bold text-white">🏁 Entregable #3: 2 Licencias de Prospecta.</p>
                 <p class="mb-6">"La Bóveda exclusiva para Profesionales: Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic."</p>
                 
-                <p class="mb-4 font-bold text-brand-gold">🏁 El Pilar / Blueprint Maestro</p>
+                <p class="mb-4 font-bold text-white">🏁 El Pilar / Blueprint Maestro</p>
                 <p class="mb-4">"Diseñamos tu paso a paso lógico específicamente para tu Producto Principal:"</p>
                 <ul class="list-disc pl-5 mb-4 text-sm space-y-2">
                     <li>Sondeo Profundo</li>
                     <li>Argumentación de Transformación</li>
                     <li>Cierre Inteligente</li>
                 </ul>
-                <p class="font-bold text-brand-gold">"Dejarás de improvisar y tendrás el control total de la conversación desde el primer segundo."</p>`
+                <p class="font-bold text-white">"Dejarás de improvisar y tendrás el control total de la conversación desde el primer segundo."</p>`
         };
 
         // --- Logic ---
         let currentSlide = 1;
         const totalSlides = 10;
         let notesVisible = false;
+
+        function goToSlide(index) {
+            if (index >= 1 && index <= totalSlides) {
+                currentSlide = index;
+                updateUI();
+            }
+        }
 
         function updateUI() {
             // Update Slides
@@ -816,6 +839,20 @@
             // Scroll presentation area to top smoothly
             const presentationArea = document.getElementById('presentation-area');
             if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Update Nav Pills in Carousel
+            for(let i = 1; i <= totalSlides; i++) {
+                const pill = document.getElementById('nav-pill-' + i);
+                if(pill) {
+                    if(i === currentSlide) {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md";
+                        // Scroll pill into view
+                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } else {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
+                    }
+                }
+            }
         }
 
         function nextSlide() {
