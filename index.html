@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
+    <!-- Meta tags PWA para blindar el modo app (Sin barras de navegador si se instala en inicio) -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -37,7 +38,7 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; overflow: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; }
         
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
@@ -206,13 +207,17 @@
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
     </style>
 </head>
-<body class="h-screen w-full flex flex-col bg-brand-dark">
+<!-- CORRECCIÓN DE CIMENTACIÓN: 'h-[100dvh]' corrige el bug móvil, y 'overflow-hidden overscroll-y-none' bloquea el arrastre de la página completa -->
+<body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
 
+    <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
+    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
     <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
     <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
 
+    <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
         
         <div class="flex items-center w-1/4 z-10">
@@ -246,11 +251,15 @@
         </div>
     </header>
 
+    <!-- Main Content Area -->
     <main class="flex-1 flex relative overflow-hidden bg-pattern-dark z-10">
         
-        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-2 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto">
+        <!-- CORRECCIÓN DE CIMENTACIÓN: Solo esta zona scrollea, previniendo que se arruine la cabecera -->
+        <!-- Se añade pt-6/pt-8 para que el texto principal respire elegantemente lejos del techo -->
+        <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-8 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
-            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 mt-2" data-slide="1">
+            <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
+            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12" data-slide="1">
                 
                 <div class="text-center w-full mb-10">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
@@ -283,6 +292,8 @@
                                 <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
                             </svg>
                             <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-white animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+                            <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+                            <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                         </div>
                         <div class="relative flex-1 h-14 ml-4 pointer-events-none">
                             <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
@@ -297,7 +308,7 @@
                     </div>
                 </div>
                 
-                <div class="w-full px-4 mb-12 flex flex-col gap-4">
+                <div class="w-full px-4 mb-10 flex flex-col gap-4">
                     <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm">
                         El internet está lleno de ruido, "gurús" y promesas falsas. Hoy los clientes tienen miedo a comprar. Si no logras comunicar tu valor y generar confianza en 3 segundos, dudarán de ti.
                     </p>
@@ -306,18 +317,19 @@
                     </p>
                 </div>
                 
-                <div class="w-full flex flex-col items-center mb-10">
+                <div class="w-full flex flex-col items-center">
                     <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
                         👉 DESCUBRIR MI ERROR AHORA
                     </button>
-                    <div class="text-white text-[10px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
+                    <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
                         ⏱️ Toma menos de 3 minutos.
                     </div>
                 </div>
 
             </div>
 
-            <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
+            <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
+            <div class="slide flex-col items-center justify-start w-full pb-16 shrink-0" data-slide="2">
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     <div class="portada-sync cover-bg" id="bg_portada">
                         <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
@@ -364,7 +376,8 @@
                 </div>
             </div>
 
-            <div class="slide flex-col w-full max-w-4xl mt-4 mb-8 shrink-0" data-slide="3">
+            <!-- SLIDE 3: Sondeo -->
+            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0" data-slide="3">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
                 <div class="grid md:grid-cols-2 gap-8 w-full">
@@ -382,8 +395,9 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="slide flex-col w-full max-w-5xl mt-4 mb-8 shrink-0" data-slide="4">
+
+            <!-- SLIDE 4: Reseñas / Auditoría -->
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 <div class="flex flex-col md:flex-row gap-6 w-full items-stretch">
@@ -391,6 +405,7 @@
                         <div class="flex items-center gap-3 mb-6"><h3 class="text-2xl font-bold text-white">Tus Competidores</h3></div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Servicio inferior al tuyo</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Producto estándar</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
                         </ul>
                     </div>
@@ -399,13 +414,15 @@
                         <div class="flex items-center gap-3 mb-6"><h3 class="text-2xl font-bold text-white">Tu Negocio</h3></div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-times text-white mt-1"></i> <span class="text-white border-b border-white">Silencio digital (Catálogo vacío)</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="slide flex-col text-center w-full max-w-4xl mt-4 mb-8 shrink-0" data-slide="5">
+            <!-- SLIDE 5: El Reto -->
+            <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg"><i class="fas fa-stopwatch fa-4x"></i></div>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">La Prueba del Caos</h1>
                 <p class="text-2xl text-white mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
@@ -417,7 +434,8 @@
                 </div>
             </div>
 
-            <div class="slide flex-col w-full max-w-4xl text-center mt-4 mb-8 shrink-0" data-slide="6">
+            <!-- SLIDE 6: Seguimiento -->
+            <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
                 <div class="bg-brand-panel p-8 rounded-xl border border-white text-left max-w-3xl mx-auto w-full relative overflow-hidden">
@@ -426,7 +444,8 @@
                 </div>
             </div>
 
-            <div class="slide flex-col w-full max-w-5xl mt-4 mb-8 shrink-0" data-slide="7">
+            <!-- SLIDE 7: Los 3 Asesinos -->
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
                 <div class="grid md:grid-cols-3 gap-6 w-full">
@@ -437,22 +456,26 @@
                 <div class="mt-12 text-center"><button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg">¿Diseñamos la Solución?</button></div>
             </div>
 
-            <div class="slide flex-col w-full max-w-5xl mt-4 mb-8 shrink-0" data-slide="8">
+            <!-- SLIDE 8: Solución 1 -->
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
                 <p class="text-xl text-white mb-6 leading-relaxed">Configuramos tu WhatsApp Business para proyectar autoridad inmediata.</p>
             </div>
 
-            <div class="slide flex-col w-full max-w-5xl mt-4 mb-8 shrink-0" data-slide="9">
+            <!-- SLIDE 9: Solución 2 -->
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="9">
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
                 <p class="text-white leading-relaxed mb-4">Reemplazamos los aburridos PDFs por una herramienta interactiva.</p>
             </div>
 
-            <div class="slide flex-col w-full max-w-5xl mt-4 mb-8 shrink-0" data-slide="10">
+            <!-- SLIDE 10: Solución 3 y Cierre -->
+            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="10">
                 <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
                 <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
             </div>
         </div>
 
+        <!-- Presenter Notes Sidebar -->
         <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
             <div class="p-4 bg-[#3E3E61] border-b border-white flex justify-between items-center shrink-0">
                 <h2 class="font-bold text-white flex items-center gap-2"><i class="fas fa-user-tie"></i> Tu Guión</h2>
@@ -466,6 +489,7 @@
         </div>
     </main>
 
+    <!-- Footer Carrusel Deslizable -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
             <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
@@ -507,7 +531,7 @@
                 document.documentElement.requestFullscreen().catch(err => console.log(err));
                 intendedFullscreen = true;
             } else {
-                document.exitFullscreen();
+                if(document.exitFullscreen) document.exitFullscreen();
                 intendedFullscreen = false;
             }
         }
@@ -566,10 +590,16 @@
         setInterval(setDateTime, 60000); setDateTime();
 
         const scripts = {
-            1: `<p>Portada de enganche de 60 segundos.</p>`,
-            2: `<p>Hola, soy Roberto Fibonacci...</p>`,
-            3: `<p>Sondeo inicial...</p>`
-            // (Resto del guión mantenido internamente)
+            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p><p><em>Deja que el prospecto lea la pantalla y vea las animaciones...</em></p>`,
+            2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong>...</p>`,
+            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas y CALLA)</p>`,
+            4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti...</p>`,
+            5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte...</p>`,
+            6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí'...</p>`,
+            7: `<p class="mb-4">"Con esto, cerramos oficialmente la fase de diagnóstico...</p>`,
+            8: `<p class="mb-4 font-bold text-white">🏁 Entregable #1</p>`,
+            9: `<p class="mb-4 font-bold text-white">🏁 Entregable #2</p>`,
+            10: `<p class="mb-4 font-bold text-white">🏁 Entregable #3: 2 Licencias de Prospecta.</p>`
         };
 
         let currentSlide = 1;
@@ -585,8 +615,8 @@
             for(let i = 1; i <= totalSlides; i++) {
                 const p = document.getElementById('nav-pill-' + i);
                 if(p) {
-                    if(i === currentSlide) { p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md"; p.scrollIntoView({ behavior: 'smooth', inline: 'center' }); }
-                    else p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]";
+                    if(i === currentSlide) { p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md"; p.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+                    else p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
                 }
             }
         }
