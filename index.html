@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- CORRECCIÓN: Viewport natural, sin 'viewport-fit=cover' para respetar la cámara (notch) del celular -->
+    <!-- Viewport seguro para no invadir la cámara (notch) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
@@ -38,12 +38,18 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; overflow: hidden; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #1e1e2f; 
+            color: white; 
+            overflow: hidden; 
+        }
         
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
         
-        /* Custom Scrollbar for notes & presentation */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e1e2f; }
         ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
@@ -53,7 +59,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
-           ESTILOS DE LA CABECERA (PROSPECTA LOGO)
+           ESTILOS DE LA CABECERA
            ========================================= */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
         .char-a-container { position: relative; display: inline-block; }
@@ -87,7 +93,7 @@
         }
 
         /* =========================================
-           ESTILOS DE LA NUEVA PORTADA ANIMADA (SLIDE 1)
+           PORTADA ANIMADA (SLIDE 1)
            ========================================= */
         .bg-pattern-dark {
             background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px);
@@ -212,15 +218,17 @@
     <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
+    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
+    <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
+    <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
+
     <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
-        
         <div class="flex items-center w-1/4 z-10">
             <button class="hamburger-btn">
                 <span></span><span></span><span></span>
             </button>
         </div>
-        
         <div class="w-2/4 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
             <div class="brand-name-menu">
                 Prospect<span class="char-a-container">a
@@ -231,7 +239,6 @@
             </div>
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
-
         <div class="flex items-center justify-end w-1/4 z-10 gap-2 md:gap-4">
             <button onclick="toggleFullScreen()" class="text-white hover:text-slate-300 transition-colors flex items-center justify-center w-8 h-8 rounded-full bg-[#2A2A42] shadow border border-white" title="Pantalla Completa">
                 <i class="fas fa-expand"></i>
@@ -240,7 +247,6 @@
                 <i class="far fa-comment-alt"></i> <span class="hidden sm:inline font-semibold">Mi Guión</span>
             </button>
         </div>
-        
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
             <div id="progress-bar" class="bg-white h-full transition-all duration-300" style="width: 10%"></div>
         </div>
@@ -258,15 +264,11 @@
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
                         PARA DUEÑOS DE NEGOCIO
                     </span>
-                    
                     <div class="h-5"></div> 
-
                     <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
                         Descubre el error en tu comunicación que destruye la confianza de tus clientes
                     </h1>
-                    
                     <div class="h-4"></div>
-
                     <span class="block normal-case text-white text-[16px] md:text-[22px] leading-tight drop-shadow-md font-bold">
                         (y te deja en "visto").
                     </span>
@@ -285,8 +287,6 @@
                                 <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
                             </svg>
                             <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-white animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                            <svg viewBox="0 0 24 24" class="absolute top-7 -left-3 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 1s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                            <svg viewBox="0 0 24 24" class="absolute -bottom-1 right-1 w-3 h-3 text-white animate-pulse" fill="currentColor" style="animation-delay: 0.5s;"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
                         </div>
                         <div class="relative flex-1 h-14 ml-4 pointer-events-none">
                             <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
@@ -318,18 +318,19 @@
                         ⏱️ Toma menos de 3 minutos.
                     </div>
                 </div>
-
             </div>
 
             <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
+                    
                     <div class="portada-sync cover-bg" id="bg_portada">
                         <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
                             <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
                             <i class="fas fa-camera"></i>
                         </label>
                     </div>
+                    
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
                             <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
@@ -339,8 +340,10 @@
                             <i class="fas fa-pencil-alt text-xs"></i>
                         </label>
                     </div>
+                    
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
+                    
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
@@ -349,6 +352,7 @@
                             Verified Strategy
                         </div>
                     </div>
+                    
                     <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
                         <div class="pill-contact"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
                         <div class="pill-contact"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
@@ -369,26 +373,43 @@
                 </div>
             </div>
 
-            <!-- SLIDES RESTANTES 3-10 -->
-            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0" data-slide="3">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
-                <div class="grid md:grid-cols-2 gap-8 w-full">
-                    <div class="bg-brand-panel p-8 rounded-xl border border-white shadow-xl relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-white"></div>
-                        <i class="fas fa-heart-crack text-3xl text-white mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2 text-white">El Dolor del Cliente</h3>
-                        <p class="text-white">¿Qué es lo que más les duele antes de contratarte? ¿Por qué te buscan?</p>
+            <!-- SLIDE 3: Sondeo (ZONA 3 ACTUALIZADA CON ACORDEONES) -->
+            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0 mt-4" data-slide="3">
+                <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center">Detectando tu error de confianza</h2>
+                <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2">Evaluación de tu Comunicación Actual</h1>
+                
+                <p class="text-[15px] md:text-[17px] font-medium text-white/90 leading-relaxed text-center mb-10 px-4 drop-shadow-sm">
+                    Responde estas dos preguntas rápidas para descubrir por qué tus prospectos dudan de ti.
+                </p>
+                
+                <div class="flex flex-col gap-5 w-full px-2">
+                    <!-- Acordeón 1 -->
+                    <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
+                        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center p-5 font-bold text-white text-[16px] md:text-[18px] text-left select-none outline-none hover:bg-white/5 transition-colors">
+                            <span>👉 Paso 1: ¿A quién estás intentando convencer?</span>
+                            <i class="fas fa-chevron-down transition-transform duration-300 transform"></i>
+                        </button>
+                        <!-- Contenido oculto -->
+                        <div class="hidden p-5 pt-0 text-white/90 text-[15px] md:text-[16px] leading-relaxed border-t border-white/10 bg-brand-dark/30">
+                            <p class="mt-4 text-justify">"En un internet lleno de ruido y falsas promesas, si intentas venderle a todo el mundo, nadie confiará en ti. ¿Quién es tu cliente ideal hoy y en qué sector específico te enfocas?"</p>
+                        </div>
                     </div>
-                    <div class="bg-brand-panel p-8 rounded-xl border border-white shadow-xl relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-1 h-full bg-white"></div>
-                        <i class="fas fa-bullseye text-3xl text-white mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2 text-white">El Perfil Ideal</h3>
-                        <p class="text-white">¿Quién es tu cliente ideal hoy? ¿En qué sector te enfocas?</p>
+
+                    <!-- Acordeón 2 -->
+                    <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
+                        <button onclick="toggleAccordion(this)" class="w-full flex justify-between items-center p-5 font-bold text-white text-[16px] md:text-[18px] text-left select-none outline-none hover:bg-white/5 transition-colors">
+                            <span>👉 Paso 2: El freno de confianza.</span>
+                            <i class="fas fa-chevron-down transition-transform duration-300 transform"></i>
+                        </button>
+                        <!-- Contenido oculto -->
+                        <div class="hidden p-5 pt-0 text-white/90 text-[15px] md:text-[16px] leading-relaxed border-t border-white/10 bg-brand-dark/30">
+                            <p class="mt-4 text-justify">"Hoy en día, la gente tiene miedo a equivocarse o a ser estafada. Tu cliente no compra por tu producto, compra para alejarse de un problema. ¿Qué es lo que más les preocupa, frustra o 'duele' a tus prospectos antes de decidirse a pagarte?"</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- SLIDE 4: Reseñas / Auditoría -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
@@ -424,6 +445,7 @@
                 </div>
             </div>
 
+            <!-- SLIDE 5: El Reto -->
             <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
                     <i class="fas fa-stopwatch fa-4x"></i>
@@ -445,6 +467,7 @@
                 </div>
             </div>
 
+            <!-- SLIDE 6: Seguimiento -->
             <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
@@ -460,6 +483,7 @@
                 </div>
             </div>
 
+            <!-- SLIDE 7: Los 3 Asesinos -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
@@ -487,6 +511,7 @@
                 </div>
             </div>
 
+            <!-- SLIDE 8: Solución 1 -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
@@ -521,6 +546,7 @@
                 </div>
             </div>
 
+            <!-- SLIDE 9: Solución 2 -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="9">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
@@ -547,6 +573,7 @@
                 </div>
             </div>
 
+            <!-- SLIDE 10: Solución 3 y Cierre -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
@@ -866,6 +893,14 @@
                 sidebar.classList.add('w-0');
                 sidebar.classList.remove('w-full', 'md:w-[400px]');
             }
+        }
+        
+        // --- FUNCIÓN PARA LOS ACORDEONES (ZONA 3 Y FUTURAS) ---
+        function toggleAccordion(btn) {
+            const content = btn.nextElementSibling;
+            const icon = btn.querySelector('.fa-chevron-down');
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
         }
 
         document.addEventListener('keydown', (e) => {
