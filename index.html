@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
-    <!-- Meta tags PWA para blindar el modo pantalla completa -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#1e1e2f">
-    
-    <!-- Manifest PWA -->
-    <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUHJvc3BlY3RhIiwic2hvcnRfbmFtZSI6IlByb3NwZWN0YSIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMWUxZTJmIiwidGhlbWVfY29sb3IiOiIjMWUxZTJmIn0=">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -42,26 +38,11 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
         
-        /* =========================================
-           PREVENCIÓN DE ZOOM Y SCROLL INDESADO
-           ========================================= */
-        html, body { 
+        body { 
             font-family: 'Inter', sans-serif; 
             background-color: #1e1e2f; 
             color: white; 
             overflow: hidden; 
-            touch-action: manipulation;
-            -webkit-text-size-adjust: 100%;
-            -webkit-tap-highlight-color: transparent;
-            height: 100%;
-            width: 100%;
-            position: fixed;
-        }
-        
-        /* Prevenir pull-to-refresh en móviles */
-        body {
-            overscroll-behavior-y: none;
-            overscroll-behavior-x: none;
         }
         
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
@@ -94,7 +75,7 @@
         .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: #FFFFFF; }
 
         /* =========================================
-           ESTRELLAS DE FONDO
+           ESTRELLAS DE FONDO (TWINKLING STARS)
            ========================================= */
         .bg-star {
             position: absolute;
@@ -229,83 +210,12 @@
         .stat-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
         .stat-label { font-size: 11px; color: #888; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
-
-        /* =========================================
-           OVERLAY PARA RESTAURAR FULLSCREEN
-           ========================================= */
-        #fullscreen-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(30, 30, 47, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            animation: fadeIn 0.3s ease;
-        }
-        #fullscreen-overlay.visible {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .restore-btn {
-            background: white;
-            color: #1e1e2f;
-            padding: 16px 32px;
-            border-radius: 16px;
-            font-weight: 800;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .restore-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* =========================================
-           PREVENIR FOCO EN INPUTS FILE
-           ========================================= */
-        input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 0;
-            height: 0;
-            pointer-events: none;
-            /* Prevenir que el input file abra el teclado */
-            inputmode: none;
-        }
-        
-        /* Wrapper para los botones de imagen */
-        .image-upload-wrapper {
-            position: relative;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
 
-    <!-- OVERLAY PARA RESTAURAR FULLSCREEN -->
-    <div id="fullscreen-overlay">
-        <svg class="w-16 h-16 text-white animate-pulse" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-        </svg>
-        <p class="text-white text-lg font-bold text-center px-8">Toca para continuar en pantalla completa</p>
-        <button class="restore-btn" onclick="restaurarFullscreen()">
-            <i class="fas fa-expand mr-2"></i> Restaurar Pantalla Completa
-        </button>
-    </div>
-
-    <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
-    <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
         <div class="flex items-center w-1/4 z-10">
             <button class="hamburger-btn">
@@ -335,12 +245,10 @@
         </div>
     </header>
 
-    <!-- Main Content Area -->
     <main class="flex-1 flex relative overflow-hidden bg-pattern-dark z-10">
         
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
-            <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 
                 <div class="text-center w-full mb-10">
@@ -408,26 +316,29 @@
 
             </div>
 
-            <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
-                <div class="profile-card" id="tarjeta_perfil">
-                    <div class="cover-bg" id="bg_portada">
-                        <!-- ✅ CORREGIDO: Wrapper con onclick para controlar el flujo -->
-                        <div class="image-upload-wrapper btn-cambiar-portada" onclick="abrirSelectorImagen('portada')" title="Cambiar Portada">
+                <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
+                    
+                    <div class="portada-sync cover-bg" id="bg_portada">
+                        <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
                             <i class="fas fa-camera"></i>
-                        </div>
+                        </label>
                     </div>
+                    
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
-                            <img id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
+                            <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
                         </div>
-                        <!-- ✅ CORREGIDO: Wrapper con onclick -->
-                        <div class="image-upload-wrapper btn-edit-avatar" onclick="abrirSelectorImagen('avatar')" title="Editar Avatar">
+                        <label class="btn-edit-avatar cursor-pointer" title="Editar Avatar">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
                             <i class="fas fa-pencil-alt text-xs"></i>
-                        </div>
+                        </label>
                     </div>
+                    
                     <div class="profile-name">Roberto Fibonacci</div>
                     <div class="profile-role">Founder Prospecta</div>
+                    
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
@@ -449,6 +360,7 @@
                         <div class="pill-contact" title="TikTok"><i class="fab fa-tiktok text-brand-primary"></i> TikTok</div>
                         <div class="pill-contact" title="YouTube"><i class="fab fa-youtube text-brand-primary"></i> YouTube</div>
                     </div>
+                    
                     <div class="stats-row">
                         <div class="stat-item"><span class="stat-label">Prospecta</span><span class="stat-value">Activo</span></div>
                         <div class="stat-item"><span class="stat-label">Fecha</span><span class="stat-value" id="display_fecha">Hoy</span></div>
@@ -457,7 +369,6 @@
                 </div>
             </div>
 
-            <!-- SLIDES 3 a 10 -->
             <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0" data-slide="3">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Fase 1: Diagnóstico</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-12 text-white">Análisis de Situación Actual</h1>
@@ -482,24 +393,16 @@
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 <div class="flex flex-col md:flex-row gap-6 w-full items-stretch">
                     <div class="flex-1 bg-brand-primary/20 p-8 rounded-xl border border-brand-primary/50">
-                        <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-building text-white text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-white">Tus Competidores</h3>
-                        </div>
+                        <div class="flex items-center gap-3 mb-6"><h3 class="text-2xl font-bold text-white">Tus Competidores</h3></div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Servicio inferior al tuyo</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Producto estándar</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
                         </ul>
                     </div>
-                    <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0">
-                        <div class="bg-brand-panel rounded-full p-4 border-4 border-white font-bold text-xl text-white">VS</div>
-                    </div>
+                    <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0"><div class="bg-brand-panel rounded-full p-4 border-4 border-white font-bold text-xl text-white">VS</div></div>
                     <div class="flex-1 bg-brand-primary/50 p-8 rounded-xl border border-white">
-                        <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-crown text-white text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-white">Tu Negocio</h3>
-                        </div>
+                        <div class="flex items-center gap-3 mb-6"><h3 class="text-2xl font-bold text-white">Tu Negocio</h3></div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
                             <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
@@ -513,22 +416,13 @@
             </div>
 
             <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
-                <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
-                    <i class="fas fa-stopwatch fa-4x"></i>
-                </div>
+                <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg"><i class="fas fa-stopwatch fa-4x"></i></div>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">La Prueba del Caos</h1>
                 <p class="text-2xl text-white mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
                 <div class="bg-brand-panel p-8 rounded-2xl border border-white max-w-2xl mx-auto w-full">
-                    <h3 class="text-xl font-semibold mb-6 text-white">¿Qué sucede en tu proceso actual?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
-                            <i class="fas fa-times-circle text-white text-xl"></i>
-                            <span>"Te lo mando al rato"</span>
-                        </div>
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
-                            <i class="fas fa-times-circle text-white text-xl"></i>
-                            <span>Copiar y pegar precios</span>
-                        </div>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white"><span>"Te lo mando al rato"</span></div>
+                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white"><span>Copiar y pegar precios</span></div>
                     </div>
                 </div>
             </div>
@@ -536,15 +430,9 @@
             <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
-                <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
-                    "Sí lo quiero... luego te aviso."
-                </p>
                 <div class="bg-brand-panel p-8 rounded-xl border border-white text-left max-w-3xl mx-auto w-full relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-2 h-full bg-white"></div>
-                    <p class="text-xl md:text-2xl font-light leading-relaxed text-white">
-                        En los negocios, la venta <span class="font-bold text-white">no se pierde</span>...<br>
-                        tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.
-                    </p>
+                    <p class="text-xl md:text-2xl font-light leading-relaxed text-white">En los negocios, la venta <span class="font-bold text-white">no se pierde</span>... tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.</p>
                 </div>
             </div>
 
@@ -552,155 +440,59 @@
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
                 <div class="grid md:grid-cols-3 gap-6 w-full">
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
-                        <div class="text-4xl font-black text-white mb-4">01</div>
-                        <h3 class="text-xl font-bold mb-3 text-white">Improvisación</h3>
-                        <p class="text-white text-sm">Presentaciones no estructuradas, falta de guion de ventas diseñado para cerrar.</p>
-                    </div>
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
-                        <div class="text-4xl font-black text-white mb-4">02</div>
-                        <h3 class="text-xl font-bold mb-3 text-white">Caos de Contenido</h3>
-                        <p class="text-white text-sm">Catálogo vacío, obligando al cliente a hacer el esfuerzo mental de entenderte.</p>
-                    </div>
-                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg">
-                        <div class="text-4xl font-black text-white mb-4">03</div>
-                        <h3 class="text-xl font-bold mb-3 text-white">Rendición Prematura</h3>
-                        <p class="text-white text-sm">Abandonar ventas por miedo a molestar, por no saber qué más aportar en el seguimiento.</p>
-                    </div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg"><h3 class="text-xl font-bold mb-3 text-white">Improvisación</h3></div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg"><h3 class="text-xl font-bold mb-3 text-white">Caos de Contenido</h3></div>
+                    <div class="bg-brand-panel p-6 rounded-xl border-t-4 border-white shadow-lg"><h3 class="text-xl font-bold mb-3 text-white">Rendición Prematura</h3></div>
                 </div>
-                <div class="mt-12 text-center">
-                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
-                        ¿Diseñamos la Solución?
-                    </button>
-                </div>
+                <div class="mt-12 text-center"><button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg">¿Diseñamos la Solución?</button></div>
             </div>
 
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
-                <div class="flex flex-col md:flex-row gap-8 items-center">
-                    <div class="flex-1">
-                        <p class="text-xl text-white mb-6 leading-relaxed">
-                            Configuramos tu WhatsApp Business para proyectar autoridad inmediata desde el segundo uno. La tienda armada para que no improvises.
-                        </p>
-                        <ul class="space-y-4 text-white">
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Optimización de imagen con IA</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Redacción de 4 portadas con psicología de ventas</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Respuestas rápidas automáticas configuradas</li>
-                            <li class="flex items-center gap-3 text-white mt-4 pt-4 border-t border-white"><i class="fas fa-gift"></i> Bono: Bóveda de Entrenamiento en Micro-tareas</li>
-                        </ul>
-                    </div>
-                    <div class="flex-1 w-full relative">
-                        <div class="bg-brand-panel rounded-3xl p-4 border-8 border-white shadow-2xl mx-auto w-64 h-96 relative flex flex-col">
-                            <div class="w-20 h-4 bg-brand-dark rounded-b-xl mx-auto absolute top-0 left-0 right-0"></div>
-                            <div class="mt-8 flex gap-3 items-center border-b border-white pb-4">
-                                <div class="w-12 h-12 bg-[#3E3E61] rounded-full border border-white"></div>
-                                <div>
-                                    <div class="h-4 w-24 bg-white rounded mb-2"></div>
-                                    <div class="h-2 w-16 bg-white opacity-70 rounded"></div>
-                                </div>
-                            </div>
-                            <div class="mt-4 space-y-3">
-                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Catálogo Optimizado</div>
-                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Copywriting Persuasivo</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p class="text-xl text-white mb-6 leading-relaxed">Configuramos tu WhatsApp Business para proyectar autoridad inmediata.</p>
             </div>
 
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="9">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
-                <div class="bg-brand-panel p-8 rounded-2xl border border-white shadow-xl mb-8">
-                    <div class="flex flex-col md:flex-row items-start gap-6">
-                        <div class="p-4 bg-brand-primary rounded-xl shrink-0 border border-white">
-                            <i class="fas fa-filter text-4xl text-white"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold mb-2 text-white">Filtro Interactivo 24/7</h3>
-                            <p class="text-white leading-relaxed mb-4">
-                                Reemplazamos los aburridos PDFs por una herramienta interactiva. Tu prospecto responde preguntas, recibe una victoria rápida y el sistema lo califica.
-                            </p>
-                            <div class="flex flex-wrap gap-3">
-                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Cero costos técnicos</span>
-                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Sin servidores</span>
-                                <span class="px-3 py-1 bg-brand-dark text-white text-xs rounded-full border border-white">Link para IG/TikTok/WA</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-center text-white italic">
-                    "Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados."
-                </div>
+                <p class="text-white leading-relaxed mb-4">Reemplazamos los aburridos PDFs por una herramienta interactiva.</p>
             </div>
 
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="10">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
-                        <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">Entregable #3</h2>
-                        <h3 class="text-2xl font-bold mb-4 text-white">2 Licencias de Prospecta</h3>
-                        <p class="text-white mb-6">
-                            La bóveda exclusiva para profesionales. Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic.
-                        </p>
-                        <i class="fas fa-mobile-alt text-5xl text-white"></i>
-                    </div>
-                    <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white shadow-xl">
-                        <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
-                        <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
-                        <ul class="space-y-3 mb-6 text-white">
-                            <li><i class="fas fa-caret-right text-white"></i> Sondeo Profundo</li>
-                            <li><i class="fas fa-caret-right text-white"></i> Argumentación de Transformación</li>
-                            <li><i class="fas fa-caret-right text-white"></i> Cierre Inteligente</li>
-                        </ul>
-                        <p class="text-sm font-bold text-brand-dark bg-white p-3 rounded-lg border border-white">
-                            "Dejarás de improvisar y tendrás el control total."
-                        </p>
-                    </div>
-                </div>
+                <h2 class="text-white text-sm font-bold tracking-widest uppercase mb-2">El Pilar Central</h2>
+                <h3 class="text-2xl font-bold mb-4 text-white">Blueprint Maestro de Cierre</h3>
             </div>
-
         </div>
 
-        <!-- Presenter Notes Sidebar -->
         <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
             <div class="p-4 bg-[#3E3E61] border-b border-white flex justify-between items-center shrink-0">
-                <h2 class="font-bold text-white flex items-center gap-2">
-                    <i class="fas fa-user-tie"></i> Tu Guión (No visible)
-                </h2>
-                <button onclick="toggleNotes()" class="text-white hover:text-slate-300 transition">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h2 class="font-bold text-white flex items-center gap-2"><i class="fas fa-user-tie"></i> Tu Guión</h2>
+                <button onclick="toggleNotes()" class="text-white hover:text-slate-300 transition"><i class="fas fa-times"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed" id="script-content"></div>
             <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0">
-                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition">Anterior</button>
-                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200">Siguiente</button>
+                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark border border-white rounded text-white transition">Anterior</button>
+                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition">Siguiente</button>
             </div>
         </div>
-
     </main>
 
-    <!-- Bottom Navigation -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
-            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
-            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 2: Perfil</button>
-            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 3: Sondeo</button>
-            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 4: Competencia</button>
-            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 5: El Reto</button>
-            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 6: Seguimiento</button>
-            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 7: Diagnóstico</button>
-            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 8: Solución 1</button>
-            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 9: Solución 2</button>
-            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 10: Solución 3</button>
+            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
+            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 2: Perfil</button>
+            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 3: Sondeo</button>
+            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 4: Competencia</button>
+            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 5: El Reto</button>
+            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 6: Seguimiento</button>
+            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 7: Diagnóstico</button>
+            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 8: Solución 1</button>
+            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 9: Solución 2</button>
+            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61]">Zona 10: Solución 3</button>
         </div>
     </footer>
 
     <script>
-        // =========================================
-        // INICIALIZACIÓN DE ESTRELLAS DE FONDO
-        // =========================================
+        // --- INICIALIZACIÓN DE ESTRELLAS DE FONDO ---
         function initBackgroundStars() {
             const container = document.getElementById('stars-container');
             if(!container) return;
@@ -719,242 +511,85 @@
             }
         }
 
-        // =========================================
-        // SISTEMA DE FULLSCREEN CORREGIDO
-        // =========================================
         let intendedFullscreen = false;
-        let fullscreenRestored = false;
-
         function toggleFullScreen() {
             if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.log("Fullscreen bloqueado:", err);
-                    intendedFullscreen = false;
-                });
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
                 intendedFullscreen = true;
-                fullscreenRestored = true;
             } else {
-                document.exitFullscreen();
+                if(document.exitFullscreen) document.exitFullscreen();
                 intendedFullscreen = false;
-                fullscreenRestored = false;
             }
         }
 
-        // ✅ SOLUCIÓN CLAVE: Overlay para restaurar fullscreen
-        function mostrarOverlayRestaurar() {
-            const overlay = document.getElementById('fullscreen-overlay');
-            if (overlay && !document.fullscreenElement && intendedFullscreen) {
-                overlay.classList.add('visible');
-            }
-        }
-
-        function ocultarOverlayRestaurar() {
-            const overlay = document.getElementById('fullscreen-overlay');
-            if (overlay) {
-                overlay.classList.remove('visible');
-            }
-        }
-
-        function restaurarFullscreen() {
-            toggleFullScreen();
-            ocultarOverlayRestaurar();
-        }
-
-        // Detectar cuando el usuario vuelve de otra app/selector
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden) {
-                // Pequeño delay para que el navegador termine de renderizar
-                setTimeout(() => {
-                    if (intendedFullscreen && !document.fullscreenElement) {
-                        mostrarOverlayRestaurar();
-                    }
-                }, 300);
-            }
-        });
-
-        // =========================================
-        // SISTEMA DE SUBIDA DE IMÁGENES CORREGIDO
-        // =========================================
-        
-        // ✅ SOLUCIÓN: Crear input dinámicamente para evitar problemas de foco
-        function abrirSelectorImagen(tipo) {
-            // Crear input temporal
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.capture = 'environment'; // Preferir cámara trasera en móviles
-            input.style.position = 'absolute';
-            input.style.opacity = '0';
-            input.style.width = '0';
-            input.style.height = '0';
-            input.style.pointerEvents = 'none';
-            
-            // Evento de cambio
-            input.onchange = function(event) {
-                if (tipo === 'portada') {
-                    actualizarImagen(event, 'bg_portada', true);
-                } else {
-                    actualizarImagen(event, 'img_avatar', false);
-                }
-                // Limpiar el input temporal
-                setTimeout(() => {
-                    if (input.parentNode) {
-                        input.parentNode.removeChild(input);
-                    }
-                }, 1000);
-            };
-            
-            // Evento de cancelación (cuando el usuario cierra el selector sin elegir)
-            input.addEventListener('cancel', () => {
-                setTimeout(() => {
-                    if (input.parentNode) {
-                        input.parentNode.removeChild(input);
-                    }
-                    // Verificar si necesitamos restaurar fullscreen
-                    if (intendedFullscreen && !document.fullscreenElement) {
-                        mostrarOverlayRestaurar();
-                    }
-                }, 100);
-            });
-            
-            document.body.appendChild(input);
-            
-            // ✅ TRUCO: Simular click sin perder el contexto de interacción
-            // Usamos un pequeño delay para que el navegador procese la adición al DOM
-            requestAnimationFrame(() => {
-                input.click();
-            });
-        }
-
-        // =========================================
-        // AJUSTE DE ALTURA DE PORTADA CORREGIDO
-        // =========================================
+        // ✅ MATEMÁTICA CONSERVADA: El ajuste inteligente para no aplastar la foto en memoria
         function ajustarAlturaPortada(src) {
             if (!src) return;
             const img = new Image();
             img.onload = function() {
                 const ratio = this.height / this.width;
-                const card = document.getElementById('tarjeta_perfil');
-                const coverEl = document.getElementById('bg_portada');
-                if (!card || !coverEl) return;
+                const cards = document.querySelectorAll('.profile-card-sync');
+                const covers = document.querySelectorAll('.portada-sync');
+                if (!cards.length || !covers.length) return;
                 
-                // ✅ CORRECCIÓN: Forzar visibilidad temporal para medir
-                const wasHidden = card.offsetParent === null;
-                let cardWidth;
-                
-                if (wasHidden) {
-                    // La tarjeta está oculta, calcular basado en viewport
-                    const presentationArea = document.getElementById('presentation-area');
-                    const availableWidth = presentationArea ? presentationArea.clientWidth - 32 : window.innerWidth - 32;
-                    cardWidth = Math.min(availableWidth, 450);
-                } else {
-                    cardWidth = card.getBoundingClientRect().width;
+                let cardWidth = cards[0].offsetWidth;
+                if (cardWidth === 0) {
+                    cardWidth = Math.min(window.innerWidth - 32, 450);
                 }
 
                 let newHeight = cardWidth * ratio;
-                newHeight = Math.max(100, Math.min(220, newHeight));
+                if (newHeight > 220) newHeight = 220; 
+                if (newHeight < 100) newHeight = 100;
                 
-                coverEl.style.height = newHeight + 'px';
-                card.style.paddingTop = (newHeight - 50) + 'px';
+                covers.forEach(c => c.style.height = newHeight + 'px');
+                cards.forEach(c => c.style.paddingTop = (newHeight - 50) + 'px');
             };
             img.src = src;
         }
 
-        function actualizarImagen(event, targetId, isBackground) {
+        function actualizarImagen(event, targetClass, isBackground) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const result = e.target.result;
-                    
-                    if (isBackground) {
-                        const target = document.getElementById('bg_portada');
-                        if (target) {
-                            target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
-                            ajustarAlturaPortada(result);
-                        }
-                        localStorage.setItem('prospecta_portada', result);
-                    } else {
-                        const target = document.getElementById(targetId);
-                        if (target) target.src = result;
-                        localStorage.setItem('prospecta_avatar', result);
-                    }
-                };
+                    const targets = document.querySelectorAll('.' + targetClass);
+                    targets.forEach(t => {
+                        if (isBackground) t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
+                        else t.src = result;
+                    });
+                    if (isBackground) { ajustarAlturaPortada(result); localStorage.setItem('prospecta_portada', result); }
+                    else localStorage.setItem('prospecta_avatar', result);
+                }
                 reader.readAsDataURL(file);
             }
             
-            // ✅ CORRECCIÓN: Verificar fullscreen después de un delay más largo
             setTimeout(() => {
                 if (intendedFullscreen && !document.fullscreenElement) {
-                    mostrarOverlayRestaurar();
+                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado", err));
                 }
-            }, 800);
+            }, 500);
         }
 
-        // =========================================
-        // INICIALIZACIÓN
-        // =========================================
         window.addEventListener('DOMContentLoaded', () => {
             initBackgroundStars();
-            
             const savedPortada = localStorage.getItem('prospecta_portada');
             const savedAvatar = localStorage.getItem('prospecta_avatar');
-
             if (savedPortada) {
-                const target = document.getElementById('bg_portada');
-                if(target) {
-                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
-                }
-                // ✅ Esperar a que el slide 2 sea visible para ajustar
-                setTimeout(() => ajustarAlturaPortada(savedPortada), 100);
-            } else {
-                ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
-            }
-
-            if (savedAvatar) {
-                const avatarImg = document.getElementById('img_avatar');
-                if(avatarImg) avatarImg.src = savedAvatar;
-            }
-            
-            // ✅ Forzar fullscreen al cargar si es PWA
-            if (window.matchMedia('(display-mode: standalone)').matches) {
-                setTimeout(() => {
-                    toggleFullScreen();
-                }, 500);
-            }
-        });
-
-        // Reajustar altura de portada cuando se muestra el slide 2
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.target.classList.contains('active') && mutation.target.dataset.slide === '2') {
-                    const savedPortada = localStorage.getItem('prospecta_portada');
-                    if (savedPortada) {
-                        setTimeout(() => ajustarAlturaPortada(savedPortada), 50);
-                    }
-                }
-            });
-        });
-
-        window.addEventListener('load', () => {
-            document.querySelectorAll('.slide').forEach(slide => {
-                observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
-            });
+                document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`);
+                ajustarAlturaPortada(savedPortada);
+            } else ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+            if (savedAvatar) document.querySelectorAll('.avatar-sync').forEach(i => i.src = savedAvatar);
         });
 
         function setDateTime() {
             const now = new Date();
-            const fechaEls = document.querySelectorAll('#display_fecha');
-            const horaEls = document.querySelectorAll('#display_hora');
-            fechaEls.forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
-            horaEls.forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
+            document.querySelectorAll('#display_fecha').forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
+            document.querySelectorAll('#display_hora').forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
         }
-        setInterval(setDateTime, 60000);
-        setDateTime();
+        setInterval(setDateTime, 60000); setDateTime();
 
-        // =========================================
-        // GUIÓN DE VENTAS
-        // =========================================
+        // ✅ GUIÓN COMPLETO RESTAURADO Y A SALVO
         const scripts = {
             1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
                 <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
@@ -1027,78 +662,25 @@
         const totalSlides = 10;
         let notesVisible = false;
 
-        function goToSlide(index) {
-            if (index >= 1 && index <= totalSlides) {
-                currentSlide = index;
-                updateUI();
-            }
-        }
-
+        function goToSlide(index) { if (index >= 1 && index <= totalSlides) { currentSlide = index; updateUI(); } }
         function updateUI() {
-            document.querySelectorAll('.slide').forEach(slide => {
-                slide.classList.remove('active');
-                if (parseInt(slide.dataset.slide) === currentSlide) {
-                    slide.classList.add('active');
-                }
+            document.querySelectorAll('.slide').forEach(s => {
+                s.classList.remove('active');
+                if (parseInt(s.dataset.slide) === currentSlide) s.classList.add('active');
             });
-
             document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
-            document.getElementById('script-content').innerHTML = scripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
-            
-            const notesPanel = document.getElementById('script-content');
-            if(notesPanel) notesPanel.scrollTop = 0;
-            
-            const presentationArea = document.getElementById('presentation-area');
-            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
-
+            document.getElementById('script-content').innerHTML = scripts[currentSlide] || "";
             for(let i = 1; i <= totalSlides; i++) {
-                const pill = document.getElementById('nav-pill-' + i);
-                if(pill) {
-                    if(i === currentSlide) {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md";
-                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    } else {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
-                    }
+                const p = document.getElementById('nav-pill-' + i);
+                if(p) {
+                    if(i === currentSlide) { p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark border-2 border-white shadow-md"; p.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' }); }
+                    else p.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
                 }
             }
         }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                updateUI();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateUI();
-            }
-        }
-
-        function toggleNotes() {
-            const sidebar = document.getElementById('notes-sidebar');
-            notesVisible = !notesVisible;
-            
-            if (notesVisible) {
-                sidebar.classList.remove('w-0');
-                sidebar.classList.add('w-full', 'md:w-[400px]');
-            } else {
-                sidebar.classList.add('w-0');
-                sidebar.classList.remove('w-full', 'md:w-[400px]');
-            }
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'Space') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            }
-        });
-
+        function nextSlide() { if (currentSlide < totalSlides) { currentSlide++; updateUI(); } }
+        function prevSlide() { if (currentSlide > 1) { currentSlide--; updateUI(); } }
+        function toggleNotes() { const s = document.getElementById('notes-sidebar'); s.classList.toggle('w-0'); s.classList.toggle('w-96'); }
         updateUI();
     </script>
 </body>
