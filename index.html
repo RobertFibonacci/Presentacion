@@ -59,6 +59,12 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
+           MODO PRESENTACIÓN: Oculta elementos de edición
+           ========================================= */
+        body.mode-presentation .edit-only { display: none !important; }
+        body.mode-presentation [contenteditable="true"] { pointer-events: none; border: none; background: transparent; outline: none; }
+
+        /* =========================================
            ESTILOS DE LA CABECERA
            ========================================= */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
@@ -329,6 +335,23 @@
             border-color: #FFFFFF;
             background: rgba(255,255,255,0.1);
         }
+
+        /* =========================================
+           BLOQUES MULTIMEDIA (SAAS CONSTRUCTOR)
+           ========================================= */
+        .media-preview-box { width: 100%; min-height: 200px; max-height: 380px; background: #000; border: 1.5px dashed rgba(255,255,255,0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .media-preview-box img, .media-preview-box video { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+        .video-controls { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 10; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
+        .video-ctrl-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; outline: none;}
+        .audio-pro-container { width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .visualizer-pro { display: flex; align-items: center; justify-content: center; gap: 4px; height: 75px; width: 100%; }
+        .v-bar { width: 6px; height: 12px; background: linear-gradient(180deg, #3E3E61 0%, #FFFFFF 100%); border-radius: 10px; transition: height 0.2s ease; }
+        .playing .v-bar { animation: studio-wave 0.8s infinite ease-in-out; }
+        @keyframes studio-wave { 0%, 100% { height: 12px; opacity: 0.7; } 50% { height: 65px; opacity: 1; } }
+        .v-bar:nth-child(2n) { animation-duration: 0.6s; animation-delay: 0.1s; }
+        .v-bar:nth-child(3n) { animation-duration: 1s; animation-delay: 0.2s; }
+        .v-bar:nth-child(4n) { animation-duration: 0.7s; animation-delay: 0.4s; }
+        .play-pro-btn { width: 55px; height: 55px; border-radius: 50%; background: #3E3E61; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4); outline: none;}
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -510,7 +533,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 3: Sondeo (ACORDEONES AHORA CON START IN "FALSE" PARA MODO PRESENTACIÓN) -->
+            <!-- SLIDE 3: Sondeo (ACORDEONES EDITABLES "TELEPROMPTER") -->
             <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0 mt-4" data-slide="3">
                 <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center">Detectando tu error de confianza</h2>
                 <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2">Evaluación de tu Comunicación Actual</h1>
@@ -555,6 +578,14 @@
                             </p>
                         </div>
                     </div>
+                </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 3) -->
+                <div id="builder-canvas-3" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
                 </div>
             </div>
 
@@ -840,6 +871,14 @@
                 <div class="mt-8 text-center text-lg md:text-xl text-white italic font-bold bg-white/10 p-4 rounded-xl border border-white/20 w-full">
                     "Pierdes ventas porque la competencia es más fácil de entender."
                 </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 4) -->
+                <div id="builder-canvas-4" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
+                </div>
             </div>
 
             <!-- SLIDE 5: El Reto -->
@@ -862,6 +901,14 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 5) -->
+                <div id="builder-canvas-5" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
+                </div>
             </div>
 
             <!-- SLIDE 6: Seguimiento -->
@@ -877,6 +924,14 @@
                         En los negocios, la venta <span class="font-bold text-white">no se pierde</span>...<br>
                         tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.
                     </p>
+                </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 6) -->
+                <div id="builder-canvas-6" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
                 </div>
             </div>
 
@@ -904,6 +959,14 @@
                 <div class="mt-12 text-center">
                     <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
                         ¿Diseñamos la Solución?
+                    </button>
+                </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 7) -->
+                <div id="builder-canvas-7" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
                     </button>
                 </div>
             </div>
@@ -941,6 +1004,14 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 8) -->
+                <div id="builder-canvas-8" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
+                </div>
             </div>
 
             <!-- SLIDE 9: Solución 2 -->
@@ -968,6 +1039,14 @@
                 <div class="text-center text-white italic">
                     "Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados."
                 </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 9) -->
+                <div id="builder-canvas-9" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
+                </div>
             </div>
 
             <!-- SLIDE 10: Solución 3 y Cierre -->
@@ -993,6 +1072,14 @@
                             "Dejarás de improvisar y tendrás el control total."
                         </p>
                     </div>
+                </div>
+
+                <!-- LIENZO DINÁMICO SAAS INYECTADO (ZONA 10) -->
+                <div id="builder-canvas-10" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
+                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
+                    </button>
                 </div>
             </div>
 
@@ -1029,7 +1116,7 @@
 
     </main>
 
-    <!-- Bottom Navigation -->
+    <!-- FOOTER Y CAROUSEL DE NAVEGACIÓN INTACTOS -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
             <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
@@ -1045,9 +1132,36 @@
         </div>
     </footer>
 
+    <!-- MODAL DEL CONSTRUCTOR INYECTADO: CERO COLORES, ESTÉTICA BLANCA Y LIMPIA -->
+    <div id="block-selector-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm p-4">
+        <div class="bg-brand-panel w-full max-w-sm rounded-3xl border border-white/30 p-6 shadow-2xl transform scale-100 transition-transform">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-white font-bold text-xl uppercase tracking-wide">Nuevo Bloque</h3>
+                <button onclick="document.getElementById('block-selector-modal').classList.add('hidden')" class="text-white/50 hover:text-white outline-none"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="addBlock('acordeon')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
+                    <i class="fas fa-list text-2xl text-white"></i><span class="text-xs font-bold">Acordeón</span>
+                </button>
+                <button onclick="addBlock('texto')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
+                    <i class="fas fa-align-left text-2xl text-white"></i><span class="text-xs font-bold">Texto Libre</span>
+                </button>
+                <button onclick="addBlock('imagen')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
+                    <i class="fas fa-image text-2xl text-white"></i><span class="text-xs font-bold">Imagen</span>
+                </button>
+                <button onclick="addBlock('video')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
+                    <i class="fas fa-video text-2xl text-white"></i><span class="text-xs font-bold">Video</span>
+                </button>
+                <button onclick="addBlock('audio')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors col-span-2 outline-none">
+                    <i class="fas fa-microphone-alt text-2xl text-white"></i><span class="text-xs font-bold">Audio Visualizer</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // =========================================
-        // ARREGLOS DE MEMORIA DEL CRM
+        // ARREGLOS DE MEMORIA DEL CRM (INTACTOS)
         // =========================================
         const CRM_TEXT_IDS = [
             'q1-title', 'q1-text', 'q2-title', 'q2-text',
@@ -1064,7 +1178,7 @@
         const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
 
         // =========================================
-        // MODO EDICIÓN (LAPICITO)
+        // MODO EDICIÓN (LAPICITO) (INTACTO)
         // =========================================
         let isEditMode = false;
         
@@ -1288,13 +1402,22 @@
             const name = prompt("💾 Guardar Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
             if(!name || name.trim() === "") return;
             
+            // --- INYECCIÓN SAAS: ESCANER MASIVO DE LIENZOS ZONAS 3-10 ---
+            const allCanvases = {};
+            for(let i=3; i<=10; i++) {
+                const c = document.getElementById('builder-canvas-' + i);
+                if(c) allCanvases['zona_'+i] = c.innerHTML;
+            }
+            // ------------------------------------------------------------
+
             const profile = {
                 id: Date.now().toString(),
                 name: name.trim(),
                 portada: localStorage.getItem('prospecta_portada') || '',
                 avatar: localStorage.getItem('prospecta_avatar') || '',
                 date: new Date().toLocaleDateString(),
-                data: {}
+                data: {},
+                canvases: allCanvases // <-- INYECTADO
             };
 
             // Recolectar toda la memoria actual al objeto JSON del perfil
@@ -1334,6 +1457,17 @@
                 localStorage.setItem('prospecta_q2_title', profile.q2_title || '👉 Pregunta 2');
                 localStorage.setItem('prospecta_q2_text', profile.q2_text || '...');
             }
+
+            // --- INYECCIÓN SAAS: RESTAURAR LIENZOS ---
+            if(profile.canvases) {
+                for(let i=3; i<=10; i++) {
+                    const c = document.getElementById('builder-canvas-' + i);
+                    if(c && profile.canvases['zona_'+i]) {
+                        c.innerHTML = profile.canvases['zona_'+i];
+                    }
+                }
+            }
+            // -----------------------------------------
 
             // 2. Refrescar el DOM visualmente con los nuevos datos
             loadCurrentState();
@@ -1585,7 +1719,7 @@
         // --- FUNCIÓN SEGURA PARA ABRIR ACORDEÓN DESDE LA FLECHA ---
         function toggleAccordion(btn) {
             // Busca el contenedor padre y luego el div oculto para que no choque con la edición de texto
-            const container = btn.closest('.bg-brand-panel');
+            const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block');
             const content = container.querySelector('.hidden, .block.p-5.pt-0'); 
             const icon = btn.querySelector('.fa-chevron-down');
             
@@ -1669,6 +1803,115 @@
                 });
             }
         });
+
+        // =========================================
+        // INYECCIÓN SAAS: FUNCIONES DEL CONSTRUCTOR
+        // =========================================
+        function addBlock(type) {
+            document.getElementById('block-selector-modal').classList.add('hidden');
+            const canvas = document.getElementById('builder-canvas-' + currentSlide);
+            if(!canvas) { alert("Esta zona aún no soporta el constructor."); return; }
+            
+            const id = 'block_' + Date.now();
+            let html = '';
+
+            if(type === 'acordeon') {
+                html = `
+                <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
+                    <span contenteditable="true" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none break-words">👉 Nueva Pregunta</span>
+                    <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i></button>
+                </div>
+                <div class="hidden p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
+                    <p contenteditable="true" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none drop-shadow-md">Escribe aquí tu texto persuasivo...</p>
+                </div>`;
+            } else if(type === 'texto') {
+                html = `<div class="p-5"><p contenteditable="true" class="text-white text-[16px] md:text-[18px] leading-relaxed outline-none text-justify">Texto libre para tu presentación...</p></div>`;
+            } else if(type === 'imagen') {
+                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
+                            <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-10">
+                                <i class="fas fa-cloud-upload-alt text-4xl mb-2"></i><span class="text-sm font-bold">Subir Imagen Local</span>
+                                <input type="file" accept="image/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'imagen')">
+                            </label>
+                            <img id="img_${id}" src="" class="w-full h-full object-contain hidden">
+                        </div>`;
+            } else if(type === 'video') {
+                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
+                            <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-20">
+                                <i class="fas fa-video text-4xl mb-2"></i><span class="text-sm font-bold">Subir Video Local</span>
+                                <input type="file" accept="video/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'video')">
+                            </label>
+                            <video id="vid_${id}" class="w-full h-full object-contain hidden" playsinline loop></video>
+                            <div id="ctrl_${id}" class="video-controls hidden z-10">
+                                <button class="video-ctrl-btn" onclick="toggleVid('${id}')"><i class="fas fa-play" id="i_play_${id}"></i><i class="fas fa-pause hidden" id="i_pause_${id}"></i></button>
+                                <button class="video-ctrl-btn" onclick="muteVid('${id}')"><i class="fas fa-volume-up" id="i_vol_${id}"></i><i class="fas fa-volume-mute hidden" id="i_mute_${id}"></i></button>
+                            </div>
+                        </div>`;
+            } else if(type === 'audio') {
+                html = `<div class="w-full bg-[#1e1e2f] border border-white/20 rounded-2xl p-4 relative">
+                            <label class="edit-only absolute top-2 right-2 px-3 py-1 bg-white/10 rounded-full cursor-pointer text-xs font-bold text-white hover:bg-white/20 z-10">
+                                Cargar MP3 <input type="file" accept="audio/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'audio')">
+                            </label>
+                            <div class="audio-pro-container" id="pro_${id}">
+                                <div class="visualizer-pro">${Array(15).fill('<div class="v-bar"></div>').join('')}</div>
+                                <audio id="aud_${id}" class="hidden"></audio>
+                                <button class="play-pro-btn mx-auto mt-4" onclick="toggleAud('${id}')"><i class="fas fa-play" id="a_play_${id}"></i><i class="fas fa-pause hidden" id="a_pause_${id}"></i></button>
+                            </div>
+                        </div>`;
+            }
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group w-full';
+            wrapper.id = id;
+            wrapper.innerHTML = `
+                <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30"><i class="fas fa-trash text-xs"></i></button>
+                ${html}
+            `;
+            canvas.appendChild(wrapper);
+            
+            setTimeout(() => { document.getElementById('presentation-area').scrollTo({top: canvas.scrollHeight, behavior:'smooth'}); }, 100);
+        }
+
+        function loadBlockMedia(input, blockId, type) {
+            const file = input.files[0];
+            if(!file) return;
+            const url = URL.createObjectURL(file); 
+            
+            input.parentElement.classList.add('hidden');
+
+            if(type === 'imagen') {
+                const img = document.getElementById('img_'+blockId);
+                img.src = url; img.classList.remove('hidden');
+            } else if(type === 'video') {
+                const vid = document.getElementById('vid_'+blockId);
+                vid.src = url; vid.classList.remove('hidden');
+                document.getElementById('ctrl_'+blockId).classList.remove('hidden');
+                vid.play(); toggleVid(blockId, true); 
+            } else if(type === 'audio') {
+                const aud = document.getElementById('aud_'+blockId);
+                aud.src = url;
+                input.parentElement.classList.remove('hidden'); 
+            }
+        }
+
+        function toggleVid(id, isForcePlay=false) {
+            const v = document.getElementById('vid_'+id);
+            if(!v.src) return;
+            if (v.paused || isForcePlay) { v.play(); document.getElementById('i_play_'+id).classList.add('hidden'); document.getElementById('i_pause_'+id).classList.remove('hidden'); }
+            else { v.pause(); document.getElementById('i_play_'+id).classList.remove('hidden'); document.getElementById('i_pause_'+id).classList.add('hidden'); }
+        }
+        function muteVid(id) {
+            const v = document.getElementById('vid_'+id);
+            v.muted = !v.muted;
+            if(v.muted) { document.getElementById('i_vol_'+id).classList.add('hidden'); document.getElementById('i_mute_'+id).classList.remove('hidden'); }
+            else { document.getElementById('i_vol_'+id).classList.remove('hidden'); document.getElementById('i_mute_'+id).classList.add('hidden'); }
+        }
+        function toggleAud(id) {
+            const a = document.getElementById('aud_'+id);
+            const pro = document.getElementById('pro_'+id);
+            if(!a.src) { alert("Sube un audio primero"); return; }
+            if (a.paused) { a.play(); pro.classList.add('playing'); document.getElementById('a_play_'+id).classList.add('hidden'); document.getElementById('a_pause_'+id).classList.remove('hidden'); }
+            else { a.pause(); pro.classList.remove('playing'); document.getElementById('a_play_'+id).classList.remove('hidden'); document.getElementById('a_pause_'+id).classList.add('hidden'); }
+        }
 
         updateUI();
     </script>
