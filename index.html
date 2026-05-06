@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <!-- Viewport seguro para no invadir la cámara (notch) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
@@ -38,11 +39,17 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #1e1e2f; color: white; overflow: hidden; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #1e1e2f; 
+            color: white; 
+            overflow: hidden; 
+        }
         
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
         
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e1e2f; }
         ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
@@ -52,81 +59,276 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
-           MODO PRESENTACIÓN: Oculta elementos de edición
-           ========================================= */
-        body.mode-presentation .edit-only { display: none !important; }
-        body.mode-presentation [contenteditable="true"] { pointer-events: none; border: none; background: transparent; outline: none; }
-
-        /* =========================================
-           CABECERA Y ESTRELLAS
+           ESTILOS DE LA CABECERA
            ========================================= */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
         .char-a-container { position: relative; display: inline-block; }
-        .star-icon-menu { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 16px; height: 16px; color: #FFFFFF; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); animation: star-glow-menu 2.2s infinite ease-in-out; pointer-events: none; }
-        @keyframes star-glow-menu { 0%, 100% { transform: translateX(-50%) scale(0.8) rotate(0deg); opacity: 0.7; } 50% { transform: translateX(-50%) scale(1.3) rotate(20deg); opacity: 1; filter: drop-shadow(0 0 12px #fff); } }
+        .star-icon-menu {
+            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+            width: 16px; height: 16px; color: #FFFFFF;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+            animation: star-glow-menu 2.2s infinite ease-in-out; pointer-events: none;
+        }
+        @keyframes star-glow-menu {
+            0%, 100% { transform: translateX(-50%) scale(0.8) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateX(-50%) scale(1.3) rotate(20deg); opacity: 1; filter: drop-shadow(0 0 12px #fff); }
+        }
         .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: #FFFFFF; }
-        
-        .bg-star { position: absolute; background-color: #ffffff; border-radius: 50%; opacity: 0; animation: twinkle-star infinite ease-in-out; pointer-events: none; z-index: 0; }
-        @keyframes twinkle-star { 0%, 100% { opacity: 0.1; transform: scale(0.8); } 50% { opacity: 0.6; transform: scale(1.1); box-shadow: 0 0 4px rgba(255,255,255,0.4); } }
 
         /* =========================================
-           ANIMACIONES ZONA 1
+           ESTRELLAS DE FONDO (TWINKLING STARS)
            ========================================= */
-        .bg-pattern-dark { background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px); background-size: 24px 24px; }
+        .bg-star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle-star infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+        @keyframes twinkle-star {
+            0%, 100% { opacity: 0.1; transform: scale(0.8); }
+            50% { opacity: 0.6; transform: scale(1.1); box-shadow: 0 0 4px rgba(255,255,255,0.4); }
+        }
+
+        /* =========================================
+           PORTADA ANIMADA (SLIDE 1)
+           ========================================= */
+        .bg-pattern-dark {
+            background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px);
+            background-size: 24px 24px;
+        }
         .avatar-alive { animation: float 3.5s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
-        .floating-bubble { position: absolute; opacity: 0; animation: floatBubbleCycle 10.5s infinite; background: #3E3E61; color: #FFFFFF; font-size: 0.8rem; font-weight: 700; padding: 8px 14px; border-radius: 12px; border-bottom-left-radius: 2px; border: 1px solid #FFFFFF; white-space: nowrap; pointer-events: none; z-index: 10; }
-        @keyframes floatBubbleCycle { 0% { opacity: 0; transform: translateY(10px) scale(0.95); } 5%, 25% { opacity: 1; transform: translateY(0) scale(1); } 30%, 100% { opacity: 0; transform: translateY(-15px) scale(0.95); } }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-bubble {
+            position: absolute;
+            opacity: 0;
+            animation: floatBubbleCycle 10.5s infinite;
+            background: #3E3E61; 
+            color: #FFFFFF;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 12px;
+            border-bottom-left-radius: 2px;
+            border: 1px solid #FFFFFF;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 10;
+        }
+        @keyframes floatBubbleCycle {
+            0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+            5% { opacity: 1; transform: translateY(0) scale(1); }
+            25% { opacity: 1; transform: translateY(0) scale(1); }
+            30% { opacity: 0; transform: translateY(-15px) scale(0.95); }
+            100% { opacity: 0; transform: translateY(-15px) scale(0.95); }
+        }
         .typing-dot { animation: typing 1.4s infinite ease-in-out both; }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; } .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        @keyframes typing { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
 
         /* =========================================
-           TARJETA DE PERFIL (ESTÉTICA INTACTA)
+           ESTILOS DE LA TARJETA DE PERFIL
            ========================================= */
-        .hamburger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 5px; outline: none; }
+        .hamburger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 5px; }
         .hamburger-btn span { display: block; width: 22px; height: 3px; background-color: #FFFFFF; border-radius: 2px; }
 
-        .profile-card { width: 100%; max-width: 450px; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(15px); border-radius: 25px; padding: 70px 20px 25px; text-align: center; box-shadow: 0 8px 30px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.6); position: relative; overflow: hidden; color: #3E3E61; margin-top: 0; transition: padding-top 0.3s ease; }
-        .cover-bg { position: absolute; top: 0; left: 0; width: 100%; height: 120px; background-color: #3E3E61; background-size: cover; background-position: center; z-index: 0; transition: height 0.3s ease, background-image 0.3s ease; }
+        .profile-card {
+            width: 100%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.94); 
+            backdrop-filter: blur(15px);
+            border-radius: 25px; 
+            padding: 70px 20px 25px; 
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4); 
+            border: 1px solid rgba(255,255,255,0.6);
+            position: relative; 
+            overflow: hidden;
+            color: #3E3E61;
+            margin-top: 0; 
+            transition: padding-top 0.3s ease;
+        }
         
-        .btn-cambiar-portada { position: absolute; top: 12px; right: 12px; width: 42px; height: 42px; background: rgba(0,0,0,0.3); backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; z-index: 2; transition: all 0.2s ease; }
+        .cover-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 120px;
+            background-color: #3E3E61;
+            background-size: cover; background-position: center; z-index: 0;
+            transition: height 0.3s ease, background-image 0.3s ease;
+        }
+        
+        .btn-cambiar-portada {
+            position: absolute; top: 12px; right: 12px; width: 42px; height: 42px;
+            background: rgba(0,0,0,0.3); backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.4); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; cursor: pointer; z-index: 2; transition: all 0.2s ease;
+        }
         .btn-cambiar-portada:hover { background: rgba(0,0,0,0.5); transform: scale(1.05); }
 
         .avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px; z-index: 1; }
-        .avatar-img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 0 25px rgba(163, 161, 202, 0.8), 0 5px 15px rgba(0,0,0,0.2); background: #3E3E61; display: flex; align-items: center; justify-content: center; transition: src 0.3s ease; }
         
-        .btn-edit-avatar { position: absolute; bottom: 0; right: 0; width: 36px; height: 36px; background: #3E3E61; border-radius: 50%; border: 3px solid white; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.2s; }
+        .avatar-img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            border: 4px solid white; box-shadow: 0 0 25px rgba(163, 161, 202, 0.8), 0 5px 15px rgba(0,0,0,0.2);
+            background: #3E3E61; display: flex; align-items: center; justify-content: center;
+            transition: src 0.3s ease;
+        }
+        
+        .btn-edit-avatar {
+            position: absolute; bottom: 0; right: 0; width: 36px; height: 36px;
+            background: #3E3E61; border-radius: 50%; border: 3px solid white;
+            display: flex; align-items: center; justify-content: center; color: white; 
+            cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: transform 0.2s;
+        }
         .btn-edit-avatar:hover { transform: scale(1.1); }
         
         .profile-name { font-size: 22px; font-weight: 800; color: #3E3E61; margin-bottom: 2px; z-index: 1; position: relative; line-height: 1.2; }
         .profile-role { font-size: 13px; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: 1px; z-index: 1; position: relative; }
         
-        .pill-contact { display: inline-flex; align-items: center; gap: 6px; background: rgba(62,62,97,0.08); color: #3E3E61; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; z-index: 1; position: relative; border: 1px solid rgba(62,62,97,0.2); transition: all 0.2s ease; cursor: pointer; }
+        .pill-contact {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(62,62,97,0.08); color: #3E3E61;
+            padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            z-index: 1; position: relative; border: 1px solid rgba(62,62,97,0.2);
+            transition: all 0.2s ease; cursor: pointer;
+        }
         .pill-contact:hover { background: rgba(62,62,97,0.15); transform: translateY(-1px); }
 
-        .stats-row { display: flex; justify-content: space-between; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(62,62,97,0.1); z-index: 1; position: relative; }
+        .stats-row {
+            display: flex; justify-content: space-between; margin-top: 20px;
+            padding-top: 15px; border-top: 1px solid rgba(62,62,97,0.1); z-index: 1; position: relative;
+        }
         .stat-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
         .stat-label { font-size: 11px; color: #888; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
 
         /* =========================================
-           BLOQUES MULTIMEDIA (SAAS) - Diseño Neutro
+           ESTILOS PARA CARRUSEL Y MODO EDICIÓN
            ========================================= */
-        .media-preview-box { width: 100%; min-height: 200px; max-height: 380px; background: #000; border: 1.5px dashed rgba(255,255,255,0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        .media-preview-box img, .media-preview-box video { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
-        .video-controls { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 10; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
-        .video-ctrl-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; outline: none;}
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            width: 100%;
+        }
+        .carousel-card {
+            flex: 0 0 280px;
+            scroll-snap-align: center;
+            background: rgba(62, 62, 97, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .star-rating {
+            display: flex;
+            gap: 0.4rem;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+        .star-btn {
+            font-size: 1.5rem;
+            transition: all 0.2s ease;
+            cursor: default; /* Por defecto no clickable hasta Modo Edición */
+        }
+        .star-btn.far { color: rgba(255, 255, 255, 0.3); } 
+        .star-btn.fas { color: #FFFFFF; text-shadow: 0 0 8px rgba(255,255,255,0.4); } 
         
-        .audio-pro-container { width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .visualizer-pro { display: flex; align-items: center; justify-content: center; gap: 4px; height: 75px; width: 100%; }
-        .v-bar { width: 6px; height: 12px; background: linear-gradient(180deg, #3E3E61 0%, #FFFFFF 100%); border-radius: 10px; transition: height 0.2s ease; }
-        .playing .v-bar { animation: studio-wave 0.8s infinite ease-in-out; }
-        @keyframes studio-wave { 0%, 100% { height: 12px; opacity: 0.7; } 50% { height: 65px; opacity: 1; } }
-        .v-bar:nth-child(2n) { animation-duration: 0.6s; animation-delay: 0.1s; }
-        .v-bar:nth-child(3n) { animation-duration: 1s; animation-delay: 0.2s; }
-        .v-bar:nth-child(4n) { animation-duration: 0.7s; animation-delay: 0.4s; }
-        .play-pro-btn { width: 55px; height: 55px; border-radius: 50%; background: #3E3E61; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4); outline: none;}
+        .review-point {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            position: relative;
+        }
+        .icon-selector {
+            padding: 0.25rem 0.5rem;
+            color: #FFFFFF;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            transition: background 0.2s;
+            margin-top: -2px; 
+            cursor: default; /* Por defecto no clickable hasta Modo Edición */
+        }
+        .icon-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2A2A42;
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 0.5rem;
+            padding: 0.5rem;
+            display: none;
+            gap: 0.5rem;
+            z-index: 50;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5);
+            width: max-content;
+            flex-wrap: wrap;
+            max-width: 160px;
+        }
+        .icon-dropdown.show {
+            display: flex;
+        }
+        .icon-option {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            color: white;
+            transition: background 0.2s;
+        }
+        .icon-option:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+        .editable-text {
+            flex: 1;
+            outline: none;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            transition: background 0.2s, border 0.2s;
+            min-height: 1.5rem;
+            line-height: 1.4;
+        }
+
+        /* --- CLASES ACTIVAS DE MODO EDICIÓN --- */
+        body.edit-mode-active .editable-text, 
+        body.edit-mode-active [contenteditable="true"] {
+            background: rgba(255,255,255,0.08);
+            border-bottom: 1px dashed rgba(255,255,255,0.4);
+            cursor: text;
+        }
+        body.edit-mode-active .icon-selector {
+            cursor: pointer;
+        }
+        body.edit-mode-active .icon-selector:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+        body.edit-mode-active .star-btn {
+            cursor: pointer;
+        }
+        
+        /* Bloquear clics en las áreas de evidencia fotográfica en modo presentación */
+        body:not(.edit-mode-active) .evidence-label {
+            pointer-events: none;
+        }
+        body.edit-mode-active .evidence-label:hover {
+            border-color: #FFFFFF;
+            background: rgba(255,255,255,0.1);
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -134,47 +336,35 @@
     <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
-    <!-- Inputs Ocultos (Restaurados exactamente como los tenías) -->
+    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
     <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
     <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
 
-    <!-- MENÚ HAMBURGUESA LATERAL (EL SANDWICHITO CRM) -->
-    <div id="main-drawer" class="fixed inset-y-0 left-0 w-72 bg-[#1e1e2f] border-r border-[#3E3E61] shadow-2xl transform -translate-x-full transition-transform duration-300 z-50 flex flex-col">
-        <div class="p-5 border-b border-[#3E3E61] flex justify-between items-center bg-[#2A2A42]">
-            <h2 class="font-black text-white text-lg tracking-widest uppercase">Prospecta<span class="text-brand-success">.</span></h2>
-            <button onclick="toggleDrawer()" class="text-white hover:text-red-400 text-xl outline-none"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="flex-1 p-4 space-y-4 overflow-y-auto">
-            <!-- Botón Maestro: Modo Presentación -->
-            <button onclick="toggleAppMode()" id="mode-btn" class="w-full bg-brand-success text-white font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-3 hover:bg-green-600 transition outline-none">
-                <i class="fas fa-eye"></i> <span>Activar Modo Presentación</span>
-            </button>
-            <hr class="border-[#3E3E61] my-2">
-            <button onclick="promptSaveProfile()" class="w-full bg-[#2A2A42] border border-[#3E3E61] text-white font-bold py-3 px-4 rounded-xl flex items-center gap-3 hover:bg-[#3E3E61] transition outline-none">
-                <i class="fas fa-save"></i> Guardar Perfil Cliente
-            </button>
-            <button onclick="openSidebarTab('perfiles')" class="w-full bg-[#2A2A42] border border-[#3E3E61] text-white font-bold py-3 px-4 rounded-xl flex items-center gap-3 hover:bg-[#3E3E61] transition outline-none">
-                <i class="fas fa-users"></i> Mis Perfiles (CRM)
-            </button>
-            <button onclick="openSidebarTab('guion')" class="w-full bg-[#2A2A42] border border-[#3E3E61] text-white font-bold py-3 px-4 rounded-xl flex items-center gap-3 hover:bg-[#3E3E61] transition outline-none">
-                <i class="fas fa-scroll"></i> Teleprompter / Guión
-            </button>
-        </div>
-        <div class="p-4 border-t border-[#3E3E61] text-center text-[10px] text-white/50 uppercase tracking-widest">
-            Entorno Blindado v2.0
-        </div>
-    </div>
-    <!-- Overlay del Drawer -->
-    <div id="drawer-overlay" onclick="toggleDrawer()" class="fixed inset-0 bg-black/60 z-40 hidden backdrop-blur-sm transition-opacity"></div>
-
-    <!-- CABECERA PRINCIPAL LÍMPIA Y ESTÉTICA -->
+    <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
-        <div class="flex items-center w-1/4 z-10">
-            <!-- HAMBURGUESA ORIGINAL INTACTA -->
-            <button class="hamburger-btn" onclick="toggleDrawer()">
+        
+        <!-- SECCIÓN IZQUIERDA: MENÚ SÁNDWICH -->
+        <div class="flex items-center w-1/4 z-10 relative">
+            <button class="hamburger-btn" onclick="toggleMainMenu()">
                 <span></span><span></span><span></span>
             </button>
+            
+            <!-- CONTENIDO DEL MENÚ DESPLEGABLE -->
+            <div id="main-menu" class="absolute top-12 left-0 bg-brand-panel border border-white/20 rounded-xl shadow-2xl p-2 w-56 hidden transition-all z-50">
+                <button onclick="promptSaveProfile(); toggleMainMenu();" class="w-full text-white hover:text-brand-success hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fas fa-save w-5 text-center"></i> <span class="font-semibold text-sm">Guardar Perfil</span>
+                </button>
+                <button onclick="toggleNotes(); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
+                    <i class="far fa-comment-alt w-5 text-center"></i> <span class="hidden sm:inline font-semibold">Mi Guión</span>
+                </button>
+                <div class="h-px w-full bg-white/20 my-1"></div>
+                <button onclick="toggleFullScreen(); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fas fa-expand w-5 text-center"></i> <span class="font-semibold text-sm">Pantalla Completa</span>
+                </button>
+            </div>
         </div>
+        
+        <!-- SECCIÓN CENTRAL: LOGO -->
         <div class="w-2/4 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
             <div class="brand-name-menu">
                 Prospect<span class="char-a-container">a
@@ -185,11 +375,15 @@
             </div>
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
-        <div class="flex items-center justify-end w-1/4 z-10">
-            <button onclick="toggleFullScreen()" class="text-white hover:text-slate-300 transition-colors flex items-center justify-center w-9 h-9 rounded-full bg-[#2A2A42] shadow border border-white outline-none" title="Pantalla Completa">
-                <i class="fas fa-expand"></i>
+
+        <!-- SECCIÓN DERECHA: BOTÓN MODO EDICIÓN -->
+        <div class="flex items-center justify-end w-1/4 z-10 gap-2 md:gap-3">
+            <!-- BOTÓN DEL LÁPIZ FIJO (Modo Edición) -->
+            <button onclick="toggleEditMode()" id="btn-edit-mode" class="text-white hover:text-brand-success transition-all duration-300 flex items-center justify-center w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#2A2A42] shadow border border-white" title="Activar/Desactivar Modo Edición">
+                <i class="fas fa-pen"></i>
             </button>
         </div>
+        
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
             <div id="progress-bar" class="bg-white h-full transition-all duration-300" style="width: 10%"></div>
         </div>
@@ -200,18 +394,18 @@
         
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
-            <!-- SLIDE 1: PORTADA EN CASCADA -->
+            <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 <div class="text-center w-full mb-10">
-                    <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md edit-target" contenteditable="true">
+                    <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
                         PARA DUEÑOS DE NEGOCIO
                     </span>
                     <div class="h-5"></div> 
-                    <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2 edit-target" contenteditable="true">
+                    <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
                         Descubre el error en tu comunicación que destruye la confianza de tus clientes
                     </h1>
-                    <div class="h-4"></div>
-                    <span class="block normal-case text-white text-[16px] md:text-[22px] leading-tight drop-shadow-md font-bold edit-target" contenteditable="true">
+                    <div class="h-4"></div> 
+                    <span class="block normal-case text-white text-[16px] md:text-[22px] leading-tight drop-shadow-md font-bold">
                         (y te deja en "visto").
                     </span>
                 </div>
@@ -244,16 +438,16 @@
                 </div>
                 
                 <div class="w-full px-4 mb-12 flex flex-col gap-4">
-                    <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm edit-target" contenteditable="true">
+                    <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm">
                         El internet está lleno de ruido, "gurús" y promesas falsas. Hoy los clientes tienen miedo a comprar. Si no logras comunicar tu valor y generar confianza en 3 segundos, dudarán de ti.
                     </p>
-                    <p class="text-[16px] md:text-[18px] font-bold text-white text-center drop-shadow-md edit-target" contenteditable="true">
+                    <p class="text-[16px] md:text-[18px] font-bold text-white text-center drop-shadow-md">
                         Evalúa tu proceso hoy mismo.
                     </p>
                 </div>
                 
                 <div class="w-full flex flex-col items-center mb-10">
-                    <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide outline-none">
+                    <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
                         👉 DESCUBRIR MI ERROR AHORA
                     </button>
                     <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
@@ -262,29 +456,29 @@
                 </div>
             </div>
 
-            <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN (BOTONES FOTO RESTAURADOS A ONCLICK) -->
+            <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     
                     <div class="portada-sync cover-bg" id="bg_portada">
-                        <!-- Restaurado el onclick exacto que funciona en tu PWA -->
-                        <div class="btn-cambiar-portada edit-only" title="Cambiar Portada" onclick="document.getElementById('input-portada').click();">
+                        <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
                             <i class="fas fa-camera"></i>
-                        </div>
+                        </label>
                     </div>
                     
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
                             <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
                         </div>
-                        <!-- Restaurado el onclick exacto -->
-                        <div class="btn-edit-avatar edit-only" title="Editar Avatar" onclick="document.getElementById('input-avatar').click();">
+                        <label class="btn-edit-avatar cursor-pointer" title="Editar Avatar">
+                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
                             <i class="fas fa-pencil-alt text-xs"></i>
-                        </div>
+                        </label>
                     </div>
                     
-                    <div class="profile-name" contenteditable="true">Roberto Fibonacci</div>
-                    <div class="profile-role" contenteditable="true">Founder Prospecta</div>
+                    <div class="profile-name">Roberto Fibonacci</div>
+                    <div class="profile-role">Founder Prospecta</div>
                     
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
@@ -295,11 +489,10 @@
                         </div>
                     </div>
                     
-                    <!-- ÍCONOS NEUTROS Y ELEGANTES (COMO EL ORIGINAL) -->
                     <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
-                        <div class="pill-contact" contenteditable="true"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
-                        <div class="pill-contact" contenteditable="true"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
-                        <div class="pill-contact" contenteditable="true"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
+                        <div class="pill-contact"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
+                        <div class="pill-contact"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
+                        <div class="pill-contact"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
                     </div>
                     <div class="flex flex-wrap justify-center gap-2 mb-4">
                         <div class="pill-contact" title="Facebook"><i class="fab fa-facebook text-brand-primary"></i> Facebook</div>
@@ -308,6 +501,7 @@
                         <div class="pill-contact" title="TikTok"><i class="fab fa-tiktok text-brand-primary"></i> TikTok</div>
                         <div class="pill-contact" title="YouTube"><i class="fab fa-youtube text-brand-primary"></i> YouTube</div>
                     </div>
+                    
                     <div class="stats-row">
                         <div class="stat-item"><span class="stat-label">Prospecta</span><span class="stat-value">Activo</span></div>
                         <div class="stat-item"><span class="stat-label">Fecha</span><span class="stat-value" id="display_fecha">Hoy</span></div>
@@ -316,111 +510,339 @@
                 </div>
             </div>
 
-            <!-- SLIDE 3: EL CONSTRUCTOR DE BLOQUES SAAS -->
-            <div class="slide flex-col w-full max-w-4xl pb-32 shrink-0 mt-4" data-slide="3">
-                <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center" contenteditable="true">Detectando tu error de confianza</h2>
-                <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2" contenteditable="true">Evaluación de tu Comunicación Actual</h1>
-                <p class="text-[15px] md:text-[17px] font-medium text-white/90 leading-relaxed text-center mb-10 px-4 drop-shadow-sm" contenteditable="true">
+            <!-- SLIDE 3: Sondeo (ACORDEONES AHORA CON START IN "FALSE" PARA MODO PRESENTACIÓN) -->
+            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0 mt-4" data-slide="3">
+                <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center">Detectando tu error de confianza</h2>
+                <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2">Evaluación de tu Comunicación Actual</h1>
+                
+                <p class="text-[15px] md:text-[17px] font-medium text-white/90 leading-relaxed text-center mb-10 px-4 drop-shadow-sm">
                     Responde estas dos preguntas rápidas para descubrir por qué tus prospectos dudan de ti.
                 </p>
                 
-                <div id="builder-canvas" class="flex flex-col gap-5 w-full px-2">
-                    <!-- Acordeón Base 1 -->
-                    <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group w-full">
-                        <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-red-500 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50"><i class="fas fa-trash text-xs"></i></button>
+                <div class="flex flex-col gap-5 w-full px-2 accordion-wrapper">
+                    <!-- Acordeón 1 (Editable) -->
+                    <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span contenteditable="true" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none break-words">👉 Paso 1: ¿A quién estás intentando convencer?</span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i></button>
+                            <span id="q1-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words">
+                                👉 Pregunta 1
+                            </span>
+                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
+                            </button>
                         </div>
-                        <div class="hidden p-5 pt-0 text-white/90 leading-relaxed border-t border-white/10 bg-brand-dark/30">
-                            <p contenteditable="true" class="mt-4 text-justify outline-none text-[20px] md:text-[26px] font-bold">"En un ecosistema digital lleno de ruido, el que le tira a todos, termina sin darle a nadie.<br><br>La confianza exige enfoque, y ahí es donde la mayoría de los negocios fallan.<br><br>Para saber si tu estrategia actual está bien calibrada: ¿quién es tu cliente ideal hoy y qué sector específico estás dominando?"</p>
+                        <div class="hidden p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
+                            <p id="q1-text" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none focus:bg-white/10 p-3 rounded transition-colors drop-shadow-md">
+                                En un ecosistema digital lleno de ruido, el que le tira a todos, termina sin darle a nadie. <br><br>
+                                La confianza exige enfoque, y ahí es donde la mayoría de los negocios fallan.<br><br>
+                                Para saber si tu estrategia actual está bien calibrada, y entender bien lo que pasa cuéntame: ¿quién es tu cliente ideal hoy y qué sector específico estás dominando?
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Acordeón Base 2 -->
-                    <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group w-full">
-                        <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-red-500 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50"><i class="fas fa-trash text-xs"></i></button>
+                    <!-- Acordeón 2 (Editable) -->
+                    <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span contenteditable="true" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none break-words">👉 Paso 2: El freno de confianza.</span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i></button>
+                            <span id="q2-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words">
+                                👉 Pregunta 2
+                            </span>
+                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
+                            </button>
                         </div>
-                        <div class="hidden p-5 pt-0 text-white/90 leading-relaxed border-t border-white/10 bg-brand-dark/30">
-                            <p contenteditable="true" class="mt-4 text-justify outline-none text-[20px] md:text-[26px] font-bold">"Hoy en día, la gente tiene miedo a equivocarse o a ser estafada. Tu cliente no compra por tu producto, compra para alejarse de un problema.<br><br>¿Qué es lo que más les preocupa, frustra o 'duele' a tus prospectos antes de decidirse a pagarte?"</p>
+                        <div class="hidden p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
+                            <p id="q2-text" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none focus:bg-white/10 p-3 rounded transition-colors drop-shadow-md">
+                                Hoy en día, la gente tiene miedo a equivocarse o a ser estafada. Tu cliente no compra por tu producto, compra para alejarse de un problema.<br><br>¿Qué es lo que más les preocupa, frustra o 'duele' a tus prospectos antes de decidirse a pagarte?
+                            </p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="edit-only w-full mt-8 flex justify-center">
-                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
-                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
-                    </button>
-                </div>
-            </div>
-
-            <!-- MODAL DEL CONSTRUCTOR: CERO COLORES, ESTÉTICA BLANCA Y LIMPIA -->
-            <div id="block-selector-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm p-4">
-                <div class="bg-brand-panel w-full max-w-sm rounded-3xl border border-white/30 p-6 shadow-2xl transform scale-100 transition-transform">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-white font-bold text-xl uppercase tracking-wide">Nuevo Bloque</h3>
-                        <button onclick="document.getElementById('block-selector-modal').classList.add('hidden')" class="text-white/50 hover:text-white outline-none"><i class="fas fa-times text-xl"></i></button>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <button onclick="addBlock('acordeon')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                            <i class="fas fa-list text-2xl"></i><span class="text-xs font-bold">Acordeón</span>
-                        </button>
-                        <button onclick="addBlock('texto')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                            <i class="fas fa-align-left text-2xl"></i><span class="text-xs font-bold">Texto Libre</span>
-                        </button>
-                        <button onclick="addBlock('imagen')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                            <i class="fas fa-image text-2xl"></i><span class="text-xs font-bold">Imagen</span>
-                        </button>
-                        <button onclick="addBlock('video')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                            <i class="fas fa-video text-2xl"></i><span class="text-xs font-bold">Video</span>
-                        </button>
-                        <button onclick="addBlock('audio')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors col-span-2 outline-none">
-                            <i class="fas fa-microphone-alt text-2xl"></i><span class="text-xs font-bold">Audio</span>
-                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 4: Reseñas / Auditoría (Íntegra y Completa) -->
+            <!-- SLIDE 4: Reseñas / Auditoría (REDISEÑADO CON CARRUSELES Y EVIDENCIA VISUAL) -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
-                <div class="flex flex-col md:flex-row gap-6 w-full items-stretch">
-                    <div class="flex-1 bg-brand-primary/20 p-8 rounded-xl border border-brand-primary/50">
-                        <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-building text-white text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-white">Tus Competidores</h3>
-                        </div>
-                        <ul class="space-y-4">
-                            <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Servicio inferior al tuyo</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-check text-white mt-1"></i> <span class="text-white">Producto estándar</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Oferta 100% clara y ruidosa</span></li>
-                        </ul>
+                
+                <!-- CARRUSEL SUPERIOR: Tus Competidores -->
+                <div class="w-full mb-8">
+                    <div class="flex items-center gap-3 mb-4 px-2">
+                        <i class="fas fa-building text-brand-success text-2xl drop-shadow"></i>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Tus Competidores</h3>
                     </div>
-                    <div class="flex items-center justify-center -mx-4 z-10 py-4 md:py-0">
-                        <div class="bg-brand-panel rounded-full p-4 border-4 border-white font-bold text-xl text-white">VS</div>
-                    </div>
-                    <div class="flex-1 bg-brand-primary/50 p-8 rounded-xl border border-white">
-                        <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-crown text-white text-2xl"></i>
-                            <h3 class="text-2xl font-bold text-white">Tu Negocio</h3>
+                    
+                    <div class="carousel-container no-scrollbar">
+                        <!-- Competidor 1 -->
+                        <div class="carousel-card zona-memoria" id="comp-card-1">
+                            <div id="comp1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2" contenteditable="false">Competidor 1</div>
+                            <div class="star-rating" id="comp1-stars" data-rating="0">
+                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 1)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 2)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 3)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 4)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 5)"></i>
+                            </div>
+                            <div class="space-y-3 mt-2 flex-1">
+                                <div class="review-point">
+                                    <div class="icon-selector" id="comp1-btn-1" onclick="toggleIconMenu('comp1-menu-1')" data-icon="fas fa-check text-green-400">
+                                        <i id="comp1-icon-1" class="fas fa-check text-green-400"></i>
+                                    </div>
+                                    <div id="comp1-menu-1" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-star text-white')"></i>
+                                        <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-arrow-right text-white')"></i>
+                                    </div>
+                                    <div id="comp1-text-1" class="editable-text text-white text-sm" contenteditable="false">Servicio inferior al tuyo</div>
+                                </div>
+                                <div class="review-point">
+                                    <div class="icon-selector" id="comp1-btn-2" onclick="toggleIconMenu('comp1-menu-2')" data-icon="fas fa-check text-green-400">
+                                        <i id="comp1-icon-2" class="fas fa-check text-green-400"></i>
+                                    </div>
+                                    <div id="comp1-menu-2" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-exclamation-triangle text-yellow-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-star text-white')"></i>
+                                    </div>
+                                    <div id="comp1-text-2" class="editable-text text-white text-sm" contenteditable="false">Producto estándar pero ruidoso</div>
+                                </div>
+                            </div>
                         </div>
-                        <ul class="space-y-4">
-                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Entrega de servicio superior</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-star text-white mt-1"></i> <span class="font-bold text-white">Producto increíble validado</span></li>
-                            <li class="flex items-start gap-3"><i class="fas fa-times text-white mt-1"></i> <span class="text-white border-b border-white">Silencio digital (Catálogo vacío)</span></li>
-                        </ul>
+
+                        <!-- Competidor 2 -->
+                        <div class="carousel-card zona-memoria" id="comp-card-2">
+                            <div id="comp2-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2" contenteditable="false">Competidor 2</div>
+                            <div class="star-rating" id="comp2-stars" data-rating="0">
+                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 1)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 2)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 3)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 4)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 5)"></i>
+                            </div>
+                            <div class="space-y-3 mt-2 flex-1">
+                                <div class="review-point">
+                                    <div class="icon-selector" id="comp2-btn-1" onclick="toggleIconMenu('comp2-menu-1')" data-icon="fas fa-exclamation-triangle text-yellow-400">
+                                        <i id="comp2-icon-1" class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                    </div>
+                                    <div id="comp2-menu-1" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-star text-white')"></i>
+                                    </div>
+                                    <div id="comp2-text-1" class="editable-text text-white text-sm" contenteditable="false">Puntaje engañoso en redes</div>
+                                </div>
+                                <div class="review-point">
+                                    <div class="icon-selector" id="comp2-btn-2" onclick="toggleIconMenu('comp2-menu-2')" data-icon="fas fa-check text-green-400">
+                                        <i id="comp2-icon-2" class="fas fa-check text-green-400"></i>
+                                    </div>
+                                    <div id="comp2-menu-2" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp2-btn-2', 'comp2-icon-2', 'comp2-menu-2', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp2-btn-2', 'comp2-icon-2', 'comp2-menu-2', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp2-btn-2', 'comp2-icon-2', 'comp2-menu-2', 'fas fa-star text-white')"></i>
+                                    </div>
+                                    <div id="comp2-text-2" class="editable-text text-white text-sm" contenteditable="false">Respuesta inmediata por bot</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Competidor 3 -->
+                        <div class="carousel-card zona-memoria" id="comp-card-3">
+                            <div id="comp3-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2" contenteditable="false">Competidor 3</div>
+                            <div class="star-rating" id="comp3-stars" data-rating="0">
+                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 1)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 2)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 3)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 4)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 5)"></i>
+                            </div>
+                            <div class="space-y-3 mt-2 flex-1">
+                                <div class="review-point">
+                                    <div class="icon-selector" id="comp3-btn-1" onclick="toggleIconMenu('comp3-menu-1')" data-icon="fas fa-star text-white">
+                                        <i id="comp3-icon-1" class="fas fa-star text-white"></i>
+                                    </div>
+                                    <div id="comp3-menu-1" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-star text-white')"></i>
+                                    </div>
+                                    <div id="comp3-text-1" class="editable-text text-white text-sm font-bold" contenteditable="false">Oferta 100% clara y visible</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="mt-8 text-center text-xl text-white italic">
+
+                <!-- SEPARADOR VS -->
+                <div class="flex items-center justify-center -mx-4 z-10 py-2 w-full">
+                    <div class="bg-brand-panel rounded-full p-3 border-4 border-white font-black text-xl text-white shadow-xl">VS</div>
+                </div>
+
+                <!-- CARRUSEL INFERIOR: Tu Negocio -->
+                <div class="w-full mt-4">
+                    <div class="flex items-center gap-3 mb-4 px-2">
+                        <i class="fas fa-crown text-white text-2xl drop-shadow"></i>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Tu Negocio</h3>
+                    </div>
+                    
+                    <div class="carousel-container no-scrollbar">
+                        <!-- Tu Negocio 1 -->
+                        <div class="carousel-card zona-memoria" id="own-card-1" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
+                            <div id="own1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2" contenteditable="false">Tu Situación Actual</div>
+                            <div class="star-rating" id="own1-stars" data-rating="0">
+                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 1)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 2)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 3)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 4)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 5)"></i>
+                            </div>
+                            <div class="space-y-3 mt-2 flex-1">
+                                <div class="review-point">
+                                    <div class="icon-selector" id="own1-btn-1" onclick="toggleIconMenu('own1-menu-1')" data-icon="fas fa-star text-white">
+                                        <i id="own1-icon-1" class="fas fa-star text-white"></i>
+                                    </div>
+                                    <div id="own1-menu-1" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own1-btn-1', 'own1-icon-1', 'own1-menu-1', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own1-btn-1', 'own1-icon-1', 'own1-menu-1', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('own1-btn-1', 'own1-icon-1', 'own1-menu-1', 'fas fa-star text-white')"></i>
+                                    </div>
+                                    <div id="own1-text-1" class="editable-text text-white text-sm" contenteditable="false">Entrega de servicio superior y honesta</div>
+                                </div>
+                                <div class="review-point">
+                                    <div class="icon-selector" id="own1-btn-2" onclick="toggleIconMenu('own1-menu-2')" data-icon="fas fa-times text-red-400">
+                                        <i id="own1-icon-2" class="fas fa-times text-red-400"></i>
+                                    </div>
+                                    <div id="own1-menu-2" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own1-btn-2', 'own1-icon-2', 'own1-menu-2', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own1-btn-2', 'own1-icon-2', 'own1-menu-2', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('own1-btn-2', 'own1-icon-2', 'own1-menu-2', 'fas fa-star text-white')"></i>
+                                    </div>
+                                    <div id="own1-text-2" class="editable-text text-white text-sm border-b border-white/50 pb-1" contenteditable="false">Silencio digital (Catálogo vacío)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tu Negocio 2 -->
+                        <div class="carousel-card zona-memoria" id="own-card-2" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
+                            <div id="own2-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2" contenteditable="false">Punto Crítico</div>
+                            <div class="star-rating" id="own2-stars" data-rating="0">
+                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 1)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 2)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 3)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 4)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 5)"></i>
+                            </div>
+                            <div class="space-y-3 mt-2 flex-1">
+                                <div class="review-point">
+                                    <div class="icon-selector" id="own2-btn-1" onclick="toggleIconMenu('own2-menu-1')" data-icon="fas fa-exclamation-triangle text-yellow-400">
+                                        <i id="own2-icon-1" class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                    </div>
+                                    <div id="own2-menu-1" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own2-btn-1', 'own2-icon-1', 'own2-menu-1', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own2-btn-1', 'own2-icon-1', 'own2-menu-1', 'fas fa-times text-red-400')"></i>
+                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('own2-btn-1', 'own2-icon-1', 'own2-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
+                                    </div>
+                                    <div id="own2-text-1" class="editable-text text-white text-sm" contenteditable="false">Dependencia del "boca a boca"</div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Tu Negocio 3 -->
+                         <div class="carousel-card zona-memoria" id="own-card-3" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
+                            <div id="own3-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2" contenteditable="false">El Riesgo</div>
+                            <div class="star-rating" id="own3-stars" data-rating="0">
+                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 1)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 2)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 3)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 4)"></i>
+                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 5)"></i>
+                            </div>
+                            <div class="space-y-3 mt-2 flex-1">
+                                <div class="review-point">
+                                    <div class="icon-selector" id="own3-btn-1" onclick="toggleIconMenu('own3-menu-1')" data-icon="fas fa-times text-red-400">
+                                        <i id="own3-icon-1" class="fas fa-times text-red-400"></i>
+                                    </div>
+                                    <div id="own3-menu-1" class="icon-dropdown">
+                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own3-btn-1', 'own3-icon-1', 'own3-menu-1', 'fas fa-check text-green-400')"></i>
+                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own3-btn-1', 'own3-icon-1', 'own3-menu-1', 'fas fa-times text-red-400')"></i>
+                                    </div>
+                                    <div id="own3-text-1" class="editable-text text-white text-sm" contenteditable="false">Pierdes ventas por ser difícil de entender</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NUEVO CARRUSEL: EVIDENCIA VISUAL (4 IMÁGENES) -->
+                <div class="w-full mt-8 border-t border-white/20 pt-8">
+                    <div class="flex items-center gap-3 mb-4 px-2">
+                        <i class="fas fa-camera-retro text-white text-2xl drop-shadow"></i>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Tu Situación Actual (Evidencias)</h3>
+                    </div>
+                    
+                    <div class="carousel-container no-scrollbar">
+                        <!-- Evidencia 1 -->
+                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                            <label class="w-full h-44 bg-brand-dark rounded-lg flex items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all">
+                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid1-img')">
+                                <img id="evid1-img" src="" class="absolute inset-0 w-full h-full object-cover hidden" alt="Evidencia 1">
+                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center evidence-placeholder">
+                                    <i class="fas fa-image text-3xl mb-2"></i>
+                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
+                                </div>
+                            </label>
+                            <div id="evid1-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Perfil Instagram</div>
+                        </div>
+
+                        <!-- Evidencia 2 -->
+                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-2" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                            <label class="w-full h-44 bg-brand-dark rounded-lg flex items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all">
+                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid2-img')">
+                                <img id="evid2-img" src="" class="absolute inset-0 w-full h-full object-cover hidden" alt="Evidencia 2">
+                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center evidence-placeholder">
+                                    <i class="fas fa-image text-3xl mb-2"></i>
+                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
+                                </div>
+                            </label>
+                            <div id="evid2-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: WhatsApp Vacio</div>
+                        </div>
+
+                        <!-- Evidencia 3 -->
+                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-3" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                            <label class="w-full h-44 bg-brand-dark rounded-lg flex items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all">
+                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid3-img')">
+                                <img id="evid3-img" src="" class="absolute inset-0 w-full h-full object-cover hidden" alt="Evidencia 3">
+                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center evidence-placeholder">
+                                    <i class="fas fa-image text-3xl mb-2"></i>
+                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
+                                </div>
+                            </label>
+                            <div id="evid3-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Conversación Fría</div>
+                        </div>
+
+                        <!-- Evidencia 4 -->
+                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-4" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                            <label class="w-full h-44 bg-brand-dark rounded-lg flex items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all">
+                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid4-img')">
+                                <img id="evid4-img" src="" class="absolute inset-0 w-full h-full object-cover hidden" alt="Evidencia 4">
+                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center evidence-placeholder">
+                                    <i class="fas fa-image text-3xl mb-2"></i>
+                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
+                                </div>
+                            </label>
+                            <div id="evid4-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: El sitio de la competencia</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center text-lg md:text-xl text-white italic font-bold bg-white/10 p-4 rounded-xl border border-white/20 w-full">
                     "Pierdes ventas porque la competencia es más fácil de entender."
                 </div>
             </div>
 
-            <!-- SLIDE 5: El Reto (Íntegra y Completa) -->
+            <!-- SLIDE 5: El Reto -->
             <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
                     <i class="fas fa-stopwatch fa-4x"></i>
@@ -442,7 +864,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 6: Seguimiento (Íntegra y Completa) -->
+            <!-- SLIDE 6: Seguimiento -->
             <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
@@ -458,7 +880,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 7: Los 3 Asesinos (Íntegra y Completa) -->
+            <!-- SLIDE 7: Los 3 Asesinos -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Conclusión del Diagnóstico</h2>
                 <h1 class="text-4xl font-bold mb-10 text-white">Los 3 Asesinos de Ventas</h1>
@@ -480,13 +902,13 @@
                     </div>
                 </div>
                 <div class="mt-12 text-center">
-                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg outline-none">
+                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
                         ¿Diseñamos la Solución?
                     </button>
                 </div>
             </div>
 
-            <!-- SLIDE 8: Solución 1 (Íntegra y Completa) -->
+            <!-- SLIDE 8: Solución 1 -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
@@ -521,7 +943,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 9: Solución 2 (Íntegra y Completa) -->
+            <!-- SLIDE 9: Solución 2 -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="9">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #2</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Acelerador Magnético</h1>
@@ -548,7 +970,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 10: Solución 3 y Cierre (Íntegra y Completa) -->
+            <!-- SLIDE 10: Solución 3 y Cierre -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="10">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gradient-to-br from-brand-panel to-brand-primary p-8 rounded-2xl border border-white">
@@ -576,220 +998,149 @@
 
         </div>
 
-        <!-- RIGHT SIDEBAR (GUIÓN & PERFILES) -->
+        <!-- Presenter Notes Sidebar (AHORA CON PESTAÑA CRM) -->
         <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
             <div class="flex border-b border-white shrink-0">
-                <button onclick="switchSidebarTab('guion')" id="tab-guion" class="flex-1 p-4 font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-scroll"></i> Guión
+                <button onclick="switchSidebarTab('guion')" id="tab-guion" class="flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2">
+                    <i class="fas fa-user-tie"></i> Guión
                 </button>
-                <button onclick="switchSidebarTab('perfiles')" id="tab-perfiles" class="flex-1 p-4 font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none">
+                <button onclick="switchSidebarTab('perfiles')" id="tab-perfiles" class="flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2">
                     <i class="fas fa-users"></i> Perfiles
                 </button>
-                <button onclick="closeSidebar()" class="p-4 text-white hover:text-slate-300 bg-brand-dark border-l border-white/20 outline-none"><i class="fas fa-times"></i></button>
+                <button onclick="toggleNotes()" class="p-4 text-white hover:text-slate-300 bg-brand-dark border-l border-white/20">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             
-            <div class="flex-1 overflow-y-auto p-6 text-white text-lg leading-relaxed edit-target outline-none focus:bg-white/5" id="script-content" contenteditable="true"></div>
+            <!-- Contenido de Guión Clásico -->
+            <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed" id="script-content"></div>
             
-            <div class="hidden flex-1 overflow-y-auto p-4 space-y-3 bg-brand-dark/50" id="profiles-content"></div>
+            <!-- Nuevo Contenido de Perfiles CRM -->
+            <div class="hidden flex-1 overflow-y-auto p-4 space-y-3 bg-brand-dark/50" id="profiles-content">
+                <!-- Aquí se inyectan los perfiles con Javascript -->
+            </div>
 
-            <div class="p-4 bg-[#1e1e2f] border-t border-[#3E3E61] flex justify-between shrink-0">
-                <button onclick="prevSlide()" class="px-5 py-3 bg-[#2A2A42] border border-[#3E3E61] rounded-xl text-white hover:bg-[#3E3E61] transition outline-none"><i class="fas fa-arrow-left"></i></button>
-                <button onclick="nextSlide()" class="px-5 py-3 bg-brand-success text-white font-bold rounded-xl shadow-lg hover:bg-green-600 transition outline-none">Sig. <i class="fas fa-arrow-right"></i></button>
+            <!-- Botones Paginación -->
+            <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0" id="sidebar-footer">
+                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition">Anterior</button>
+                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200">Siguiente</button>
             </div>
         </div>
+
     </main>
 
-    <!-- FOOTER NAV -->
+    <!-- Bottom Navigation -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
-            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none">Zona 1: Portada</button>
-            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 2: Perfil</button>
-            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 3: Constructor</button>
-            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 4</button>
-            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 5</button>
-            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 6</button>
-            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 7</button>
-            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 8</button>
-            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 9</button>
-            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 10</button>
+            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
+            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 2: Perfil</button>
+            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 3: Sondeo</button>
+            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 4: Competencia</button>
+            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 5: El Reto</button>
+            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 6: Seguimiento</button>
+            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 7: Diagnóstico</button>
+            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 8: Solución 1</button>
+            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 9: Solución 2</button>
+            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 10: Solución 3</button>
         </div>
     </footer>
 
     <script>
         // =========================================
-        // NUCLEO: ESTRELLAS & FULLSCREEN
+        // ARREGLOS DE MEMORIA DEL CRM
         // =========================================
+        const CRM_TEXT_IDS = [
+            'q1-title', 'q1-text', 'q2-title', 'q2-text',
+            'comp1-title', 'comp1-text-1', 'comp1-text-2',
+            'comp2-title', 'comp2-text-1', 'comp2-text-2',
+            'comp3-title', 'comp3-text-1',
+            'own1-title', 'own1-text-1', 'own1-text-2',
+            'own2-title', 'own2-text-1',
+            'own3-title', 'own3-text-1',
+            'evid1-text', 'evid2-text', 'evid3-text', 'evid4-text'
+        ];
+        const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
+        const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
+        const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
+
+        // =========================================
+        // MODO EDICIÓN (LAPICITO)
+        // =========================================
+        let isEditMode = false;
+        
+        function toggleEditMode() {
+            isEditMode = !isEditMode;
+            const btn = document.getElementById('btn-edit-mode');
+            
+            if (isEditMode) {
+                // Activar modo edición
+                btn.classList.add('bg-white', 'text-brand-dark');
+                btn.classList.remove('bg-[#2A2A42]', 'text-white');
+                document.body.classList.add('edit-mode-active');
+                alert("✏️ Modo Edición Activado: Toca cualquier texto, ícono, estrella o caja de imagen para modificarlo.");
+            } else {
+                // Desactivar modo edición y volver a modo seguro (Presentación)
+                btn.classList.remove('bg-white', 'text-brand-dark');
+                btn.classList.add('bg-[#2A2A42]', 'text-white');
+                document.body.classList.remove('edit-mode-active');
+                
+                // Forzamos que se cierre cualquier menú de iconos que se haya quedado abierto
+                document.querySelectorAll('.icon-dropdown.show').forEach(menu => menu.classList.remove('show'));
+                
+                saveCurrentState(); // Autoguardado al salir de edición
+                alert("🔒 Modo Presentación Activado: Todo está fijo y seguro para presentar a tu cliente.");
+            }
+
+            // Cambiar atributo contenteditable de todos los elementos registrados en la memoria
+            CRM_TEXT_IDS.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.setAttribute('contenteditable', isEditMode.toString());
+                }
+            });
+        }
+
+        // --- FUNCIÓN PARA EL MENÚ SÁNDWICH ---
+        function toggleMainMenu() {
+            const menu = document.getElementById('main-menu');
+            if(menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        }
+
         function initBackgroundStars() {
             const container = document.getElementById('stars-container');
             if(!container) return;
-            for(let i=0; i<35; i++) {
+            const starCount = 35;
+            for(let i=0; i<starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'bg-star';
                 const size = Math.random() * 2 + 1;
-                star.style.width = size + 'px'; star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%'; star.style.top = Math.random() * 100 + '%';
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
                 star.style.animationDelay = (Math.random() * 4) + 's';
                 star.style.animationDuration = (3 + Math.random() * 3) + 's';
                 container.appendChild(star);
             }
         }
+
+        let intendedFullscreen = false;
         function toggleFullScreen() {
-            if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(e => console.log(e));
-            else if (document.exitFullscreen) document.exitFullscreen();
-        }
-
-        // =========================================
-        // MODO PRESENTACIÓN VS EDICIÓN (SAAS)
-        // =========================================
-        let isEditMode = true;
-        function toggleAppMode() {
-            isEditMode = !isEditMode;
-            const btn = document.getElementById('mode-btn');
-            if(isEditMode) {
-                document.body.classList.remove('mode-presentation');
-                btn.innerHTML = `<i class="fas fa-eye"></i> <span>Activar Modo Presentación</span>`;
-                btn.className = "w-full bg-brand-success text-white font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-3 hover:bg-green-600 transition outline-none";
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+                intendedFullscreen = true; 
             } else {
-                document.body.classList.add('mode-presentation');
-                btn.innerHTML = `<i class="fas fa-pencil-alt"></i> <span>Volver a Modo Edición</span>`;
-                btn.className = "w-full bg-[#3E3E61] text-white font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-3 border border-white/40 outline-none";
-            }
-            toggleDrawer(); // Cierra el menú al cambiar de modo
-        }
-
-        function toggleDrawer() {
-            const drawer = document.getElementById('main-drawer');
-            const overlay = document.getElementById('drawer-overlay');
-            if(drawer.classList.contains('-translate-x-full')) {
-                drawer.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            } else {
-                drawer.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+                intendedFullscreen = false; 
             }
         }
 
-        // =========================================
-        // CONSTRUCTOR POR BLOQUES (ZONA 3)
-        // =========================================
-        function addBlock(type) {
-            document.getElementById('block-selector-modal').classList.add('hidden');
-            const canvas = document.getElementById('builder-canvas');
-            const id = 'block_' + Date.now();
-            let html = '';
-
-            if(type === 'acordeon') {
-                html = `
-                <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                    <span contenteditable="true" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none edit-target break-words">👉 Nueva Pregunta</span>
-                    <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i></button>
-                </div>
-                <div class="hidden p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
-                    <p contenteditable="true" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none edit-target drop-shadow-md">Escribe aquí tu texto oculto persuasivo...</p>
-                </div>`;
-            } else if(type === 'texto') {
-                html = `<div class="p-5"><p contenteditable="true" class="text-white text-[18px] md:text-[22px] leading-relaxed outline-none edit-target">Texto libre directo al lienzo...</p></div>`;
-            } else if(type === 'imagen') {
-                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
-                            <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-10">
-                                <i class="fas fa-cloud-upload-alt text-4xl mb-2"></i><span class="text-sm font-bold">Subir Imagen Local</span>
-                                <input type="file" accept="image/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'imagen')">
-                            </label>
-                            <img id="img_${id}" src="" class="w-full h-full object-contain hidden">
-                        </div>`;
-            } else if(type === 'video') {
-                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
-                            <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-20">
-                                <i class="fas fa-video text-4xl mb-2"></i><span class="text-sm font-bold">Subir Video Local</span>
-                                <input type="file" accept="video/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'video')">
-                            </label>
-                            <video id="vid_${id}" class="w-full h-full object-contain hidden" playsinline loop></video>
-                            <div id="ctrl_${id}" class="video-controls hidden z-10">
-                                <button class="video-ctrl-btn" onclick="toggleVid('${id}')"><i class="fas fa-play" id="i_play_${id}"></i><i class="fas fa-pause hidden" id="i_pause_${id}"></i></button>
-                                <button class="video-ctrl-btn" onclick="muteVid('${id}')"><i class="fas fa-volume-up" id="i_vol_${id}"></i><i class="fas fa-volume-mute hidden" id="i_mute_${id}"></i></button>
-                            </div>
-                        </div>`;
-            } else if(type === 'audio') {
-                html = `<div class="w-full bg-[#1e1e2f] border border-white/20 rounded-2xl p-4 relative">
-                            <label class="edit-only absolute top-2 right-2 px-3 py-1 bg-white/10 rounded-full cursor-pointer text-xs font-bold text-white hover:bg-white/20 z-10">
-                                Cargar MP3 <input type="file" accept="audio/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'audio')">
-                            </label>
-                            <div class="audio-pro-container" id="pro_${id}">
-                                <div class="visualizer-pro">${Array(15).fill('<div class="v-bar"></div>').join('')}</div>
-                                <audio id="aud_${id}" class="hidden"></audio>
-                                <button class="play-pro-btn mx-auto mt-4" onclick="toggleAud('${id}')"><i class="fas fa-play" id="a_play_${id}"></i><i class="fas fa-pause hidden" id="a_pause_${id}"></i></button>
-                            </div>
-                        </div>`;
-            }
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group w-full';
-            wrapper.id = id;
-            wrapper.innerHTML = `
-                <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-red-500 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50"><i class="fas fa-trash text-xs"></i></button>
-                ${html}
-            `;
-            canvas.appendChild(wrapper);
-            
-            // Scroll to new block
-            setTimeout(() => { document.getElementById('presentation-area').scrollTo({top: canvas.scrollHeight, behavior:'smooth'}); }, 100);
-        }
-
-        // --- MANEJO MULTIMEDIA DINÁMICO ---
-        function loadBlockMedia(input, blockId, type) {
-            const file = input.files[0];
-            if(!file) return;
-            const url = URL.createObjectURL(file); 
-            
-            input.parentElement.classList.add('hidden');
-
-            if(type === 'imagen') {
-                const img = document.getElementById('img_'+blockId);
-                img.src = url; img.classList.remove('hidden');
-            } else if(type === 'video') {
-                const vid = document.getElementById('vid_'+blockId);
-                vid.src = url; vid.classList.remove('hidden');
-                document.getElementById('ctrl_'+blockId).classList.remove('hidden');
-                vid.play(); toggleVid(blockId, true); 
-            } else if(type === 'audio') {
-                const aud = document.getElementById('aud_'+blockId);
-                aud.src = url;
-                input.parentElement.classList.remove('hidden'); 
-            }
-        }
-
-        function toggleVid(id, isForcePlay=false) {
-            const v = document.getElementById('vid_'+id);
-            if(!v.src) return;
-            if (v.paused || isForcePlay) { v.play(); document.getElementById('i_play_'+id).classList.add('hidden'); document.getElementById('i_pause_'+id).classList.remove('hidden'); }
-            else { v.pause(); document.getElementById('i_play_'+id).classList.remove('hidden'); document.getElementById('i_pause_'+id).classList.add('hidden'); }
-        }
-        function muteVid(id) {
-            const v = document.getElementById('vid_'+id);
-            v.muted = !v.muted;
-            if(v.muted) { document.getElementById('i_vol_'+id).classList.add('hidden'); document.getElementById('i_mute_'+id).classList.remove('hidden'); }
-            else { document.getElementById('i_vol_'+id).classList.remove('hidden'); document.getElementById('i_mute_'+id).classList.add('hidden'); }
-        }
-        function toggleAud(id) {
-            const a = document.getElementById('aud_'+id);
-            const pro = document.getElementById('pro_'+id);
-            if(!a.src) { alert("Sube un audio primero"); return; }
-            if (a.paused) { a.play(); pro.classList.add('playing'); document.getElementById('a_play_'+id).classList.add('hidden'); document.getElementById('a_pause_'+id).classList.remove('hidden'); }
-            else { a.pause(); pro.classList.remove('playing'); document.getElementById('a_play_'+id).classList.remove('hidden'); document.getElementById('a_pause_'+id).classList.add('hidden'); }
-        }
-
-        function toggleAccordion(btn) {
-            const container = btn.closest('.dynamic-block');
-            const content = container.querySelector('.hidden, .block.p-5.pt-0'); 
-            const icon = btn.querySelector('.fa-chevron-down');
-            if(content.classList.contains('hidden')) { content.classList.remove('hidden'); content.classList.add('block'); } 
-            else { content.classList.add('hidden'); content.classList.remove('block'); }
-            icon.classList.toggle('rotate-180');
-        }
-
-        // =========================================
-        // TARJETA DE PERFIL (IMG & MEMORIA)
-        // =========================================
         function ajustarAlturaPortada(src) {
             if (!src) return;
             const img = new Image();
@@ -798,10 +1149,16 @@
                 const cards = document.querySelectorAll('.profile-card-sync');
                 const covers = document.querySelectorAll('.portada-sync');
                 if (!cards.length || !covers.length) return;
+                
                 let cardWidth = cards[0].offsetWidth;
-                if (cardWidth === 0) cardWidth = Math.min(window.innerWidth - 32, 450);
+                if (cardWidth === 0) {
+                    cardWidth = Math.min(window.innerWidth - 32, 450);
+                }
+
                 let newHeight = cardWidth * ratio;
-                if (newHeight > 220) newHeight = 220; if (newHeight < 100) newHeight = 100;
+                if (newHeight > 220) newHeight = 220; 
+                if (newHeight < 100) newHeight = 100;
+                
                 covers.forEach(c => c.style.height = newHeight + 'px');
                 cards.forEach(c => c.style.paddingTop = (newHeight - 50) + 'px');
             };
@@ -814,58 +1171,174 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const result = e.target.result;
-                    document.querySelectorAll('.' + targetClass).forEach(target => {
-                        if (isBackground) target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
-                        else target.src = result;
+                    const targets = document.querySelectorAll('.' + targetClass);
+                    
+                    targets.forEach(target => {
+                        if (isBackground) {
+                            target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
+                        } else {
+                            target.src = result;
+                        }
                     });
-                    if (isBackground) { ajustarAlturaPortada(result); localStorage.setItem('prospecta_portada', result); }
-                    else localStorage.setItem('prospecta_avatar', result);
+
+                    if (isBackground) {
+                        ajustarAlturaPortada(result); 
+                        localStorage.setItem('prospecta_portada', result); 
+                    } else {
+                        localStorage.setItem('prospecta_avatar', result); 
+                    }
+                }
+                reader.readAsDataURL(file);
+            }
+
+            setTimeout(() => {
+                if (intendedFullscreen && !document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado", err));
+                }
+            }, 500); 
+        }
+
+        // =========================================
+        // CARGA DE EVIDENCIA VISUAL (FOTOGRAFÍAS)
+        // =========================================
+        function cargarEvidencia(event, imgId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById(imgId);
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                    
+                    // Ocultar el texto de "Subir Captura"
+                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
+                    if(placeholder) placeholder.classList.add('hidden');
+                    
+                    // Se deja listo para que la memoria global lo absorba luego
+                    localStorage.setItem('prospecta_' + imgId, e.target.result);
                 }
                 reader.readAsDataURL(file);
             }
         }
 
         // =========================================
-        // CRM: GUARDAR Y CARGAR PERFILES (SaaS)
+        // SISTEMA CRM: AUTO-GUARDADO Y PERFILES COMPLETO
         // =========================================
+        function saveCurrentState() {
+            // Textos
+            CRM_TEXT_IDS.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) localStorage.setItem('prospecta_' + id, el.innerHTML);
+            });
+            // Estrellas
+            CRM_STAR_IDS.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) localStorage.setItem('prospecta_' + id, el.dataset.rating || '0');
+            });
+            // Iconos
+            CRM_ICON_IDS.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) localStorage.setItem('prospecta_' + id, el.dataset.icon || '');
+            });
+            // Las imágenes ya se guardaron en localStorage al momento de subirlas en cargarEvidencia()
+        }
+
+        function loadCurrentState() {
+            // Textos
+            CRM_TEXT_IDS.forEach(id => {
+                const val = localStorage.getItem('prospecta_' + id);
+                if(val !== null && document.getElementById(id)) document.getElementById(id).innerHTML = val;
+            });
+            // Estrellas (Visual)
+            CRM_STAR_IDS.forEach(id => {
+                const val = localStorage.getItem('prospecta_' + id);
+                if(val !== null) setRatingVisuals(id, parseInt(val));
+            });
+            // Iconos (Visual)
+            CRM_ICON_IDS.forEach(btnId => {
+                const val = localStorage.getItem('prospecta_' + btnId);
+                if(val && document.getElementById(btnId)) {
+                    document.getElementById(btnId).dataset.icon = val;
+                    // El id del icono visual es reemplazando '-btn-' por '-icon-'
+                    const iconId = btnId.replace('-btn-', '-icon-');
+                    const iconEl = document.getElementById(iconId);
+                    if(iconEl) iconEl.className = val;
+                }
+            });
+            // Imágenes Evidencia (Visual)
+            CRM_IMG_IDS.forEach(id => {
+                const val = localStorage.getItem('prospecta_' + id);
+                const img = document.getElementById(id);
+                if(val && img) {
+                    img.src = val;
+                    img.classList.remove('hidden');
+                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
+                    if(placeholder) placeholder.classList.add('hidden');
+                } else if (!val && img) {
+                    // Si cargamos un perfil viejo sin imagen, limpiamos la zona visualmente
+                    img.src = '';
+                    img.classList.add('hidden');
+                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
+                    if(placeholder) placeholder.classList.remove('hidden');
+                }
+            });
+        }
+
         function promptSaveProfile() {
-            toggleDrawer(); // Cerramos menu izquierdo
-            const name = prompt("💾 Guardar Perfil y Arquitectura\n\n¿Con qué nombre deseas guardar esta configuración de cliente?");
+            const name = prompt("💾 Guardar Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
             if(!name || name.trim() === "") return;
-            
-            // Recolectamos la estructura construida en la Zona 3
-            const canvasHTML = document.getElementById('builder-canvas').innerHTML;
             
             const profile = {
                 id: Date.now().toString(),
                 name: name.trim(),
                 portada: localStorage.getItem('prospecta_portada') || '',
                 avatar: localStorage.getItem('prospecta_avatar') || '',
-                canvas: canvasHTML,
-                guion: document.getElementById('script-content').innerHTML,
-                date: new Date().toLocaleDateString()
+                date: new Date().toLocaleDateString(),
+                data: {}
             };
+
+            // Recolectar toda la memoria actual al objeto JSON del perfil
+            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
+            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
             
-            let profiles = JSON.parse(localStorage.getItem('prospecta_crm_profiles') || '[]');
+            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
             profiles.push(profile);
-            localStorage.setItem('prospecta_crm_profiles', JSON.stringify(profiles));
+            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
             
-            alert("✅ Perfil Guardado: " + profile.name);
+            alert("✅ Perfil guardado exitosamente: " + profile.name);
             renderProfilesList();
+            
+            // Si la barra no está abierta, ábrela en la pestaña de perfiles
+            if (!notesVisible) {
+                toggleNotes();
+            }
+            switchSidebarTab('perfiles');
         }
 
         function loadProfile(id) {
-            let profiles = JSON.parse(localStorage.getItem('prospecta_crm_profiles') || '[]');
+            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
             const profile = profiles.find(p => p.id === id);
             if(!profile) return;
 
-            // 1. Restaurar Zona 3 Constructor
-            if(profile.canvas) document.getElementById('builder-canvas').innerHTML = profile.canvas;
-            
-            // 2. Restaurar Guión Custom
-            if(profile.guion) document.getElementById('script-content').innerHTML = profile.guion;
+            // 1. Inyectar datos del perfil en localStorage actual
+            if(profile.data) {
+                Object.keys(profile.data).forEach(key => {
+                    localStorage.setItem('prospecta_' + key, profile.data[key]);
+                });
+            } else {
+                // Compatibilidad con perfiles súper viejos (Zona 3 solamente)
+                localStorage.setItem('prospecta_q1_title', profile.q1_title || '👉 Pregunta 1');
+                localStorage.setItem('prospecta_q1_text', profile.q1_text || '...');
+                localStorage.setItem('prospecta_q2_title', profile.q2_title || '👉 Pregunta 2');
+                localStorage.setItem('prospecta_q2_text', profile.q2_text || '...');
+            }
 
-            // 3. Cargar Fotos
+            // 2. Refrescar el DOM visualmente con los nuevos datos
+            loadCurrentState();
+
+            // 3. Cargar Fotos principales (Portada/Avatar)
             if(profile.portada) {
                 localStorage.setItem('prospecta_portada', profile.portada);
                 document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${profile.portada}')`);
@@ -876,28 +1349,105 @@
                 document.querySelectorAll('.avatar-sync').forEach(i => i.src = profile.avatar);
             }
             
-            alert("✅ Arquitectura Cargada: " + profile.name);
-            closeSidebar();
+            alert("✅ Perfil cargado: " + profile.name);
+        }
+
+        function deleteProfile(id, event) {
+            event.stopPropagation(); // Evita que al borrar se cargue el perfil
+            if(confirm("¿Estás seguro de eliminar este perfil?")) {
+                let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                profiles = profiles.filter(p => p.id !== id);
+                localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+                renderProfilesList();
+            }
         }
 
         function renderProfilesList() {
             const container = document.getElementById('profiles-content');
-            let profiles = JSON.parse(localStorage.getItem('prospecta_crm_profiles') || '[]');
-            if(profiles.length === 0) { container.innerHTML = `<div class="text-center text-white/50 mt-10"><p>Aún no hay perfiles.</p></div>`; return; }
+            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            
+            if(profiles.length === 0) {
+                container.innerHTML = `<div class="text-center text-white/50 mt-10"><i class="fas fa-folder-open text-4xl mb-4"></i><p>Aún no hay perfiles guardados.</p></div>`;
+                return;
+            }
+
             container.innerHTML = profiles.map(p => `
-                <div class="bg-[#2A2A42] border border-[#3E3E61] p-4 rounded-xl shadow cursor-pointer hover:bg-brand-primary" onclick="loadProfile('${p.id}')">
-                    <span class="font-bold text-white block">${p.name}</span><span class="text-xs text-brand-success mt-1 block"><i class="fas fa-check"></i> ${p.date}</span>
+                <div class="bg-brand-primary border border-white/20 p-4 rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition group" onclick="loadProfile('${p.id}')">
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col">
+                            <span class="font-bold text-white text-lg">${p.name}</span>
+                            <span class="text-xs text-white/60 mt-1"><i class="fas fa-clock"></i> Guardado: ${p.date}</span>
+                        </div>
+                        <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-red-400 p-2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             `).join('');
         }
 
+        function switchSidebarTab(tabName) {
+            const btnGuion = document.getElementById('tab-guion');
+            const btnPerfiles = document.getElementById('tab-perfiles');
+            const contentGuion = document.getElementById('script-content');
+            const contentPerfiles = document.getElementById('profiles-content');
+            const footer = document.getElementById('sidebar-footer');
+
+            if(tabName === 'guion') {
+                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2";
+                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2";
+                contentGuion.classList.remove('hidden');
+                contentPerfiles.classList.add('hidden');
+                footer.classList.remove('hidden');
+            } else {
+                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2";
+                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2";
+                contentPerfiles.classList.remove('hidden');
+                contentGuion.classList.add('hidden');
+                footer.classList.add('hidden');
+                renderProfilesList();
+            }
+        }
+
         // =========================================
-        // NAVEGACIÓN Y GUIONES CLÁSICOS
+        // ARRANQUE DE LA APP
         // =========================================
-        let currentSlide = 1; const totalSlides = 10;
-        
-        // GUIÓN ÍNTEGRO Y COMPLETO RESTAURADO (Palabra por palabra)
-        const defaultScripts = {
+        window.addEventListener('DOMContentLoaded', () => {
+            initBackgroundStars(); 
+            loadCurrentState(); // Carga todos los valores de la memoria global
+            
+            const savedPortada = localStorage.getItem('prospecta_portada');
+            const savedAvatar = localStorage.getItem('prospecta_avatar');
+
+            if (savedPortada) {
+                const covers = document.querySelectorAll('.portada-sync');
+                covers.forEach(target => {
+                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
+                });
+                ajustarAlturaPortada(savedPortada);
+            } else {
+                ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+            }
+
+            if (savedAvatar) {
+                const avatars = document.querySelectorAll('.avatar-sync');
+                avatars.forEach(img => {
+                    img.src = savedAvatar;
+                });
+            }
+        });
+
+        function setDateTime() {
+            const now = new Date();
+            const fechaEls = document.querySelectorAll('#display_fecha');
+            const horaEls = document.querySelectorAll('#display_hora');
+            fechaEls.forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
+            horaEls.forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
+        }
+        setInterval(setDateTime, 60000); 
+        setDateTime(); 
+
+        const scripts = {
             1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
                 <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
                 <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
@@ -908,9 +1458,8 @@
                 <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
                 <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
             
-            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas y CALLA)</p>
-                <p class="mb-4">1. Para darme una idea cuéntame, ¿Qué es lo que les pasa a tus clientes, qué es lo que más les duele antes de contratarte? ¿Por qué te buscan? <br><span class="text-white italic">(Escuchas y Callas)</span>.</p>
-                <p>2. Para entender hacia dónde vamos: ¿quién es tu cliente ideal hoy? ¿en qué sector o perfil específico te estás enfocando?</p>`,
+            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas del teleprompter y CALLA)</p>
+                <p class="mb-4">Utiliza los Acordeones Centrales en la pantalla principal para guiar la conversación con precisión.</p>`,
             
             4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
                 <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
@@ -965,54 +1514,163 @@
                 <p class="font-bold text-white">"Dejarás de improvisar y tendrás el control total de la conversación desde el primer segundo."</p>`
         };
 
-        function goToSlide(index) { if(index>=1 && index<=totalSlides) { currentSlide = index; updateUI(); } }
-        
-        function updateUI() {
-            document.querySelectorAll('.slide').forEach(s => { s.classList.remove('active'); if(parseInt(s.dataset.slide)===currentSlide) s.classList.add('active'); });
-            document.getElementById('progress-bar').style.width = `${(currentSlide/totalSlides)*100}%`;
-            
-            // Cargar el guion base si no ha sido modificado en la memoria actual
-            const scrBox = document.getElementById('script-content');
-            if(scrBox.innerHTML.trim() === "" || currentSlide !== 3) { 
-                // En la zona 3 respetamos lo que haya si es perfil guardado, si no, cargamos el default
-                scrBox.innerHTML = defaultScripts[currentSlide] || "<p>Sin notas.</p>"; 
+        let currentSlide = 1;
+        const totalSlides = 10;
+        let notesVisible = false;
+
+        function goToSlide(index) {
+            if (index >= 1 && index <= totalSlides) {
+                currentSlide = index;
+                updateUI();
             }
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+                if (parseInt(slide.dataset.slide) === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+            document.getElementById('script-content').innerHTML = scripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
             
-            for(let i=1; i<=totalSlides; i++) {
-                const p = document.getElementById('nav-pill-'+i);
-                if(p) { 
-                    if(i===currentSlide) { p.className="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-white text-brand-dark shadow-md"; p.scrollIntoView({behavior:'smooth',inline:'center'}); } 
-                    else p.className="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold bg-brand-dark text-white border border-[#3E3E61]"; 
+            const notesPanel = document.getElementById('script-content');
+            if(notesPanel) notesPanel.scrollTop = 0;
+            
+            const presentationArea = document.getElementById('presentation-area');
+            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
+
+            for(let i = 1; i <= totalSlides; i++) {
+                const pill = document.getElementById('nav-pill-' + i);
+                if(pill) {
+                    if(i === currentSlide) {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md";
+                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } else {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
+                    }
                 }
             }
         }
-        function nextSlide() { if(currentSlide<totalSlides) { currentSlide++; updateUI(); } }
-        function prevSlide() { if(currentSlide>1) { currentSlide--; updateUI(); } }
-        
-        function openSidebarTab(tab) {
-            toggleDrawer(); // Cierra el izquierdo
-            const sidebar = document.getElementById('notes-sidebar');
-            sidebar.classList.remove('w-0'); sidebar.classList.add('w-full', 'md:w-[400px]');
-            const bG = document.getElementById('tab-guion'), bP = document.getElementById('tab-perfiles');
-            const cG = document.getElementById('script-content'), cP = document.getElementById('profiles-content');
-            if(tab === 'guion') { bG.classList.add('bg-brand-primary'); bG.classList.remove('bg-brand-dark'); bP.classList.add('bg-brand-dark'); bP.classList.remove('bg-brand-primary'); cG.classList.remove('hidden'); cP.classList.add('hidden'); } 
-            else { bP.classList.add('bg-brand-primary'); bP.classList.remove('bg-brand-dark'); bG.classList.add('bg-brand-dark'); bG.classList.remove('bg-brand-primary'); cP.classList.remove('hidden'); cG.classList.add('hidden'); renderProfilesList(); }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+            }
         }
-        function toggleNotes() { openSidebarTab('guion'); }
-        function closeSidebar() { const sidebar = document.getElementById('notes-sidebar'); sidebar.classList.add('w-0'); sidebar.classList.remove('w-full', 'md:w-[400px]'); }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function toggleNotes() {
+            const sidebar = document.getElementById('notes-sidebar');
+            notesVisible = !notesVisible;
+            
+            if (notesVisible) {
+                sidebar.classList.remove('w-0');
+                sidebar.classList.add('w-full', 'md:w-[400px]');
+            } else {
+                sidebar.classList.add('w-0');
+                sidebar.classList.remove('w-full', 'md:w-[400px]');
+            }
+        }
+        
+        // --- FUNCIÓN SEGURA PARA ABRIR ACORDEÓN DESDE LA FLECHA ---
+        function toggleAccordion(btn) {
+            // Busca el contenedor padre y luego el div oculto para que no choque con la edición de texto
+            const container = btn.closest('.bg-brand-panel');
+            const content = container.querySelector('.hidden, .block.p-5.pt-0'); 
+            const icon = btn.querySelector('.fa-chevron-down');
+            
+            if(content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('block');
+            } else {
+                content.classList.add('hidden');
+                content.classList.remove('block');
+            }
+            icon.classList.toggle('rotate-180');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
 
         // =========================================
-        // INICIO
+        // FUNCIONES NUEVAS: ESTRELLAS E ÍCONOS (ZONA 4)
         // =========================================
-        window.addEventListener('DOMContentLoaded', () => {
-            initBackgroundStars(); 
-            const savedPortada = localStorage.getItem('prospecta_portada');
-            const savedAvatar = localStorage.getItem('prospecta_avatar');
-            if (savedPortada) { document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`); ajustarAlturaPortada(savedPortada); } 
-            else ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
-            if (savedAvatar) document.querySelectorAll('.avatar-sync').forEach(i => i.src = savedAvatar);
-            updateUI();
+        
+        // Función principal llamada por el clic del usuario (respeta el Modo Edición)
+        function setRating(containerId, rating) {
+            if (!isEditMode) return; 
+            setRatingVisuals(containerId, rating);
+            saveCurrentState();
+        }
+
+        // Función puramente visual usada tanto por los clics como por la carga de perfiles guardados
+        function setRatingVisuals(containerId, rating) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.dataset.rating = rating;
+            const stars = container.querySelectorAll('.star-btn');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far'); // Quita estilo hueco
+                    star.classList.add('fas');    // Pone estilo relleno
+                } else {
+                    star.classList.remove('fas'); // Quita estilo relleno
+                    star.classList.add('far');    // Pone estilo hueco
+                }
+            });
+        }
+
+        function toggleIconMenu(menuId) {
+            if (!isEditMode) return; 
+            
+            // Cierra cualquier otro menú abierto
+            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
+                if(menu.id !== menuId) menu.classList.remove('show');
+            });
+            
+            const menu = document.getElementById(menuId);
+            menu.classList.toggle('show');
+        }
+
+        function changeIcon(btnId, iconId, menuId, newIconClass) {
+            // Actualiza el icono visual
+            document.getElementById(iconId).className = newIconClass;
+            
+            // Guarda la clase en el data-attribute del botón
+            document.getElementById(btnId).dataset.icon = newIconClass;
+            
+            // Cierra el menú
+            document.getElementById(menuId).classList.remove('show');
+            
+            saveCurrentState(); // Dispara guardado en memoria
+        }
+
+        // Cierra los menús de íconos al hacer clic fuera de ellos
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
+                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
         });
+
+        updateUI();
     </script>
 </body>
 </html>
