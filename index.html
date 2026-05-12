@@ -59,6 +59,12 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* =========================================
+           MODO PRESENTACIÓN: Oculta elementos de edición
+           ========================================= */
+        body.mode-presentation .edit-only { display: none !important; }
+        body.mode-presentation [contenteditable="true"] { pointer-events: none; border: none; background: transparent; outline: none; }
+
+        /* =========================================
            ESTILOS DE LA CABECERA
            ========================================= */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
@@ -330,6 +336,12 @@
             border-color: #FFFFFF;
             background: rgba(255,255,255,0.1);
         }
+        
+        /* ESTILO PARA TARJETAS VERTICALES PRODUCTOS ZONA 8 */
+        .product-card {
+            flex: 0 0 280px;
+            scroll-snap-align: center;
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -341,31 +353,33 @@
     <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
     <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
 
-    <!-- Top Navigation / Header (CABECERA INTACTA DE TU CÓDIGO) -->
+    <!-- Top Navigation / Header (CABECERA AJUSTADA PARA NO APLASTARSE) -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
         
         <!-- SECCIÓN IZQUIERDA: MENÚ SÁNDWICH -->
-        <div class="flex items-center w-1/4 z-10 relative">
+        <div class="flex-none flex items-center z-10 relative">
             <button class="hamburger-btn" onclick="toggleMainMenu()">
                 <span></span><span></span><span></span>
             </button>
             
-            <!-- CONTENIDO DEL MENÚ DESPLEGABLE (AHORA INCLUYE EL MODO EDICIÓN) -->
+            <!-- CONTENIDO DEL MENÚ DESPLEGABLE CON NUEVO GUARDADO -->
             <div id="main-menu" class="absolute top-12 left-0 bg-brand-panel border border-white/20 rounded-xl shadow-2xl p-2 w-56 hidden transition-all z-50">
                 
-                <!-- NUEVO BOTÓN LÁPIZ CENTRALIZADO -->
+                <!-- BOTÓN LÁPIZ CENTRALIZADO -->
                 <button onclick="toggleEditMode(); toggleMainMenu();" id="menu-btn-edit" class="w-full text-white hover:text-brand-success hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-pen w-5 text-center"></i> <span class="font-semibold text-sm">Modo Edición</span>
                 </button>
                 
                 <div class="h-px w-full bg-white/20 my-1"></div>
                 
-                <button onclick="promptSaveProfile(); toggleMainMenu();" class="w-full text-white hover:text-brand-success hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
-                    <i class="fas fa-save w-5 text-center"></i> <span class="font-semibold text-sm">Guardar Perfil</span>
+                <button onclick="saveChanges(); toggleMainMenu();" id="btn-save-changes" class="w-full text-white hover:text-brand-success hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fas fa-save w-5 text-center"></i> <span class="font-semibold text-sm">Guardar Cambios</span>
                 </button>
-                <button onclick="toggleNotes(); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
-                    <i class="far fa-comment-alt w-5 text-center"></i> <span class="hidden sm:inline font-semibold">Mi Guión</span>
+                
+                <button onclick="promptSaveProfile(); toggleMainMenu();" class="w-full text-white hover:text-blue-400 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
+                    <i class="fas fa-file-signature w-5 text-center"></i> <span class="font-semibold text-sm">Guardar como Nuevo</span>
                 </button>
+                
                 <div class="h-px w-full bg-white/20 my-1"></div>
                 <button onclick="toggleFullScreen(); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-expand w-5 text-center"></i> <span class="font-semibold text-sm">Pantalla Completa</span>
@@ -374,7 +388,7 @@
         </div>
         
         <!-- SECCIÓN CENTRAL: LOGO -->
-        <div class="w-2/4 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
+        <div class="flex-1 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
             <div class="brand-name-menu">
                 Prospect<span class="char-a-container">a
                     <svg class="star-icon-menu" viewBox="0 0 24 24" fill="currentColor">
@@ -385,8 +399,8 @@
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
 
-        <!-- SECCIÓN DERECHA: LIMPIA (ZONAS LIMPIAS, EL LAPIZ SE MOVIÓ AL SANDWICH) -->
-        <div class="flex items-center justify-end w-1/4 z-10 gap-2 md:gap-3">
+        <!-- SECCIÓN DERECHA: LIMPIA -->
+        <div class="flex-none flex items-center justify-end z-10 gap-2 md:gap-3 w-8">
             <!-- Espacio limpio para el prospecto -->
         </div>
         
@@ -454,10 +468,10 @@
                 
                 <div class="w-full flex flex-col items-center mb-10">
                     <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
-                        👉 DESCUBRIR MI ERROR AHORA
+                        <i class="fas fa-arrow-right mr-1"></i> DESCUBRIR MI ERROR AHORA
                     </button>
                     <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
-                        ⏱️ Toma menos de 3 minutos.
+                        <i class="fas fa-stopwatch"></i> Toma menos de 3 minutos.
                     </div>
                 </div>
             </div>
@@ -467,8 +481,7 @@
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     
                     <div class="portada-sync cover-bg" id="bg_portada">
-                        <label class="btn-cambiar-portada cursor-pointer" title="Cambiar Portada">
-                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
+                        <label class="btn-cambiar-portada cursor-pointer edit-only" title="Cambiar Portada" onclick="document.getElementById('input-portada').click();">
                             <i class="fas fa-camera"></i>
                         </label>
                     </div>
@@ -477,14 +490,13 @@
                         <div class="avatar-img" id="view_avatar">
                             <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
                         </div>
-                        <label class="btn-edit-avatar cursor-pointer" title="Editar Avatar">
-                            <input type="file" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
+                        <label class="btn-edit-avatar cursor-pointer edit-only" title="Editar Avatar" onclick="document.getElementById('input-avatar').click();">
                             <i class="fas fa-pencil-alt text-xs"></i>
                         </label>
                     </div>
                     
-                    <div class="profile-name">Roberto Fibonacci</div>
-                    <div class="profile-role">Founder Prospecta</div>
+                    <div class="profile-name" id="prof-name" contenteditable="false">Roberto Fibonacci</div>
+                    <div class="profile-role" id="prof-role" contenteditable="false">Founder Prospecta</div>
                     
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
@@ -496,9 +508,9 @@
                     </div>
                     
                     <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
-                        <div class="pill-contact"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
-                        <div class="pill-contact"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
-                        <div class="pill-contact"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
+                        <div class="pill-contact" id="prof-wa" contenteditable="false"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
+                        <div class="pill-contact" id="prof-mail" contenteditable="false"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
+                        <div class="pill-contact" id="prof-loc" contenteditable="false"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
                     </div>
                     <div class="flex flex-wrap justify-center gap-2 mb-4">
                         <div class="pill-contact" title="Facebook"><i class="fab fa-facebook text-brand-primary"></i> Facebook</div>
@@ -530,7 +542,7 @@
                     <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
                             <span id="q1-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words">
-                                👉 Pregunta 1
+                                <i class="fas fa-question-circle mr-2 text-brand-success"></i> Pregunta 1
                             </span>
                             <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
                                 <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
@@ -549,7 +561,7 @@
                     <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
                             <span id="q2-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words">
-                                👉 Pregunta 2
+                                <i class="fas fa-question-circle mr-2 text-brand-success"></i> Pregunta 2
                             </span>
                             <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
                                 <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
@@ -564,9 +576,9 @@
                 </div>
             </div>
 
-            <!-- SLIDE 4: Reseñas / Auditoría (EVIDENCIAS MEJORADAS CON AUTO-AJUSTE Y LUPA) -->
+            <!-- SLIDE 4: Reseñas / Auditoría (ÍCONOS PREMIUM - CERO EMOJIS) -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Auditoría Competitiva</h2>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2"><i class="fas fa-search"></i> Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
                 <!-- CARRUSEL SUPERIOR: Tus Competidores -->
@@ -791,7 +803,6 @@
                     <div class="carousel-container no-scrollbar">
                         <!-- Evidencia 1 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
-                            <!-- MODIFICACIÓN AQUÍ: Se cambió "h-44 absolute inset-0 object-cover" por diseño auto-adaptable -->
                             <label class="w-full min-h-[11rem] bg-brand-dark rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
                                 <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid1-img')">
                                 <img id="evid1-img" src="" class="w-full h-auto rounded-lg object-contain hidden z-10 relative" alt="Evidencia 1" onclick="abrirEvidencia(event, this.src)">
@@ -845,12 +856,41 @@
                 </div>
 
                 <div class="mt-8 text-center text-lg md:text-xl text-white italic font-bold bg-white/10 p-4 rounded-xl border border-white/20 w-full">
-                    "Pierdes ventas porque la competencia es más fácil de entender."
+                    <i class="fas fa-quote-left mr-2 text-brand-success opacity-50"></i> Pierdes ventas porque la competencia es más fácil de entender. <i class="fas fa-quote-right ml-2 text-brand-success opacity-50"></i>
                 </div>
             </div>
 
-            <!-- SLIDE 5: El Reto -->
+            <!-- SLIDE 5: El Reto (INYECCIÓN CRONÓMETRO + TELÉFONO EDITABLE) -->
             <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
+                
+                <!-- CRONÓMETRO DIGITAL INYECTADO (Estilo Profesional) -->
+                <div class="mb-8 bg-[#2A2A42] border border-white/20 rounded-2xl p-6 shadow-xl w-full max-w-md mx-auto">
+                    <div class="text-white/50 text-xs font-bold uppercase tracking-widest mb-2"><i class="fas fa-clock mr-1"></i> Tiempo de respuesta actual</div>
+                    <div class="text-5xl md:text-6xl font-black text-white font-mono tracking-wider mb-4 drop-shadow-lg" id="cronometro-display">00:00:00</div>
+                    <button onclick="toggleCronometro()" id="btn-cronometro" class="bg-brand-primary text-white font-bold py-2 px-6 rounded-full shadow hover:bg-brand-success transition border border-white/20 outline-none w-40">
+                        <i class="fas fa-play mr-2"></i> Iniciar
+                    </button>
+                </div>
+                
+                <!-- ACORDEÓN TELÉFONO INYECTADO -->
+                <div class="accordion-wrapper w-full max-w-2xl mx-auto text-left zona-memoria mb-12">
+                    <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
+                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
+                            <span id="z5-acc-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none editable-text">
+                                <i class="fas fa-mobile-alt mr-2 text-brand-success"></i> Enviar información a este número:
+                            </span>
+                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
+                            </button>
+                        </div>
+                        <div class="hidden p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
+                            <p id="z5-acc-phone" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-center text-[24px] md:text-[32px] font-black text-brand-success tracking-widest outline-none editable-text">
+                                +52 55 0000 0000
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
                     <i class="fas fa-stopwatch fa-4x"></i>
                 </div>
@@ -909,44 +949,57 @@
                     </div>
                 </div>
                 <div class="mt-12 text-center">
-                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg">
-                        ¿Diseñamos la Solución?
+                    <button class="bg-white text-brand-dark px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-200 transition-colors shadow-lg outline-none">
+                        <i class="fas fa-arrow-right mr-2"></i> ¿Diseñamos la Solución?
                     </button>
                 </div>
             </div>
 
-            <!-- SLIDE 8: Solución 1 -->
+            <!-- SLIDE 8: Solución 1 (INYECCIÓN TARJETAS VERTICALES SAAS) -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="8">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2">Entregable #1</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">El Escaparate Digital</h1>
-                <div class="flex flex-col md:flex-row gap-8 items-center">
-                    <div class="flex-1">
-                        <p class="text-xl text-white mb-6 leading-relaxed">
-                            Configuramos tu WhatsApp Business para proyectar autoridad inmediata desde el segundo uno. La tienda armada para que no improvises.
-                        </p>
-                        <ul class="space-y-4 text-white">
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Optimización de imagen con IA</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Redacción de 4 portadas con psicología de ventas</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check-circle text-white"></i> Respuestas rápidas automáticas configuradas</li>
-                            <li class="flex items-center gap-3 text-white mt-4 pt-4 border-t border-white"><i class="fas fa-gift"></i> Bono: Bóveda de Entrenamiento en Micro-tareas</li>
-                        </ul>
-                    </div>
-                    <div class="flex-1 w-full relative">
-                        <div class="bg-brand-panel rounded-3xl p-4 border-8 border-white shadow-2xl mx-auto w-64 h-96 relative flex flex-col">
-                            <div class="w-20 h-4 bg-brand-dark rounded-b-xl mx-auto absolute top-0 left-0 right-0"></div>
-                            <div class="mt-8 flex gap-3 items-center border-b border-white pb-4">
-                                <div class="w-12 h-12 bg-[#3E3E61] rounded-full border border-white"></div>
-                                <div>
-                                    <div class="h-4 w-24 bg-white rounded mb-2"></div>
-                                    <div class="h-2 w-16 bg-white opacity-70 rounded"></div>
-                                </div>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 text-center"><i class="fas fa-box-open mr-2 text-brand-success"></i> Entregable #1</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestras Soluciones</h1>
+                
+                <!-- CONTENEDOR DE PRODUCTOS (CARRUSEL VERTICAL) -->
+                <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z8-products-container">
+                    <!-- Tarjeta de Producto 1 -->
+                    <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 overflow-y-auto max-h-[420px] relative no-scrollbar snap-center group dynamic-block">
+                        <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute top-2 right-2 w-8 h-8 bg-black/60 hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
+                        
+                        <label class="w-full h-40 bg-[#1e1e2f] flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
+                            <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'z8-img-1')">
+                            <img id="z8-img-1" src="" class="w-full h-full object-cover hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
+                            <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
+                                <i class="fas fa-camera text-2xl mb-2"></i>
+                                <span class="text-[10px] font-bold uppercase tracking-wider">Foto Portada</span>
                             </div>
-                            <div class="mt-4 space-y-3">
-                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Catálogo Optimizado</div>
-                                <div class="h-20 w-full bg-brand-primary rounded-lg border border-white flex items-center justify-center text-white text-xs font-bold">Copywriting Persuasivo</div>
+                        </label>
+                        
+                        <div class="p-5 flex flex-col flex-1 w-full shrink-0">
+                            <div id="z8-title-1" contenteditable="false" class="text-xl font-bold text-white mb-4 editable-text text-center border-b border-white/10 pb-2">Escaparate Digital</div>
+                            <div id="z8-list-1" contenteditable="false" class="text-white/80 text-sm leading-relaxed space-y-2 editable-text text-left">
+                                <div><i class="fas fa-check text-brand-success mr-2"></i> Optimización de imagen con IA</div>
+                                <div><i class="fas fa-check text-brand-success mr-2"></i> Redacción de 4 portadas premium</div>
+                                <div><i class="fas fa-check text-brand-success mr-2"></i> Configuración de respuestas rápidas</div>
+                                <div><i class="fas fa-gift text-yellow-400 mr-2"></i> Bono: Bóveda de Entrenamiento</div>
                             </div>
                         </div>
+                        
+                        <!-- Espaciador forzado para que el precio quede "escondido" requiriendo scroll -->
+                        <div class="h-20 shrink-0 w-full opacity-0 pointer-events-none"></div>
+                        
+                        <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
+                            <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
+                            <div id="z8-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- BOTÓN PARA AGREGAR MÁS PRODUCTOS (SOLO MODO EDICIÓN) -->
+                <div class="edit-only w-full mt-4 flex justify-center">
+                    <button onclick="addProductCard()" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none shadow-lg">
+                        <i class="fas fa-plus"></i> Agregar Producto
+                    </button>
                 </div>
             </div>
 
@@ -973,7 +1026,7 @@
                     </div>
                 </div>
                 <div class="text-center text-white italic">
-                    "Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados."
+                    <i class="fas fa-quote-left mr-2 text-brand-success opacity-50"></i> Cuando llegan a tu WhatsApp, ya no son curiosos; son clientes perfilados. <i class="fas fa-quote-right ml-2 text-brand-success opacity-50"></i>
                 </div>
             </div>
 
@@ -1023,8 +1076,8 @@
             <div id="script-toolbar" class="flex justify-between items-center p-3 bg-[#2A2A42] border-b border-white/20 shrink-0">
                 <span class="text-white/70 text-xs font-bold uppercase tracking-wider">Tamaño de Letra</span>
                 <div class="flex gap-2">
-                    <button onclick="changeScriptSize(-1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10"><i class="fas fa-minus"></i></button>
-                    <button onclick="changeScriptSize(1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10"><i class="fas fa-plus"></i></button>
+                    <button onclick="changeScriptSize(-1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10 outline-none"><i class="fas fa-minus"></i></button>
+                    <button onclick="changeScriptSize(1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10 outline-none"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
 
@@ -1036,8 +1089,8 @@
 
             <!-- Botones Paginación -->
             <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0" id="sidebar-footer">
-                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition">Anterior</button>
-                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200">Siguiente</button>
+                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition outline-none">Anterior</button>
+                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200 outline-none">Siguiente</button>
             </div>
         </div>
 
@@ -1046,25 +1099,25 @@
     <!-- Bottom Navigation -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
-            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md">Zona 1: Portada</button>
-            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 2: Perfil</button>
-            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 3: Sondeo</button>
-            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 4: Competencia</button>
-            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 5: El Reto</button>
-            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 6: Seguimiento</button>
-            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 7: Diagnóstico</button>
-            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 8: Solución 1</button>
-            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 9: Solución 2</button>
-            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]">Zona 10: Solución 3</button>
+            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none">Zona 1: Portada</button>
+            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 2: Perfil</button>
+            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 3: Sondeo</button>
+            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 4: Competencia</button>
+            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 5: El Reto</button>
+            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 6: Seguimiento</button>
+            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 7: Diagnóstico</button>
+            <button onclick="goToSlide(8)" id="nav-pill-8" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 8: Solución 1</button>
+            <button onclick="goToSlide(9)" id="nav-pill-9" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 9: Solución 2</button>
+            <button onclick="goToSlide(10)" id="nav-pill-10" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] outline-none">Zona 10: Solución 3</button>
         </div>
     </footer>
 
     <!-- MODAL DE EVIDENCIA AMPLIADA (VISOR/LUPA) -->
     <div id="evidencia-modal" class="fixed inset-0 bg-[#1e1e2f]/95 z-[100] hidden flex-col backdrop-blur-md">
         <div class="flex justify-between items-center p-4 bg-[#2A2A42] absolute top-0 w-full z-50 border-b border-white/20 shadow-lg">
-            <button onclick="zoomEvidencia()" class="text-white bg-[#3E3E61] p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30"><i class="fas fa-search-plus text-xl" id="zoom-icon"></i></button>
+            <button onclick="zoomEvidencia()" class="text-white bg-[#3E3E61] p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30 outline-none"><i class="fas fa-search-plus text-xl" id="zoom-icon"></i></button>
             <h3 class="text-white font-bold tracking-widest uppercase text-sm">Inspeccionar</h3>
-            <button onclick="cerrarEvidencia()" class="text-white bg-black/50 p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30"><i class="fas fa-times text-xl text-red-400"></i></button>
+            <button onclick="cerrarEvidencia()" class="text-white bg-black/50 p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30 outline-none"><i class="fas fa-times text-xl text-red-400"></i></button>
         </div>
         <div class="flex-1 overflow-auto flex items-center justify-center w-full h-full p-2 mt-20 pb-10" id="evidencia-scroll-container">
             <img id="evidencia-modal-img" src="" class="max-w-full max-h-full object-contain transition-all duration-300 ease-in-out" alt="Evidencia Ampliada">
@@ -1084,11 +1137,14 @@
             'own1-title', 'own1-text-1', 'own1-text-2',
             'own2-title', 'own2-text-1',
             'own3-title', 'own3-text-1',
-            'evid1-text', 'evid2-text', 'evid3-text', 'evid4-text'
+            'evid1-text', 'evid2-text', 'evid3-text', 'evid4-text',
+            'z5-acc-title', 'z5-acc-phone' // Agregados los IDs de la Zona 5 (Cronómetro)
         ];
         const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
         const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
+
+        let activeProfileId = null; // Variable para saber en qué perfil estamos trabajando
 
         // =========================================
         // MODO EDICIÓN (LAPICITO CENTRALIZADO)
@@ -1265,7 +1321,6 @@
         // APERTURA DE LUPA/VISOR (MODO PRESENTACIÓN)
         // =========================================
         function abrirEvidencia(event, src) {
-            // Solo abre si estamos en modo presentación y hay imagen
             if (!isEditMode && src && !src.endsWith('index.html')) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -1273,7 +1328,6 @@
                 const img = document.getElementById('evidencia-modal-img');
                 img.src = src;
                 
-                // Reiniciar lupa a su estado original
                 isZoomed = false;
                 document.getElementById('zoom-icon').classList.remove('fa-search-minus');
                 document.getElementById('zoom-icon').classList.add('fa-search-plus');
@@ -1315,6 +1369,41 @@
                 icon.classList.remove('fa-search-minus');
                 icon.classList.add('fa-search-plus');
             }
+        }
+
+        // =========================================
+        // CRONÓMETRO ZONA 5
+        // =========================================
+        let timerInterval;
+        let timeInSeconds = 0;
+        let isTimerRunning = false;
+
+        function updateCronometroDisplay() {
+            const h = Math.floor(timeInSeconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((timeInSeconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (timeInSeconds % 60).toString().padStart(2, '0');
+            document.getElementById('cronometro-display').innerText = `${h}:${m}:${s}`;
+        }
+
+        function toggleCronometro() {
+            const btn = document.getElementById('btn-cronometro');
+            if (isTimerRunning) {
+                clearInterval(timerInterval);
+                btn.innerHTML = '<i class="fas fa-play mr-2"></i> Iniciar';
+                btn.classList.remove('bg-red-500');
+                btn.classList.add('bg-brand-primary');
+            } else {
+                timeInSeconds = 0; 
+                updateCronometroDisplay();
+                timerInterval = setInterval(() => {
+                    timeInSeconds++;
+                    updateCronometroDisplay();
+                }, 1000);
+                btn.innerHTML = '<i class="fas fa-stop mr-2"></i> Detener';
+                btn.classList.remove('bg-brand-primary');
+                btn.classList.add('bg-red-500');
+            }
+            isTimerRunning = !isTimerRunning;
         }
 
         // =========================================
@@ -1370,10 +1459,54 @@
             });
         }
 
+        function saveChanges() {
+            if(!activeProfileId) {
+                promptSaveProfile(); 
+                return;
+            }
+
+            // Escaner de la Zona de Productos
+            let productosHTML = '';
+            const prodCont = document.getElementById('z8-products-container');
+            if(prodCont) productosHTML = prodCont.innerHTML;
+
+            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            const index = profiles.findIndex(p => p.id === activeProfileId);
+            if(index === -1) { promptSaveProfile(); return; }
+
+            const profile = profiles[index];
+            profile.portada = localStorage.getItem('prospecta_portada') || '';
+            profile.avatar = localStorage.getItem('prospecta_avatar') || '';
+            profile.date = new Date().toLocaleDateString() + " (Actualizado)";
+            profile.guiones = currentScripts; 
+            profile.productos = productosHTML; // Guardado de Tarjetas Dinámicas
+
+            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
+            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+
+            profiles[index] = profile;
+            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+
+            const saveBtn = document.getElementById('btn-save-changes');
+            if(saveBtn) {
+                const origHTML = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-check text-green-400 w-5 text-center"></i> <span class="font-semibold text-sm text-green-400">¡Guardado!</span>';
+                setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
+            }
+            renderProfilesList();
+        }
+
         function promptSaveProfile() {
-            const name = prompt("💾 Guardar Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
+            const name = prompt("💾 Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
             if(!name || name.trim() === "") return;
             
+            // Escaner de la Zona de Productos
+            let productosHTML = '';
+            const prodCont = document.getElementById('z8-products-container');
+            if(prodCont) productosHTML = prodCont.innerHTML;
+
             const profile = {
                 id: Date.now().toString(),
                 name: name.trim(),
@@ -1381,7 +1514,8 @@
                 avatar: localStorage.getItem('prospecta_avatar') || '',
                 date: new Date().toLocaleDateString(),
                 data: {},
-                guiones: currentScripts // Guarda el cuaderno de guiones editados
+                guiones: currentScripts,
+                productos: productosHTML
             };
 
             CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
@@ -1393,6 +1527,7 @@
             profiles.push(profile);
             localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
             
+            activeProfileId = profile.id; // Lo fijamos como activo al crear
             alert("✅ Perfil guardado exitosamente: " + profile.name);
             renderProfilesList();
             
@@ -1406,6 +1541,8 @@
             let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
             const profile = profiles.find(p => p.id === id);
             if(!profile) return;
+
+            activeProfileId = id; // Fijamos como activo para guardar cambios fácilmente
 
             if(profile.data) {
                 Object.keys(profile.data).forEach(key => {
@@ -1425,14 +1562,19 @@
                 document.querySelectorAll('.avatar-sync').forEach(i => i.src = profile.avatar);
             }
 
-            // Restaurar el guion del cliente
             if (profile.guiones) {
                 currentScripts = profile.guiones;
             } else {
                 currentScripts = { ...scripts }; 
             }
-            updateUI(); 
             
+            // Restaurar Tarjetas de Productos
+            const prodCont = document.getElementById('z8-products-container');
+            if(prodCont && profile.productos) {
+                prodCont.innerHTML = profile.productos;
+            }
+            
+            updateUI(); 
             alert("✅ Perfil cargado: " + profile.name);
         }
 
@@ -1442,6 +1584,7 @@
                 let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
                 profiles = profiles.filter(p => p.id !== id);
                 localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+                if(activeProfileId === id) activeProfileId = null; // Reset si borramos el actual
                 renderProfilesList();
             }
         }
@@ -1462,7 +1605,7 @@
                             <span class="font-bold text-white text-lg">${p.name}</span>
                             <span class="text-xs text-white/60 mt-1"><i class="fas fa-clock"></i> Guardado: ${p.date}</span>
                         </div>
-                        <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-red-400 p-2">
+                        <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-red-400 p-2 outline-none">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1479,21 +1622,67 @@
             const footer = document.getElementById('sidebar-footer');
 
             if(tabName === 'guion') {
-                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2";
-                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2";
+                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none";
+                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none";
                 contentGuion.classList.remove('hidden');
                 toolbarGuion.classList.remove('hidden');
                 contentPerfiles.classList.add('hidden');
                 footer.classList.remove('hidden');
             } else {
-                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2";
-                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2";
+                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none";
+                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none";
                 contentPerfiles.classList.remove('hidden');
                 contentGuion.classList.add('hidden');
                 toolbarGuion.classList.add('hidden');
                 footer.classList.add('hidden');
                 renderProfilesList();
             }
+        }
+
+        // =========================================
+        // ZONA 8: AGREGAR TARJETAS DE PRODUCTOS
+        // =========================================
+        function addProductCard() {
+            const container = document.getElementById('z8-products-container');
+            if(!container) return;
+            const id = 'prod_' + Date.now();
+            
+            const html = `
+                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 overflow-y-auto max-h-[420px] relative no-scrollbar snap-center group dynamic-block">
+                    <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute top-2 right-2 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
+                    
+                    <label class="w-full h-40 bg-[#1e1e2f] flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
+                        <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'img_${id}')">
+                        <img id="img_${id}" src="" class="w-full h-full object-cover hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
+                        <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
+                            <i class="fas fa-camera text-2xl mb-2"></i>
+                            <span class="text-[10px] font-bold uppercase tracking-wider">Foto Portada</span>
+                        </div>
+                    </label>
+                    
+                    <div class="p-5 flex flex-col flex-1 w-full shrink-0">
+                        <div contenteditable="true" class="text-xl font-bold text-white mb-4 editable-text text-center border-b border-white/10 pb-2">Nombre del Producto</div>
+                        <div contenteditable="true" class="text-white/80 text-sm leading-relaxed space-y-2 editable-text text-left">
+                            <div><i class="fas fa-check text-brand-success mr-2"></i> Beneficio clave 1</div>
+                            <div><i class="fas fa-check text-brand-success mr-2"></i> Beneficio clave 2</div>
+                            <div><i class="fas fa-check text-brand-success mr-2"></i> Valor añadido</div>
+                        </div>
+                    </div>
+                    
+                    <div class="h-20 shrink-0 w-full opacity-0 pointer-events-none">Espacio para forzar scroll</div>
+                    
+                    <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
+                        <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
+                        <div contenteditable="true" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
+                    </div>
+                </div>
+            `;
+            
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            container.appendChild(tempDiv.firstElementChild);
+            
+            setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
         // =========================================
@@ -1504,7 +1693,7 @@
                 <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
                 <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
                 <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
-                <p class="mb-4 text-white">👉 (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
+                <p class="mb-4 text-white"><i class="fas fa-arrow-right mr-1 text-brand-success"></i> (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
 
             2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
                 <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
@@ -1517,7 +1706,7 @@
                 <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
                 <p class="mb-4 text-white italic">(AQUI MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
                 <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-white">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
-                <p class="text-white font-bold mt-2">💚 (Acción: Abre su perfil de WhatsApp).</p>
+                <p class="text-white font-bold mt-2"><i class="fas fa-check-circle mr-1 text-brand-success"></i> (Acción: Abre su perfil de WhatsApp).</p>
                 <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
             
             5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
@@ -1541,22 +1730,22 @@
                 <p>"Para resolver tu primer gran problema, vamos a instalar tu Arquitectura de Persuasión. Mi labor aquí no es venderte un 'cursito'; es entregarte YA las palabras exactas que necesitas para que el cliente te 'jale' hacia la venta."</p>
                 <p class="mt-4 text-white italic font-bold">(Aquí haces la pausa y pasas a la demostración).</p>`,
             
-            8: `<p class="mb-4 font-bold text-white">🏁 Entregable #1</p>
+            8: `<p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered mr-1"></i> Entregable #1</p>
                 <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
                 <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
                 <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las 4 portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>
                 <p>"Básicamente, te dejamos la tienda armada. Y para que no tengas que enseñarle a tu equipo, te incluyo como bono el acceso a nuestra 'Bóveda de Entrenamiento en Micro-tareas'."</p>`,
             
-            9: `<p class="mb-4 font-bold text-white">🏁 Entregable #2</p>
+            9: `<p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered mr-1"></i> Entregable #2</p>
                 <p class="mb-4">"Mira [Nombre], el 'Nuevo Juego' en las redes ya no se trata de publicar para ver quién cae. Se trata de atraer y filtrar."</p>
                 <p class="mb-4">"Hoy nadie tiene tiempo de leer un PDF largo de 20 páginas. En lugar de un archivo aburrido, nosotros te vamos a construir tu propio Acelerador Magnético para convertir desconocidos en Clientes Ideales las 24 horas del día."</p>
                 <p class="mb-4">"Tu prospecto entra desde un enlace. Toca la pantalla, responde preguntas rápidas y el sistema le da un diagnóstico o premio (victoria rápida). Mientras siente que juega, la herramienta lo califica para ti."</p>
                 <p class="mb-4">"Lo puedes pegar en IG, TikTok o WhatsApp. Cero costos técnicos: no pagas mantenimiento, servidores ni rentas. Nosotros absorbemos la infraestructura."</p>
                 <p class="italic text-white">"Al dominar esta tecnología interactiva, los límites no existen. Podemos construir calculadoras, tests, cotizadores... ¿Cómo ves funcionando este Filtro en tus redes hoy mismo?"</p>`,
             
-            10: `<p class="mb-4 font-bold text-white">🏁 Entregable #3: 2 Licencias de Prospecta.</p>
+            10: `<p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered mr-1"></i> Entregable #3: 2 Licencias de Prospecta.</p>
                 <p class="mb-6">"La Bóveda exclusiva para Profesionales: Ten todo tu contenido multimedia y respuestas a la mano para vender en solo 1 Clic."</p>
-                <p class="mb-4 font-bold text-white">🏁 El Pilar / Blueprint Maestro</p>
+                <p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered mr-1"></i> El Pilar / Blueprint Maestro</p>
                 <p class="mb-4">"Diseñamos tu paso a paso lógico específicamente para tu Producto Principal:"</p>
                 <ul class="list-disc pl-5 mb-4 text-sm space-y-2">
                     <li>Sondeo Profundo</li>
@@ -1599,10 +1788,10 @@
                 const pill = document.getElementById('nav-pill-' + i);
                 if(pill) {
                     if(i === currentSlide) {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md";
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none";
                         pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
                     } else {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61]";
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none";
                     }
                 }
             }
@@ -1634,74 +1823,12 @@
                 sidebar.classList.remove('w-full', 'md:w-[400px]');
             }
         }
-        
-        function toggleAccordion(btn) {
-            const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block');
-            const content = container.querySelector('.hidden, .block.p-5.pt-0'); 
-            const icon = btn.querySelector('.fa-chevron-down');
-            
-            if(content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                content.classList.add('block');
-            } else {
-                content.classList.add('hidden');
-                content.classList.remove('block');
-            }
-            icon.classList.toggle('rotate-180');
-        }
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'Space') {
                 nextSlide();
             } else if (e.key === 'ArrowLeft') {
                 prevSlide();
-            }
-        });
-
-        function setRating(containerId, rating) {
-            if (!isEditMode) return; 
-            setRatingVisuals(containerId, rating);
-            saveCurrentState();
-        }
-
-        function setRatingVisuals(containerId, rating) {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            container.dataset.rating = rating;
-            const stars = container.querySelectorAll('.star-btn');
-            
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.remove('far');
-                    star.classList.add('fas');    
-                } else {
-                    star.classList.remove('fas'); 
-                    star.classList.add('far');    
-                }
-            });
-        }
-
-        function toggleIconMenu(menuId) {
-            if (!isEditMode) return; 
-            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                if(menu.id !== menuId) menu.classList.remove('show');
-            });
-            const menu = document.getElementById(menuId);
-            menu.classList.toggle('show');
-        }
-
-        function changeIcon(btnId, iconId, menuId, newIconClass) {
-            document.getElementById(iconId).className = newIconClass;
-            document.getElementById(btnId).dataset.icon = newIconClass;
-            document.getElementById(menuId).classList.remove('show');
-            saveCurrentState(); 
-        }
-
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
-                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                    menu.classList.remove('show');
-                });
             }
         });
 
@@ -1745,6 +1872,7 @@
             }
             
             updateUI();
+            toggleAppMode(); 
         });
 
         function setDateTime() {
