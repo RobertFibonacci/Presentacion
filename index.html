@@ -2,11 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport seguro para no invadir la cámara (notch) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
-    <!-- Meta tags PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1e1e2f">
@@ -49,7 +47,6 @@
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e1e2f; }
         ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
@@ -58,15 +55,52 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* =========================================
-           MODO PRESENTACIÓN: Oculta elementos de edición
-           ========================================= */
         body:not(.edit-mode-active) .edit-only { display: none !important; }
         body:not(.edit-mode-active) [contenteditable="true"] { pointer-events: none; border: none; background: transparent; outline: none; }
 
-        /* =========================================
-           ESTILOS DE LA CABECERA
-           ========================================= */
+        /* MODAL PARA ZOOM DE FOTOS */
+        .modal-zoom {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .modal-zoom.active { display: flex; }
+        .modal-zoom-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+        .modal-zoom-image {
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+        .modal-zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            transition: transform 0.2s;
+        }
+        .modal-zoom-close:hover { transform: scale(1.2); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* ESTILOS BÁSICOS */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
         .char-a-container { position: relative; display: inline-block; }
         .star-icon-menu {
@@ -81,9 +115,6 @@
         }
         .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: #FFFFFF; }
 
-        /* =========================================
-           ESTRELLAS DE FONDO (TWINKLING STARS)
-           ========================================= */
         .bg-star {
             position: absolute;
             background-color: #ffffff;
@@ -98,9 +129,6 @@
             50% { opacity: 0.6; transform: scale(1.1); box-shadow: 0 0 4px rgba(255,255,255,0.4); }
         }
 
-        /* =========================================
-           PORTADA ANIMADA (SLIDE 1)
-           ========================================= */
         .bg-pattern-dark {
             background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px);
             background-size: 24px 24px;
@@ -142,9 +170,6 @@
             40% { transform: scale(1); }
         }
 
-        /* =========================================
-           ESTILOS DE LA TARJETA DE PERFIL
-           ========================================= */
         .hamburger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 5px; outline: none;}
         .hamburger-btn span { display: block; width: 22px; height: 3px; background-color: #FFFFFF; border-radius: 2px; }
 
@@ -218,9 +243,6 @@
         .stat-label { font-size: 11px; color: #888; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
 
-        /* =========================================
-           ESTILOS PARA CARRUSEL Y MODO EDICIÓN
-           ========================================= */
         .carousel-container {
             display: flex;
             overflow-x: auto;
@@ -250,10 +272,9 @@
             font-size: 1.5rem;
             transition: all 0.2s ease;
             cursor: default; 
-            pointer-events: none; /* Bloqueado por defecto en presentación */
+            pointer-events: none;
         }
         .star-btn.far { color: rgba(255, 255, 255, 0.3); } 
-        /* Estrellas llenas con tono dorado premium */
         .star-btn.fas { color: #FBBF24; text-shadow: 0 0 8px rgba(251,191,36,0.4); } 
         
         .review-point {
@@ -270,7 +291,10 @@
             transition: background 0.2s;
             margin-top: -2px; 
             cursor: default; 
-            pointer-events: none; /* Bloqueado por defecto */
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .icon-dropdown {
             position: absolute;
@@ -297,6 +321,11 @@
             border-radius: 0.25rem;
             color: white;
             transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 30px;
+            min-height: 30px;
         }
         .icon-option:hover {
             background: rgba(255,255,255,0.2);
@@ -312,7 +341,6 @@
             line-height: 1.4;
         }
 
-        /* --- CLASES ACTIVAS DE MODO EDICIÓN --- */
         body.edit-mode-active .editable-text, 
         body.edit-mode-active [contenteditable="true"] {
             background: rgba(255,255,255,0.08);
@@ -322,14 +350,13 @@
         body.edit-mode-active .icon-selector,
         body.edit-mode-active .star-btn {
             cursor: pointer;
-            pointer-events: auto; /* Liberamos los clics en Modo Edición */
+            pointer-events: auto;
         }
         body.edit-mode-active .icon-selector:hover {
             background: rgba(255,255,255,0.1);
             border-color: rgba(255,255,255,0.3);
         }
         
-        /* Ocultar input file de evidencias en presentación, permitiendo dar clic en la imagen */
         body:not(.edit-mode-active) .evidence-label input[type="file"] {
             display: none !important;
             pointer-events: none !important;
@@ -339,33 +366,120 @@
             background: rgba(255,255,255,0.1);
         }
         
-        /* ESTILO PARA TARJETAS VERTICALES PRODUCTOS ZONA 7 */
         .product-card {
             flex: 0 0 280px;
             scroll-snap-align: center;
         }
 
-        /* ESTILOS PARA BLOQUES MULTIMEDIA DEL CONSTRUCTOR */
-        .media-preview-box { width: 100%; min-height: 200px; max-height: 380px; background: #000; border: 1.5px dashed rgba(255,255,255,0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
-        .video-controls { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 10; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
-        .video-ctrl-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; outline: none;}
-        .audio-pro-container { width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
-        .visualizer-pro { display: flex; align-items: center; justify-content: center; gap: 4px; height: 75px; width: 100%; }
-        .v-bar { width: 6px; height: 12px; background: linear-gradient(180deg, #3E3E61 0%, #FFFFFF 100%); border-radius: 10px; transition: height 0.2s ease; }
-        .playing .v-bar { animation: studio-wave 0.8s infinite ease-in-out; }
-        @keyframes studio-wave { 0%, 100% { height: 12px; opacity: 0.7; } 50% { height: 65px; opacity: 1; } }
+        /* ESTILOS MULTIMEDIA - COMPLETAMENTE FUNCIONAL */
+        .media-preview-box { 
+            width: 100%; 
+            min-height: 200px; 
+            max-height: 380px; 
+            background: #000; 
+            border: 1.5px dashed rgba(255,255,255,0.3); 
+            border-radius: 15px; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .media-preview-box img,
+        .media-preview-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .video-controls { 
+            position: absolute; 
+            bottom: 12px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            display: flex; 
+            gap: 15px; 
+            z-index: 10; 
+            background: rgba(0,0,0,0.6); 
+            padding: 8px 16px; 
+            border-radius: 10px;
+        }
+        .video-ctrl-btn { 
+            background: none; 
+            border: none; 
+            color: white; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            outline: none;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        .video-ctrl-btn:hover { transform: scale(1.2); }
+        
+        .audio-pro-container { 
+            width: 100%; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 15px; 
+        }
+        .visualizer-pro { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 4px; 
+            height: 75px; 
+            width: 100%; 
+        }
+        .v-bar { 
+            width: 6px; 
+            height: 12px; 
+            background: linear-gradient(180deg, #3E3E61 0%, #FFFFFF 100%); 
+            border-radius: 10px; 
+            transition: height 0.2s ease; 
+        }
+        .playing .v-bar { 
+            animation: studio-wave 0.8s infinite ease-in-out; 
+        }
+        @keyframes studio-wave { 
+            0%, 100% { height: 12px; opacity: 0.7; } 
+            50% { height: 65px; opacity: 1; } 
+        }
         .v-bar:nth-child(2n) { animation-duration: 0.6s; animation-delay: 0.1s; }
         .v-bar:nth-child(3n) { animation-duration: 1s; animation-delay: 0.2s; }
         .v-bar:nth-child(4n) { animation-duration: 0.7s; animation-delay: 0.4s; }
-        .play-pro-btn { width: 55px; height: 55px; border-radius: 50%; background: #3E3E61; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4); outline: none;}
+        .play-pro-btn { 
+            width: 55px; 
+            height: 55px; 
+            border-radius: 50%; 
+            background: #3E3E61; 
+            border: 2px solid white; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 24px;
+        }
+        .play-pro-btn:hover { transform: scale(1.1); background: #4CAF50; }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
 
+    <!-- MODAL DE ZOOM PARA FOTOS -->
+    <div id="modal-zoom" class="modal-zoom">
+        <span class="modal-zoom-close" onclick="cerrarModalZoom()">&times;</span>
+        <div class="modal-zoom-content">
+            <img id="modal-zoom-image" class="modal-zoom-image" src="" alt="Zoom">
+        </div>
+    </div>
+
     <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
-    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
+    <!-- Inputs ocultos para seleccionar imágenes -->
     <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
     <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
 
@@ -378,10 +492,9 @@
                 <span></span><span></span><span></span>
             </button>
             
-            <!-- CONTENIDO DEL MENÚ DESPLEGABLE CON NUEVO GUARDADO -->
+            <!-- MENÚ DESPLEGABLE -->
             <div id="main-menu" class="absolute top-12 left-0 bg-brand-panel border border-white/20 rounded-xl shadow-2xl p-2 w-56 hidden transition-all z-50">
                 
-                <!-- BOTÓN LÁPIZ CENTRALIZADO -->
                 <button onclick="toggleEditMode(); toggleMainMenu();" id="menu-btn-edit" class="w-full text-white hover:text-brand-success hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-pen w-5 text-center"></i> <span class="font-semibold text-sm">Modo Edición</span>
                 </button>
@@ -392,21 +505,12 @@
                     <i class="fas fa-save w-5 text-center"></i> <span class="font-semibold text-sm">Guardar Cambios</span>
                 </button>
                 
-                <button onclick="promptSaveProfile(); toggleMainMenu();" class="w-full text-white hover:text-blue-400 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
+                <button onclick="promptSaveProfile(); toggleMainMenu();" class="w-full text-white hover:text-blue-400 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-file-signature w-5 text-center"></i> <span class="font-semibold text-sm">Guardar como Nuevo</span>
                 </button>
                 
                 <div class="h-px w-full bg-white/20 my-1"></div>
 
-                <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('guion'); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
-                    <i class="fas fa-user-tie w-5 text-center"></i> <span class="font-semibold text-sm">Mi Guión (Teleprompter)</span>
-                </button>
-
-                <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('perfiles'); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
-                    <i class="fas fa-users w-5 text-center"></i> <span class="font-semibold text-sm">Mis Perfiles CRM</span>
-                </button>
-                
-                <div class="h-px w-full bg-white/20 my-1"></div>
                 <button onclick="toggleFullScreen(); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-expand w-5 text-center"></i> <span class="font-semibold text-sm">Pantalla Completa</span>
                 </button>
@@ -425,9 +529,8 @@
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
 
-        <!-- SECCIÓN DERECHA: LIMPIA -->
         <div class="flex-none flex items-center justify-end z-10 gap-2 md:gap-3 w-8">
-            <!-- Espacio limpio para el prospecto -->
+            <!-- Limpio -->
         </div>
         
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
@@ -440,69 +543,7 @@
         
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
-            <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
-            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
-                <div class="text-center w-full mb-10">
-                    <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
-                        PARA DUEÑOS DE NEGOCIO
-                    </span>
-                    <div class="h-5"></div> 
-                    <h1 class="text-[28px] md:text-[40px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
-                        Descubre el error en tu comunicación que destruye la confianza de tus clientes
-                    </h1>
-                    <div class="h-4"></div> 
-                    <span class="block normal-case text-white text-[16px] md:text-[22px] leading-tight drop-shadow-md font-bold">
-                        (y te deja en "visto").
-                    </span>
-                </div>
-
-                <div class="relative w-full flex justify-center mb-10">
-                    <div class="flex items-center w-full max-w-sm relative justify-center md:justify-start">
-                        <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
-                            <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <circle cx="50" cy="12" r="5" fill="#FFFFFF"/>
-                                <rect x="22" y="34" width="56" height="38" rx="10" fill="transparent" stroke="#FFFFFF" stroke-width="4"/>
-                                <line x1="22" y1="53" x2="12" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <line x1="78" y1="53" x2="88" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <rect x="34" y="44" width="32" height="10" rx="5" fill="#FFFFFF"/>
-                                <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
-                            </svg>
-                            <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-white animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                        </div>
-                        <div class="relative flex-1 h-14 ml-4 pointer-events-none">
-                            <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.2s;"></div>
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.4s;"></div>
-                            </div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 0s;">"Me dejan en visto..."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 3.5s;">"Solo piden 'info' y desaparecen..."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 7s;">"Me dicen que 'está muy caro'..."</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="w-full px-4 mb-12 flex flex-col gap-4">
-                    <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-justify drop-shadow-sm">
-                        El internet está lleno de ruido, "gurús" y promesas falsas. Hoy los clientes tienen miedo a comprar. Si no logras comunicar tu valor y generar confianza en 3 segundos, dudarán de ti.
-                    </p>
-                    <p class="text-[16px] md:text-[18px] font-bold text-white text-center drop-shadow-md">
-                        Evalúa tu proceso hoy mismo.
-                    </p>
-                </div>
-                
-                <div class="w-full flex flex-col items-center mb-10">
-                    <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
-                        <i class="fas fa-arrow-right mr-1"></i> DESCUBRIR MI ERROR AHORA
-                    </button>
-                    <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
-                        <i class="fas fa-stopwatch mr-1"></i> Toma menos de 3 minutos.
-                    </div>
-                </div>
-            </div>
-
-            <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
+            <!-- SLIDE 2: TARJETA DIGITAL -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     
@@ -514,7 +555,7 @@
                     
                     <div class="avatar-container">
                         <div class="avatar-img" id="view_avatar">
-                            <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;" alt="Roberto Fibonacci">
+                            <img class="avatar-sync" id="img_avatar" src="https://ui-avatars.com/api/?name=Roberto+Fibonacci&background=3E3E61&color=fff&size=120" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
                         </div>
                         <label class="btn-edit-avatar cursor-pointer edit-only" title="Editar Avatar" onclick="document.getElementById('input-avatar').click();">
                             <i class="fas fa-pencil-alt text-xs"></i>
@@ -525,7 +566,7 @@
                     <div class="profile-role" id="prof-role" contenteditable="false">Founder Prospecta</div>
                     
                     <div class="flex justify-center mt-2 mb-4">
-                        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase">
                             <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
                             </svg>
@@ -554,1633 +595,292 @@
                 </div>
             </div>
 
-            <!-- SLIDE 3: Sondeo -->
-            <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0 mt-4" data-slide="3">
-                <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center">Detectando tu error de confianza</h2>
-                <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2">Evaluación de tu Comunicación Actual</h1>
-                
-                <p class="text-[15px] md:text-[17px] font-medium text-white/90 leading-relaxed text-center mb-10 px-4 drop-shadow-sm">
-                    Responde estas dos preguntas rápidas para descubrir por qué tus prospectos dudan de ti.
-                </p>
-                
-                <div class="flex flex-col gap-5 w-full px-2 accordion-wrapper" id="builder-canvas-3">
-                    <!-- Acordeón 1 (Editable) -->
-                    <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group">
-                        <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
-                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span id="q1-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words editable-text">
-                                <i class="fas fa-question-circle mr-2 text-brand-success"></i> Pregunta 1
-                            </span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
-                            </button>
-                        </div>
-                        <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
-                            <p id="q1-text" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none focus:bg-white/10 p-3 rounded transition-colors drop-shadow-md editable-text">
-                                En un ecosistema digital lleno de ruido, el que le tira a todos, termina sin darle a nadie. <br><br>
-                                La confianza exige enfoque, y ahí es donde la mayoría de los negocios fallan.<br><br>
-                                Para saber si tu estrategia actual está bien calibrada, y entender bien lo que pasa cuéntame: ¿quién es tu cliente ideal hoy y qué sector específico estás dominando?
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Acordeón 2 (Editable) -->
-                    <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group">
-                        <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
-                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span id="q2-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words editable-text">
-                                <i class="fas fa-question-circle mr-2 text-brand-success"></i> Pregunta 2
-                            </span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
-                            </button>
-                        </div>
-                        <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
-                            <p id="q2-text" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none focus:bg-white/10 p-3 rounded transition-colors drop-shadow-md editable-text">
-                                Hoy en día, la gente tiene miedo a equivocarse o a ser estafada. Tu cliente no compra por tu producto, compra para alejarse de un problema.<br><br>¿Qué es lo que más les preocupa, frustra o 'duele' a tus prospectos antes de decidirse a pagarte?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="edit-only w-full mt-4 flex justify-center">
-                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
-                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
-                    </button>
-                </div>
-            </div>
-
-            <!-- SLIDE 4: Reseñas / Auditoría -->
+            <!-- SLIDE 4: EVIDENCIAS CON AUTOAJUSTE -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2"><i class="fas fa-search"></i> Auditoría Competitiva</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2"><i class="fas fa-images"></i> Tu Evidencia Visual</h2>
+                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Subir Fotos y Videos</h1>
                 
-                <!-- CARRUSEL SUPERIOR: Tus Competidores -->
-                <div class="w-full mb-8">
-                    <div class="flex items-center gap-3 mb-4 px-2">
-                        <i class="fas fa-building text-brand-success text-2xl drop-shadow"></i>
-                        <h3 class="text-xl md:text-2xl font-bold text-white">Tus Competidores</h3>
-                    </div>
-                    
-                    <div class="carousel-container no-scrollbar">
-                        <!-- Competidor 1 -->
-                        <div class="carousel-card zona-memoria" id="comp-card-1">
-                            <div id="comp1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 1</div>
-                            <div class="star-rating" id="comp1-stars" data-rating="0">
-                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 1)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 2)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 3)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 4)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp1-stars', 5)"></i>
-                            </div>
-                            <div class="space-y-3 mt-2 flex-1">
-                                <div class="review-point">
-                                    <div class="icon-selector" id="comp1-btn-1" onclick="toggleIconMenu('comp1-menu-1')" data-icon="fas fa-check text-green-400">
-                                        <i id="comp1-icon-1" class="fas fa-check text-green-400"></i>
-                                    </div>
-                                    <div id="comp1-menu-1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-star text-white')"></i>
-                                        <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('comp1-btn-1', 'comp1-icon-1', 'comp1-menu-1', 'fas fa-arrow-right text-white')"></i>
-                                    </div>
-                                    <div id="comp1-text-1" class="editable-text text-white text-sm" contenteditable="false">Servicio inferior al tuyo</div>
-                                </div>
-                                <div class="review-point">
-                                    <div class="icon-selector" id="comp1-btn-2" onclick="toggleIconMenu('comp1-menu-2')" data-icon="fas fa-check text-green-400">
-                                        <i id="comp1-icon-2" class="fas fa-check text-green-400"></i>
-                                    </div>
-                                    <div id="comp1-menu-2" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp1-btn-2', 'comp1-icon-2', 'comp1-menu-2', 'fas fa-star text-white')"></i>
-                                    </div>
-                                    <div id="comp1-text-2" class="editable-text text-white text-sm" contenteditable="false">Producto estándar pero ruidoso</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Competidor 2 -->
-                        <div class="carousel-card zona-memoria" id="comp-card-2">
-                            <div id="comp2-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 2</div>
-                            <div class="star-rating" id="comp2-stars" data-rating="0">
-                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 1)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 2)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 3)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 4)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp2-stars', 5)"></i>
-                            </div>
-                            <div class="space-y-3 mt-2 flex-1">
-                                <div class="review-point">
-                                    <div class="icon-selector" id="comp2-btn-1" onclick="toggleIconMenu('comp2-menu-1')" data-icon="fas fa-exclamation-triangle text-yellow-400">
-                                        <i id="comp2-icon-1" class="fas fa-exclamation-triangle text-yellow-400"></i>
-                                    </div>
-                                    <div id="comp2-menu-1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp2-btn-1', 'comp2-icon-1', 'comp2-menu-1', 'fas fa-star text-white')"></i>
-                                    </div>
-                                    <div id="comp2-text-1" class="editable-text text-white text-sm" contenteditable="false">Puntaje engañoso en redes</div>
-                                </div>
-                                <div class="review-point">
-                                    <div class="icon-selector" id="comp2-btn-2" onclick="toggleIconMenu('comp2-menu-2')" data-icon="fas fa-check text-green-400">
-                                        <i id="comp2-icon-2" class="fas fa-check text-green-400"></i>
-                                    </div>
-                                    <div id="comp2-menu-2" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp2-btn-2', 'comp2-icon-2', 'comp2-menu-2', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp2-btn-2', 'comp2-icon-2', 'comp2-menu-2', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp2-btn-2', 'comp2-icon-2', 'comp2-menu-2', 'fas fa-star text-white')"></i>
-                                    </div>
-                                    <div id="comp2-text-2" class="editable-text text-white text-sm" contenteditable="false">Respuesta inmediata por bot</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Competidor 3 -->
-                        <div class="carousel-card zona-memoria" id="comp-card-3">
-                            <div id="comp3-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 3</div>
-                            <div class="star-rating" id="comp3-stars" data-rating="0">
-                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 1)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 2)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 3)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 4)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('comp3-stars', 5)"></i>
-                            </div>
-                            <div class="space-y-3 mt-2 flex-1">
-                                <div class="review-point">
-                                    <div class="icon-selector" id="comp3-btn-1" onclick="toggleIconMenu('comp3-menu-1')" data-icon="fas fa-star text-white">
-                                        <i id="comp3-icon-1" class="fas fa-star text-white"></i>
-                                    </div>
-                                    <div id="comp3-menu-1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('comp3-btn-1', 'comp3-icon-1', 'comp3-menu-1', 'fas fa-star text-white')"></i>
-                                    </div>
-                                    <div id="comp3-text-1" class="editable-text text-white text-sm font-bold" contenteditable="false">Oferta 100% clara y visible</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SEPARADOR VS -->
-                <div class="flex items-center justify-center -mx-4 z-10 py-2 w-full">
-                    <div class="bg-brand-panel rounded-full p-3 border-4 border-white font-black text-xl text-white shadow-xl">VS</div>
-                </div>
-
-                <!-- CARRUSEL INFERIOR: Tu Negocio -->
-                <div class="w-full mt-4">
-                    <div class="flex items-center gap-3 mb-4 px-2">
-                        <i class="fas fa-crown text-white text-2xl drop-shadow"></i>
-                        <h3 class="text-xl md:text-2xl font-bold text-white">Tu Negocio</h3>
-                    </div>
-                    
-                    <div class="carousel-container no-scrollbar">
-                        <!-- Tu Negocio 1 -->
-                        <div class="carousel-card zona-memoria" id="own-card-1" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
-                            <div id="own1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Tu Situación Actual</div>
-                            <div class="star-rating" id="own1-stars" data-rating="0">
-                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 1)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 2)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 3)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 4)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own1-stars', 5)"></i>
-                            </div>
-                            <div class="space-y-3 mt-2 flex-1">
-                                <div class="review-point">
-                                    <div class="icon-selector" id="own1-btn-1" onclick="toggleIconMenu('own1-menu-1')" data-icon="fas fa-star text-white">
-                                        <i id="own1-icon-1" class="fas fa-star text-white"></i>
-                                    </div>
-                                    <div id="own1-menu-1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own1-btn-1', 'own1-icon-1', 'own1-menu-1', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own1-btn-1', 'own1-icon-1', 'own1-menu-1', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('own1-btn-1', 'own1-icon-1', 'own1-menu-1', 'fas fa-star text-white')"></i>
-                                    </div>
-                                    <div id="own1-text-1" class="editable-text text-white text-sm" contenteditable="false">Entrega de servicio superior y honesta</div>
-                                </div>
-                                <div class="review-point">
-                                    <div class="icon-selector" id="own1-btn-2" onclick="toggleIconMenu('own1-menu-2')" data-icon="fas fa-times text-red-400">
-                                        <i id="own1-icon-2" class="fas fa-times text-red-400"></i>
-                                    </div>
-                                    <div id="own1-menu-2" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own1-btn-2', 'own1-icon-2', 'own1-menu-2', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own1-btn-2', 'own1-icon-2', 'own1-menu-2', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('own1-btn-2', 'own1-icon-2', 'own1-menu-2', 'fas fa-star text-white')"></i>
-                                    </div>
-                                    <div id="own1-text-2" class="editable-text text-white text-sm border-b border-white/50 pb-1" contenteditable="false">Silencio digital (Catálogo vacío)</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tu Negocio 2 -->
-                        <div class="carousel-card zona-memoria" id="own-card-2" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
-                            <div id="own2-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Punto Crítico</div>
-                            <div class="star-rating" id="own2-stars" data-rating="0">
-                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 1)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 2)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 3)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 4)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own2-stars', 5)"></i>
-                            </div>
-                            <div class="space-y-3 mt-2 flex-1">
-                                <div class="review-point">
-                                    <div class="icon-selector" id="own2-btn-1" onclick="toggleIconMenu('own2-menu-1')" data-icon="fas fa-exclamation-triangle text-yellow-400">
-                                        <i id="own2-icon-1" class="fas fa-exclamation-triangle text-yellow-400"></i>
-                                    </div>
-                                    <div id="own2-menu-1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own2-btn-1', 'own2-icon-1', 'own2-menu-1', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own2-btn-1', 'own2-icon-1', 'own2-menu-1', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('own2-btn-1', 'own2-icon-1', 'own2-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                    </div>
-                                    <div id="own2-text-1" class="editable-text text-white text-sm" contenteditable="false">Dependencia del "boca a boca"</div>
-                                </div>
-                            </div>
-                        </div>
-
-                         <!-- Tu Negocio 3 -->
-                         <div class="carousel-card zona-memoria" id="own-card-3" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
-                            <div id="own3-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">El Riesgo</div>
-                            <div class="star-rating" id="own3-stars" data-rating="0">
-                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 1)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 2)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 3)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 4)"></i>
-                                <i class="far fa-star star-btn" onclick="setRating('own3-stars', 5)"></i>
-                            </div>
-                            <div class="space-y-3 mt-2 flex-1">
-                                <div class="review-point">
-                                    <div class="icon-selector" id="own3-btn-1" onclick="toggleIconMenu('own3-menu-1')" data-icon="fas fa-times text-red-400">
-                                        <i id="own3-icon-1" class="fas fa-times text-red-400"></i>
-                                    </div>
-                                    <div id="own3-menu-1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-green-400" onclick="changeIcon('own3-btn-1', 'own3-icon-1', 'own3-menu-1', 'fas fa-check text-green-400')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('own3-btn-1', 'own3-icon-1', 'own3-menu-1', 'fas fa-times text-red-400')"></i>
-                                    </div>
-                                    <div id="own3-text-1" class="editable-text text-white text-sm" contenteditable="false">Pierdes ventas por ser difícil de entender</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NUEVO CARRUSEL: EVIDENCIA VISUAL (AUTO-ADAPTABLE) -->
-                <div class="w-full mt-8 border-t border-white/20 pt-8">
-                    <div class="flex items-center gap-3 mb-4 px-2">
-                        <i class="fas fa-camera-retro text-white text-2xl drop-shadow"></i>
-                        <h3 class="text-xl md:text-2xl font-bold text-white">Tu Situación Actual (Evidencias)</h3>
-                    </div>
-                    
-                    <div class="carousel-container no-scrollbar">
-                        <!-- Evidencia 1 -->
-                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
-                            <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
-                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid1-img')">
-                                <img id="evid1-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 1" onclick="abrirEvidencia(event, this.src)">
-                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
-                                    <i class="fas fa-image text-3xl mb-2"></i>
-                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
-                                </div>
-                            </label>
-                            <div id="evid1-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Perfil Instagram</div>
-                        </div>
-
-                        <!-- Evidencia 2 -->
-                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-2" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
-                            <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
-                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid2-img')">
-                                <img id="evid2-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 2" onclick="abrirEvidencia(event, this.src)">
-                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
-                                    <i class="fas fa-image text-3xl mb-2"></i>
-                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
-                                </div>
-                            </label>
-                            <div id="evid2-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: WhatsApp Vacio</div>
-                        </div>
-
-                        <!-- Evidencia 3 -->
-                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-3" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
-                            <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
-                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid3-img')">
-                                <img id="evid3-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 3" onclick="abrirEvidencia(event, this.src)">
-                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
-                                    <i class="fas fa-image text-3xl mb-2"></i>
-                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
-                                </div>
-                            </label>
-                            <div id="evid3-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Conversación Fría</div>
-                        </div>
-
-                        <!-- Evidencia 4 -->
-                        <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-4" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
-                            <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
-                                <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid4-img')">
-                                <img id="evid4-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 4" onclick="abrirEvidencia(event, this.src)">
-                                <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
-                                    <i class="fas fa-image text-3xl mb-2"></i>
-                                    <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
-                                </div>
-                            </label>
-                            <div id="evid4-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: El sitio de la competencia</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mt-8 text-center text-lg md:text-xl text-white italic font-bold bg-white/10 p-4 rounded-xl border border-white/20 w-full">
-                    <i class="fas fa-quote-left mr-2 text-brand-success opacity-50"></i> Pierdes ventas porque la competencia es más fácil de entender. <i class="fas fa-quote-right ml-2 text-brand-success opacity-50"></i>
-                </div>
-
-                <div id="builder-canvas-4" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
-                <div class="edit-only w-full mt-4 flex justify-center">
-                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
-                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
-                    </button>
-                </div>
-            </div>
-
-            <!-- SLIDE 5: El Reto -->
-            <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
-                <!-- CRONÓMETRO DIGITAL INYECTADO (Estilo Profesional) -->
-                <div class="mb-8 bg-[#2A2A42] border border-white/20 rounded-2xl p-6 shadow-xl w-full max-w-md mx-auto">
-                    <div class="text-white/50 text-xs font-bold uppercase tracking-widest mb-2"><i class="fas fa-clock mr-1"></i> Tiempo de respuesta actual</div>
-                    <div class="text-5xl md:text-6xl font-black text-white font-mono tracking-wider mb-4 drop-shadow-lg" id="cronometro-display">00:00:00</div>
-                    <button onclick="toggleCronometro()" id="btn-cronometro" class="bg-brand-primary text-white font-bold py-2 px-6 rounded-full shadow hover:bg-brand-success transition border border-white/20 outline-none w-40">
-                        <i class="fas fa-play mr-2"></i> Iniciar
-                    </button>
-                </div>
-                
-                <!-- ACORDEÓN TELÉFONO INYECTADO -->
-                <div class="accordion-wrapper w-full max-w-2xl mx-auto text-left zona-memoria mb-12">
-                    <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
-                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span id="z5-acc-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none editable-text">
-                                <i class="fas fa-mobile-alt mr-2 text-brand-success"></i> Enviar información a este número:
-                            </span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
-                            </button>
-                        </div>
-                        <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
-                            <p id="z5-acc-phone" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-center text-[24px] md:text-[32px] font-black text-brand-success tracking-widest outline-none editable-text">
-                                +52 55 0000 0000
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
-                    <i class="fas fa-stopwatch fa-4x"></i>
-                </div>
-                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">La Prueba del Caos</h1>
-                <p class="text-2xl text-white mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
-                <div class="bg-brand-panel p-8 rounded-2xl border border-white max-w-2xl mx-auto w-full">
-                    <h3 class="text-xl font-semibold mb-6 text-white">¿Qué sucede en tu proceso actual?</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
-                            <i class="fas fa-times-circle text-white text-xl"></i>
-                            <span>"Te lo mando al rato"</span>
-                        </div>
-                        <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
-                            <i class="fas fa-times-circle text-white text-xl"></i>
-                            <span>Copiar y pegar precios</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="builder-canvas-5" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
-                <div class="edit-only w-full mt-4 flex justify-center">
-                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
-                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
-                    </button>
-                </div>
-            </div>
-
-            <!-- SLIDE 6: Seguimiento -->
-            <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
-                <i class="fas fa-ghost text-6xl text-white mb-8"></i>
-                <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
-                <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
-                    "Sí lo quiero... luego te aviso."
-                </p>
-                <div class="bg-brand-panel p-8 rounded-xl border border-white text-left max-w-3xl mx-auto w-full relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-2 h-full bg-white"></div>
-                    <p class="text-xl md:text-2xl font-light leading-relaxed text-white">
-                        En los negocios, la venta <span class="font-bold text-white">no se pierde</span>...<br>
-                        tú te rindes porque te quedas <span class="text-white font-semibold underline">sin material estratégico</span> que enviar.
-                    </p>
-                </div>
-
-                <div id="builder-canvas-6" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
-                <div class="edit-only w-full mt-4 flex justify-center">
-                    <button onclick="document.getElementById('block-selector-modal').classList.remove('hidden')" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none">
-                        <i class="fas fa-plus-circle text-xl"></i> Agregar Contenido
-                    </button>
-                </div>
-            </div>
-
-            <!-- SLIDE 7: Soluciones (Anteriormente Solución 1 / Zona 8) -->
-            <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 text-center"><i class="fas fa-box-open mr-2 text-brand-success"></i> Soluciones</h2>
-                <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
-                
-                <!-- CONTENEDOR DE PRODUCTOS (CARRUSEL VERTICAL ACORDEÓN) -->
-                <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
-                    
-                    <!-- Tarjeta de Producto 1 Base -->
-                    <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 overflow-y-auto max-h-[460px] relative no-scrollbar snap-center group dynamic-block accordion-wrapper">
-                        <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute top-2 right-2 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
-                        
-                        <!-- Imagen / Video Adaptive -->
-                        <label class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
-                            <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-1')">
-                            
-                            <img id="z7-media-1-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
-                            <video id="z7-media-1-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
-                            
-                            <div id="z7-media-1-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
-                                <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
-                            </div>
-                            
+                <div class="carousel-container no-scrollbar">
+                    <!-- Evidencia 1 -->
+                    <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                        <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label cursor-pointer transition-all">
+                            <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarEvidencia(event, 'evid1-img')">
+                            <img id="evid1-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative object-contain" alt="Evidencia 1" onclick="abrirModalZoom(this.src, event)">
+                            <video id="evid1-video" class="w-full h-auto rounded-lg hidden z-10 relative" style="object-fit: contain;" controls></video>
                             <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
-                                <i class="fas fa-camera text-2xl mb-2"></i>
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Foto o Video</span>
+                                <i class="fas fa-image text-3xl mb-2"></i>
+                                <span class="text-xs font-bold uppercase tracking-wider">Subir Foto/Video</span>
                             </div>
                         </label>
-                        
-                        <!-- Contenido Acordeón -->
-                        <div class="flex flex-col flex-1 w-full shrink-0">
-                            <!-- Header Acordeón -->
-                            <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
-                                <span id="z7-title-1" contenteditable="false" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text">Escaparate Digital</span>
-                                <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                    <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
-                                </button>
-                            </div>
-                            <!-- Contenido Oculto -->
-                            <div class="hidden acc-content p-4 bg-brand-dark/30">
-                                <div id="z7-list-1" class="text-white/80 text-sm leading-relaxed text-left">
-                                    
-                                    <div class="review-point mb-2">
-                                        <div class="icon-selector" id="prod1-btn-1" onclick="toggleIconMenu('prod1-menu-1')" data-icon="fas fa-check text-brand-success">
-                                            <i id="prod1-icon-1" class="fas fa-check text-brand-success"></i>
-                                        </div>
-                                        <div id="prod1-menu-1" class="icon-dropdown">
-                                            <i class="fas fa-check icon-option text-brand-success" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-check text-brand-success')"></i>
-                                            <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-times text-red-400')"></i>
-                                            <i class="fas fa-star icon-option text-yellow-400" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-star text-yellow-400')"></i>
-                                            <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                            <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-arrow-right text-white')"></i>
-                                        </div>
-                                        <div class="editable-text text-white text-sm outline-none" contenteditable="false">Optimización de imagen con IA</div>
-                                        <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash"></i></button>
-                                    </div>
-                                    
-                                    <div class="review-point mb-2">
-                                        <div class="icon-selector" id="prod1-btn-2" onclick="toggleIconMenu('prod1-menu-2')" data-icon="fas fa-check text-brand-success">
-                                            <i id="prod1-icon-2" class="fas fa-check text-brand-success"></i>
-                                        </div>
-                                        <div id="prod1-menu-2" class="icon-dropdown">
-                                            <i class="fas fa-check icon-option text-brand-success" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-check text-brand-success')"></i>
-                                            <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-times text-red-400')"></i>
-                                            <i class="fas fa-star icon-option text-yellow-400" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-star text-yellow-400')"></i>
-                                            <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                            <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-arrow-right text-white')"></i>
-                                        </div>
-                                        <div class="editable-text text-white text-sm outline-none" contenteditable="false">Redacción de 4 portadas premium</div>
-                                        <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash"></i></button>
-                                    </div>
+                        <div id="evid1-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Perfil Instagram</div>
+                    </div>
 
-                                </div>
-                                <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                    <!-- Evidencia 2 -->
+                    <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-2" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                        <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label cursor-pointer transition-all">
+                            <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarEvidencia(event, 'evid2-img')">
+                            <img id="evid2-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative object-contain" alt="Evidencia 2" onclick="abrirModalZoom(this.src, event)">
+                            <video id="evid2-video" class="w-full h-auto rounded-lg hidden z-10 relative" style="object-fit: contain;" controls></video>
+                            <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
+                                <i class="fas fa-image text-3xl mb-2"></i>
+                                <span class="text-xs font-bold uppercase tracking-wider">Subir Foto/Video</span>
                             </div>
-                        </div>
-                        
-                        <!-- Espaciador forzado para ocultar precio -->
-                        <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
-                        
-                        <!-- Precio Oculto abajo -->
-                        <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                            <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
-                        </div>
+                        </label>
+                        <div id="evid2-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: WhatsApp Vacio</div>
+                    </div>
+
+                    <!-- Evidencia 3 -->
+                    <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-3" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                        <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label cursor-pointer transition-all">
+                            <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarEvidencia(event, 'evid3-img')">
+                            <img id="evid3-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative object-contain" alt="Evidencia 3" onclick="abrirModalZoom(this.src, event)">
+                            <video id="evid3-video" class="w-full h-auto rounded-lg hidden z-10 relative" style="object-fit: contain;" controls></video>
+                            <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
+                                <i class="fas fa-image text-3xl mb-2"></i>
+                                <span class="text-xs font-bold uppercase tracking-wider">Subir Foto/Video</span>
+                            </div>
+                        </label>
+                        <div id="evid3-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Conversación Fría</div>
+                    </div>
+
+                    <!-- Evidencia 4 -->
+                    <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-4" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
+                        <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label cursor-pointer transition-all">
+                            <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarEvidencia(event, 'evid4-img')">
+                            <img id="evid4-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative object-contain" alt="Evidencia 4" onclick="abrirModalZoom(this.src, event)">
+                            <video id="evid4-video" class="w-full h-auto rounded-lg hidden z-10 relative" style="object-fit: contain;" controls></video>
+                            <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
+                                <i class="fas fa-image text-3xl mb-2"></i>
+                                <span class="text-xs font-bold uppercase tracking-wider">Subir Foto/Video</span>
+                            </div>
+                        </label>
+                        <div id="evid4-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: El sitio de la competencia</div>
                     </div>
                 </div>
-
-                <!-- BOTÓN PARA AGREGAR MÁS PRODUCTOS -->
-                <div class="edit-only w-full mt-4 flex justify-center">
-                    <button onclick="addProductCard()" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none shadow-lg">
-                        <i class="fas fa-plus"></i> Agregar Producto
-                    </button>
-                </div>
             </div>
 
         </div>
-
-        <!-- Presenter Notes Sidebar -->
-        <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
-            <div class="flex border-b border-white shrink-0">
-                <button onclick="switchSidebarTab('guion')" id="tab-guion" class="flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-user-tie"></i> Guión
-                </button>
-                <button onclick="switchSidebarTab('perfiles')" id="tab-perfiles" class="flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-users"></i> Perfiles
-                </button>
-                <button onclick="toggleNotes()" class="p-4 text-white hover:text-slate-300 bg-brand-dark border-l border-white/20 outline-none">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            
-            <div id="script-toolbar" class="flex justify-between items-center p-3 bg-[#2A2A42] border-b border-white/20 shrink-0">
-                <span class="text-white/70 text-xs font-bold uppercase tracking-wider">Tamaño de Letra</span>
-                <div class="flex gap-2">
-                    <button onclick="changeScriptSize(-1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10 outline-none"><i class="fas fa-minus"></i></button>
-                    <button onclick="changeScriptSize(1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10 outline-none"><i class="fas fa-plus"></i></button>
-                </div>
-            </div>
-
-            <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed transition-all duration-300 outline-none" id="script-content" contenteditable="false"></div>
-            
-            <div class="hidden flex-1 overflow-y-auto p-4 space-y-3 bg-brand-dark/50" id="profiles-content"></div>
-
-            <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0" id="sidebar-footer">
-                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition outline-none">Anterior</button>
-                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200 outline-none">Siguiente</button>
-            </div>
-        </div>
-
     </main>
 
-    <!-- Bottom Navigation -->
-    <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
-        <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
-            <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none">Zona 1: Portada</button>
-            <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none">Zona 2: Perfil</button>
-            <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none">Zona 3: Sondeo</button>
-            <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none">Zona 4: Competencia</button>
-            <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none">Zona 5: El Reto</button>
-            <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none">Zona 6: Seguimiento</button>
-            <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none">Zona 7: Soluciones</button>
-        </div>
-    </footer>
-
-    <!-- MODAL DE EVIDENCIA AMPLIADA (VISOR/LUPA) -->
-    <div id="evidencia-modal" class="fixed inset-0 bg-[#1e1e2f]/95 z-[100] hidden flex-col backdrop-blur-md">
-        <div class="flex justify-between items-center p-4 bg-[#2A2A42] absolute top-0 w-full z-50 border-b border-white/20 shadow-lg">
-            <button onclick="zoomEvidencia()" class="text-white bg-[#3E3E61] p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30 outline-none"><i class="fas fa-search-plus text-xl" id="zoom-icon"></i></button>
-            <h3 class="text-white font-bold tracking-widest uppercase text-sm">Inspeccionar</h3>
-            <button onclick="cerrarEvidencia()" class="text-white bg-black/50 p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30 outline-none"><i class="fas fa-times text-xl text-red-400"></i></button>
-        </div>
-        <div class="flex-1 overflow-auto flex items-center justify-center w-full h-full p-2 mt-20 pb-10" id="evidencia-scroll-container">
-            <img id="evidencia-modal-img" src="" class="max-w-full max-h-full object-contain transition-all duration-300 ease-in-out" alt="Evidencia Ampliada">
-        </div>
-        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white/50 text-xs uppercase tracking-widest pointer-events-none bg-black/40 px-4 py-1 rounded-full">Toca la lupa para explorar</div>
-    </div>
-
-    <!-- MODAL DEL CONSTRUCTOR -->
-    <div id="block-selector-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm p-4">
-        <div class="bg-brand-panel w-full max-w-sm rounded-3xl border border-white/30 p-6 shadow-2xl transform scale-100 transition-transform">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-white font-bold text-xl uppercase tracking-wide">Nuevo Bloque</h3>
-                <button onclick="document.getElementById('block-selector-modal').classList.add('hidden')" class="text-white/50 hover:text-white outline-none"><i class="fas fa-times text-xl"></i></button>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="addBlock('acordeon')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                    <i class="fas fa-list text-2xl text-white"></i><span class="text-xs font-bold">Acordeón</span>
-                </button>
-                <button onclick="addBlock('texto')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                    <i class="fas fa-align-left text-2xl text-white"></i><span class="text-xs font-bold">Texto Libre</span>
-                </button>
-                <button onclick="addBlock('imagen')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                    <i class="fas fa-image text-2xl text-white"></i><span class="text-xs font-bold">Imagen</span>
-                </button>
-                <button onclick="addBlock('video')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors outline-none">
-                    <i class="fas fa-video text-2xl text-white"></i><span class="text-xs font-bold">Video</span>
-                </button>
-                <button onclick="addBlock('audio')" class="flex flex-col items-center gap-3 p-4 bg-white/5 hover:bg-brand-primary border border-white/10 rounded-xl text-white transition-colors col-span-2 outline-none">
-                    <i class="fas fa-microphone-alt text-2xl text-white"></i><span class="text-xs font-bold">Audio Visualizer</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // =========================================
-        // ARREGLOS DE MEMORIA DEL CRM
-        // =========================================
-        const CRM_TEXT_IDS = [
-            'q1-title', 'q1-text', 'q2-title', 'q2-text',
-            'comp1-title', 'comp1-text-1', 'comp1-text-2',
-            'comp2-title', 'comp2-text-1', 'comp2-text-2',
-            'comp3-title', 'comp3-text-1',
-            'own1-title', 'own1-text-1', 'own1-text-2',
-            'own2-title', 'own2-text-1',
-            'own3-title', 'own3-text-1',
-            'evid1-text', 'evid2-text', 'evid3-text', 'evid4-text',
-            'z5-acc-title', 'z5-acc-phone' 
-        ];
-        const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
-        const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
-        const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
-
-        let activeProfileId = null;
-
-        // =========================================
-        // MODO EDICIÓN (LAPICITO CENTRALIZADO)
-        // =========================================
-        let isEditMode = false;
+        // ================================
+        // FUNCIONES DE UTILIDAD
+        // ================================
         
-        function toggleEditMode() {
-            isEditMode = !isEditMode;
-            const btnMenu = document.getElementById('menu-btn-edit');
-            const scriptBox = document.getElementById('script-content');
-            
-            if (isEditMode) {
-                document.body.classList.add('edit-mode-active');
-                if(btnMenu) btnMenu.innerHTML = '<i class="fas fa-lock w-5 text-center"></i> <span class="font-semibold text-sm">Modo Presentación</span>';
-                
-                if(scriptBox) {
-                    scriptBox.setAttribute('contenteditable', 'true');
-                    scriptBox.classList.add('bg-white/5', 'border-t', 'border-dashed', 'border-white/40');
-                }
-                alert("Modo Edición Activado: Edita tus textos, imágenes y guiones.");
-            } else {
-                document.body.classList.remove('edit-mode-active');
-                if(btnMenu) btnMenu.innerHTML = '<i class="fas fa-pen w-5 text-center"></i> <span class="font-semibold text-sm">Modo Edición</span>';
-                
-                if(scriptBox) {
-                    scriptBox.setAttribute('contenteditable', 'false');
-                    scriptBox.classList.remove('bg-white/5', 'border-t', 'border-dashed', 'border-white/40');
-                }
-                
-                document.querySelectorAll('.icon-dropdown.show').forEach(menu => menu.classList.remove('show'));
-                saveCurrentState(); 
-                alert("Modo Presentación Activado: Todo está fijo y seguro.");
-            }
-
-            CRM_TEXT_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) {
-                    el.setAttribute('contenteditable', isEditMode.toString());
-                }
-            });
-
-            // Activar dynamic text editable en modo edición
-            document.querySelectorAll('.editable-text').forEach(el => {
-                el.setAttribute('contenteditable', isEditMode.toString());
-            });
-        }
-
-        let scriptFontSize = 14;
-        function changeScriptSize(step) {
-            scriptFontSize += (step * 2);
-            if (scriptFontSize < 10) scriptFontSize = 10;
-            if (scriptFontSize > 32) scriptFontSize = 32;
-            document.getElementById('script-content').style.fontSize = scriptFontSize + 'px';
-            localStorage.setItem('prospecta_script_fontsize', scriptFontSize);
-        }
-
         function toggleMainMenu() {
             const menu = document.getElementById('main-menu');
-            if(menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleEditMode() {
+            document.body.classList.toggle('edit-mode-active');
+            const btn = document.getElementById('menu-btn-edit');
+            if (document.body.classList.contains('edit-mode-active')) {
+                btn.style.color = '#4CAF50';
             } else {
-                menu.classList.add('hidden');
+                btn.style.color = 'white';
             }
         }
 
-        function initBackgroundStars() {
-            const container = document.getElementById('stars-container');
-            if(!container) return;
-            const starCount = 35;
-            for(let i=0; i<starCount; i++) {
-                const star = document.createElement('div');
-                star.className = 'bg-star';
-                const size = Math.random() * 2 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = (Math.random() * 4) + 's';
-                star.style.animationDuration = (3 + Math.random() * 3) + 's';
-                container.appendChild(star);
-            }
-        }
-
-        let intendedFullscreen = false;
-        function toggleFullScreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => console.log(err));
-                intendedFullscreen = true; 
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                }
-                intendedFullscreen = false; 
-            }
-        }
-
-        function ajustarAlturaPortada(src) {
-            if (!src) return;
-            const img = new Image();
-            img.onload = function() {
-                const ratio = this.height / this.width;
-                const cards = document.querySelectorAll('.profile-card-sync');
-                const covers = document.querySelectorAll('.portada-sync');
-                if (!cards.length || !covers.length) return;
-                
-                let cardWidth = cards[0].offsetWidth;
-                if (cardWidth === 0) {
-                    cardWidth = Math.min(window.innerWidth - 32, 450);
-                }
-
-                let newHeight = cardWidth * ratio;
-                if (newHeight > 220) newHeight = 220; 
-                if (newHeight < 100) newHeight = 100;
-                
-                covers.forEach(c => c.style.height = newHeight + 'px');
-                cards.forEach(c => c.style.paddingTop = (newHeight - 50) + 'px');
-            };
+        // ================================
+        // MODAL ZOOM PARA FOTOS/VIDEOS
+        // ================================
+        function abrirModalZoom(src, event) {
+            event.stopPropagation();
+            const modal = document.getElementById('modal-zoom');
+            const img = document.getElementById('modal-zoom-image');
             img.src = src;
+            modal.classList.add('active');
         }
 
-        function actualizarImagen(event, targetClass, isBackground) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const result = e.target.result;
-                    const targets = document.querySelectorAll('.' + targetClass);
-                    
-                    targets.forEach(target => {
-                        if (isBackground) {
-                            target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
-                        } else {
-                            target.src = result;
-                        }
-                    });
-
-                    if (isBackground) {
-                        ajustarAlturaPortada(result); 
-                        localStorage.setItem('prospecta_portada', result); 
-                    } else {
-                        localStorage.setItem('prospecta_avatar', result); 
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-
-            setTimeout(() => {
-                if (intendedFullscreen && !document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado", err));
-                }
-            }, 500); 
+        function cerrarModalZoom() {
+            const modal = document.getElementById('modal-zoom');
+            modal.classList.remove('active');
         }
 
-        // =========================================
-        // CARGA DE EVIDENCIA VISUAL (FOTOGRAFÍAS)
-        // =========================================
-        function cargarEvidencia(event, imgId) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById(imgId);
-                    img.src = e.target.result;
-                    img.classList.remove('hidden');
-                    
-                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
-                    if(placeholder) placeholder.classList.add('hidden');
-                    
-                    localStorage.setItem('prospecta_' + imgId, e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
-        }
+        document.getElementById('modal-zoom')?.addEventListener('click', function(e) {
+            if (e.target === this) cerrarModalZoom();
+        });
 
-        // =========================================
-        // APERTURA DE LUPA/VISOR (MODO PRESENTACIÓN)
-        // =========================================
-        function abrirEvidencia(event, src) {
-            if (!isEditMode && src && !src.endsWith('index.html')) {
-                event.preventDefault();
-                event.stopPropagation();
-                const modal = document.getElementById('evidencia-modal');
-                const img = document.getElementById('evidencia-modal-img');
-                img.src = src;
-                
-                isZoomed = false;
-                document.getElementById('zoom-icon').classList.remove('fa-search-minus');
-                document.getElementById('zoom-icon').classList.add('fa-search-plus');
-                img.classList.add('max-w-full', 'max-h-full', 'object-contain');
-                img.classList.remove('w-[250%]', 'max-w-none', 'h-auto');
-                const container = document.getElementById('evidencia-scroll-container');
-                container.classList.add('items-center', 'justify-center');
-                container.classList.remove('items-start', 'justify-start');
-                
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        }
-
-        function cerrarEvidencia() {
-            const modal = document.getElementById('evidencia-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        let isZoomed = false;
-        function zoomEvidencia() {
-            const img = document.getElementById('evidencia-modal-img');
-            const container = document.getElementById('evidencia-scroll-container');
-            const icon = document.getElementById('zoom-icon');
-            isZoomed = !isZoomed;
-            if(isZoomed) {
-                img.classList.remove('max-w-full', 'max-h-full', 'object-contain');
-                img.classList.add('w-[250%]', 'max-w-none', 'h-auto');
-                container.classList.remove('items-center', 'justify-center');
-                container.classList.add('items-start', 'justify-start');
-                icon.classList.remove('fa-search-plus');
-                icon.classList.add('fa-search-minus');
-            } else {
-                img.classList.add('max-w-full', 'max-h-full', 'object-contain');
-                img.classList.remove('w-[250%]', 'max-w-none', 'h-auto');
-                container.classList.add('items-center', 'justify-center');
-                container.classList.remove('items-start', 'justify-start');
-                icon.classList.remove('fa-search-minus');
-                icon.classList.add('fa-search-plus');
-            }
-        }
-
-        // =========================================
-        // CRONÓMETRO ZONA 5
-        // =========================================
-        let timerInterval;
-        let timeInSeconds = 0;
-        let isTimerRunning = false;
-
-        function updateCronometroDisplay() {
-            const h = Math.floor(timeInSeconds / 3600).toString().padStart(2, '0');
-            const m = Math.floor((timeInSeconds % 3600) / 60).toString().padStart(2, '0');
-            const s = (timeInSeconds % 60).toString().padStart(2, '0');
-            document.getElementById('cronometro-display').innerText = `${h}:${m}:${s}`;
-        }
-
-        function toggleCronometro() {
-            const btn = document.getElementById('btn-cronometro');
-            if (isTimerRunning) {
-                clearInterval(timerInterval);
-                btn.innerHTML = '<i class="fas fa-play mr-2"></i> Iniciar';
-                btn.classList.remove('bg-red-500');
-                btn.classList.add('bg-brand-primary');
-            } else {
-                timeInSeconds = 0; 
-                updateCronometroDisplay();
-                timerInterval = setInterval(() => {
-                    timeInSeconds++;
-                    updateCronometroDisplay();
-                }, 1000);
-                btn.innerHTML = '<i class="fas fa-stop mr-2"></i> Detener';
-                btn.classList.remove('bg-brand-primary');
-                btn.classList.add('bg-red-500');
-            }
-            isTimerRunning = !isTimerRunning;
-        }
-
-        // =========================================
-        // ZONA 7: AGREGAR TARJETAS Y MULTIMEDIA 
-        // =========================================
-        function cargarMediaZ7(event, baseId) {
+        // ================================
+        // CARGA Y AUTOAJUSTE DE EVIDENCIAS
+        // ================================
+        function cargarEvidencia(event, imageId) {
             const file = event.target.files[0];
             if (!file) return;
 
-            const isVideo = file.type.startsWith('video/');
-            const imgEl = document.getElementById(baseId + '-img');
-            const vidEl = document.getElementById(baseId + '-vid');
-            const playEl = document.getElementById(baseId + '-play');
-            const placeholder = imgEl.parentElement.querySelector('.evidence-placeholder');
-            
-            if(placeholder) placeholder.classList.add('hidden');
-
             const reader = new FileReader();
             reader.onload = function(e) {
-                if(isVideo) {
-                    imgEl.classList.add('hidden');
-                    vidEl.src = e.target.result;
-                    vidEl.classList.remove('hidden');
-                    if(playEl) playEl.classList.remove('hidden');
+                const isVideo = file.type.startsWith('video/');
+                const baseId = imageId.replace('-img', '');
+                
+                if (isVideo) {
+                    // Cargar video
+                    const videoId = `${baseId}-video`;
+                    const videoEl = document.getElementById(videoId);
+                    if (videoEl) {
+                        videoEl.src = e.target.result;
+                        videoEl.classList.remove('hidden');
+                        videoEl.classList.add('block');
+                    }
+                    // Ocultar imagen si existe
+                    const imgEl = document.getElementById(imageId);
+                    if (imgEl) {
+                        imgEl.classList.add('hidden');
+                    }
                 } else {
-                    vidEl.classList.add('hidden');
-                    if(playEl) playEl.classList.add('hidden');
-                    imgEl.src = e.target.result;
-                    imgEl.classList.remove('hidden');
+                    // Cargar imagen
+                    const img = document.getElementById(imageId);
+                    if (img) {
+                        img.src = e.target.result;
+                        img.classList.remove('hidden');
+                        img.classList.add('block');
+                        img.style.objectFit = 'contain';
+                        img.style.height = 'auto';
+                    }
+                    // Ocultar video si existe
+                    const videoId = `${baseId}-video`;
+                    const videoEl = document.getElementById(videoId);
+                    if (videoEl) {
+                        videoEl.classList.add('hidden');
+                    }
                 }
-            }
+                
+                // Ocultar placeholder
+                const placeholder = document.querySelector(`#${baseId}-card-${baseId.split('-')[1]} .evidence-placeholder`);
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+
+                saveCurrentState();
+            };
             reader.readAsDataURL(file);
         }
 
-        function toggleZ7Video(vidId, playId) {
-            if (isEditMode) return; // No reproducir en modo edición
-            const video = document.getElementById(vidId);
-            const playBtn = document.getElementById(playId);
-            if(video.paused) {
-                video.play();
-                if(playBtn) playBtn.classList.add('hidden');
-            } else {
-                video.pause();
-                if(playBtn) playBtn.classList.remove('hidden');
-            }
-        }
-
-        // Función maestra para inyectar un nuevo renglón de listado con ícono seleccionable
-        function addProductListItem(btn) {
-            const list = btn.previousElementSibling;
-            const idSuffix = Date.now() + Math.floor(Math.random() * 1000);
-            const btnId = 'pbtn_' + idSuffix;
-            const iconId = 'picon_' + idSuffix;
-            const menuId = 'pmenu_' + idSuffix;
-
-            const div = document.createElement('div');
-            div.className = "review-point mb-2";
-            div.innerHTML = `
-                <div class="icon-selector" id="${btnId}" onclick="toggleIconMenu('${menuId}')" data-icon="fas fa-check text-brand-success">
-                    <i id="${iconId}" class="fas fa-check text-brand-success"></i>
-                </div>
-                <div id="${menuId}" class="icon-dropdown">
-                    <i class="fas fa-check icon-option text-brand-success" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-check text-brand-success')"></i>
-                    <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-times text-red-400')"></i>
-                    <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                    <i class="fas fa-star icon-option text-white" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-star text-white')"></i>
-                    <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-arrow-right text-white')"></i>
-                </div>
-                <div class="editable-text text-white text-sm outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
-                <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash"></i></button>
-            `;
-            list.appendChild(div);
-            saveCurrentState();
-        }
-
-        function addProductCard() {
-            const container = document.getElementById('z7-products-container');
-            if(!container) return;
-            const id = 'prod_' + Date.now();
-            
-            const html = `
-                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 overflow-y-auto max-h-[460px] relative no-scrollbar snap-center group dynamic-block accordion-wrapper">
-                    <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute top-2 right-2 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
-                    
-                    <label class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
-                        <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-${id}')">
-                        <img id="z7-media-${id}-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
-                        <video id="z7-media-${id}-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="toggleZ7Video('z7-media-${id}-vid', 'z7-media-${id}-play')" playsinline></video>
-                        <div id="z7-media-${id}-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
-                            <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
-                        </div>
-                        <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
-                            <i class="fas fa-camera text-2xl mb-2"></i>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Foto o Video</span>
-                        </div>
-                    </label>
-                    
-                    <div class="flex flex-col flex-1 w-full shrink-0">
-                        <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
-                            <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text">Nombre del Producto</span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
-                            </button>
-                        </div>
-                        <div class="hidden acc-content p-4 bg-brand-dark/30">
-                            <div class="text-white/80 text-sm leading-relaxed text-left">
-                                <div class="review-point mb-2">
-                                    <div class="icon-selector" id="btn_${id}_1" onclick="toggleIconMenu('menu_${id}_1')" data-icon="fas fa-check text-brand-success">
-                                        <i id="icon_${id}_1" class="fas fa-check text-brand-success"></i>
-                                    </div>
-                                    <div id="menu_${id}_1" class="icon-dropdown">
-                                        <i class="fas fa-check icon-option text-brand-success" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-check text-brand-success')"></i>
-                                        <i class="fas fa-times icon-option text-red-400" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-times text-red-400')"></i>
-                                        <i class="fas fa-exclamation-triangle icon-option text-yellow-400" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-exclamation-triangle text-yellow-400')"></i>
-                                        <i class="fas fa-star icon-option text-white" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-star text-white')"></i>
-                                        <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-arrow-right text-white')"></i>
-                                    </div>
-                                    <div class="editable-text text-white text-sm outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
-                                    <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash"></i></button>
-                                </div>
-                            </div>
-                            <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
-                        </div>
-                    </div>
-                    
-                    <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
-                    
-                    <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                        <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                        <div contenteditable="${isEditMode}" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
-                    </div>
-                </div>
-            `;
-            
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            container.appendChild(tempDiv.firstElementChild);
-            
-            setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
-        }
-
-        // =========================================
-        // SISTEMA CRM: AUTO-GUARDADO Y PERFILES
-        // =========================================
+        // ================================
+        // GUARDAR CAMBIOS Y PERFILES
+        // ================================
         function saveCurrentState() {
-            CRM_TEXT_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) localStorage.setItem('prospecta_' + id, el.innerHTML);
-            });
-            CRM_STAR_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) localStorage.setItem('prospecta_' + id, el.dataset.rating || '0');
-            });
-            CRM_ICON_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) localStorage.setItem('prospecta_' + id, el.dataset.icon || '');
-            });
-        }
-
-        function loadCurrentState() {
-            CRM_TEXT_IDS.forEach(id => {
-                const val = localStorage.getItem('prospecta_' + id);
-                if(val !== null && document.getElementById(id)) document.getElementById(id).innerHTML = val;
-            });
-            CRM_STAR_IDS.forEach(id => {
-                const val = localStorage.getItem('prospecta_' + id);
-                if(val !== null) setRatingVisuals(id, parseInt(val));
-            });
-            CRM_ICON_IDS.forEach(btnId => {
-                const val = localStorage.getItem('prospecta_' + btnId);
-                if(val && document.getElementById(btnId)) {
-                    document.getElementById(btnId).dataset.icon = val;
-                    const iconId = btnId.replace('-btn-', '-icon-');
-                    const iconEl = document.getElementById(iconId);
-                    if(iconEl) iconEl.className = val;
-                }
-            });
-            CRM_IMG_IDS.forEach(id => {
-                const val = localStorage.getItem('prospecta_' + id);
-                const img = document.getElementById(id);
-                if(val && img) {
-                    img.src = val;
-                    img.classList.remove('hidden');
-                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
-                    if(placeholder) placeholder.classList.add('hidden');
-                } else if (!val && img) {
-                    img.src = '';
-                    img.classList.add('hidden');
-                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
-                    if(placeholder) placeholder.classList.remove('hidden');
-                }
-            });
+            const estado = {
+                nombre: document.getElementById('prof-name')?.textContent || '',
+                rol: document.getElementById('prof-role')?.textContent || '',
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('prospecta_estado_actual', JSON.stringify(estado));
         }
 
         function saveChanges() {
-            if(!activeProfileId) {
-                promptSaveProfile(); 
-                return;
-            }
-
-            let productosHTML = '';
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont) productosHTML = prodCont.innerHTML;
-
-            const allCanvases = {};
-            for(let i=3; i<=7; i++) {
-                const c = document.getElementById('builder-canvas-' + i);
-                if(c) allCanvases['zona_'+i] = c.innerHTML;
-            }
-
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            const index = profiles.findIndex(p => p.id === activeProfileId);
-            if(index === -1) { promptSaveProfile(); return; }
-
-            const profile = profiles[index];
-            profile.portada = localStorage.getItem('prospecta_portada') || '';
-            profile.avatar = localStorage.getItem('prospecta_avatar') || '';
-            profile.date = new Date().toLocaleDateString() + " (Actualizado)";
-            profile.guiones = currentScripts; 
-            profile.productos = productosHTML; 
-            profile.canvases = allCanvases;
-
-            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
-            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-
-            profiles[index] = profile;
-            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-
-            const saveBtn = document.getElementById('btn-save-changes');
-            if(saveBtn) {
-                const origHTML = saveBtn.innerHTML;
-                saveBtn.innerHTML = '<i class="fas fa-check text-green-400 w-5 text-center"></i> <span class="font-semibold text-sm text-green-400">¡Guardado!</span>';
-                setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
-            }
-            renderProfilesList();
+            saveCurrentState();
+            alert('✅ Cambios guardados exitosamente en el navegador');
         }
 
         function promptSaveProfile() {
-            const name = prompt("Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
-            if(!name || name.trim() === "") return;
-            
-            let productosHTML = '';
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont) productosHTML = prodCont.innerHTML;
-
-            const allCanvases = {};
-            for(let i=3; i<=7; i++) {
-                const c = document.getElementById('builder-canvas-' + i);
-                if(c) allCanvases['zona_'+i] = c.innerHTML;
-            }
-
-            const profile = {
-                id: Date.now().toString(),
-                name: name.trim(),
-                portada: localStorage.getItem('prospecta_portada') || '',
-                avatar: localStorage.getItem('prospecta_avatar') || '',
-                date: new Date().toLocaleDateString(),
-                data: {},
-                guiones: currentScripts,
-                productos: productosHTML,
-                canvases: allCanvases
-            };
-
-            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
-            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            profiles.push(profile);
-            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-            
-            activeProfileId = profile.id; 
-            alert("Perfil guardado exitosamente: " + profile.name);
-            renderProfilesList();
-            
-            if (!notesVisible) {
-                toggleNotes();
-            }
-            switchSidebarTab('perfiles');
-        }
-
-        function loadProfile(id) {
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            const profile = profiles.find(p => p.id === id);
-            if(!profile) return;
-
-            activeProfileId = id; 
-
-            if(profile.data) {
-                Object.keys(profile.data).forEach(key => {
-                    localStorage.setItem('prospecta_' + key, profile.data[key]);
-                });
-            }
-
-            loadCurrentState();
-
-            if(profile.portada) {
-                localStorage.setItem('prospecta_portada', profile.portada);
-                document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${profile.portada}')`);
-                ajustarAlturaPortada(profile.portada);
-            }
-            if(profile.avatar) {
-                localStorage.setItem('prospecta_avatar', profile.avatar);
-                document.querySelectorAll('.avatar-sync').forEach(i => i.src = profile.avatar);
-            }
-
-            if (profile.guiones) {
-                currentScripts = profile.guiones;
-            } else {
-                currentScripts = { ...scripts }; 
-            }
-            
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont && profile.productos) {
-                prodCont.innerHTML = profile.productos;
-            }
-
-            if(profile.canvases) {
-                for(let i=3; i<=7; i++) {
-                    const c = document.getElementById('builder-canvas-' + i);
-                    if(c && profile.canvases['zona_'+i]) {
-                        c.innerHTML = profile.canvases['zona_'+i];
-                    }
-                }
-            }
-            
-            updateUI(); 
-            alert("Perfil cargado: " + profile.name);
-        }
-
-        function deleteProfile(id, event) {
-            event.stopPropagation(); 
-            if(confirm("¿Estás seguro de eliminar este perfil?")) {
-                let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-                profiles = profiles.filter(p => p.id !== id);
-                localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-                if(activeProfileId === id) activeProfileId = null; 
-                renderProfilesList();
+            const nombre = prompt('¿Cómo deseas llamar este perfil?', 'Mi Perfil');
+            if (nombre) {
+                const perfil = {
+                    nombre: nombre,
+                    datos: document.getElementById('prof-name')?.textContent || '',
+                    rol: document.getElementById('prof-role')?.textContent || '',
+                    timestamp: new Date().toISOString()
+                };
+                
+                let perfiles = JSON.parse(localStorage.getItem('prospecta_perfiles') || '[]');
+                perfiles.push(perfil);
+                localStorage.setItem('prospecta_perfiles', JSON.stringify(perfiles));
+                
+                alert(`✅ Perfil "${nombre}" guardado exitosamente`);
+                console.log('Perfiles guardados:', perfiles);
             }
         }
 
-        function renderProfilesList() {
-            const container = document.getElementById('profiles-content');
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            
-            if(profiles.length === 0) {
-                container.innerHTML = `<div class="text-center text-white/50 mt-10"><i class="fas fa-folder-open text-4xl mb-4"></i><p>Aún no hay perfiles guardados.</p></div>`;
-                return;
-            }
-
-            container.innerHTML = profiles.map(p => `
-                <div class="bg-brand-primary border border-white/20 p-4 rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition group" onclick="loadProfile('${p.id}')">
-                    <div class="flex justify-between items-start">
-                        <div class="flex flex-col">
-                            <span class="font-bold text-white text-lg">${p.name}</span>
-                            <span class="text-xs text-white/60 mt-1"><i class="fas fa-clock"></i> Guardado: ${p.date}</span>
-                        </div>
-                        <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-red-400 p-2 outline-none">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+        function toggleIconMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            menu?.classList.toggle('show');
         }
 
-        function switchSidebarTab(tabName) {
-            const btnGuion = document.getElementById('tab-guion');
-            const btnPerfiles = document.getElementById('tab-perfiles');
-            const contentGuion = document.getElementById('script-content');
-            const toolbarGuion = document.getElementById('script-toolbar');
-            const contentPerfiles = document.getElementById('profiles-content');
-            const footer = document.getElementById('sidebar-footer');
-
-            if(tabName === 'guion') {
-                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none";
-                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none";
-                contentGuion.classList.remove('hidden');
-                toolbarGuion.classList.remove('hidden');
-                contentPerfiles.classList.add('hidden');
-                footer.classList.remove('hidden');
-            } else {
-                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none";
-                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none";
-                contentPerfiles.classList.remove('hidden');
-                contentGuion.classList.add('hidden');
-                toolbarGuion.classList.add('hidden');
-                footer.classList.add('hidden');
-                renderProfilesList();
+        function changeIcon(btnId, iconId, menuId, iconClass) {
+            const btn = document.getElementById(btnId);
+            const icon = document.getElementById(iconId);
+            const menu = document.getElementById(menuId);
+            
+            if (btn && icon && menu) {
+                icon.className = iconClass;
+                menu.classList.remove('show');
+                btn.dataset.icon = iconClass;
+                saveCurrentState();
             }
         }
 
-        function addBlock(type) {
-            document.getElementById('block-selector-modal').classList.add('hidden');
-            const canvas = document.getElementById('builder-canvas-' + currentSlide);
-            if(!canvas) { alert("Esta zona aún no soporta el constructor."); return; }
-            
-            const id = 'block_' + Date.now();
-            let html = '';
-
-            if(type === 'acordeon') {
-                html = `
-                <div class="w-full flex justify-between items-center p-5 hover:bg-white/5 transition-colors">
-                    <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none break-words editable-text"><i class="fas fa-question-circle mr-2 text-brand-success"></i> Nueva Pregunta</span>
-                    <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i></button>
-                </div>
-                <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
-                    <p contenteditable="${isEditMode}" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none editable-text">Escribe aquí tu texto oculto persuasivo...</p>
-                </div>`;
-            } else if(type === 'texto') {
-                html = `<div class="p-5"><p contenteditable="${isEditMode}" class="text-white text-[16px] md:text-[18px] leading-relaxed outline-none text-justify editable-text">Texto libre directo al lienzo...</p></div>`;
-            } else if(type === 'imagen') {
-                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
-                            <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-10">
-                                <i class="fas fa-cloud-upload-alt text-4xl mb-2"></i><span class="text-sm font-bold">Subir Imagen Local</span>
-                                <input type="file" accept="image/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'imagen')">
-                            </label>
-                            <img id="img_${id}" src="" class="w-full h-auto max-h-48 object-contain hidden">
-                        </div>`;
-            } else if(type === 'video') {
-                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
-                            <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-20">
-                                <i class="fas fa-video text-4xl mb-2"></i><span class="text-sm font-bold">Subir Video Local</span>
-                                <input type="file" accept="video/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'video')">
-                            </label>
-                            <video id="vid_${id}" class="w-full h-full object-contain hidden" playsinline loop></video>
-                            <div id="ctrl_${id}" class="video-controls hidden z-10">
-                                <button class="video-ctrl-btn" onclick="toggleVid('${id}')"><i class="fas fa-play" id="i_play_${id}"></i><i class="fas fa-pause hidden" id="i_pause_${id}"></i></button>
-                                <button class="video-ctrl-btn" onclick="muteVid('${id}')"><i class="fas fa-volume-up" id="i_vol_${id}"></i><i class="fas fa-volume-mute hidden" id="i_mute_${id}"></i></button>
-                            </div>
-                        </div>`;
-            } else if(type === 'audio') {
-                html = `<div class="w-full bg-[#1e1e2f] border border-white/20 rounded-2xl p-4 relative">
-                            <label class="edit-only absolute top-2 right-2 px-3 py-1 bg-white/10 rounded-full cursor-pointer text-xs font-bold text-white hover:bg-white/20 z-10">
-                                Cargar MP3 <input type="file" accept="audio/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'audio')">
-                            </label>
-                            <div class="audio-pro-container" id="pro_${id}">
-                                <div class="visualizer-pro">${Array(15).fill('<div class="v-bar"></div>').join('')}</div>
-                                <audio id="aud_${id}" class="hidden"></audio>
-                                <button class="play-pro-btn mx-auto mt-4" onclick="toggleAud('${id}')"><i class="fas fa-play" id="a_play_${id}"></i><i class="fas fa-pause hidden" id="a_pause_${id}"></i></button>
-                            </div>
-                        </div>`;
-            }
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group w-full';
-            wrapper.id = id;
-            wrapper.innerHTML = `
-                <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
-                ${html}
-            `;
-            canvas.appendChild(wrapper);
-            setTimeout(() => { document.getElementById('presentation-area').scrollTo({top: canvas.scrollHeight, behavior:'smooth'}); }, 100);
-        }
-
-        function loadBlockMedia(input, blockId, type) {
-            const file = input.files[0];
-            if(!file) return;
-            const url = URL.createObjectURL(file); 
-            
-            input.parentElement.classList.add('hidden');
-
-            if(type === 'imagen') {
-                const img = document.getElementById('img_'+blockId);
-                img.src = url; img.classList.remove('hidden');
-            } else if(type === 'video') {
-                const vid = document.getElementById('vid_'+blockId);
-                vid.src = url; vid.classList.remove('hidden');
-                document.getElementById('ctrl_'+blockId).classList.remove('hidden');
-                vid.play(); toggleVid(blockId, true); 
-            } else if(type === 'audio') {
-                const aud = document.getElementById('aud_'+blockId);
-                aud.src = url;
-                input.parentElement.classList.remove('hidden'); 
-            }
-        }
-
-        function toggleVid(id, isForcePlay=false) {
-            const v = document.getElementById('vid_'+id);
-            if(!v.src) return;
-            if (v.paused || isForcePlay) { v.play(); document.getElementById('i_play_'+id).classList.add('hidden'); document.getElementById('i_pause_'+id).classList.remove('hidden'); }
-            else { v.pause(); document.getElementById('i_play_'+id).classList.remove('hidden'); document.getElementById('i_pause_'+id).classList.add('hidden'); }
-        }
-        function muteVid(id) {
-            const v = document.getElementById('vid_'+id);
-            v.muted = !v.muted;
-            if(v.muted) { document.getElementById('i_vol_'+id).classList.add('hidden'); document.getElementById('i_mute_'+id).classList.remove('hidden'); }
-            else { document.getElementById('i_vol_'+id).classList.remove('hidden'); document.getElementById('i_mute_'+id).classList.add('hidden'); }
-        }
-        function toggleAud(id) {
-            const a = document.getElementById('aud_'+id);
-            const pro = document.getElementById('pro_'+id);
-            if(!a.src) { alert("Sube un audio primero"); return; }
-            if (a.paused) { a.play(); pro.classList.add('playing'); document.getElementById('a_play_'+id).classList.add('hidden'); document.getElementById('a_pause_'+id).classList.remove('hidden'); }
-            else { a.pause(); pro.classList.remove('playing'); document.getElementById('a_play_'+id).classList.remove('hidden'); document.getElementById('a_pause_'+id).classList.add('hidden'); }
-        }
-
-        // =========================================
-        // MEMORIA BASE DE LOS GUIONES (SIN EMOJIS)
-        // =========================================
-        const scripts = {
-            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play text-brand-success mr-2"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
-                <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
-                <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
-                <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
-                <p class="mb-4 text-white"><i class="fas fa-arrow-right text-brand-success mx-1"></i> (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
-
-            2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
-                <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
-                <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
-            
-            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas del teleprompter y CALLA)</p>
-                <p class="mb-4">Utiliza los Acordeones Centrales en la pantalla principal para guiar la conversación con precisión.</p>`,
-            
-            4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
-                <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
-                <p class="mb-4 text-white italic">(AQUÍ MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
-                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-white">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
-                <p class="text-white font-bold mt-2"><i class="fas fa-check-circle text-brand-success mx-1"></i> (Acción: Abre su perfil de WhatsApp).</p>
-                <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
-            
-            5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
-                <p class="mb-4 text-white italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." <i class="fas fa-arrow-right text-brand-success mx-1"></i> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
-                <p class="mb-4">Entiendo lo que dices. Lo que sucede es que muchos profesionales confunden 'atender' con 'vender'. La base de toda conversión es comunicar adecuadamente el valor de tu negocio, y eso es imposible si el sistema se reduce a tratar de responder escribiendo, solo copiar y pegar precios, o el típico 'Estoy ocupado ahorita te lo mando'.</p>
-                <p class="mb-4 font-bold text-white">Hagamos una prueba de Caos de Contenido:</p>
-                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
-                <p>"Te agradezco la honestidad... hoy la atención en el celular dura apenas 8 segundos. En el momento en que le dices 'luego te lo mando', la confianza se rompe. Si solo mandas el precio, le estás pidiendo a tu prospecto que te compare por ser el más barato. Si el cliente tiene que esforzarse para comprarte, no te compra."</p>`,
-            
-            6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí', pero no te dice cuándo?"</p>
-                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
-                <p class="mb-4 text-white font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
-                <p>"La mayoría de los profesionales abandonan la venta después del segundo mensaje por miedo a molestar, o simplemente porque no saben qué más decir fuera del típico '¿qué has pensado?'"</p>`,
-            
-            7: `<p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered text-brand-success mr-1"></i> Soluciones</p>
-                <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
-                <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
-                <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>`
-        };
-
-        let currentScripts = { ...scripts }; // Memoria viva editable
-        let currentSlide = 1;
-        const totalSlides = 7;
-        let notesVisible = false;
-
-        function goToSlide(index) {
-            if (index >= 1 && index <= totalSlides) {
-                currentSlide = index;
-                updateUI();
-            }
-        }
-
-        function updateUI() {
-            document.querySelectorAll('.slide').forEach(slide => {
-                slide.classList.remove('active');
-                if (parseInt(slide.dataset.slide) === currentSlide) {
-                    slide.classList.add('active');
-                }
-            });
-
-            document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
-            document.getElementById('script-content').innerHTML = currentScripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
-            
-            const notesPanel = document.getElementById('script-content');
-            if(notesPanel) notesPanel.scrollTop = 0;
-            
-            const presentationArea = document.getElementById('presentation-area');
-            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
-
-            for(let i = 1; i <= totalSlides; i++) {
-                const pill = document.getElementById('nav-pill-' + i);
-                if(pill) {
-                    if(i === currentSlide) {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none";
-                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        function setRating(ratingsId, rating) {
+            const container = document.getElementById(ratingsId);
+            if (container) {
+                const stars = container.querySelectorAll('.star-btn');
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.remove('far');
+                        star.classList.add('fas');
                     } else {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none";
+                        star.classList.remove('fas');
+                        star.classList.add('far');
                     }
-                }
-            }
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                updateUI();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateUI();
-            }
-        }
-
-        function toggleNotes() {
-            const sidebar = document.getElementById('notes-sidebar');
-            notesVisible = !notesVisible;
-            
-            if (notesVisible) {
-                sidebar.classList.remove('w-0');
-                sidebar.classList.add('w-full', 'md:w-[400px]');
-            } else {
-                sidebar.classList.add('w-0');
-                sidebar.classList.remove('w-full', 'md:w-[400px]');
+                });
+                container.dataset.rating = rating;
+                saveCurrentState();
             }
         }
 
         function toggleAccordion(btn) {
-            const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block') || btn.closest('.accordion-wrapper');
-            const content = container.querySelector('.acc-content'); 
-            const icon = btn.querySelector('.fa-chevron-down');
-            
-            if(content) {
-                if(content.classList.contains('hidden')) {
-                    content.classList.remove('hidden');
-                    content.classList.add('block');
-                } else {
-                    content.classList.add('hidden');
-                    content.classList.remove('block');
+            const content = btn.closest('.dynamic-block')?.querySelector('.acc-content');
+            if (content) {
+                content.classList.toggle('hidden');
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
                 }
             }
-            if(icon) icon.classList.toggle('rotate-180');
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'Space') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            }
-        });
-
-        function setRating(containerId, rating) {
-            if (!isEditMode) return; 
-            setRatingVisuals(containerId, rating);
-            saveCurrentState();
-        }
-
-        function setRatingVisuals(containerId, rating) {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            container.dataset.rating = rating;
-            const stars = container.querySelectorAll('.star-btn');
-            
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.remove('far');
-                    star.classList.add('fas');    
-                } else {
-                    star.classList.remove('fas'); 
-                    star.classList.add('far');    
-                }
-            });
-        }
-
-        function toggleIconMenu(menuId) {
-            if (!isEditMode) return; 
-            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                if(menu.id !== menuId) menu.classList.remove('show');
-            });
-            const menu = document.getElementById(menuId);
-            menu.classList.toggle('show');
-        }
-
-        function changeIcon(btnId, iconId, menuId, newIconClass) {
-            document.getElementById(iconId).className = newIconClass;
-            document.getElementById(btnId).dataset.icon = newIconClass;
-            document.getElementById(menuId).classList.remove('show');
-            saveCurrentState(); 
-        }
-
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
-                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                    menu.classList.remove('show');
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error al activar pantalla completa: ${err.message}`);
                 });
-            }
-        });
-
-        // =========================================
-        // ARRANQUE DE LA APP
-        // =========================================
-        window.addEventListener('DOMContentLoaded', () => {
-            initBackgroundStars(); 
-            loadCurrentState(); 
-            
-            const savedSize = localStorage.getItem('prospecta_script_fontsize');
-            if (savedSize) {
-                scriptFontSize = parseInt(savedSize);
-                document.getElementById('script-content').style.fontSize = scriptFontSize + 'px';
-            }
-
-            document.getElementById('script-content').addEventListener('input', function() {
-                if(isEditMode) {
-                    currentScripts[currentSlide] = this.innerHTML;
-                }
-            });
-            
-            const savedPortada = localStorage.getItem('prospecta_portada');
-            const savedAvatar = localStorage.getItem('prospecta_avatar');
-
-            if (savedPortada) {
-                const covers = document.querySelectorAll('.portada-sync');
-                covers.forEach(target => {
-                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
-                });
-                ajustarAlturaPortada(savedPortada);
             } else {
-                ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+                document.exitFullscreen();
             }
+        }
 
-            if (savedAvatar) {
-                const avatars = document.querySelectorAll('.avatar-sync');
-                avatars.forEach(img => {
-                    img.src = savedAvatar;
-                });
+        function goToSlide(slideNumber) {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => slide.classList.remove('active'));
+            const targetSlide = document.querySelector(`[data-slide="${slideNumber}"]`);
+            if (targetSlide) {
+                targetSlide.classList.add('active');
+                updateProgressBar(slideNumber);
             }
-            
-            updateUI();
-            toggleAppMode(); 
+        }
+
+        function updateProgressBar(slideNumber) {
+            const totalSlides = document.querySelectorAll('.slide').length;
+            const percentage = (slideNumber / totalSlides) * 100;
+            const bar = document.getElementById('progress-bar');
+            if (bar) bar.style.width = percentage + '%';
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            saveCurrentState();
+            updateProgressBar(2);
         });
 
-        function setDateTime() {
-            const now = new Date();
-            const fechaEls = document.querySelectorAll('#display_fecha');
-            const horaEls = document.querySelectorAll('#display_hora');
-            fechaEls.forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
-            horaEls.forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
-        }
-        setInterval(setDateTime, 60000); 
-        setDateTime(); 
+        // Cerrar menú al hacer clic fuera
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('main-menu');
+            const btn = document.querySelector('.hamburger-btn');
+            if (menu && btn && !menu.contains(event.target) && !btn.contains(event.target)) {
+                menu.classList.add('hidden');
+            }
+        });
     </script>
 </body>
 </html>
