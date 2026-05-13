@@ -497,7 +497,7 @@
                         <i class="fas fa-arrow-right mr-1"></i> DESCUBRIR MI ERROR AHORA
                     </button>
                     <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
-                        <i class="fas fa-stopwatch mr-1"></i> Toma menos de 3 minutos.
+                        <i class="fas fa-clock mr-1"></i> Toma menos de 3 minutos.
                     </div>
                 </div>
             </div>
@@ -526,9 +526,7 @@
                     
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
-                            <svg class="w-3.5 h-3.5 text-brand-primary" viewBox="0 0 24 24" fill="currentColor">
-                               <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"></path>
-                            </svg>
+                            <i class="fas fa-check-circle text-brand-primary"></i>
                             Verified Strategy
                         </div>
                     </div>
@@ -906,7 +904,7 @@
                 </div>
 
                 <div class="mt-8 text-center text-lg md:text-xl text-white italic font-bold bg-white/10 p-4 rounded-xl border border-white/20 w-full">
-                    <i class="fas fa-quote-left mr-2 text-brand-success opacity-50"></i> Pierdes ventas porque la competencia es más fácil de entender. <i class="fas fa-quote-right ml-2 text-brand-success opacity-50"></i>
+                    <i class="fas fa-quote-left mr-2 text-white opacity-50"></i> Pierdes ventas porque la competencia es más fácil de entender. <i class="fas fa-quote-right ml-2 text-white opacity-50"></i>
                 </div>
 
                 <div id="builder-canvas-4" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
@@ -1074,7 +1072,7 @@
                                     </div>
 
                                 </div>
-                                <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                                <button class="edit-only text-xs font-bold text-white hover:text-brand-success mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
                             </div>
                         </div>
                         
@@ -1084,7 +1082,7 @@
                         <!-- Precio Oculto abajo -->
                         <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
                             <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
+                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
                         </div>
                     </div>
                 </div>
@@ -1095,6 +1093,8 @@
                         <i class="fas fa-plus"></i> Agregar Producto
                     </button>
                 </div>
+                
+                <div id="builder-canvas-7" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
             </div>
 
         </div>
@@ -1137,25 +1137,25 @@
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
             <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none flex items-center justify-center">
-                <span id="nav-text-1" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 1: Portada</span>
+                <span id="nav-text-1" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 1: Portada</span>
             </button>
             <button onclick="goToSlide(2)" id="nav-pill-2" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center">
-                <span id="nav-text-2" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 2: Perfil</span>
+                <span id="nav-text-2" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 2: Perfil</span>
             </button>
             <button onclick="goToSlide(3)" id="nav-pill-3" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center">
-                <span id="nav-text-3" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 3: Sondeo</span>
+                <span id="nav-text-3" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 3: Sondeo</span>
             </button>
             <button onclick="goToSlide(4)" id="nav-pill-4" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center">
-                <span id="nav-text-4" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 4: Competencia</span>
+                <span id="nav-text-4" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 4: Competencia</span>
             </button>
             <button onclick="goToSlide(5)" id="nav-pill-5" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center">
-                <span id="nav-text-5" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 5: El Reto</span>
+                <span id="nav-text-5" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 5: El Reto</span>
             </button>
             <button onclick="goToSlide(6)" id="nav-pill-6" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center">
-                <span id="nav-text-6" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 6: Seguimiento</span>
+                <span id="nav-text-6" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 6: Seguimiento</span>
             </button>
             <button onclick="goToSlide(7)" id="nav-pill-7" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center">
-                <span id="nav-text-7" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center">Zona 7: Soluciones</span>
+                <span id="nav-text-7" contenteditable="false" oninput="saveCurrentState()" class="outline-none w-full text-center editable-text">Zona 7: Soluciones</span>
             </button>
         </div>
     </footer>
@@ -1515,7 +1515,7 @@
         }
 
         function toggleZ7Video(vidId, playId) {
-            if (isEditMode) return; // No reproducir en modo edición
+            if (isEditMode) return; 
             const video = document.getElementById(vidId);
             const playBtn = document.getElementById(playId);
             if(video.paused) {
@@ -1608,7 +1608,7 @@
                                     <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash"></i></button>
                                 </div>
                             </div>
-                            <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                            <button class="edit-only text-xs font-bold text-white hover:text-brand-success mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
                         </div>
                     </div>
                     
@@ -1616,7 +1616,7 @@
                     
                     <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
                         <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                        <div contenteditable="${isEditMode}" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
+                        <div contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
                     </div>
                 </div>
             `;
@@ -1985,7 +1985,241 @@
             if (a.paused) { a.play(); pro.classList.add('playing'); document.getElementById('a_play_'+id).classList.add('hidden'); document.getElementById('a_pause_'+id).classList.remove('hidden'); }
             else { a.pause(); pro.classList.remove('playing'); document.getElementById('a_play_'+id).classList.remove('hidden'); document.getElementById('a_pause_'+id).classList.add('hidden'); }
         }
-        
+
+        // =========================================
+        // MEMORIA BASE DE LOS GUIONES (SIN EMOJIS)
+        // =========================================
+        const scripts = {
+            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play text-brand-success mr-2"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
+                <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
+                <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
+                <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
+                <p class="mb-4 text-white"><i class="fas fa-arrow-right text-brand-success mx-1"></i> (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
+
+            2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
+                <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
+                <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
+            
+            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas del teleprompter y CALLA)</p>
+                <p class="mb-4">Utiliza los Acordeones Centrales en la pantalla principal para guiar la conversación con precisión.</p>`,
+            
+            4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
+                <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
+                <p class="mb-4 text-white italic">(AQUÍ MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
+                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-white">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
+                <p class="text-white font-bold mt-2"><i class="fas fa-check-circle text-brand-success mx-1"></i> (Acción: Abre su perfil de WhatsApp).</p>
+                <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
+            
+            5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
+                <p class="mb-4 text-white italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." <i class="fas fa-arrow-right text-brand-success mx-1"></i> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
+                <p class="mb-4">Entiendo lo que dices. Lo que sucede es que muchos profesionales confunden 'atender' con 'vender'. La base de toda conversión es comunicar adecuadamente el valor de tu negocio, y eso es imposible si el sistema se reduce a tratar de responder escribiendo, solo copiar y pegar precios, o el típico 'Estoy ocupado ahorita te lo mando'.</p>
+                <p class="mb-4 font-bold text-white">Hagamos una prueba de Caos de Contenido:</p>
+                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
+                <p>"Te agradezco la honestidad... hoy la atención en el celular dura apenas 8 segundos. En el momento en que le dices 'luego te lo mando', la confianza se rompe. Si solo mandas el precio, le estás pidiendo a tu prospecto que te compare por ser el más barato. Si el cliente tiene que esforzarse para comprarte, no te compra."</p>`,
+            
+            6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí', pero no te dice cuándo?"</p>
+                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
+                <p class="mb-4 text-white font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
+                <p>"La mayoría de los profesionales abandonan la venta después del segundo mensaje por miedo a molestar, o simplemente porque no saben qué más decir fuera del típico '¿qué has pensado?'"</p>`,
+            
+            7: `<p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered text-brand-success mr-1"></i> Soluciones</p>
+                <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
+                <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
+                <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>`
+        };
+
+        let currentScripts = { ...scripts }; // Memoria viva editable
+        let currentSlide = 1;
+        const totalSlides = 7;
+        let notesVisible = false;
+
+        function goToSlide(index) {
+            if (index >= 1 && index <= totalSlides) {
+                currentSlide = index;
+                updateUI();
+            }
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+                if (parseInt(slide.dataset.slide) === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+            document.getElementById('script-content').innerHTML = currentScripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
+            
+            const notesPanel = document.getElementById('script-content');
+            if(notesPanel) notesPanel.scrollTop = 0;
+            
+            const presentationArea = document.getElementById('presentation-area');
+            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
+
+            for(let i = 1; i <= totalSlides; i++) {
+                const pill = document.getElementById('nav-pill-' + i);
+                if(pill) {
+                    if(i === currentSlide) {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none flex items-center justify-center";
+                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } else {
+                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center";
+                    }
+                }
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateUI();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateUI();
+            }
+        }
+
+        function toggleNotes() {
+            const sidebar = document.getElementById('notes-sidebar');
+            notesVisible = !notesVisible;
+            
+            if (notesVisible) {
+                sidebar.classList.remove('w-0');
+                sidebar.classList.add('w-full', 'md:w-[400px]');
+            } else {
+                sidebar.classList.add('w-0');
+                sidebar.classList.remove('w-full', 'md:w-[400px]');
+            }
+        }
+
+        function toggleAccordion(btn) {
+            const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block') || btn.closest('.accordion-wrapper');
+            const content = container.querySelector('.acc-content'); 
+            const icon = btn.querySelector('.fa-chevron-down');
+            
+            if(content) {
+                if(content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                } else {
+                    content.classList.add('hidden');
+                    content.classList.remove('block');
+                }
+            }
+            if(icon) icon.classList.toggle('rotate-180');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        function setRating(containerId, rating) {
+            if (!isEditMode) return; 
+            setRatingVisuals(containerId, rating);
+            saveCurrentState();
+        }
+
+        function setRatingVisuals(containerId, rating) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.dataset.rating = rating;
+            const stars = container.querySelectorAll('.star-btn');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');    
+                } else {
+                    star.classList.remove('fas'); 
+                    star.classList.add('far');    
+                }
+            });
+        }
+
+        function toggleIconMenu(menuId) {
+            if (!isEditMode) return; 
+            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
+                if(menu.id !== menuId) menu.classList.remove('show');
+            });
+            const menu = document.getElementById(menuId);
+            menu.classList.toggle('show');
+        }
+
+        function changeIcon(btnId, iconId, menuId, newIconClass) {
+            document.getElementById(iconId).className = newIconClass;
+            document.getElementById(btnId).dataset.icon = newIconClass;
+            document.getElementById(menuId).classList.remove('show');
+            saveCurrentState(); 
+        }
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
+                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+
+        // =========================================
+        // ARRANQUE DE LA APP
+        // =========================================
+        window.addEventListener('DOMContentLoaded', () => {
+            initBackgroundStars(); 
+            loadCurrentState(); 
+            
+            const savedSize = localStorage.getItem('prospecta_script_fontsize');
+            if (savedSize) {
+                scriptFontSize = parseInt(savedSize);
+                document.getElementById('script-content').style.fontSize = scriptFontSize + 'px';
+            }
+
+            document.getElementById('script-content').addEventListener('input', function() {
+                if(isEditMode) {
+                    currentScripts[currentSlide] = this.innerHTML;
+                }
+            });
+            
+            const savedPortada = localStorage.getItem('prospecta_portada');
+            const savedAvatar = localStorage.getItem('prospecta_avatar');
+
+            if (savedPortada) {
+                const covers = document.querySelectorAll('.portada-sync');
+                covers.forEach(target => {
+                    target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${savedPortada}')`;
+                });
+                ajustarAlturaPortada(savedPortada);
+            } else {
+                ajustarAlturaPortada('https://images.unsplash.com/photo-1557682250-33bd709cbe85?auto=format&fit=crop&q=80&w=1000');
+            }
+
+            if (savedAvatar) {
+                const avatars = document.querySelectorAll('.avatar-sync');
+                avatars.forEach(img => {
+                    img.src = savedAvatar;
+                });
+            }
+            
+            updateUI();
+        });
+
+        function setDateTime() {
+            const now = new Date();
+            const fechaEls = document.querySelectorAll('#display_fecha');
+            const horaEls = document.querySelectorAll('#display_hora');
+            fechaEls.forEach(el => el.innerText = now.toLocaleDateString('es-MX', {day:'2-digit', month:'short'}));
+            horaEls.forEach(el => el.innerText = now.toLocaleTimeString('es-MX', {hour:'2-digit', minute:'2-digit'}));
+        }
+        setInterval(setDateTime, 60000); 
+        setDateTime(); 
     </script>
 </body>
 </html>
