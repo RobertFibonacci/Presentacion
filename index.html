@@ -228,6 +228,7 @@
             padding-bottom: 1rem;
             scroll-snap-type: x mandatory;
             width: 100%;
+            align-items: flex-start; /* CRÍTICO: Permite alturas independientes en tarjetas */
         }
         .carousel-card {
             flex: 0 0 280px;
@@ -621,7 +622,7 @@
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tus Competidores</h3>
                     </div>
                     
-                    <div class="carousel-container no-scrollbar">
+                    <div class="carousel-container no-scrollbar items-start">
                         <!-- Competidor 1 -->
                         <div class="carousel-card zona-memoria" id="comp-card-1">
                             <div id="comp1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 1</div>
@@ -738,7 +739,7 @@
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tu Negocio</h3>
                     </div>
                     
-                    <div class="carousel-container no-scrollbar">
+                    <div class="carousel-container no-scrollbar items-start">
                         <!-- Tu Negocio 1 -->
                         <div class="carousel-card zona-memoria" id="own-card-1" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
                             <div id="own1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Tu Situación Actual</div>
@@ -833,7 +834,7 @@
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tu Situación Actual (Evidencias)</h3>
                     </div>
                     
-                    <div class="carousel-container no-scrollbar">
+                    <div class="carousel-container no-scrollbar items-start">
                         <!-- Evidencia 1 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
@@ -1002,7 +1003,7 @@
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
                 <!-- CONTENEDOR DE PRODUCTOS (CARRUSEL VERTICAL ACORDEÓN) -->
-                <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
+                <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar items-start" id="z7-products-container">
                     
                     <!-- Tarjeta de Producto 1 Base -->
                     <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl shrink-0 relative snap-center group dynamic-block accordion-wrapper">
@@ -1074,16 +1075,13 @@
 
                                 </div>
                                 <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                                
+                                <!-- Precio Oculto dentro del acordeón -->
+                                <div class="mt-6 pt-4 border-t border-white/10 w-full text-center">
+                                    <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
+                                    <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Espaciador forzado para ocultar precio -->
-                        <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
-                        
-                        <!-- Precio Oculto abajo -->
-                        <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                            <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
                         </div>
                     </div>
                 </div>
@@ -1562,7 +1560,7 @@
             const id = 'prod_' + Date.now();
             
             const html = `
-                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl shrink-0 relative snap-center group dynamic-block accordion-wrapper">
+                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
                     <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                     
                     <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
@@ -1610,14 +1608,13 @@
                                 </div>
                             </div>
                             <button class="edit-only text-xs font-bold text-white hover:text-brand-success mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                            
+                            <!-- Precio Oculto dentro del acordeón -->
+                            <div class="mt-6 pt-4 border-t border-white/10 w-full text-center">
+                                <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
+                                <div id="z7-price-${id}" contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
-                    
-                    <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                        <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                        <div contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
                     </div>
                 </div>
             `;
@@ -1700,7 +1697,13 @@
                 if(c) allCanvases['zona_'+i] = c.innerHTML;
             }
 
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            let profiles = [];
+            try {
+                profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            } catch(e) {
+                profiles = [];
+            }
+            
             const index = profiles.findIndex(p => p.id === activeProfileId);
             if(index === -1) { promptSaveProfile(); return; }
 
@@ -1762,7 +1765,12 @@
             CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
             CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
             
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            let profiles = [];
+            try {
+                profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            } catch(e) {
+                profiles = [];
+            }
             profiles.push(profile);
             localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
             
@@ -1778,7 +1786,12 @@
         }
 
         function loadProfile(id) {
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            let profiles = [];
+            try {
+                profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            } catch(e) {
+                profiles = [];
+            }
             const profile = profiles.find(p => p.id === id);
             if(!profile) return;
 
@@ -1830,7 +1843,12 @@
         function deleteProfile(id, event) {
             event.stopPropagation(); 
             if(confirm("¿Estás seguro de eliminar este perfil?")) {
-                let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                let profiles = [];
+                try {
+                    profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                } catch(e) {
+                    profiles = [];
+                }
                 profiles = profiles.filter(p => p.id !== id);
                 localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
                 if(activeProfileId === id) { 
@@ -1843,7 +1861,12 @@
 
         function renderProfilesList() {
             const container = document.getElementById('profiles-content');
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            let profiles = [];
+            try {
+                profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            } catch(e) {
+                profiles = []; // BLINDAJE CONTRA ERRORES DE LECTURA
+            }
             
             if(profiles.length === 0) {
                 container.innerHTML = `<div class="text-center text-white/50 mt-10"><i class="fas fa-folder-open text-4xl mb-4"></i><p>Aún no hay perfiles guardados.</p></div>`;
