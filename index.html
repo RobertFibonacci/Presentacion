@@ -228,6 +228,7 @@
             padding-bottom: 1rem;
             scroll-snap-type: x mandatory;
             width: 100%;
+            align-items: flex-start; /* CRÍTICO: Permite alturas independientes en tarjetas */
         }
         .carousel-card {
             flex: 0 0 280px;
@@ -341,6 +342,8 @@
         
         /* ESTILO PARA TARJETAS VERTICALES PRODUCTOS ZONA 7 */
         .product-card {
+            flex: 0 0 90vw;
+            max-width: 400px;
             scroll-snap-align: center;
         }
 
@@ -619,7 +622,7 @@
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tus Competidores</h3>
                     </div>
                     
-                    <div class="carousel-container no-scrollbar">
+                    <div class="carousel-container no-scrollbar items-start">
                         <!-- Competidor 1 -->
                         <div class="carousel-card zona-memoria" id="comp-card-1">
                             <div id="comp1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 1</div>
@@ -736,7 +739,7 @@
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tu Negocio</h3>
                     </div>
                     
-                    <div class="carousel-container no-scrollbar">
+                    <div class="carousel-container no-scrollbar items-start">
                         <!-- Tu Negocio 1 -->
                         <div class="carousel-card zona-memoria" id="own-card-1" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
                             <div id="own1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Tu Situación Actual</div>
@@ -831,7 +834,7 @@
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tu Situación Actual (Evidencias)</h3>
                     </div>
                     
-                    <div class="carousel-container no-scrollbar">
+                    <div class="carousel-container no-scrollbar items-start">
                         <!-- Evidencia 1 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
@@ -1000,7 +1003,7 @@
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
                 <!-- CONTENEDOR DE PRODUCTOS (CARRUSEL VERTICAL ACORDEÓN) -->
-                <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
+                <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar items-start" id="z7-products-container">
                     
                     <!-- Tarjeta de Producto 1 Base -->
                     <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
@@ -1072,16 +1075,13 @@
 
                                 </div>
                                 <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                                
+                                <!-- Precio Oculto dentro del acordeón -->
+                                <div class="mt-6 pt-4 border-t border-white/10 w-full text-center">
+                                    <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
+                                    <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- Espaciador forzado para ocultar precio -->
-                        <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
-                        
-                        <!-- Precio Oculto abajo -->
-                        <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                            <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
                         </div>
                     </div>
                 </div>
@@ -1219,7 +1219,12 @@
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
         const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
 
-        let activeProfileId = localStorage.getItem('prospecta_active_profile_id') || null;
+        let activeProfileId = null;
+        try {
+            activeProfileId = localStorage.getItem('prospecta_active_profile_id') || null;
+        } catch(e) {
+            console.warn("Memoria local no disponible o bloqueada.");
+        }
 
         // =========================================
         // MODO EDICIÓN (LAPICITO CENTRALIZADO)
@@ -1271,7 +1276,7 @@
             if (scriptFontSize < 10) scriptFontSize = 10;
             if (scriptFontSize > 32) scriptFontSize = 32;
             document.getElementById('script-content').style.fontSize = scriptFontSize + 'px';
-            localStorage.setItem('prospecta_script_fontsize', scriptFontSize);
+            try { localStorage.setItem('prospecta_script_fontsize', scriptFontSize); } catch(e){}
         }
 
         function toggleMainMenu() {
@@ -1356,9 +1361,9 @@
 
                     if (isBackground) {
                         ajustarAlturaPortada(result); 
-                        localStorage.setItem('prospecta_portada', result); 
+                        try { localStorage.setItem('prospecta_portada', result); } catch(e){}
                     } else {
-                        localStorage.setItem('prospecta_avatar', result); 
+                        try { localStorage.setItem('prospecta_avatar', result); } catch(e){}
                     }
                 }
                 reader.readAsDataURL(file);
@@ -1386,7 +1391,7 @@
                     const placeholder = img.parentElement.querySelector('.evidence-placeholder');
                     if(placeholder) placeholder.classList.add('hidden');
                     
-                    localStorage.setItem('prospecta_' + imgId, e.target.result);
+                    try { localStorage.setItem('prospecta_' + imgId, e.target.result); } catch(e){}
                 }
                 reader.readAsDataURL(file);
             }
@@ -1608,14 +1613,13 @@
                                 </div>
                             </div>
                             <button class="edit-only text-xs font-bold text-white hover:text-brand-success mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                            
+                            <!-- Precio Oculto dentro del acordeón -->
+                            <div class="mt-6 pt-4 border-t border-white/10 w-full text-center">
+                                <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
+                                <div id="z7-price-${id}" contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
-                    
-                    <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                        <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                        <div contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
                     </div>
                 </div>
             `;
@@ -1631,213 +1635,270 @@
         // SISTEMA CRM: AUTO-GUARDADO Y PERFILES
         // =========================================
         function saveCurrentState() {
-            CRM_TEXT_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) localStorage.setItem('prospecta_' + id, el.innerHTML);
-            });
-            CRM_STAR_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) localStorage.setItem('prospecta_' + id, el.dataset.rating || '0');
-            });
-            CRM_ICON_IDS.forEach(id => {
-                const el = document.getElementById(id);
-                if(el) localStorage.setItem('prospecta_' + id, el.dataset.icon || '');
-            });
+            try {
+                CRM_TEXT_IDS.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) localStorage.setItem('prospecta_' + id, el.innerHTML);
+                });
+                CRM_STAR_IDS.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) localStorage.setItem('prospecta_' + id, el.dataset.rating || '0');
+                });
+                CRM_ICON_IDS.forEach(id => {
+                    const el = document.getElementById(id);
+                    if(el) localStorage.setItem('prospecta_' + id, el.dataset.icon || '');
+                });
+            } catch(e) {}
         }
 
         function loadCurrentState() {
-            CRM_TEXT_IDS.forEach(id => {
-                const val = localStorage.getItem('prospecta_' + id);
-                if(val !== null && document.getElementById(id)) document.getElementById(id).innerHTML = val;
-            });
-            CRM_STAR_IDS.forEach(id => {
-                const val = localStorage.getItem('prospecta_' + id);
-                if(val !== null) setRatingVisuals(id, parseInt(val));
-            });
-            CRM_ICON_IDS.forEach(btnId => {
-                const val = localStorage.getItem('prospecta_' + btnId);
-                if(val && document.getElementById(btnId)) {
-                    document.getElementById(btnId).dataset.icon = val;
-                    const iconId = btnId.replace('-btn-', '-icon-');
-                    const iconEl = document.getElementById(iconId);
-                    if(iconEl) iconEl.className = val;
-                }
-            });
-            CRM_IMG_IDS.forEach(id => {
-                const val = localStorage.getItem('prospecta_' + id);
-                const img = document.getElementById(id);
-                if(val && img) {
-                    img.src = val;
-                    img.classList.remove('hidden');
-                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
-                    if(placeholder) placeholder.classList.add('hidden');
-                } else if (!val && img) {
-                    img.src = '';
-                    img.classList.add('hidden');
-                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
-                    if(placeholder) placeholder.classList.remove('hidden');
-                }
-            });
+            try {
+                CRM_TEXT_IDS.forEach(id => {
+                    const val = localStorage.getItem('prospecta_' + id);
+                    // Escudo protector: ignora textos vacíos o corruptos para no borrar las zonas
+                    if(val && val.trim() !== "" && val !== "undefined" && val !== "null") {
+                        const el = document.getElementById(id);
+                        if(el) el.innerHTML = val;
+                    }
+                });
+                CRM_STAR_IDS.forEach(id => {
+                    const val = localStorage.getItem('prospecta_' + id);
+                    if(val && val !== "undefined" && val !== "null") setRatingVisuals(id, parseInt(val));
+                });
+                CRM_ICON_IDS.forEach(btnId => {
+                    const val = localStorage.getItem('prospecta_' + btnId);
+                    if(val && val !== "undefined" && val !== "null") {
+                        const btnEl = document.getElementById(btnId);
+                        if(btnEl) {
+                            btnEl.dataset.icon = val;
+                            const iconId = btnId.replace('-btn-', '-icon-');
+                            const iconEl = document.getElementById(iconId);
+                            if(iconEl) iconEl.className = val;
+                        }
+                    }
+                });
+                CRM_IMG_IDS.forEach(id => {
+                    const val = localStorage.getItem('prospecta_' + id);
+                    const img = document.getElementById(id);
+                    if(val && val !== "undefined" && val !== "null" && img) {
+                        img.src = val;
+                        img.classList.remove('hidden');
+                        const placeholder = img.parentElement.querySelector('.evidence-placeholder');
+                        if(placeholder) placeholder.classList.add('hidden');
+                    }
+                });
+            } catch(e) {}
         }
 
         function saveChanges() {
-            if(!activeProfileId) {
-                promptSaveProfile(); 
-                return;
+            try {
+                saveCurrentState(); // INYECCIÓN CRÍTICA: Fuerza a tomar la foto de la memoria antes de armar el JSON
+
+                if(!activeProfileId) {
+                    promptSaveProfile(); 
+                    return;
+                }
+
+                let productosHTML = '';
+                const prodCont = document.getElementById('z7-products-container');
+                if(prodCont) productosHTML = prodCont.innerHTML;
+
+                const allCanvases = {};
+                for(let i=3; i<=7; i++) {
+                    const c = document.getElementById('builder-canvas-' + i);
+                    if(c) allCanvases['zona_'+i] = c.innerHTML;
+                }
+
+                let profiles = [];
+                try {
+                    profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                } catch(e) {
+                    profiles = []; // BLINDAJE CONTRA CORRUPCIÓN DE MEMORIA
+                }
+                
+                const index = profiles.findIndex(p => p.id === activeProfileId);
+                if(index === -1) { promptSaveProfile(); return; }
+
+                const profile = profiles[index];
+                try { profile.portada = localStorage.getItem('prospecta_portada') || ''; } catch(e){}
+                try { profile.avatar = localStorage.getItem('prospecta_avatar') || ''; } catch(e){}
+                profile.date = new Date().toLocaleDateString() + " (Actualizado)";
+                profile.guiones = currentScripts; 
+                profile.productos = productosHTML; 
+                profile.canvases = allCanvases;
+
+                CRM_TEXT_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || ''; } catch(e){} });
+                CRM_STAR_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || '0'; } catch(e){} });
+                CRM_ICON_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || ''; } catch(e){} });
+                CRM_IMG_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || ''; } catch(e){} });
+
+                profiles[index] = profile;
+                localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+
+                const saveBtn = document.getElementById('btn-save-changes');
+                if(saveBtn) {
+                    const origHTML = saveBtn.innerHTML;
+                    saveBtn.innerHTML = '<i class="fas fa-check text-green-400 w-5 text-center"></i> <span class="font-semibold text-sm text-green-400">¡Guardado!</span>';
+                    setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
+                }
+                renderProfilesList();
+            } catch (err) {
+                console.error("Error al guardar: ", err);
+                alert("Hubo un pequeño error al guardar. Asegúrate de tener espacio en el navegador.");
             }
-
-            let productosHTML = '';
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont) productosHTML = prodCont.innerHTML;
-
-            const allCanvases = {};
-            for(let i=3; i<=7; i++) {
-                const c = document.getElementById('builder-canvas-' + i);
-                if(c) allCanvases['zona_'+i] = c.innerHTML;
-            }
-
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            const index = profiles.findIndex(p => p.id === activeProfileId);
-            if(index === -1) { promptSaveProfile(); return; }
-
-            const profile = profiles[index];
-            profile.portada = localStorage.getItem('prospecta_portada') || '';
-            profile.avatar = localStorage.getItem('prospecta_avatar') || '';
-            profile.date = new Date().toLocaleDateString() + " (Actualizado)";
-            profile.guiones = currentScripts; 
-            profile.productos = productosHTML; 
-            profile.canvases = allCanvases;
-
-            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
-            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-
-            profiles[index] = profile;
-            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-
-            const saveBtn = document.getElementById('btn-save-changes');
-            if(saveBtn) {
-                const origHTML = saveBtn.innerHTML;
-                saveBtn.innerHTML = '<i class="fas fa-check text-green-400 w-5 text-center"></i> <span class="font-semibold text-sm text-green-400">¡Guardado!</span>';
-                setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
-            }
-            renderProfilesList();
         }
 
         function promptSaveProfile() {
-            const name = prompt("Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
-            if(!name || name.trim() === "") return;
-            
-            let productosHTML = '';
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont) productosHTML = prodCont.innerHTML;
+            try {
+                saveCurrentState(); // INYECCIÓN CRÍTICA: Fuerza a tomar la foto de la memoria antes de armar el JSON
+                
+                const name = prompt("Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
+                if(!name || name.trim() === "") return;
+                
+                let productosHTML = '';
+                const prodCont = document.getElementById('z7-products-container');
+                if(prodCont) productosHTML = prodCont.innerHTML;
 
-            const allCanvases = {};
-            for(let i=3; i<=7; i++) {
-                const c = document.getElementById('builder-canvas-' + i);
-                if(c) allCanvases['zona_'+i] = c.innerHTML;
+                const allCanvases = {};
+                for(let i=3; i<=7; i++) {
+                    const c = document.getElementById('builder-canvas-' + i);
+                    if(c) allCanvases['zona_'+i] = c.innerHTML;
+                }
+
+                const profile = {
+                    id: Date.now().toString(),
+                    name: name.trim(),
+                    portada: '',
+                    avatar: '',
+                    date: new Date().toLocaleDateString(),
+                    data: {},
+                    guiones: currentScripts,
+                    productos: productosHTML,
+                    canvases: allCanvases
+                };
+                
+                try { profile.portada = localStorage.getItem('prospecta_portada') || ''; } catch(e){}
+                try { profile.avatar = localStorage.getItem('prospecta_avatar') || ''; } catch(e){}
+
+                CRM_TEXT_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || ''; } catch(e){} });
+                CRM_STAR_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || '0'; } catch(e){} });
+                CRM_ICON_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || ''; } catch(e){} });
+                CRM_IMG_IDS.forEach(id => { try { profile.data[id] = localStorage.getItem('prospecta_' + id) || ''; } catch(e){} });
+                
+                let profiles = [];
+                try {
+                    profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                } catch(e) {
+                    profiles = []; // BLINDAJE
+                }
+                profiles.push(profile);
+                localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+                
+                activeProfileId = profile.id; 
+                localStorage.setItem('prospecta_active_profile_id', profile.id); // GUARDA LA MEMORIA DEL ID
+                alert("Perfil guardado exitosamente: " + profile.name);
+                renderProfilesList();
+                
+                if (!notesVisible) {
+                    toggleNotes();
+                }
+                switchSidebarTab('perfiles');
+            } catch (err) {
+                console.error("Error al crear perfil: ", err);
             }
-
-            const profile = {
-                id: Date.now().toString(),
-                name: name.trim(),
-                portada: localStorage.getItem('prospecta_portada') || '',
-                avatar: localStorage.getItem('prospecta_avatar') || '',
-                date: new Date().toLocaleDateString(),
-                data: {},
-                guiones: currentScripts,
-                productos: productosHTML,
-                canvases: allCanvases
-            };
-
-            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
-            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            profiles.push(profile);
-            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-            
-            activeProfileId = profile.id; 
-            localStorage.setItem('prospecta_active_profile_id', profile.id); // GUARDA LA MEMORIA DEL ID
-            alert("Perfil guardado exitosamente: " + profile.name);
-            renderProfilesList();
-            
-            if (!notesVisible) {
-                toggleNotes();
-            }
-            switchSidebarTab('perfiles');
         }
 
         function loadProfile(id) {
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            const profile = profiles.find(p => p.id === id);
-            if(!profile) return;
+            try {
+                let profiles = [];
+                try {
+                    profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                } catch(e) {
+                    profiles = []; // BLINDAJE
+                }
+                const profile = profiles.find(p => p.id === id);
+                if(!profile) return;
 
-            activeProfileId = id; 
-            localStorage.setItem('prospecta_active_profile_id', id); // RECUPERA LA MEMORIA DEL ID
+                activeProfileId = id; 
+                localStorage.setItem('prospecta_active_profile_id', id); // RECUPERA LA MEMORIA DEL ID
 
-            if(profile.data) {
-                Object.keys(profile.data).forEach(key => {
-                    localStorage.setItem('prospecta_' + key, profile.data[key]);
-                });
-            }
+                if(profile.data) {
+                    Object.keys(profile.data).forEach(key => {
+                        try { localStorage.setItem('prospecta_' + key, profile.data[key]); } catch(e){}
+                    });
+                }
 
-            loadCurrentState();
+                loadCurrentState();
 
-            if(profile.portada) {
-                localStorage.setItem('prospecta_portada', profile.portada);
-                document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${profile.portada}')`);
-                ajustarAlturaPortada(profile.portada);
-            }
-            if(profile.avatar) {
-                localStorage.setItem('prospecta_avatar', profile.avatar);
-                document.querySelectorAll('.avatar-sync').forEach(i => i.src = profile.avatar);
-            }
+                if(profile.portada) {
+                    try { localStorage.setItem('prospecta_portada', profile.portada); } catch(e){}
+                    document.querySelectorAll('.portada-sync').forEach(t => t.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${profile.portada}')`);
+                    ajustarAlturaPortada(profile.portada);
+                }
+                if(profile.avatar) {
+                    try { localStorage.setItem('prospecta_avatar', profile.avatar); } catch(e){}
+                    document.querySelectorAll('.avatar-sync').forEach(i => i.src = profile.avatar);
+                }
 
-            if (profile.guiones) {
-                currentScripts = profile.guiones;
-            } else {
-                currentScripts = { ...scripts }; 
-            }
-            
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont && profile.productos) {
-                prodCont.innerHTML = profile.productos;
-            }
+                if (profile.guiones) {
+                    currentScripts = profile.guiones;
+                } else {
+                    currentScripts = { ...scripts }; 
+                }
+                
+                const prodCont = document.getElementById('z7-products-container');
+                if(prodCont && profile.productos && profile.productos.trim() !== "") {
+                    prodCont.innerHTML = profile.productos;
+                }
 
-            if(profile.canvases) {
-                for(let i=3; i<=7; i++) {
-                    const c = document.getElementById('builder-canvas-' + i);
-                    if(c && profile.canvases['zona_'+i]) {
-                        c.innerHTML = profile.canvases['zona_'+i];
+                if(profile.canvases) {
+                    for(let i=3; i<=7; i++) {
+                        const c = document.getElementById('builder-canvas-' + i);
+                        if(c && profile.canvases['zona_'+i] !== undefined && profile.canvases['zona_'+i].trim() !== "") {
+                            c.innerHTML = profile.canvases['zona_'+i];
+                        }
                     }
                 }
+                
+                updateUI(); 
+                alert("Perfil cargado: " + profile.name);
+            } catch (err) {
+                console.error("Error al cargar perfil: ", err);
             }
-            
-            updateUI(); 
-            alert("Perfil cargado: " + profile.name);
         }
 
         function deleteProfile(id, event) {
             event.stopPropagation(); 
             if(confirm("¿Estás seguro de eliminar este perfil?")) {
-                let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-                profiles = profiles.filter(p => p.id !== id);
-                localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-                if(activeProfileId === id) { 
-                    activeProfileId = null; 
-                    localStorage.removeItem('prospecta_active_profile_id'); // LIMPIA LA MEMORIA SI LO BORRAS
+                try {
+                    let profiles = [];
+                    try {
+                        profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+                    } catch(e) {
+                        profiles = []; // BLINDAJE
+                    }
+                    profiles = profiles.filter(p => p.id !== id);
+                    localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+                    if(activeProfileId === id) { 
+                        activeProfileId = null; 
+                        localStorage.removeItem('prospecta_active_profile_id'); // LIMPIA LA MEMORIA SI LO BORRAS
+                    }
+                    renderProfilesList();
+                } catch(err) {
+                    console.error("Error al borrar perfil: ", err);
                 }
-                renderProfilesList();
             }
         }
 
         function renderProfilesList() {
             const container = document.getElementById('profiles-content');
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            if(!container) return;
+            let profiles = [];
+            try {
+                profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            } catch(e) {
+                profiles = []; // BLINDAJE CONTRA ERRORES DE LECTURA
+            }
             
             if(profiles.length === 0) {
                 container.innerHTML = `<div class="text-center text-white/50 mt-10"><i class="fas fa-folder-open text-4xl mb-4"></i><p>Aún no hay perfiles guardados.</p></div>`;
@@ -1989,189 +2050,6 @@
             if (a.paused) { a.play(); pro.classList.add('playing'); document.getElementById('a_play_'+id).classList.add('hidden'); document.getElementById('a_pause_'+id).classList.remove('hidden'); }
             else { a.pause(); pro.classList.remove('playing'); document.getElementById('a_play_'+id).classList.remove('hidden'); document.getElementById('a_pause_'+id).classList.add('hidden'); }
         }
-
-        // =========================================
-        // MEMORIA BASE DE LOS GUIONES (SIN EMOJIS)
-        // =========================================
-        const scripts = {
-            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play text-brand-success mr-2"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
-                <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
-                <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
-                <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
-                <p class="mb-4 text-white"><i class="fas fa-arrow-right text-brand-success mx-1"></i> (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
-
-            2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
-                <p class="mb-4">He estado analizando cómo los profesionales manejan sus cierres de ventas y he notado que muchos pierden grandes contratos por algo muy específico: suelen improvisar (y son rígidos) al presentar el negocio, no tienen una estrategia de comunicación clara y la lentitud al enviar su material rompe la confianza del cliente.</p>
-                <p>Antes de profundizar, me gustaría entender la situación actual para ver si realmente podemos ayudarte; nuestra meta es eliminar el caos operativo, pero no estoy seguro de si lo que hacemos tendría sentido para ti todavía.</p>`,
-            
-            3: `<p class="mb-4 text-white font-bold">SONDEO (Haz las preguntas del teleprompter y CALLA)</p>
-                <p class="mb-4">Utiliza los Acordeones Centrales en la pantalla principal para guiar la conversación con precisión.</p>`,
-            
-            4: `<p class="mb-4">Mira, antes de esta conversación hice una tarea por ti. Analicé a tres de tus competidores para entender bajo qué criterios los están eligiendo a ellos hoy.</p>
-                <p class="mb-4">Al leer las reseñas de sus clientes y compararlas con las tuyas y tus servicios, llegué a una conclusión que me sorprendió: <strong>tú eres superior a ellos en la entrega del servicio, peeeeero ellos te están ganando en la claridad de la oferta.</strong></p>
-                <p class="mb-4 text-white italic">(AQUÍ MUESTRAS LAS RESEÑAS PREVIAMENTE CONFIGURADAS)</p>
-                <p class="mb-4 text-sm bg-brand-dark p-3 rounded border border-white">"Leyendo estas reseñas confirmé algo vital: Tienes un producto increíble y tus clientes lo validan. Sin embargo, al intentar buscar esa misma propuesta de valor en tu WhatsApp y Facebook, el resultado fue el silencio total. No logré encontrarla."</p>
-                <p class="text-white font-bold mt-2"><i class="fas fa-check-circle text-brand-success mx-1"></i> (Acción: Abre su perfil de WhatsApp).</p>
-                <p class="mt-4">"Tu catálogo está vacío, la descripción es escueta... ser un secreto obliga a tu cliente a irse con la competencia ruidosa; no porque sean mejores, sino porque son más fáciles de entender. ¡Pierdes ventas por esto!"</p>`,
-            
-            5: `<p class="mb-4">"Para entender lo que pasa necesito preguntarte desde la neutralidad: ¿Cuentas hoy con un guion de ventas diseñado para cerrar? ¿Haces un diagnóstico suave con preguntas de poder?"</p>
-                <p class="mb-4 text-white italic">Prospecto (Ego): "Sí, claro que sí lo tenemos." <i class="fas fa-arrow-right text-brand-success mx-1"></i> (DEJA QUE HABLE... ESPERAS Y CALLAS)</p>
-                <p class="mb-4">Entiendo lo que dices. Lo que sucede es que muchos profesionales confunden 'atender' con 'vender'. La base de toda conversión es comunicar adecuadamente el valor de tu negocio, y eso es imposible si el sistema se reduce a tratar de responder escribiendo, solo copiar y pegar precios, o el típico 'Estoy ocupado ahorita te lo mando'.</p>
-                <p class="mb-4 font-bold text-white">Hagamos una prueba de Caos de Contenido:</p>
-                <p class="mb-4">"Ahorita mismo, si yo fuera un Prospecto Importante y te pidiera en este instante tu información detallada —un PDF, una infografía— ¿podrías enviarlo YA, desde tu celular y en 3 segundos... o tendrías que hacerme esperar?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
-                <p>"Te agradezco la honestidad... hoy la atención en el celular dura apenas 8 segundos. En el momento en que le dices 'luego te lo mando', la confianza se rompe. Si solo mandas el precio, le estás pidiendo a tu prospecto que te compare por ser el más barato. Si el cliente tiene que esforzarse para comprarte, no te compra."</p>`,
-            
-            6: `<p class="mb-4">"Bien, ¿Qué haces cuando un prospecto te dice que 'sí', pero no te dice cuándo?"</p>
-                <p class="mb-4">"Hablaste con él, conoces su dolor, juró buscarte y de pronto... silencio total. ¿Cuántas veces le marcas o le mandas ese mensaje para preguntar qué ha pensado?" <span class="text-white italic">(ESPERAS Y CALLAS)</span></p>
-                <p class="mb-4 text-white font-bold">En los negocios, la venta no se pierde, tú te rindes porque te quedas sin material estratégico que enviar.</p>
-                <p>"La mayoría de los profesionales abandonan la venta después del segundo mensaje por miedo a molestar, o simplemente porque no saben qué más decir fuera del típico '¿qué has pensado?'"</p>`,
-            
-            7: `<p class="mb-4 font-bold text-white"><i class="fas fa-flag-checkered text-brand-success mr-1"></i> Soluciones</p>
-                <p class="mb-4">"Basado en esto que acabamos de ver, el primer paso para tapar esta fuga de ventas es instalar lo que llamamos tu Escaparate Digital."</p>
-                <p class="mb-4">"Para que no pierdas tiempo diseñando ni redactando, mi equipo y yo nos encargamos de configurarte un WhatsApp Business que proyecte autoridad inmediata."</p>
-                <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>`
-        };
-
-        let currentScripts = { ...scripts }; // Memoria viva editable
-        let currentSlide = 1;
-        const totalSlides = 7;
-        let notesVisible = false;
-
-        function goToSlide(index) {
-            if (index >= 1 && index <= totalSlides) {
-                currentSlide = index;
-                updateUI();
-            }
-        }
-
-        function updateUI() {
-            document.querySelectorAll('.slide').forEach(slide => {
-                slide.classList.remove('active');
-                if (parseInt(slide.dataset.slide) === currentSlide) {
-                    slide.classList.add('active');
-                }
-            });
-
-            document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
-            document.getElementById('script-content').innerHTML = currentScripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
-            
-            const notesPanel = document.getElementById('script-content');
-            if(notesPanel) notesPanel.scrollTop = 0;
-            
-            const presentationArea = document.getElementById('presentation-area');
-            if(presentationArea) presentationArea.scrollTo({ top: 0, behavior: 'smooth' });
-
-            for(let i = 1; i <= totalSlides; i++) {
-                const pill = document.getElementById('nav-pill-' + i);
-                if(pill) {
-                    if(i === currentSlide) {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none flex items-center justify-center";
-                        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    } else {
-                        pill.className = "shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-brand-dark text-white border border-[#3E3E61] hover:bg-[#3E3E61] outline-none flex items-center justify-center";
-                    }
-                }
-            }
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                updateUI();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateUI();
-            }
-        }
-
-        function toggleNotes() {
-            const sidebar = document.getElementById('notes-sidebar');
-            notesVisible = !notesVisible;
-            
-            if (notesVisible) {
-                sidebar.classList.remove('w-0');
-                sidebar.classList.add('w-full', 'md:w-[400px]');
-            } else {
-                sidebar.classList.add('w-0');
-                sidebar.classList.remove('w-full', 'md:w-[400px]');
-            }
-        }
-
-        function toggleAccordion(btn) {
-            const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block') || btn.closest('.accordion-wrapper');
-            const content = container.querySelector('.acc-content'); 
-            const icon = btn.querySelector('.fa-chevron-down');
-            
-            if(content) {
-                if(content.classList.contains('hidden')) {
-                    content.classList.remove('hidden');
-                    content.classList.add('block');
-                } else {
-                    content.classList.add('hidden');
-                    content.classList.remove('block');
-                }
-            }
-            if(icon) icon.classList.toggle('rotate-180');
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'Space') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            }
-        });
-
-        function setRating(containerId, rating) {
-            if (!isEditMode) return; 
-            setRatingVisuals(containerId, rating);
-            saveCurrentState();
-        }
-
-        function setRatingVisuals(containerId, rating) {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            container.dataset.rating = rating;
-            const stars = container.querySelectorAll('.star-btn');
-            
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.remove('far');
-                    star.classList.add('fas');    
-                } else {
-                    star.classList.remove('fas'); 
-                    star.classList.add('far');    
-                }
-            });
-        }
-
-        function toggleIconMenu(menuId) {
-            if (!isEditMode) return; 
-            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                if(menu.id !== menuId) menu.classList.remove('show');
-            });
-            const menu = document.getElementById(menuId);
-            menu.classList.toggle('show');
-        }
-
-        function changeIcon(btnId, iconId, menuId, newIconClass) {
-            document.getElementById(iconId).className = newIconClass;
-            document.getElementById(btnId).dataset.icon = newIconClass;
-            document.getElementById(menuId).classList.remove('show');
-            saveCurrentState(); 
-        }
-
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
-                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                    menu.classList.remove('show');
-                });
-            }
-        });
 
         // =========================================
         // ARRANQUE DE LA APP
