@@ -341,7 +341,6 @@
         
         /* ESTILO PARA TARJETAS VERTICALES PRODUCTOS ZONA 7 */
         .product-card {
-            flex: 0 0 280px;
             scroll-snap-align: center;
         }
 
@@ -1004,7 +1003,7 @@
                 <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
                     
                     <!-- Tarjeta de Producto 1 Base -->
-                    <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 relative snap-center group dynamic-block accordion-wrapper">
+                    <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                         
                         <!-- Imagen / Video Adaptive -->
@@ -1042,13 +1041,13 @@
                                 <div id="z7-list-1" class="text-white/80 text-sm leading-relaxed text-left">
                                     
                                     <div class="review-point mb-2">
-                                        <div class="icon-selector" id="prod1-btn-1" onclick="toggleIconMenu('prod1-menu-1')" data-icon="fas fa-check text-white">
-                                            <i id="prod1-icon-1" class="fas fa-check text-white"></i>
+                                        <div class="icon-selector" id="prod1-btn-1" onclick="toggleIconMenu('prod1-menu-1')" data-icon="fas fa-check text-brand-success">
+                                            <i id="prod1-icon-1" class="fas fa-check text-brand-success"></i>
                                         </div>
                                         <div id="prod1-menu-1" class="icon-dropdown">
-                                            <i class="fas fa-check icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-check text-white')"></i>
+                                            <i class="fas fa-check icon-option text-brand-success" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-check text-brand-success')"></i>
                                             <i class="fas fa-times icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-times text-white')"></i>
-                                            <i class="fas fa-star icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-star text-white')"></i>
+                                            <i class="fas fa-star icon-option text-yellow-400" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-star text-yellow-400')"></i>
                                             <i class="fas fa-exclamation-triangle icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-exclamation-triangle text-white')"></i>
                                             <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-arrow-right text-white')"></i>
                                         </div>
@@ -1057,13 +1056,13 @@
                                     </div>
                                     
                                     <div class="review-point mb-2">
-                                        <div class="icon-selector" id="prod1-btn-2" onclick="toggleIconMenu('prod1-menu-2')" data-icon="fas fa-check text-white">
-                                            <i id="prod1-icon-2" class="fas fa-check text-white"></i>
+                                        <div class="icon-selector" id="prod1-btn-2" onclick="toggleIconMenu('prod1-menu-2')" data-icon="fas fa-check text-brand-success">
+                                            <i id="prod1-icon-2" class="fas fa-check text-brand-success"></i>
                                         </div>
                                         <div id="prod1-menu-2" class="icon-dropdown">
-                                            <i class="fas fa-check icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-check text-white')"></i>
+                                            <i class="fas fa-check icon-option text-brand-success" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-check text-brand-success')"></i>
                                             <i class="fas fa-times icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-times text-white')"></i>
-                                            <i class="fas fa-star icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-star text-white')"></i>
+                                            <i class="fas fa-star icon-option text-yellow-400" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-star text-yellow-400')"></i>
                                             <i class="fas fa-exclamation-triangle icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-exclamation-triangle text-white')"></i>
                                             <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-arrow-right text-white')"></i>
                                         </div>
@@ -1072,7 +1071,7 @@
                                     </div>
 
                                 </div>
-                                <button class="edit-only text-xs font-bold text-white hover:text-brand-success mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
+                                <button class="edit-only text-xs font-bold text-brand-success hover:text-white mt-3 outline-none" onclick="addProductListItem(this)"><i class="fas fa-plus"></i> Añadir beneficio</button>
                             </div>
                         </div>
                         
@@ -1082,7 +1081,7 @@
                         <!-- Precio Oculto abajo -->
                         <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
                             <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
+                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
                         </div>
                     </div>
                 </div>
@@ -1220,7 +1219,7 @@
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
         const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
 
-        let activeProfileId = null;
+        let activeProfileId = localStorage.getItem('prospecta_active_profile_id') || null;
 
         // =========================================
         // MODO EDICIÓN (LAPICITO CENTRALIZADO)
@@ -1515,7 +1514,7 @@
         }
 
         function toggleZ7Video(vidId, playId) {
-            if (isEditMode) return; 
+            if (isEditMode) return; // No reproducir en modo edición
             const video = document.getElementById(vidId);
             const playBtn = document.getElementById(playId);
             if(video.paused) {
@@ -1561,7 +1560,7 @@
             const id = 'prod_' + Date.now();
             
             const html = `
-                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 relative snap-center group dynamic-block accordion-wrapper">
+                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
                     <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                     
                     <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
@@ -1762,6 +1761,7 @@
             localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
             
             activeProfileId = profile.id; 
+            localStorage.setItem('prospecta_active_profile_id', profile.id); // GUARDA LA MEMORIA DEL ID
             alert("Perfil guardado exitosamente: " + profile.name);
             renderProfilesList();
             
@@ -1777,6 +1777,7 @@
             if(!profile) return;
 
             activeProfileId = id; 
+            localStorage.setItem('prospecta_active_profile_id', id); // RECUPERA LA MEMORIA DEL ID
 
             if(profile.data) {
                 Object.keys(profile.data).forEach(key => {
@@ -1826,7 +1827,10 @@
                 let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
                 profiles = profiles.filter(p => p.id !== id);
                 localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-                if(activeProfileId === id) activeProfileId = null; 
+                if(activeProfileId === id) { 
+                    activeProfileId = null; 
+                    localStorage.removeItem('prospecta_active_profile_id'); // LIMPIA LA MEMORIA SI LO BORRAS
+                }
                 renderProfilesList();
             }
         }
@@ -2209,6 +2213,9 @@
             }
             
             updateUI();
+            
+            // Forzar renderizado de perfiles para asegurar que existan al abrir el panel
+            renderProfilesList();
         });
 
         function setDateTime() {
