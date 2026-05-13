@@ -397,6 +397,16 @@
                 </button>
                 
                 <div class="h-px w-full bg-white/20 my-1"></div>
+
+                <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('guion'); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fas fa-user-tie w-5 text-center"></i> <span class="font-semibold text-sm">Mi Guión (Teleprompter)</span>
+                </button>
+
+                <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('perfiles'); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
+                    <i class="fas fa-users w-5 text-center"></i> <span class="font-semibold text-sm">Mis Perfiles CRM</span>
+                </button>
+                
+                <div class="h-px w-full bg-white/20 my-1"></div>
                 <button onclick="toggleFullScreen(); toggleMainMenu();" class="w-full text-white hover:text-slate-300 hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-expand w-5 text-center"></i> <span class="font-semibold text-sm">Pantalla Completa</span>
                 </button>
@@ -829,7 +839,7 @@
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
                                 <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid1-img')">
-                                <img id="evid1-img" src="" class="w-full h-auto max-h-48 rounded-lg object-contain hidden z-10 relative" alt="Evidencia 1" onclick="abrirEvidencia(event, this.src)">
+                                <img id="evid1-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 1" onclick="abrirEvidencia(event, this.src)">
                                 <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
                                     <i class="fas fa-image text-3xl mb-2"></i>
                                     <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
@@ -842,7 +852,7 @@
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-2" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
                                 <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid2-img')">
-                                <img id="evid2-img" src="" class="w-full h-auto max-h-48 rounded-lg object-contain hidden z-10 relative" alt="Evidencia 2" onclick="abrirEvidencia(event, this.src)">
+                                <img id="evid2-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 2" onclick="abrirEvidencia(event, this.src)">
                                 <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
                                     <i class="fas fa-image text-3xl mb-2"></i>
                                     <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
@@ -855,7 +865,7 @@
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-3" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
                                 <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid3-img')">
-                                <img id="evid3-img" src="" class="w-full h-auto max-h-48 rounded-lg object-contain hidden z-10 relative" alt="Evidencia 3" onclick="abrirEvidencia(event, this.src)">
+                                <img id="evid3-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 3" onclick="abrirEvidencia(event, this.src)">
                                 <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
                                     <i class="fas fa-image text-3xl mb-2"></i>
                                     <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
@@ -868,7 +878,7 @@
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-4" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <label class="w-full min-h-[11rem] bg-black/40 rounded-lg flex flex-col items-center justify-center border-2 border-dashed border-white/40 overflow-hidden relative group evidence-label transition-all cursor-pointer">
                                 <input type="file" accept="image/*" class="hidden" onchange="cargarEvidencia(event, 'evid4-img')">
-                                <img id="evid4-img" src="" class="w-full h-auto max-h-48 rounded-lg object-contain hidden z-10 relative" alt="Evidencia 4" onclick="abrirEvidencia(event, this.src)">
+                                <img id="evid4-img" src="" class="w-full h-auto rounded-lg hidden z-10 relative" alt="Evidencia 4" onclick="abrirEvidencia(event, this.src)">
                                 <div class="text-white/50 group-hover:text-white transition flex flex-col items-center justify-center evidence-placeholder absolute inset-0 z-0">
                                     <i class="fas fa-image text-3xl mb-2"></i>
                                     <span class="text-xs font-bold uppercase tracking-wider">Subir Captura</span>
@@ -984,11 +994,11 @@
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute top-2 right-2 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                         
                         <!-- Imagen / Video Adaptive -->
-                        <label class="w-full h-48 bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
+                        <label class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
                             <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-1')">
                             
-                            <img id="z7-media-1-img" src="" class="w-full h-full object-contain hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
-                            <video id="z7-media-1-vid" src="" class="w-full h-full object-contain hidden z-10 relative" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
+                            <img id="z7-media-1-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
+                            <video id="z7-media-1-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
                             
                             <div id="z7-media-1-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                                 <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
@@ -1521,10 +1531,10 @@
                 <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-full md:w-72 shrink-0 overflow-y-auto max-h-[460px] relative no-scrollbar snap-center group dynamic-block accordion-wrapper">
                     <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute top-2 right-2 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                     
-                    <label class="w-full h-48 bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
+                    <label class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative evidence-label transition-all cursor-pointer shrink-0">
                         <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-${id}')">
-                        <img id="z7-media-${id}-img" src="" class="w-full h-full object-contain hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
-                        <video id="z7-media-${id}-vid" src="" class="w-full h-full object-contain hidden z-10 relative" onclick="toggleZ7Video('z7-media-${id}-vid', 'z7-media-${id}-play')" playsinline></video>
+                        <img id="z7-media-${id}-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="abrirEvidencia(event, this.src)">
+                        <video id="z7-media-${id}-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative" onclick="toggleZ7Video('z7-media-${id}-vid', 'z7-media-${id}-play')" playsinline></video>
                         <div id="z7-media-${id}-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                             <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                         </div>
