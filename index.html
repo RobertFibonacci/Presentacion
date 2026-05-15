@@ -2,11 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport seguro para no invadir la cámara (notch) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auditoría de Ventas | Roberto Fibonacci</title>
     
-    <!-- Meta tags PWA -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1e1e2f">
@@ -49,7 +47,6 @@
         .slide { display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
         .slide.active { display: flex; opacity: 1; }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #1e1e2f; }
         ::-webkit-scrollbar-thumb { background: #3E3E61; border-radius: 4px; }
@@ -58,15 +55,9 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* =========================================
-           MODO PRESENTACIÓN: Oculta elementos de edición
-           ========================================= */
         body:not(.edit-mode-active) .edit-only { display: none !important; }
         body:not(.edit-mode-active) [contenteditable="true"] { pointer-events: none; border: none; background: transparent; outline: none; }
 
-        /* =========================================
-           ESTILOS DE LA CABECERA
-           ========================================= */
         .brand-name-menu { position: relative; display: inline-block; font-size: 22px; font-weight: 800; color: #FFFFFF; }
         .char-a-container { position: relative; display: inline-block; }
         .star-icon-menu {
@@ -81,9 +72,6 @@
         }
         .brand-sub-menu { font-size: 9px; font-weight: 700; letter-spacing: 1px; opacity: 0.9; margin-top: 4px; color: #FFFFFF; }
 
-        /* =========================================
-           ESTRELLAS DE FONDO (TWINKLING STARS)
-           ========================================= */
         .bg-star {
             position: absolute;
             background-color: #ffffff;
@@ -98,9 +86,6 @@
             50% { opacity: 0.6; transform: scale(1.1); box-shadow: 0 0 4px rgba(255,255,255,0.4); }
         }
 
-        /* =========================================
-           PORTADA ANIMADA (SLIDE 1)
-           ========================================= */
         .bg-pattern-dark {
             background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px);
             background-size: 24px 24px;
@@ -142,9 +127,6 @@
             40% { transform: scale(1); }
         }
 
-        /* =========================================
-           ESTILOS DE LA TARJETA DE PERFIL
-           ========================================= */
         .hamburger-btn { background: none; border: none; display: flex; flex-direction: column; gap: 4px; cursor: pointer; padding: 5px; outline: none;}
         .hamburger-btn span { display: block; width: 22px; height: 3px; background-color: #FFFFFF; border-radius: 2px; }
 
@@ -218,9 +200,6 @@
         .stat-label { font-size: 11px; color: #888; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
         .stat-value { font-size: 14px; color: #3E3E61; font-weight: 800; }
 
-        /* =========================================
-           ESTILOS PARA CARRUSEL Y MODO EDICIÓN
-           ========================================= */
         .carousel-container {
             display: flex;
             overflow-x: auto;
@@ -250,10 +229,9 @@
             font-size: 1.5rem;
             transition: all 0.2s ease;
             cursor: default; 
-            pointer-events: none; /* Bloqueado por defecto en presentación */
+            pointer-events: none;
         }
         .star-btn.far { color: rgba(255, 255, 255, 0.3); } 
-        /* Estrellas llenas con tono dorado premium */
         .star-btn.fas { color: #FBBF24; text-shadow: 0 0 8px rgba(251,191,36,0.4); } 
         
         .review-point {
@@ -270,7 +248,7 @@
             transition: background 0.2s;
             margin-top: -2px; 
             cursor: default; 
-            pointer-events: none; /* Bloqueado por defecto */
+            pointer-events: none; 
         }
         .icon-dropdown {
             position: absolute;
@@ -312,7 +290,6 @@
             line-height: 1.4;
         }
 
-        /* --- CLASES ACTIVAS DE MODO EDICIÓN --- */
         body.edit-mode-active .editable-text, 
         body.edit-mode-active [contenteditable="true"] {
             background: rgba(255,255,255,0.08);
@@ -322,14 +299,13 @@
         body.edit-mode-active .icon-selector,
         body.edit-mode-active .star-btn {
             cursor: pointer;
-            pointer-events: auto; /* Liberamos los clics en Modo Edición */
+            pointer-events: auto; 
         }
         body.edit-mode-active .icon-selector:hover {
             background: rgba(255,255,255,0.1);
             border-color: rgba(255,255,255,0.3);
         }
         
-        /* Ocultar input file de evidencias en presentación, permitiendo dar clic en la imagen */
         body:not(.edit-mode-active) .evidence-label input[type="file"] {
             display: none !important;
             pointer-events: none !important;
@@ -339,12 +315,10 @@
             background: rgba(255,255,255,0.1);
         }
         
-        /* ESTILO PARA TARJETAS VERTICALES PRODUCTOS ZONA 7 */
         .product-card {
             scroll-snap-align: center;
         }
 
-        /* ESTILOS PARA BLOQUES MULTIMEDIA DEL CONSTRUCTOR */
         .media-preview-box { width: 100%; min-height: 200px; max-height: 380px; background: #000; border: 1.5px dashed rgba(255,255,255,0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
         .video-controls { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 10; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
         .video-ctrl-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; outline: none;}
@@ -361,26 +335,20 @@
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
 
-    <!-- CONTENEDOR DE ESTRELLAS DE FONDO -->
     <div id="stars-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden"></div>
 
-    <!-- Inputs ocultos para seleccionar imágenes desde el dispositivo -->
     <input type="file" id="input-portada" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'portada-sync', true)">
     <input type="file" id="input-avatar" accept="image/*" class="hidden" onchange="actualizarImagen(event, 'avatar-sync', false)">
 
-    <!-- Top Navigation / Header -->
     <header class="h-20 bg-brand-primary border-b border-[#2A2A42] flex justify-between items-center px-4 md:px-6 shrink-0 z-20 relative shadow-md">
         
-        <!-- SECCIÓN IZQUIERDA: MENÚ SÁNDWICH -->
         <div class="flex-none flex items-center z-10 relative">
             <button class="hamburger-btn" onclick="toggleMainMenu()">
                 <span></span><span></span><span></span>
             </button>
             
-            <!-- CONTENIDO DEL MENÚ DESPLEGABLE CON NUEVO GUARDADO -->
             <div id="main-menu" class="absolute top-12 left-0 bg-brand-panel border border-white/20 rounded-xl shadow-2xl p-2 w-56 hidden transition-all z-50">
                 
-                <!-- BOTÓN LÁPIZ CENTRALIZADO -->
                 <button onclick="toggleEditMode(); toggleMainMenu();" id="menu-btn-edit" class="w-full text-white hover:text-brand-success hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
                     <i class="fas fa-pen w-5 text-center"></i> <span class="font-semibold text-sm">Modo Edición</span>
                 </button>
@@ -412,7 +380,6 @@
             </div>
         </div>
         
-        <!-- SECCIÓN CENTRAL: LOGO -->
         <div class="flex-1 text-center z-10 pointer-events-none flex flex-col items-center justify-center pt-2">
             <div class="brand-name-menu">
                 Prospect<span class="char-a-container">a
@@ -424,9 +391,7 @@
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
 
-        <!-- SECCIÓN DERECHA: LIMPIA -->
         <div class="flex-none flex items-center justify-end z-10 gap-2 md:gap-3 w-8">
-            <!-- Espacio limpio para el prospecto -->
         </div>
         
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
@@ -434,12 +399,10 @@
         </div>
     </header>
 
-    <!-- Main Content Area -->
     <main class="flex-1 flex relative overflow-hidden bg-pattern-dark z-10">
         
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
-            <!-- SLIDE 1: NUEVA PORTADA (CASCADA LIMPIA) -->
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 <div class="text-center w-full mb-10">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
@@ -501,7 +464,6 @@
                 </div>
             </div>
 
-            <!-- SLIDE 2: TARJETA DIGITAL DE PRESENTACIÓN -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     
@@ -551,7 +513,6 @@
                 </div>
             </div>
 
-            <!-- SLIDE 3: Sondeo -->
             <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0 mt-4" data-slide="3">
                 <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center">Detectando tu error de confianza</h2>
                 <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2">Evaluación de tu Comunicación Actual</h1>
@@ -561,7 +522,6 @@
                 </p>
                 
                 <div class="flex flex-col gap-5 w-full px-2 accordion-wrapper" id="builder-canvas-3">
-                    <!-- Acordeón 1 (Editable) -->
                     <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
@@ -581,7 +541,6 @@
                         </div>
                     </div>
 
-                    <!-- Acordeón 2 (Editable) -->
                     <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
@@ -607,12 +566,10 @@
                 </div>
             </div>
 
-            <!-- SLIDE 4: Reseñas / Auditoría -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2"><i class="fas fa-search"></i> Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
-                <!-- CARRUSEL SUPERIOR: Tus Competidores -->
                 <div class="w-full mb-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
                         <i class="fas fa-building text-white text-2xl drop-shadow"></i>
@@ -620,7 +577,6 @@
                     </div>
                     
                     <div class="carousel-container no-scrollbar">
-                        <!-- Competidor 1 -->
                         <div class="carousel-card zona-memoria" id="comp-card-1">
                             <div id="comp1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 1</div>
                             <div class="star-rating" id="comp1-stars" data-rating="0">
@@ -659,7 +615,6 @@
                             </div>
                         </div>
 
-                        <!-- Competidor 2 -->
                         <div class="carousel-card zona-memoria" id="comp-card-2">
                             <div id="comp2-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 2</div>
                             <div class="star-rating" id="comp2-stars" data-rating="0">
@@ -696,7 +651,6 @@
                             </div>
                         </div>
 
-                        <!-- Competidor 3 -->
                         <div class="carousel-card zona-memoria" id="comp-card-3">
                             <div id="comp3-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Competidor 3</div>
                             <div class="star-rating" id="comp3-stars" data-rating="0">
@@ -724,12 +678,10 @@
                     </div>
                 </div>
 
-                <!-- SEPARADOR VS -->
                 <div class="flex items-center justify-center -mx-4 z-10 py-2 w-full">
                     <div class="bg-brand-panel rounded-full p-3 border-4 border-white font-black text-xl text-white shadow-xl">VS</div>
                 </div>
 
-                <!-- CARRUSEL INFERIOR: Tu Negocio -->
                 <div class="w-full mt-4">
                     <div class="flex items-center gap-3 mb-4 px-2">
                         <i class="fas fa-crown text-white text-2xl drop-shadow"></i>
@@ -737,7 +689,6 @@
                     </div>
                     
                     <div class="carousel-container no-scrollbar">
-                        <!-- Tu Negocio 1 -->
                         <div class="carousel-card zona-memoria" id="own-card-1" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
                             <div id="own1-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Tu Situación Actual</div>
                             <div class="star-rating" id="own1-stars" data-rating="0">
@@ -773,7 +724,6 @@
                             </div>
                         </div>
 
-                        <!-- Tu Negocio 2 -->
                         <div class="carousel-card zona-memoria" id="own-card-2" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
                             <div id="own2-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">Punto Crítico</div>
                             <div class="star-rating" id="own2-stars" data-rating="0">
@@ -798,7 +748,6 @@
                             </div>
                         </div>
 
-                         <!-- Tu Negocio 3 -->
                          <div class="carousel-card zona-memoria" id="own-card-3" style="background: rgba(62, 62, 97, 0.9); border-color: white;">
                             <div id="own3-title" class="text-lg font-bold text-white text-center outline-none rounded p-1 mb-1 border-b border-white/20 pb-2 editable-text" contenteditable="false">El Riesgo</div>
                             <div class="star-rating" id="own3-stars" data-rating="0">
@@ -824,7 +773,6 @@
                     </div>
                 </div>
 
-                <!-- NUEVO CARRUSEL: EVIDENCIA VISUAL (AUTO-ADAPTABLE) -->
                 <div class="w-full mt-8 border-t border-white/20 pt-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
                         <i class="fas fa-camera-retro text-white text-2xl drop-shadow"></i>
@@ -832,7 +780,6 @@
                     </div>
                     
                     <div class="carousel-container no-scrollbar">
-                        <!-- Evidencia 1 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
                                 <img id="evid1-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
@@ -849,7 +796,6 @@
                             <div id="evid1-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Perfil Instagram</div>
                         </div>
 
-                        <!-- Evidencia 2 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-2" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
                                 <img id="evid2-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
@@ -866,7 +812,6 @@
                             <div id="evid2-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: WhatsApp Vacio</div>
                         </div>
 
-                        <!-- Evidencia 3 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-3" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
                                 <img id="evid3-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
@@ -883,7 +828,6 @@
                             <div id="evid3-text" class="editable-text text-white text-sm font-semibold w-full text-center mt-2" contenteditable="false">Ej: Conversación Fría</div>
                         </div>
 
-                        <!-- Evidencia 4 -->
                         <div class="carousel-card zona-memoria flex flex-col items-center" id="evid-card-4" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
                                 <img id="evid4-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
@@ -914,9 +858,7 @@
                 </div>
             </div>
 
-            <!-- SLIDE 5: El Reto -->
             <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
-                <!-- CRONÓMETRO DIGITAL INYECTADO (Estilo Profesional) -->
                 <div class="mb-8 bg-[#2A2A42] border border-white/20 rounded-2xl p-6 shadow-xl w-full max-w-md mx-auto">
                     <div class="text-white/50 text-xs font-bold uppercase tracking-widest mb-2"><i class="fas fa-clock mr-1"></i> Tiempo de respuesta actual</div>
                     <div class="text-5xl md:text-6xl font-black text-white font-mono tracking-wider mb-4 drop-shadow-lg" id="cronometro-display">00:00:00</div>
@@ -925,7 +867,6 @@
                     </button>
                 </div>
                 
-                <!-- ACORDEÓN TELÉFONO INYECTADO -->
                 <div class="accordion-wrapper w-full max-w-2xl mx-auto text-left zona-memoria mb-12">
                     <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
                         <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
@@ -971,7 +912,6 @@
                 </div>
             </div>
 
-            <!-- SLIDE 6: Seguimiento -->
             <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
                 <i class="fas fa-ghost text-6xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
@@ -994,19 +934,15 @@
                 </div>
             </div>
 
-            <!-- SLIDE 7: Soluciones -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 text-center"><i class="fas fa-box-open mr-2 text-brand-success"></i> Soluciones</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
-                <!-- CONTENEDOR DE PRODUCTOS (CARRUSEL VERTICAL ACORDEÓN) -->
                 <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
                     
-                    <!-- Tarjeta de Producto 1 Base -->
                     <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs"></i></button>
                         
-                        <!-- Imagen / Video Adaptive -->
                         <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
                             <img id="z7-media-1-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
                             <video id="z7-media-1-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
@@ -1027,16 +963,13 @@
                             </label>
                         </div>
                         
-                        <!-- Contenido Acordeón -->
                         <div class="flex flex-col flex-1 w-full shrink-0">
-                            <!-- Header Acordeón -->
                             <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
                                 <span id="z7-title-1" contenteditable="false" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text">Escaparate Digital</span>
                                 <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
                                     <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg"></i>
                                 </button>
                             </div>
-                            <!-- Contenido Oculto -->
                             <div class="hidden acc-content p-4 bg-brand-dark/30">
                                 <div id="z7-list-1" class="text-white/80 text-sm leading-relaxed text-left">
                                     
@@ -1075,10 +1008,8 @@
                             </div>
                         </div>
                         
-                        <!-- Espaciador forzado para ocultar precio -->
                         <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
                         
-                        <!-- Precio Oculto abajo -->
                         <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
                             <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
                             <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-brand-success editable-text">$0,000 USD</div>
@@ -1086,7 +1017,6 @@
                     </div>
                 </div>
 
-                <!-- BOTÓN PARA AGREGAR MÁS PRODUCTOS -->
                 <div class="edit-only w-full mt-4 flex justify-center">
                     <button onclick="addProductCard()" class="px-6 py-3 bg-[#3E3E61] border-2 border-dashed border-white/50 rounded-2xl text-white font-bold hover:bg-white hover:text-[#3E3E61] transition-all flex items-center gap-3 outline-none shadow-lg">
                         <i class="fas fa-plus"></i> Agregar Producto
@@ -1098,7 +1028,6 @@
 
         </div>
 
-        <!-- Presenter Notes Sidebar -->
         <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
             <div class="flex border-b border-white shrink-0">
                 <button onclick="switchSidebarTab('guion')" id="tab-guion" class="flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none">
@@ -1132,7 +1061,6 @@
 
     </main>
 
-    <!-- Bottom Navigation -->
     <footer class="h-16 bg-brand-panel border-t border-brand-primary flex items-center px-2 shrink-0 z-20 overflow-hidden w-full relative">
         <div id="footer-carousel" class="flex overflow-x-auto gap-3 px-2 w-full no-scrollbar scroll-smooth items-center h-full">
             <button onclick="goToSlide(1)" id="nav-pill-1" class="shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-colors bg-white text-brand-dark border-2 border-white shadow-md outline-none flex items-center justify-center">
@@ -1159,7 +1087,6 @@
         </div>
     </footer>
 
-    <!-- MODAL DE EVIDENCIA AMPLIADA (VISOR/LUPA) -->
     <div id="evidencia-modal" class="fixed inset-0 bg-[#1e1e2f]/95 z-[100] hidden flex-col backdrop-blur-md">
         <div class="flex justify-between items-center p-4 bg-[#2A2A42] absolute top-0 w-full z-50 border-b border-white/20 shadow-lg">
             <button onclick="zoomEvidencia()" class="text-white bg-[#3E3E61] p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30 outline-none"><i class="fas fa-search-plus text-xl" id="zoom-icon"></i></button>
@@ -1172,7 +1099,6 @@
         <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white/50 text-xs uppercase tracking-widest pointer-events-none bg-black/40 px-4 py-1 rounded-full">Toca la lupa para explorar</div>
     </div>
 
-    <!-- MODAL DEL CONSTRUCTOR -->
     <div id="block-selector-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm p-4">
         <div class="bg-brand-panel w-full max-w-sm rounded-3xl border border-white/30 p-6 shadow-2xl transform scale-100 transition-transform">
             <div class="flex justify-between items-center mb-6">
@@ -1200,9 +1126,83 @@
     </div>
 
     <script>
-        // =========================================
-        // ARREGLOS DE MEMORIA DEL CRM
-        // =========================================
+        const DB_NAME = 'ProspectaDB';
+        const DB_VERSION = 1;
+        let db = null;
+
+        function initIndexedDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+                request.onerror = () => reject(request.error);
+                request.onsuccess = () => { db = request.result; resolve(db); };
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains('profiles')) {
+                        database.createObjectStore('profiles', { keyPath: 'id' });
+                    }
+                };
+            });
+        }
+
+        function dbPut(storeName, data) {
+            return new Promise((resolve, reject) => {
+                if (!db) { resolve(); return; }
+                const tx = db.transaction(storeName, 'readwrite');
+                const store = tx.objectStore(storeName);
+                const req = store.put(data);
+                req.onsuccess = () => resolve();
+                req.onerror = () => reject(req.error);
+            });
+        }
+
+        function dbGetAll(storeName) {
+            return new Promise((resolve) => {
+                if (!db) { resolve([]); return; }
+                const tx = db.transaction(storeName, 'readonly');
+                const store = tx.objectStore(storeName);
+                const req = store.getAll();
+                req.onsuccess = () => resolve(req.result || []);
+                req.onerror = () => resolve([]);
+            });
+        }
+
+        function dbDelete(storeName, id) {
+            return new Promise((resolve) => {
+                if (!db) { resolve(); return; }
+                const tx = db.transaction(storeName, 'readwrite');
+                const store = tx.objectStore(storeName);
+                store.delete(id);
+                tx.oncomplete = () => resolve();
+            });
+        }
+
+        function comprimirImagen(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const max_size = 1200; 
+                    let w = img.width; 
+                    let h = img.height;
+                    if (w > h) { 
+                        if (w > max_size) { h *= max_size / w; w = max_size; } 
+                    } else { 
+                        if (h > max_size) { w *= max_size / h; h = max_size; } 
+                    }
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w; 
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    
+                    callback(canvas.toDataURL('image/webp', 0.8));
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
         const CRM_TEXT_IDS = [
             'q1-title', 'q1-text', 'q2-title', 'q2-text',
             'comp1-title', 'comp1-text-1', 'comp1-text-2',
@@ -1221,9 +1221,6 @@
 
         let activeProfileId = localStorage.getItem('prospecta_active_profile_id') || null;
 
-        // =========================================
-        // MODO EDICIÓN (LAPICITO CENTRALIZADO)
-        // =========================================
         let isEditMode = false;
         
         function toggleEditMode() {
@@ -1259,7 +1256,6 @@
                 }
             });
 
-            // Activar dynamic text editable en modo edición
             document.querySelectorAll('.editable-text').forEach(el => {
                 el.setAttribute('contenteditable', isEditMode.toString());
             });
@@ -1340,61 +1336,50 @@
 
         function actualizarImagen(event, targetClass, isBackground) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const result = e.target.result;
-                    const targets = document.querySelectorAll('.' + targetClass);
-                    
-                    targets.forEach(target => {
-                        if (isBackground) {
-                            target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${result}')`;
-                        } else {
-                            target.src = result;
-                        }
-                    });
+            if (!file) return;
 
+            comprimirImagen(file, function(optimizedBase64) {
+                const targets = document.querySelectorAll('.' + targetClass);
+                
+                targets.forEach(target => {
                     if (isBackground) {
-                        ajustarAlturaPortada(result); 
-                        localStorage.setItem('prospecta_portada', result); 
+                        target.style.backgroundImage = `linear-gradient(to bottom, rgba(62,62,97,0.5), transparent), url('${optimizedBase64}')`;
                     } else {
-                        localStorage.setItem('prospecta_avatar', result); 
+                        target.src = optimizedBase64;
                     }
-                }
-                reader.readAsDataURL(file);
-            }
+                });
 
-            setTimeout(() => {
-                if (intendedFullscreen && !document.fullscreenElement) {
-                    document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado", err));
+                if (isBackground) {
+                    ajustarAlturaPortada(optimizedBase64); 
+                    localStorage.setItem('prospecta_portada', optimizedBase64); 
+                } else {
+                    localStorage.setItem('prospecta_avatar', optimizedBase64); 
                 }
-            }, 500); 
+
+                setTimeout(() => {
+                    if (intendedFullscreen && !document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().catch(err => console.log("Re-fullscreen bloqueado", err));
+                    }
+                }, 500); 
+            });
         }
 
-        // =========================================
-        // CARGA DE EVIDENCIA VISUAL (FOTOGRAFÍAS)
-        // =========================================
         function cargarEvidencia(event, imgId) {
             const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.getElementById(imgId);
-                    img.src = e.target.result;
-                    img.classList.remove('hidden');
-                    
-                    const placeholder = img.parentElement.querySelector('.evidence-placeholder');
-                    if(placeholder) placeholder.classList.add('hidden');
-                    
-                    localStorage.setItem('prospecta_' + imgId, e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
+            if (!file) return;
+
+            comprimirImagen(file, function(optimizedBase64) {
+                const img = document.getElementById(imgId);
+                img.src = optimizedBase64;
+                img.classList.remove('hidden');
+                
+                const placeholder = img.parentElement.querySelector('.evidence-placeholder');
+                if(placeholder) placeholder.classList.add('hidden');
+                
+                localStorage.setItem('prospecta_' + imgId, optimizedBase64);
+            });
         }
 
-        // =========================================
-        // APERTURA DE LUPA/VISOR (MODO PRESENTACIÓN)
-        // =========================================
         function abrirEvidencia(event, src) {
             if (!isEditMode && src && !src.endsWith('index.html')) {
                 event.preventDefault();
@@ -1446,9 +1431,6 @@
             }
         }
 
-        // =========================================
-        // CRONÓMETRO ZONA 5
-        // =========================================
         let timerInterval;
         let timeInSeconds = 0;
         let isTimerRunning = false;
@@ -1481,9 +1463,6 @@
             isTimerRunning = !isTimerRunning;
         }
 
-        // =========================================
-        // ZONA 7: AGREGAR TARJETAS Y MULTIMEDIA 
-        // =========================================
         function cargarMediaZ7(event, baseId) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1496,25 +1475,27 @@
             
             if(placeholder) placeholder.classList.add('hidden');
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                if(isVideo) {
+            if (isVideo) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
                     imgEl.classList.add('hidden');
                     vidEl.src = e.target.result;
                     vidEl.classList.remove('hidden');
                     if(playEl) playEl.classList.remove('hidden');
-                } else {
+                }
+                reader.readAsDataURL(file);
+            } else {
+                comprimirImagen(file, function(optimizedBase64) {
                     vidEl.classList.add('hidden');
                     if(playEl) playEl.classList.add('hidden');
-                    imgEl.src = e.target.result;
+                    imgEl.src = optimizedBase64;
                     imgEl.classList.remove('hidden');
-                }
+                });
             }
-            reader.readAsDataURL(file);
         }
 
         function toggleZ7Video(vidId, playId) {
-            if (isEditMode) return; // No reproducir en modo edición
+            if (isEditMode) return; 
             const video = document.getElementById(vidId);
             const playBtn = document.getElementById(playId);
             if(video.paused) {
@@ -1526,7 +1507,6 @@
             }
         }
 
-        // Función maestra para inyectar un nuevo renglón de listado con ícono seleccionable
         function addProductListItem(btn) {
             const list = btn.previousElementSibling;
             const idSuffix = Date.now() + Math.floor(Math.random() * 1000);
@@ -1627,9 +1607,6 @@
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
-        // =========================================
-        // SISTEMA CRM: AUTO-GUARDADO Y PERFILES
-        // =========================================
         function saveCurrentState() {
             CRM_TEXT_IDS.forEach(id => {
                 const el = document.getElementById(id);
@@ -1680,104 +1657,111 @@
             });
         }
 
-        function saveChanges() {
-            if(!activeProfileId) {
-                promptSaveProfile(); 
-                return;
+        async function saveChanges() {
+            try {
+                if(!activeProfileId) {
+                    promptSaveProfile(); 
+                    return;
+                }
+
+                let productosHTML = '';
+                const prodCont = document.getElementById('z7-products-container');
+                if(prodCont) productosHTML = prodCont.innerHTML;
+
+                const allCanvases = {};
+                for(let i=3; i<=7; i++) {
+                    const c = document.getElementById('builder-canvas-' + i);
+                    if(c) allCanvases['zona_'+i] = c.innerHTML;
+                }
+
+                let profiles = await dbGetAll('profiles');
+                const profile = profiles.find(p => p.id === activeProfileId);
+                
+                if(!profile) { promptSaveProfile(); return; }
+
+                profile.portada = localStorage.getItem('prospecta_portada') || '';
+                profile.avatar = localStorage.getItem('prospecta_avatar') || '';
+                profile.date = new Date().toLocaleDateString() + " (Actualizado)";
+                profile.guiones = currentScripts; 
+                profile.productos = productosHTML; 
+                profile.canvases = allCanvases;
+
+                CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+                CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
+                CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+                CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+
+                await dbPut('profiles', profile);
+
+                const saveBtn = document.getElementById('btn-save-changes');
+                if(saveBtn) {
+                    const origHTML = saveBtn.innerHTML;
+                    saveBtn.innerHTML = '<i class="fas fa-check text-green-400 w-5 text-center"></i> <span class="font-semibold text-sm text-green-400">¡Guardado!</span>';
+                    setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
+                }
+                renderProfilesList();
+            } catch (error) {
+                console.error("Error al guardar los cambios:", error);
+                alert("Hubo un error al intentar guardar los cambios.");
             }
-
-            let productosHTML = '';
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont) productosHTML = prodCont.innerHTML;
-
-            const allCanvases = {};
-            for(let i=3; i<=7; i++) {
-                const c = document.getElementById('builder-canvas-' + i);
-                if(c) allCanvases['zona_'+i] = c.innerHTML;
-            }
-
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            const index = profiles.findIndex(p => p.id === activeProfileId);
-            if(index === -1) { promptSaveProfile(); return; }
-
-            const profile = profiles[index];
-            profile.portada = localStorage.getItem('prospecta_portada') || '';
-            profile.avatar = localStorage.getItem('prospecta_avatar') || '';
-            profile.date = new Date().toLocaleDateString() + " (Actualizado)";
-            profile.guiones = currentScripts; 
-            profile.productos = productosHTML; 
-            profile.canvases = allCanvases;
-
-            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
-            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-
-            profiles[index] = profile;
-            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-
-            const saveBtn = document.getElementById('btn-save-changes');
-            if(saveBtn) {
-                const origHTML = saveBtn.innerHTML;
-                saveBtn.innerHTML = '<i class="fas fa-check text-green-400 w-5 text-center"></i> <span class="font-semibold text-sm text-green-400">¡Guardado!</span>';
-                setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
-            }
-            renderProfilesList();
         }
 
-        function promptSaveProfile() {
-            const name = prompt("Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
-            if(!name || name.trim() === "") return;
-            
-            let productosHTML = '';
-            const prodCont = document.getElementById('z7-products-container');
-            if(prodCont) productosHTML = prodCont.innerHTML;
+        async function promptSaveProfile() {
+            try {
+                const name = prompt("Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
+                if(!name || name.trim() === "") return;
+                
+                let productosHTML = '';
+                const prodCont = document.getElementById('z7-products-container');
+                if(prodCont) productosHTML = prodCont.innerHTML;
 
-            const allCanvases = {};
-            for(let i=3; i<=7; i++) {
-                const c = document.getElementById('builder-canvas-' + i);
-                if(c) allCanvases['zona_'+i] = c.innerHTML;
+                const allCanvases = {};
+                for(let i=3; i<=7; i++) {
+                    const c = document.getElementById('builder-canvas-' + i);
+                    if(c) allCanvases['zona_'+i] = c.innerHTML;
+                }
+
+                const profile = {
+                    id: Date.now().toString(),
+                    name: name.trim(),
+                    portada: localStorage.getItem('prospecta_portada') || '',
+                    avatar: localStorage.getItem('prospecta_avatar') || '',
+                    date: new Date().toLocaleDateString(),
+                    data: {},
+                    guiones: currentScripts,
+                    productos: productosHTML,
+                    canvases: allCanvases
+                };
+
+                CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+                CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
+                CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+                CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
+                
+                await dbPut('profiles', profile);
+                
+                activeProfileId = profile.id; 
+                localStorage.setItem('prospecta_active_profile_id', profile.id); 
+                alert("Perfil guardado exitosamente: " + profile.name);
+                renderProfilesList();
+                
+                if (!notesVisible) {
+                    toggleNotes();
+                }
+                switchSidebarTab('perfiles');
+            } catch (error) {
+                console.error("Error al crear el perfil:", error);
+                alert("Hubo un error al intentar crear el nuevo perfil.");
             }
-
-            const profile = {
-                id: Date.now().toString(),
-                name: name.trim(),
-                portada: localStorage.getItem('prospecta_portada') || '',
-                avatar: localStorage.getItem('prospecta_avatar') || '',
-                date: new Date().toLocaleDateString(),
-                data: {},
-                guiones: currentScripts,
-                productos: productosHTML,
-                canvases: allCanvases
-            };
-
-            CRM_TEXT_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_STAR_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '0');
-            CRM_ICON_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            CRM_IMG_IDS.forEach(id => profile.data[id] = localStorage.getItem('prospecta_' + id) || '');
-            
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-            profiles.push(profile);
-            localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
-            
-            activeProfileId = profile.id; 
-            localStorage.setItem('prospecta_active_profile_id', profile.id); // GUARDA LA MEMORIA DEL ID
-            alert("Perfil guardado exitosamente: " + profile.name);
-            renderProfilesList();
-            
-            if (!notesVisible) {
-                toggleNotes();
-            }
-            switchSidebarTab('perfiles');
         }
 
-        function loadProfile(id) {
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+        async function loadProfile(id) {
+            let profiles = await dbGetAll('profiles');
             const profile = profiles.find(p => p.id === id);
             if(!profile) return;
 
             activeProfileId = id; 
-            localStorage.setItem('prospecta_active_profile_id', id); // RECUPERA LA MEMORIA DEL ID
+            localStorage.setItem('prospecta_active_profile_id', id); 
 
             if(profile.data) {
                 Object.keys(profile.data).forEach(key => {
@@ -1821,23 +1805,21 @@
             alert("Perfil cargado: " + profile.name);
         }
 
-        function deleteProfile(id, event) {
+        async function deleteProfile(id, event) {
             event.stopPropagation(); 
             if(confirm("¿Estás seguro de eliminar este perfil?")) {
-                let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
-                profiles = profiles.filter(p => p.id !== id);
-                localStorage.setItem('prospecta_profiles', JSON.stringify(profiles));
+                await dbDelete('profiles', id);
                 if(activeProfileId === id) { 
                     activeProfileId = null; 
-                    localStorage.removeItem('prospecta_active_profile_id'); // LIMPIA LA MEMORIA SI LO BORRAS
+                    localStorage.removeItem('prospecta_active_profile_id'); 
                 }
                 renderProfilesList();
             }
         }
 
-        function renderProfilesList() {
+        async function renderProfilesList() {
             const container = document.getElementById('profiles-content');
-            let profiles = JSON.parse(localStorage.getItem('prospecta_profiles') || '[]');
+            let profiles = await dbGetAll('profiles');
             
             if(profiles.length === 0) {
                 container.innerHTML = `<div class="text-center text-white/50 mt-10"><i class="fas fa-folder-open text-4xl mb-4"></i><p>Aún no hay perfiles guardados.</p></div>`;
@@ -1847,11 +1829,11 @@
             container.innerHTML = profiles.map(p => `
                 <div class="bg-brand-primary border border-white/20 p-4 rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition group" onclick="loadProfile('${p.id}')">
                     <div class="flex justify-between items-start">
-                        <div class="flex flex-col">
-                            <span class="font-bold text-white text-lg">${p.name}</span>
+                        <div class="flex flex-col overflow-hidden">
+                            <span class="font-bold text-white text-lg truncate">${p.name}</span>
                             <span class="text-xs text-white/60 mt-1"><i class="fas fa-clock"></i> Guardado: ${p.date}</span>
                         </div>
-                        <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-red-400 p-2 outline-none">
+                        <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-red-400 p-2 outline-none shrink-0">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -1990,9 +1972,6 @@
             else { a.pause(); pro.classList.remove('playing'); document.getElementById('a_play_'+id).classList.remove('hidden'); document.getElementById('a_pause_'+id).classList.add('hidden'); }
         }
 
-        // =========================================
-        // MEMORIA BASE DE LOS GUIONES (SIN EMOJIS)
-        // =========================================
         const scripts = {
             1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play text-brand-success mr-2"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
                 <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
@@ -2032,7 +2011,7 @@
                 <p class="mb-4">"Esto incluye optimizar tu imagen con IA y redactar las portadas de tus productos principales con psicología de ventas, para que el cliente entienda tu valor desde el segundo uno. También te dejamos listas tus respuestas rápidas automáticas."</p>`
         };
 
-        let currentScripts = { ...scripts }; // Memoria viva editable
+        let currentScripts = { ...scripts }; 
         let currentSlide = 1;
         const totalSlides = 7;
         let notesVisible = false;
@@ -2173,10 +2152,9 @@
             }
         });
 
-        // =========================================
-        // ARRANQUE DE LA APP
-        // =========================================
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
+            await initIndexedDB(); 
+            
             initBackgroundStars(); 
             loadCurrentState(); 
             
@@ -2214,7 +2192,6 @@
             
             updateUI();
             
-            // Forzar renderizado de perfiles para asegurar que existan al abrir el panel
             renderProfilesList();
         });
 
