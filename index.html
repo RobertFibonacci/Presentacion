@@ -8,6 +8,10 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1e1e2f">
+    
+    <!-- PWA Configuración -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icono.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -490,22 +494,22 @@
                     
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
-                            <i class="fas fa-check-circle text-white"></i>
+                            <i class="fas fa-check-circle text-brand-primary"></i>
                             Verified Strategy
                         </div>
                     </div>
                     
                     <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
-                        <div class="pill-contact" id="prof-wa" contenteditable="false"><i class="fab fa-whatsapp text-white text-sm"></i> +52 55 1234 5678</div>
-                        <div class="pill-contact" id="prof-mail" contenteditable="false"><i class="fas fa-envelope text-white text-sm"></i> hola@robertofibonacci.com.mx</div>
-                        <div class="pill-contact" id="prof-loc" contenteditable="false"><i class="fas fa-map-marker-alt text-white text-sm"></i> Querétaro</div>
+                        <div class="pill-contact" id="prof-wa" contenteditable="false"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
+                        <div class="pill-contact" id="prof-mail" contenteditable="false"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
+                        <div class="pill-contact" id="prof-loc" contenteditable="false"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
                     </div>
                     <div class="flex flex-wrap justify-center gap-2 mb-4">
-                        <div class="pill-contact" title="Facebook"><i class="fab fa-facebook text-white"></i> Facebook</div>
-                        <div class="pill-contact" title="Instagram"><i class="fab fa-instagram text-white"></i> Instagram</div>
-                        <div class="pill-contact" title="LinkedIn"><i class="fab fa-linkedin text-white"></i> LinkedIn</div>
-                        <div class="pill-contact" title="TikTok"><i class="fab fa-tiktok text-white"></i> TikTok</div>
-                        <div class="pill-contact" title="YouTube"><i class="fab fa-youtube text-white"></i> YouTube</div>
+                        <div class="pill-contact" title="Facebook"><i class="fab fa-facebook text-brand-primary"></i> Facebook</div>
+                        <div class="pill-contact" title="Instagram"><i class="fab fa-instagram text-brand-primary"></i> Instagram</div>
+                        <div class="pill-contact" title="LinkedIn"><i class="fab fa-linkedin text-brand-primary"></i> LinkedIn</div>
+                        <div class="pill-contact" title="TikTok"><i class="fab fa-tiktok text-brand-primary"></i> TikTok</div>
+                        <div class="pill-contact" title="YouTube"><i class="fab fa-youtube text-brand-primary"></i> YouTube</div>
                     </div>
                     
                     <div class="stats-row">
@@ -806,18 +810,18 @@
                     <div class="carousel-container no-scrollbar" id="evid-carousel-container">
                         <div class="carousel-card zona-memoria flex flex-col items-center dynamic-block group relative" id="evid-card-1" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
-                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                                <img id="evid1-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                                <video id="evid1-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid1-vid', 'evid1-play')" playsinline></video>
+                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                                <img id="evid1-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                                <video id="evid1-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid1-vid', 'evid1-play')" playsinline></video>
                                 <div id="evid1-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                                     <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                                 </div>
-                                <label id="evid1-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition rounded-t-lg">
+                                <label id="evid1-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid1')">
                                     <i class="fas fa-camera text-2xl text-white mb-2"></i>
                                     <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Captura/Video</span>
                                 </label>
-                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid1')">
                                     <i class="fas fa-camera text-3xl text-white"></i>
                                 </label>
@@ -827,18 +831,18 @@
 
                         <div class="carousel-card zona-memoria flex flex-col items-center dynamic-block group relative" id="evid-card-2" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
-                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                                <img id="evid2-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                                <video id="evid2-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid2-vid', 'evid2-play')" playsinline></video>
+                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                                <img id="evid2-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                                <video id="evid2-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid2-vid', 'evid2-play')" playsinline></video>
                                 <div id="evid2-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                                     <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                                 </div>
-                                <label id="evid2-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition rounded-t-lg">
+                                <label id="evid2-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid2')">
                                     <i class="fas fa-camera text-2xl text-white mb-2"></i>
                                     <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Captura/Video</span>
                                 </label>
-                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid2')">
                                     <i class="fas fa-camera text-3xl text-white"></i>
                                 </label>
@@ -848,18 +852,18 @@
 
                         <div class="carousel-card zona-memoria flex flex-col items-center dynamic-block group relative" id="evid-card-3" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
-                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                                <img id="evid3-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                                <video id="evid3-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid3-vid', 'evid3-play')" playsinline></video>
+                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                                <img id="evid3-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                                <video id="evid3-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid3-vid', 'evid3-play')" playsinline></video>
                                 <div id="evid3-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                                     <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                                 </div>
-                                <label id="evid3-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition rounded-t-lg">
+                                <label id="evid3-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid3')">
                                     <i class="fas fa-camera text-2xl text-white mb-2"></i>
                                     <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Captura/Video</span>
                                 </label>
-                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid3')">
                                     <i class="fas fa-camera text-3xl text-white"></i>
                                 </label>
@@ -869,18 +873,18 @@
 
                         <div class="carousel-card zona-memoria flex flex-col items-center dynamic-block group relative" id="evid-card-4" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                             <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
-                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                                <img id="evid4-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                                <video id="evid4-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid4-vid', 'evid4-play')" playsinline></video>
+                            <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                                <img id="evid4-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                                <video id="evid4-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('evid4-vid', 'evid4-play')" playsinline></video>
                                 <div id="evid4-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                                     <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                                 </div>
-                                <label id="evid4-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition rounded-t-lg">
+                                <label id="evid4-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid4')">
                                     <i class="fas fa-camera text-2xl text-white mb-2"></i>
                                     <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Captura/Video</span>
                                 </label>
-                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                                <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                                     <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'evid4')">
                                     <i class="fas fa-camera text-3xl text-white"></i>
                                 </label>
@@ -993,15 +997,15 @@
                     <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                         
-                        <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                            <img id="z7-media-1-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                            <video id="z7-media-1-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
+                        <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                            <img id="z7-media-1-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                            <video id="z7-media-1-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
                             
                             <div id="z7-media-1-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                                 <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                             </div>
 
-                            <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                            <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                                 <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-1')">
                                 <i class="fas fa-camera text-3xl text-white"></i>
                             </label>
@@ -1035,7 +1039,7 @@
                                             <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-arrow-right text-white')"></i>
                                         </div>
                                         <div class="editable-text text-white text-sm outline-none" contenteditable="false">Optimización de imagen con IA</div>
-                                        <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
+                                        <button class="edit-only text-white hover:text-white ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
                                     </div>
                                     
                                     <div class="review-point mb-2">
@@ -1050,7 +1054,7 @@
                                             <i class="fas fa-arrow-right icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-arrow-right text-white')"></i>
                                         </div>
                                         <div class="editable-text text-white text-sm outline-none" contenteditable="false">Redacción de portadas premium</div>
-                                        <button class="edit-only text-red-400 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
+                                        <button class="edit-only text-white hover:text-white ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
                                     </div>
 
                                 </div>
@@ -1593,20 +1597,20 @@
                 <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
                     <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                     
-                    <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                        <img id="z7-media-${id}-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                        <video id="z7-media-${id}-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-${id}-vid', 'z7-media-${id}-play')" playsinline></video>
+                    <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                        <img id="z7-media-${id}-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                        <video id="z7-media-${id}-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-${id}-vid', 'z7-media-${id}-play')" playsinline></video>
                         
                         <div id="z7-media-${id}-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                             <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                         </div>
 
-                        <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                        <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                             <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-${id}')">
                             <i class="fas fa-camera text-3xl text-white"></i>
                         </label>
                         
-                        <label id="z7-media-${id}-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition rounded-t-lg">
+                        <label id="z7-media-${id}-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition">
                             <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, 'z7-media-${id}')">
                             <i class="fas fa-camera text-2xl text-white mb-2"></i>
                             <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Foto o Video</span>
@@ -1666,20 +1670,20 @@
                 <div class="carousel-card zona-memoria flex flex-col items-center dynamic-block relative group" id="evid-card-${id}" style="background: rgba(42, 42, 66, 0.9); border-color: white;">
                     <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                     
-                    <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0">
-                        <img id="${id}-img" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
-                        <video id="${id}-vid" src="" class="w-full h-auto rounded-t-lg block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('${id}-vid', '${id}-play')" playsinline></video>
+                    <div class="w-full min-h-[11rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
+                        <img id="${id}-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                        <video id="${id}-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('${id}-vid', '${id}-play')" playsinline></video>
                         
                         <div id="${id}-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
                             <i class="fas fa-play-circle text-4xl text-white drop-shadow-md"></i>
                         </div>
 
-                        <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30 rounded-t-lg" title="Cambiar Foto/Video">
+                        <label class="edit-only absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity cursor-pointer z-30" title="Cambiar Foto/Video">
                             <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, '${id}')">
                             <i class="fas fa-camera text-3xl text-white"></i>
                         </label>
                         
-                        <label id="${id}-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition rounded-t-lg">
+                        <label id="${id}-placeholder" class="absolute inset-0 flex flex-col items-center justify-center cursor-pointer z-0 text-white/50 hover:text-white transition">
                             <input type="file" accept="image/*,video/*" class="hidden" onchange="cargarMediaZ7(event, '${id}')">
                             <i class="fas fa-camera text-2xl text-white mb-2"></i>
                             <span class="text-[10px] font-bold uppercase tracking-wider text-center px-2">Subir Foto o Video</span>
