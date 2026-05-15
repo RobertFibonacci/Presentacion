@@ -1,0 +1,21 @@
+{
+  "name": "Auditoría de Ventas | Roberto Fibonacci",
+  "short_name": "Auditoría",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1e1e2f",
+  "theme_color": "#1e1e2f",
+  "description": "Aplicación de evaluación y presentación comercial",
+  "icons": [
+    {
+      "src": "icono.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icono.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
