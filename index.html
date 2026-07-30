@@ -94,6 +94,7 @@
             background-image: radial-gradient(#2A2A42 1.5px, transparent 1.5px);
             background-size: 24px 24px;
         }
+        
         .avatar-alive { animation: float 3.5s ease-in-out infinite; }
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -167,7 +168,8 @@
         }
         .btn-cambiar-portada:hover { background: rgba(0,0,0,0.5); transform: scale(1.05); }
 
-        .avatar-container { position: relative; width: 120px; height: 120px; margin: 0 auto 15px; z-index: 1; }
+        /* Avatar incrementado a 150px para mayor presencia */
+        .avatar-container { position: relative; width: 150px; height: 150px; margin: 0 auto 15px; z-index: 1; }
         
         .avatar-img {
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
@@ -187,17 +189,20 @@
         .profile-name { font-size: 22px; font-weight: 800; color: #3E3E61; margin-bottom: 2px; z-index: 1; position: relative; line-height: 1.2; }
         .profile-role { font-size: 13px; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: 1px; z-index: 1; position: relative; }
         
+        /* Acabado premium para las píldoras de contacto/redes sociales */
         .pill-contact {
             display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(62,62,97,0.08); color: #3E3E61;
-            padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700;
-            z-index: 1; position: relative; border: 1px solid rgba(62,62,97,0.2);
+            background: rgba(241, 245, 249, 0.95); 
+            color: #3E3E61;
+            padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700;
+            z-index: 1; position: relative; border: 1px solid #cbd5e1;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease; cursor: pointer;
         }
-        .pill-contact:hover { background: rgba(62,62,97,0.15); transform: translateY(-1px); }
+        .pill-contact:hover { background: #e2e8f0; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
 
-        /* Estilo para los placeholders de las redes sociales vacías en modo edición */
-        body.edit-mode-active .social-pill span:empty:before {
+        body.edit-mode-active .social-pill span:empty:before,
+        body.edit-mode-active .pill-contact span:empty:before {
             content: attr(data-placeholder);
             color: #888;
             pointer-events: none;
@@ -312,6 +317,12 @@
             border-bottom: 1px dashed rgba(255,255,255,0.4);
             cursor: text;
         }
+        /* Fix especial para los spans editables dentro de la tarjeta blanca */
+        body.edit-mode-active .profile-card .editable-text {
+            background: rgba(0,0,0,0.05);
+            border-bottom: 1px dashed rgba(0,0,0,0.3);
+        }
+
         body.edit-mode-active .icon-selector,
         body.edit-mode-active .star-btn {
             cursor: pointer;
@@ -498,8 +509,8 @@
                         </label>
                     </div>
                     
-                    <div class="profile-name" id="prof-name" contenteditable="false">Roberto Fibonacci</div>
-                    <div class="profile-role" id="prof-role" contenteditable="false">Founder Prospecta</div>
+                    <div class="profile-name editable-text outline-none" id="prof-name" contenteditable="false" oninput="saveCurrentState()">Roberto Fibonacci</div>
+                    <div class="profile-role editable-text outline-none" id="prof-role" contenteditable="false" oninput="saveCurrentState()">Founder Prospecta</div>
                     
                     <div class="flex justify-center mt-2 mb-4">
                         <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100/90 border border-slate-300 rounded-full text-[10px] font-bold text-brand-primary tracking-wide uppercase shadow-sm">
@@ -508,13 +519,23 @@
                         </div>
                     </div>
                     
-                    <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2">
-                        <div class="pill-contact" id="prof-wa" contenteditable="false"><i class="fab fa-whatsapp text-brand-primary text-sm"></i> +52 55 1234 5678</div>
-                        <div class="pill-contact" id="prof-mail" contenteditable="false"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
-                        <div class="pill-contact" id="prof-loc" contenteditable="false"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
+                    <!-- Información de Contacto Editable con Íconos Protegidos -->
+                    <div class="flex flex-wrap justify-center gap-2 mt-2 mb-2" id="contact-pills-container">
+                        <div class="pill-contact" id="pill-wa">
+                            <i class="fab fa-whatsapp text-brand-primary text-sm"></i> 
+                            <span id="prof-wa" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="WhatsApp">+52 55 1234 5678</span>
+                        </div>
+                        <div class="pill-contact" id="pill-mail">
+                            <i class="fas fa-envelope text-brand-primary text-sm"></i> 
+                            <span id="prof-mail" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Correo">hola@robertofibonacci.com.mx</span>
+                        </div>
+                        <div class="pill-contact" id="pill-loc">
+                            <i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> 
+                            <span id="prof-loc" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Ubicación">Querétaro</span>
+                        </div>
                     </div>
                     
-                    <!-- AQUI ESTÁN LAS NUEVAS REDES SOCIALES CONFIGURABLES -->
+                    <!-- REDES SOCIALES CONFIGURABLES -->
                     <div class="flex flex-wrap justify-center gap-2 mb-4" id="social-pills-container">
                         <div class="pill-contact social-pill" id="pill-fb"><i class="fab fa-facebook text-brand-primary text-sm"></i> <span id="prof-social-fb" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Facebook"></span></div>
                         <div class="pill-contact social-pill" id="pill-ig"><i class="fab fa-instagram text-brand-primary text-sm"></i> <span id="prof-social-ig" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Instagram"></span></div>
@@ -1266,7 +1287,7 @@
         const DB_VERSION = 2; // Actualizado a la versión 2 para crear el nuevo almacén
         let db = null;
 
-        // 1. VARIABLE GLOBAL DE ESTADO (Reemplaza a localStorage)
+        // VARIABLE GLOBAL DE ESTADO (Reemplaza a localStorage)
         window.CRM_STATE = {};
         let activeProfileId = null;
         let saveTimeout = null;
@@ -1281,7 +1302,6 @@
                     if (!database.objectStoreNames.contains('profiles')) {
                         database.createObjectStore('profiles', { keyPath: 'id' });
                     }
-                    // Nuevo almacén para el caché temporal (sustituye localStorage)
                     if (!database.objectStoreNames.contains('config')) {
                         database.createObjectStore('config', { keyPath: 'id' });
                     }
@@ -1321,7 +1341,7 @@
             });
         }
 
-        // 2. MOTOR DE AUTOGUARDADO EN MEMORIA (Evita saturar la base de datos por cada tecla)
+        // MOTOR DE AUTOGUARDADO EN MEMORIA (Evita saturar la base de datos por cada tecla)
         function saveTempStateToDB() {
             if(saveTimeout) clearTimeout(saveTimeout);
             saveTimeout = setTimeout(() => {
@@ -1383,7 +1403,8 @@
             'evid1-text', 'evid2-text', 'evid3-text', 'evid4-text',
             'z5-acc-title', 'z5-acc-phone',
             'nav-text-1', 'nav-text-2', 'nav-text-3', 'nav-text-4', 'nav-text-5', 'nav-text-6', 'nav-text-7',
-            'prof-social-fb', 'prof-social-ig', 'prof-social-tt', 'prof-social-yt', 'prof-social-x', 'prof-social-th', 'prof-social-li'
+            'prof-social-fb', 'prof-social-ig', 'prof-social-tt', 'prof-social-yt', 'prof-social-x', 'prof-social-th', 'prof-social-li',
+            'prof-name', 'prof-role', 'prof-wa', 'prof-mail', 'prof-loc' // Agregados los campos de contacto y perfil a la base de datos
         ];
         const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
@@ -1431,12 +1452,24 @@
             checkEmptySocials();
         }
 
-        // Nueva función para controlar la visibilidad de las redes sociales
+        // Nueva función mejorada para controlar la visibilidad de TODOS los contactos
         function checkEmptySocials() {
-            const nets = ['fb', 'ig', 'tt', 'yt', 'x', 'th', 'li'];
-            nets.forEach(n => {
-                const span = document.getElementById('prof-social-' + n);
-                const pill = document.getElementById('pill-' + n);
+            const fields = [
+                { id: 'prof-social-fb', pill: 'pill-fb' },
+                { id: 'prof-social-ig', pill: 'pill-ig' },
+                { id: 'prof-social-tt', pill: 'pill-tt' },
+                { id: 'prof-social-yt', pill: 'pill-yt' },
+                { id: 'prof-social-x', pill: 'pill-x' },
+                { id: 'prof-social-th', pill: 'pill-th' },
+                { id: 'prof-social-li', pill: 'pill-li' },
+                { id: 'prof-wa', pill: 'pill-wa' },
+                { id: 'prof-mail', pill: 'pill-mail' },
+                { id: 'prof-loc', pill: 'pill-loc' }
+            ];
+            
+            fields.forEach(f => {
+                const span = document.getElementById(f.id);
+                const pill = document.getElementById(f.pill);
                 if(span && pill) {
                     const text = span.innerText.trim();
                     if(text === '') {
@@ -1455,7 +1488,6 @@
             if (scriptFontSize > 32) scriptFontSize = 32;
             document.getElementById('script-content').style.fontSize = scriptFontSize + 'px';
             
-            // Reemplazo localStorage
             window.CRM_STATE['prospecta_script_fontsize'] = scriptFontSize;
             saveTempStateToDB();
         }
@@ -1519,7 +1551,8 @@
                 if (newHeight < 100) newHeight = 100;
                 
                 covers.forEach(c => c.style.height = newHeight + 'px');
-                cards.forEach(c => c.style.paddingTop = (newHeight - 50) + 'px');
+                // Ajustamos el offset a 70px para el nuevo avatar de 150px
+                cards.forEach(c => c.style.paddingTop = (newHeight - 70) + 'px');
             };
             img.src = src;
         }
@@ -1539,7 +1572,6 @@
                     }
                 });
 
-                // Reemplazo localStorage
                 if (isBackground) {
                     ajustarAlturaPortada(optimizedBase64); 
                     window.CRM_STATE['prospecta_portada'] = optimizedBase64;
@@ -1568,7 +1600,6 @@
                 const placeholder = img.parentElement.querySelector('.evidence-placeholder');
                 if(placeholder) placeholder.classList.add('hidden');
                 
-                // Reemplazo localStorage
                 window.CRM_STATE['prospecta_' + imgId] = optimizedBase64;
                 saveTempStateToDB();
             });
@@ -1900,7 +1931,7 @@
                     if(placeholder) placeholder.classList.remove('hidden');
                 }
             });
-
+            
             checkEmptySocials();
         }
 
@@ -2110,7 +2141,6 @@
             }
         }
 
-        // 4. NUEVAS FUNCIONES DE EXPORTACIÓN E IMPORTACIÓN (.emi)
         async function exportarPerfil(id, event) {
             if(event) event.stopPropagation();
             let profiles = await dbGetAll('profiles');
@@ -2163,7 +2193,6 @@
             const container = document.getElementById('profiles-content');
             let profiles = await dbGetAll('profiles');
             
-            // Inyectamos el botón general de Importar Perfiles sin tocar tu HTML original
             let importButtonHtml = `
                 <div class="mb-4">
                     <button onclick="document.getElementById('importEmiInput').click()" class="w-full text-brand-dark bg-white font-bold py-3 rounded-lg shadow-md hover:bg-slate-200 transition flex items-center justify-center gap-2 outline-none">
@@ -2463,6 +2492,53 @@
             }
         });
 
+        function setRating(containerId, rating) {
+            if (!isEditMode) return; 
+            setRatingVisuals(containerId, rating);
+            saveCurrentState();
+        }
+
+        function setRatingVisuals(containerId, rating) {
+            const container = document.getElementById(containerId);
+            if(!container) return;
+            container.dataset.rating = rating;
+            const stars = container.querySelectorAll('.star-btn');
+            
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('far');
+                    star.classList.add('fas');    
+                } else {
+                    star.classList.remove('fas'); 
+                    star.classList.add('far');    
+                }
+            });
+        }
+
+        function toggleIconMenu(menuId) {
+            if (!isEditMode) return; 
+            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
+                if(menu.id !== menuId) menu.classList.remove('show');
+            });
+            const menu = document.getElementById(menuId);
+            menu.classList.toggle('show');
+        }
+
+        function changeIcon(btnId, iconId, menuId, newIconClass) {
+            document.getElementById(iconId).className = newIconClass;
+            document.getElementById(btnId).dataset.icon = newIconClass;
+            document.getElementById(menuId).classList.remove('show');
+            saveCurrentState(); 
+        }
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
+                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+            }
+        });
+
         window.addEventListener('DOMContentLoaded', async () => {
             await initIndexedDB(); 
             await loadTempStateFromDB(); 
@@ -2509,7 +2585,6 @@
             
             updateUI();
             renderProfilesList();
-            checkEmptySocials(); // Ocultar o mostrar las redes sociales al cargar la app
         });
 
         function setDateTime() {
