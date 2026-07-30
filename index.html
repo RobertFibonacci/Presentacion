@@ -40,6 +40,7 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap'); /* Fuente para la firma */
         
         body { 
             font-family: 'Inter', sans-serif; 
@@ -189,7 +190,7 @@
         .profile-name { font-size: 22px; font-weight: 800; color: #3E3E61; margin-bottom: 2px; z-index: 1; position: relative; line-height: 1.2; }
         .profile-role { font-size: 13px; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: 1px; z-index: 1; position: relative; }
         
-        /* Acabado premium para las píldoras de contacto/redes sociales */
+        /* Acabado premium unificado para todas las píldoras (redes sociales y contacto) */
         .pill-contact {
             display: inline-flex; align-items: center; gap: 6px;
             background: rgba(241, 245, 249, 0.95); 
@@ -430,6 +431,7 @@
         
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
+            <!-- Zona 1: Portada -->
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 <div class="text-center w-full mb-10">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
@@ -491,6 +493,7 @@
                 </div>
             </div>
 
+            <!-- Zona 2: Perfil -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
                 <div class="profile-card-sync profile-card shrink-0" id="tarjeta_perfil">
                     
@@ -554,6 +557,7 @@
                 </div>
             </div>
 
+            <!-- Zona 3: Sondeo -->
             <div class="slide flex-col w-full max-w-4xl pb-16 shrink-0 mt-4" data-slide="3">
                 <h2 class="text-white text-sm md:text-lg font-bold tracking-widest uppercase mb-2 text-center">Detectando tu error de confianza</h2>
                 <h1 class="text-3xl md:text-5xl font-bold mb-6 text-white text-center px-2">Evaluación de tu Comunicación Actual</h1>
@@ -565,12 +569,12 @@
                 <div class="flex flex-col gap-5 w-full px-2 accordion-wrapper" id="builder-canvas-3">
                     <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
-                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span id="q1-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words editable-text">
-                                <i class="fas fa-question-circle mr-2 text-white"></i> Pregunta 1
+                        <div class="w-full flex justify-between items-center p-5 hover:bg-white/5 transition-colors">
+                            <span id="q1-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words editable-text flex items-center">
+                                <i class="fas fa-question-circle mr-2 text-[1.2em] text-white"></i> Pregunta 1
                             </span>
                             <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg text-white"></i>
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-[1.2em] text-white"></i>
                             </button>
                         </div>
                         <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
@@ -584,12 +588,12 @@
 
                     <div class="dynamic-block bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl relative group">
                         <button onclick="this.closest('.dynamic-block').remove()" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
-                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span id="q2-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words editable-text">
-                                <i class="fas fa-question-circle mr-2 text-white"></i> Pregunta 2
+                        <div class="w-full flex justify-between items-center p-5 hover:bg-white/5 transition-colors">
+                            <span id="q2-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none focus:bg-white/10 p-1 rounded transition-colors break-words editable-text flex items-center">
+                                <i class="fas fa-question-circle mr-2 text-[1.2em] text-white"></i> Pregunta 2
                             </span>
                             <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg text-white"></i>
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-[1.2em] text-white"></i>
                             </button>
                         </div>
                         <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
@@ -607,13 +611,14 @@
                 </div>
             </div>
 
+            <!-- Zona 4: Competencia -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="4">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2"><i class="fas fa-search text-white"></i> Auditoría Competitiva</h2>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 flex items-center justify-center gap-2"><i class="fas fa-search text-[1.1em] text-white"></i> Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
                 <div class="w-full mb-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
-                        <i class="fas fa-building text-white text-2xl drop-shadow"></i>
+                        <i class="fas fa-building text-[1.2em] text-white drop-shadow"></i>
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tus Competidores</h3>
                     </div>
                     
@@ -766,7 +771,7 @@
 
                 <div class="w-full mt-4">
                     <div class="flex items-center gap-3 mb-4 px-2">
-                        <i class="fas fa-crown text-white text-2xl drop-shadow"></i>
+                        <i class="fas fa-crown text-[1.2em] text-white drop-shadow"></i>
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tu Negocio</h3>
                     </div>
                     
@@ -896,7 +901,7 @@
 
                 <div class="w-full mt-8 border-t border-white/20 pt-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
-                        <i class="fas fa-camera-retro text-white text-2xl drop-shadow"></i>
+                        <i class="fas fa-camera-retro text-[1.2em] text-white drop-shadow"></i>
                         <h3 class="text-xl md:text-2xl font-bold text-white">Tu Situación Actual (Evidencias)</h3>
                     </div>
                     
@@ -1005,9 +1010,10 @@
                 </div>
             </div>
 
+            <!-- Zona 5: El Reto -->
             <div class="slide flex-col text-center w-full max-w-4xl pb-16 shrink-0" data-slide="5">
                 <div class="mb-8 bg-[#2A2A42] border border-white/20 rounded-2xl p-6 shadow-xl w-full max-w-md mx-auto">
-                    <div class="text-white/50 text-xs font-bold uppercase tracking-widest mb-2"><i class="fas fa-clock mr-1 text-white"></i> Tiempo de respuesta actual</div>
+                    <div class="text-white/50 text-xs font-bold uppercase tracking-widest mb-2 flex items-center justify-center gap-1"><i class="fas fa-clock text-[1.1em] text-white"></i> Tiempo de respuesta actual</div>
                     <div class="text-5xl md:text-6xl font-black text-white font-mono tracking-wider mb-4 drop-shadow-lg" id="cronometro-display">00:00:00</div>
                     <button onclick="toggleCronometro()" id="btn-cronometro" class="bg-brand-primary text-white font-bold py-2 px-6 rounded-full shadow hover:bg-slate-600 transition border border-white/20 outline-none w-40">
                         <i class="fas fa-play mr-2 text-white"></i> Iniciar
@@ -1016,12 +1022,12 @@
                 
                 <div class="accordion-wrapper w-full max-w-2xl mx-auto text-left zona-memoria mb-12">
                     <div class="bg-brand-panel border border-white/40 rounded-xl overflow-hidden shadow-xl">
-                        <div class="w-full flex justify-between items-start p-5 hover:bg-white/5 transition-colors">
-                            <span id="z5-acc-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none editable-text">
-                                <i class="fas fa-mobile-alt mr-2 text-white"></i> Enviar información a este número:
+                        <div class="w-full flex justify-between items-center p-5 hover:bg-white/5 transition-colors cursor-pointer" onclick="toggleAccordion(this)">
+                            <span id="z5-acc-title" contenteditable="false" oninput="saveCurrentState()" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none editable-text flex items-center gap-2">
+                                <i class="fas fa-mobile-alt text-[1.1em] text-white"></i> Enviar información a este número:
                             </span>
-                            <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg text-white"></i>
+                            <button class="p-2 -mr-2 text-white outline-none flex-shrink-0 z-10 pointer-events-none">
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-[1.2em] text-white"></i>
                             </button>
                         </div>
                         <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
@@ -1033,7 +1039,7 @@
                 </div>
 
                 <div class="inline-block p-6 rounded-full bg-brand-panel text-white mb-6 mx-auto border border-white shadow-lg">
-                    <i class="fas fa-stopwatch fa-4x text-white"></i>
+                    <i class="fas fa-stopwatch text-[3em] text-white"></i>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">La Prueba del Caos</h1>
                 <p class="text-2xl text-white mb-12">Si un prospecto importante te pide tu información detallada AHORA...</p>
@@ -1041,11 +1047,11 @@
                     <h3 class="text-xl font-semibold mb-6 text-white">¿Qué sucede en tu proceso actual?</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
                         <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
-                            <i class="fas fa-times-circle text-white text-xl"></i>
+                            <i class="fas fa-times-circle text-white text-[1.2em]"></i>
                             <span>"Te lo mando al rato"</span>
                         </div>
                         <div class="p-4 bg-brand-dark rounded-lg flex items-center gap-3 border border-white text-white">
-                            <i class="fas fa-times-circle text-white text-xl"></i>
+                            <i class="fas fa-times-circle text-white text-[1.2em]"></i>
                             <span>Copiar y pegar precios</span>
                         </div>
                     </div>
@@ -1059,8 +1065,9 @@
                 </div>
             </div>
 
+            <!-- Zona 6: Seguimiento -->
             <div class="slide flex-col w-full max-w-4xl text-center pb-16 shrink-0" data-slide="6">
-                <i class="fas fa-ghost text-6xl text-white mb-8"></i>
+                <i class="fas fa-ghost text-5xl text-white mb-8"></i>
                 <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">El Silencio del Prospecto</h1>
                 <p class="text-2xl text-white mb-8 max-w-2xl mx-auto">
                     "Sí lo quiero... luego te aviso."
@@ -1081,8 +1088,9 @@
                 </div>
             </div>
 
+            <!-- Zona 7: Soluciones -->
             <div class="slide flex-col w-full max-w-5xl pb-16 shrink-0" data-slide="7">
-                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 text-center"><i class="fas fa-box-open mr-2 text-white"></i> Soluciones</h2>
+                <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 text-center flex items-center justify-center gap-2"><i class="fas fa-box-open text-[1.1em] text-white"></i> Soluciones</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
                 <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
@@ -1091,7 +1099,7 @@
                         <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                         
                         <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
-                            <img id="z7-media-1-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                            <img id="z7-media-1-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer product-img-element" onclick="abrirEvidencia(event, this.src)">
                             <video id="z7-media-1-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-1-vid', 'z7-media-1-play')" playsinline></video>
                             
                             <div id="z7-media-1-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
@@ -1112,13 +1120,13 @@
                         
                         <div class="flex flex-col flex-1 w-full shrink-0">
                             <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
-                                <span id="z7-title-1" contenteditable="false" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text">Escaparate Digital</span>
+                                <span id="z7-title-1" contenteditable="false" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text prod-title-element">Escaparate Digital</span>
                                 <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                    <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg text-white"></i>
+                                    <i class="fas fa-chevron-down transition-transform duration-300 transform text-[1.2em] text-white"></i>
                                 </button>
                             </div>
                             <div class="hidden acc-content p-4 bg-brand-dark/30">
-                                <div id="z7-list-1" class="text-white/80 text-sm leading-relaxed text-left">
+                                <div id="z7-list-1" class="text-white/80 text-[15px] leading-relaxed text-left">
                                     
                                     <div class="review-point mb-2">
                                         <div class="icon-selector" id="prod1-btn-1" onclick="toggleIconMenu('prod1-menu-1')" data-icon="fas fa-check text-white">
@@ -1136,7 +1144,7 @@
                                             <i class="fas fa-shield-alt icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-shield-alt text-white')"></i>
                                             <i class="fas fa-rocket icon-option text-white" onclick="changeIcon('prod1-btn-1', 'prod1-icon-1', 'prod1-menu-1', 'fas fa-rocket text-white')"></i>
                                         </div>
-                                        <div class="editable-text text-white text-sm outline-none" contenteditable="false">Optimización de imagen con IA</div>
+                                        <div class="editable-text text-white text-[15px] leading-relaxed outline-none" contenteditable="false">Optimización de imagen con IA</div>
                                         <button class="edit-only text-white hover:text-white ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
                                     </div>
                                     
@@ -1156,7 +1164,7 @@
                                             <i class="fas fa-shield-alt icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-shield-alt text-white')"></i>
                                             <i class="fas fa-rocket icon-option text-white" onclick="changeIcon('prod1-btn-2', 'prod1-icon-2', 'prod1-menu-2', 'fas fa-rocket text-white')"></i>
                                         </div>
-                                        <div class="editable-text text-white text-sm outline-none" contenteditable="false">Redacción de portadas premium</div>
+                                        <div class="editable-text text-white text-[15px] leading-relaxed outline-none" contenteditable="false">Redacción de portadas premium</div>
                                         <button class="edit-only text-white hover:text-white ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
                                     </div>
 
@@ -1165,11 +1173,18 @@
                             </div>
                         </div>
                         
-                        <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
+                        <div class="h-16 shrink-0 w-full opacity-0 pointer-events-none"></div>
                         
-                        <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                            <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
+                        <div class="bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full mt-auto accordion-wrapper">
+                            <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors cursor-pointer" onclick="toggleAccordion(this)">
+                                <span class="text-xs md:text-sm text-white/80 uppercase tracking-widest font-bold block">Inversión Requerida</span>
+                                <button class="p-1 text-white outline-none flex-shrink-0 z-10 pointer-events-none">
+                                    <i class="fas fa-chevron-down transition-transform duration-300 transform text-white/80"></i>
+                                </button>
+                            </div>
+                            <div class="hidden acc-content p-4 pt-0 text-center">
+                                <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-white editable-text price-val-element">$0,000 USD</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1181,6 +1196,49 @@
                 </div>
                 
                 <div id="builder-canvas-7" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
+
+                <!-- RESUMEN DE INVERSIÓN (CALCULADORA "DOCUMENTO BLANCO") -->
+                <div class="w-full max-w-3xl mx-auto mt-12 bg-white rounded-xl shadow-2xl p-6 md:p-10 relative overflow-hidden" id="white-document-container">
+                    
+                    <!-- Fondo sutil para el documento -->
+                    <div class="absolute inset-0 bg-slate-50 opacity-50 z-0 pointer-events-none"></div>
+                    
+                    <div class="relative z-10">
+                        <!-- Cabecera Ejecutiva: Dinámica con la Zona 2 -->
+                        <div class="flex items-center gap-4 mb-8 border-b-2 border-slate-200 pb-6">
+                            <img src="" id="doc-avatar-sync" class="w-16 h-16 rounded-full object-cover border-2 border-slate-300 shadow-sm" alt="Avatar">
+                            <div class="flex flex-col">
+                                <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Propuesta Comercial</span>
+                                <span id="doc-name-sync" class="text-2xl font-black text-[#3E3E61] leading-tight">Nombre del Asesor</span>
+                            </div>
+                            <!-- Botón para calcular, discreto en la esquina -->
+                            <button onclick="calcularCotizacion()" class="ml-auto bg-[#3E3E61] text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-slate-700 transition outline-none flex items-center gap-2 text-xs edit-only">
+                                <i class="fas fa-sync-alt text-white"></i> Actualizar Cotización
+                            </button>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-[#3E3E61] mb-6 flex items-center gap-2"><i class="fas fa-list-check text-[#3E3E61]"></i> Resumen de Entregables</h3>
+                        
+                        <!-- Contenedor del listado (Se llena por JS) -->
+                        <div id="summary-list-container" class="w-full mb-8 editable-text min-h-[100px] outline-none" contenteditable="false">
+                            <p class="text-slate-400 text-center text-sm italic mt-8">Haz clic en "Actualizar Cotización" para generar la propuesta.</p>
+                        </div>
+                        
+                        <!-- Pie de página legal y firma -->
+                        <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div class="flex-1">
+                                <p class="text-[11px] text-slate-500 text-justify leading-relaxed italic">
+                                    Aviso importante: Los montos de inversión aquí expresados son netos y no incluyen el Impuesto al Valor Agregado (IVA). En caso de requerir comprobante fiscal, se adicionará el porcentaje correspondiente vigente al momento de la facturación.
+                                </p>
+                            </div>
+                            <div class="shrink-0 flex flex-col items-center">
+                                <span id="doc-signature-sync" class="text-4xl text-[#3E3E61] font-normal" style="font-family: 'Caveat', cursive; transform: rotate(-5deg);">Firma</span>
+                                <div class="h-px w-32 bg-slate-300 mt-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
@@ -1188,13 +1246,13 @@
         <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
             <div class="flex border-b border-white shrink-0">
                 <button onclick="switchSidebarTab('guion')" id="tab-guion" class="flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-user-tie text-white"></i> Guión
+                    <i class="fas fa-user-tie text-[1.2em] text-white"></i> Guión
                 </button>
                 <button onclick="switchSidebarTab('perfiles')" id="tab-perfiles" class="flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-users text-white"></i> Perfiles
+                    <i class="fas fa-users text-[1.2em] text-white"></i> Perfiles
                 </button>
                 <button onclick="toggleNotes()" class="p-4 text-white hover:text-slate-300 bg-brand-dark border-l border-white/20 outline-none">
-                    <i class="fas fa-times text-white"></i>
+                    <i class="fas fa-times text-[1.2em] text-white"></i>
                 </button>
             </div>
             
@@ -1287,7 +1345,7 @@
         const DB_VERSION = 2; // Actualizado a la versión 2 para crear el nuevo almacén
         let db = null;
 
-        // VARIABLE GLOBAL DE ESTADO (Reemplaza a localStorage)
+        // 1. VARIABLE GLOBAL DE ESTADO (Reemplaza a localStorage)
         window.CRM_STATE = {};
         let activeProfileId = null;
         let saveTimeout = null;
@@ -1341,9 +1399,13 @@
             });
         }
 
-        // MOTOR DE AUTOGUARDADO EN MEMORIA (Evita saturar la base de datos por cada tecla)
+        // 2. MOTOR DE AUTOGUARDADO EN MEMORIA
         function saveTempStateToDB() {
             if(saveTimeout) clearTimeout(saveTimeout);
+            
+            // Garantiza que el perfil activo se guarde en memoria
+            window.CRM_STATE['prospecta_active_profile_id'] = activeProfileId;
+            
             saveTimeout = setTimeout(() => {
                 if (db) dbPut('config', { id: 'estado_temporal', data: window.CRM_STATE });
             }, 500); 
@@ -1404,7 +1466,8 @@
             'z5-acc-title', 'z5-acc-phone',
             'nav-text-1', 'nav-text-2', 'nav-text-3', 'nav-text-4', 'nav-text-5', 'nav-text-6', 'nav-text-7',
             'prof-social-fb', 'prof-social-ig', 'prof-social-tt', 'prof-social-yt', 'prof-social-x', 'prof-social-th', 'prof-social-li',
-            'prof-name', 'prof-role', 'prof-wa', 'prof-mail', 'prof-loc' // Agregados los campos de contacto y perfil a la base de datos
+            'prof-name', 'prof-role', 'prof-wa', 'prof-mail', 'prof-loc',
+            'summary-list-container' 
         ];
         const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
@@ -1450,9 +1513,9 @@
             });
 
             checkEmptySocials();
+            syncWhiteDocumentHeaders(); 
         }
 
-        // Nueva función mejorada para controlar la visibilidad de TODOS los contactos
         function checkEmptySocials() {
             const fields = [
                 { id: 'prof-social-fb', pill: 'pill-fb' },
@@ -1479,6 +1542,25 @@
                     }
                 }
             });
+        }
+
+        // Función para sincronizar datos al Documento Blanco
+        function syncWhiteDocumentHeaders() {
+            const profileName = document.getElementById('prof-name');
+            const docName = document.getElementById('doc-name-sync');
+            const docSig = document.getElementById('doc-signature-sync');
+            
+            if(profileName && docName && docSig) {
+                const nameText = profileName.innerText;
+                docName.innerText = nameText;
+                docSig.innerText = nameText;
+            }
+
+            const profileImg = document.getElementById('img_avatar');
+            const docImg = document.getElementById('doc-avatar-sync');
+            if(profileImg && docImg) {
+                docImg.src = profileImg.src;
+            }
         }
 
         let scriptFontSize = 14;
@@ -1551,8 +1633,7 @@
                 if (newHeight < 100) newHeight = 100;
                 
                 covers.forEach(c => c.style.height = newHeight + 'px');
-                // Ajustamos el offset a 70px para el nuevo avatar de 150px
-                cards.forEach(c => c.style.paddingTop = (newHeight - 70) + 'px');
+                cards.forEach(c => c.style.paddingTop = (newHeight - 70) + 'px'); // Ajuste por avatar de 150px
             };
             img.src = src;
         }
@@ -1579,6 +1660,8 @@
                     window.CRM_STATE['prospecta_avatar'] = optimizedBase64;
                 }
                 saveTempStateToDB();
+
+                syncWhiteDocumentHeaders(); 
 
                 setTimeout(() => {
                     if (intendedFullscreen && !document.fullscreenElement) {
@@ -1757,7 +1840,7 @@
                     <i class="fas fa-shield-alt icon-option text-white" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-shield-alt text-white')"></i>
                     <i class="fas fa-rocket icon-option text-white" onclick="changeIcon('${btnId}', '${iconId}', '${menuId}', 'fas fa-rocket text-white')"></i>
                 </div>
-                <div class="editable-text text-white text-sm outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
+                <div class="editable-text text-white text-[15px] leading-relaxed outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
                 <button class="edit-only text-white hover:text-slate-300 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
             `;
             list.appendChild(div);
@@ -1774,7 +1857,7 @@
                     <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                     
                     <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
-                        <img id="z7-media-${id}-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="abrirEvidencia(event, this.src)">
+                        <img id="z7-media-${id}-img" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer product-img-element" onclick="abrirEvidencia(event, this.src)">
                         <video id="z7-media-${id}-vid" src="" class="w-full h-auto block hidden z-10 relative cursor-pointer" onclick="toggleZ7Video('z7-media-${id}-vid', 'z7-media-${id}-play')" playsinline></video>
                         
                         <div id="z7-media-${id}-play" class="absolute inset-0 flex items-center justify-center hidden z-20 pointer-events-none">
@@ -1795,13 +1878,13 @@
                     
                     <div class="flex flex-col flex-1 w-full shrink-0">
                         <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
-                            <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text">Nombre del Producto</span>
+                            <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text prod-title-element">Nombre del Producto</span>
                             <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-lg text-white"></i>
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-[1.2em] text-white"></i>
                             </button>
                         </div>
                         <div class="hidden acc-content p-4 bg-brand-dark/30">
-                            <div class="text-white/80 text-sm leading-relaxed text-left">
+                            <div class="text-white/80 text-[15px] leading-relaxed text-left">
                                 <div class="review-point mb-2">
                                     <div class="icon-selector" id="btn_${id}_1" onclick="toggleIconMenu('menu_${id}_1')" data-icon="fas fa-check text-white">
                                         <i id="icon_${id}_1" class="fas fa-check text-white"></i>
@@ -1818,7 +1901,7 @@
                                         <i class="fas fa-shield-alt icon-option text-white" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-shield-alt text-white')"></i>
                                         <i class="fas fa-rocket icon-option text-white" onclick="changeIcon('btn_${id}_1', 'icon_${id}_1', 'menu_${id}_1', 'fas fa-rocket text-white')"></i>
                                     </div>
-                                    <div class="editable-text text-white text-sm outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
+                                    <div class="editable-text text-white text-[15px] leading-relaxed outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
                                     <button class="edit-only text-white hover:text-slate-300 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
                                 </div>
                             </div>
@@ -1826,11 +1909,18 @@
                         </div>
                     </div>
                     
-                    <div class="h-24 shrink-0 w-full opacity-0 pointer-events-none"></div>
+                    <div class="h-16 shrink-0 w-full opacity-0 pointer-events-none"></div>
                     
-                    <div class="p-5 bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full text-center mt-auto">
-                        <span class="text-[10px] text-white/50 uppercase tracking-widest font-bold block mb-1">Inversión Requerida</span>
-                        <div contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text">$0,000 USD</div>
+                    <div class="bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full mt-auto accordion-wrapper">
+                        <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors cursor-pointer" onclick="toggleAccordion(this)">
+                            <span class="text-xs md:text-sm text-white/80 uppercase tracking-widest font-bold block">Inversión Requerida</span>
+                            <button class="p-1 text-white outline-none flex-shrink-0 z-10 pointer-events-none">
+                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-white/80"></i>
+                            </button>
+                        </div>
+                        <div class="hidden acc-content p-4 pt-0 text-center">
+                            <div contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text price-val-element">$0,000 USD</div>
+                        </div>
                     </div>
                 </div>
             `;
@@ -1882,6 +1972,54 @@
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
+        // FUNCION DE CALCULADORA INTELIGENTE (DOCUMENTO BLANCO)
+        function calcularCotizacion() {
+            const productCards = document.querySelectorAll('#z7-products-container .product-card');
+            
+            let total = 0;
+            let htmlList = `<div class="w-full flex flex-col gap-2">`;
+            
+            productCards.forEach((card) => {
+                const titleElement = card.querySelector('.prod-title-element');
+                const priceElement = card.querySelector('.price-val-element');
+                const imgElement = card.querySelector('.product-img-element');
+                
+                const title = titleElement ? titleElement.innerText.trim() : 'Producto sin nombre';
+                const priceText = priceElement ? priceElement.innerText.trim() : '0';
+                
+                // Limpiar el texto del precio (quita $, comas, USD y deja solo el numero)
+                let numStr = priceText.replace(/[^0-9.-]+/g,"");
+                let priceVal = parseFloat(numStr);
+                if(isNaN(priceVal)) priceVal = 0;
+                
+                total += priceVal;
+                
+                // Buscar miniatura (si hay imagen o usamos un placeholder bonito)
+                let imgSrc = imgElement && !imgElement.classList.contains('hidden') ? imgElement.src : 'https://placehold.co/100x100/f1f5f9/94a3b8?text=Item';
+
+                htmlList += `
+                    <div class="flex items-center gap-3 border-b border-slate-200 border-dashed pb-2 pt-1">
+                        <img src="${imgSrc}" class="w-10 h-10 rounded-md object-cover shadow-sm shrink-0 border border-slate-200" alt="${title}">
+                        <span class="text-[#3E3E61] text-[15px] font-medium flex-1">${title}</span>
+                        <span class="text-[#3E3E61] font-bold text-[15px] whitespace-nowrap">$${priceVal.toLocaleString('en-US')} USD</span>
+                    </div>
+                `;
+            });
+            
+            htmlList += `
+                <div class="flex justify-between items-center mt-6 pt-4 border-t-2 border-[#3E3E61]">
+                    <span class="text-[#3E3E61] text-lg font-black uppercase tracking-wider">Inversión Total</span>
+                    <span class="text-brand-success font-black text-2xl drop-shadow-sm">$${total.toLocaleString('en-US')} USD</span>
+                </div>
+            </div>`;
+            
+            const container = document.getElementById('summary-list-container');
+            if(container) {
+                container.innerHTML = htmlList;
+                saveCurrentState(); // Guardamos el nuevo resumen en la DB
+            }
+        }
+
         function saveCurrentState() {
             CRM_TEXT_IDS.forEach(id => {
                 const el = document.getElementById(id);
@@ -1931,8 +2069,6 @@
                     if(placeholder) placeholder.classList.remove('hidden');
                 }
             });
-            
-            checkEmptySocials();
         }
 
         async function saveChanges() {
@@ -1969,7 +2105,6 @@
                 
                 if(!profile) { promptSaveProfile(); return; }
 
-                // Usar memoria en lugar de localStorage
                 profile.portada = window.CRM_STATE['prospecta_portada'] || '';
                 profile.avatar = window.CRM_STATE['prospecta_avatar'] || '';
                 profile.date = new Date().toLocaleDateString() + " (Actualizado)";
@@ -2030,7 +2165,6 @@
                 const profile = {
                     id: Date.now().toString(),
                     name: name.trim(),
-                    // Usar memoria en lugar de localStorage
                     portada: window.CRM_STATE['prospecta_portada'] || '',
                     avatar: window.CRM_STATE['prospecta_avatar'] || '',
                     date: new Date().toLocaleDateString(),
@@ -2125,6 +2259,7 @@
             }
             
             updateUI(); 
+            syncWhiteDocumentHeaders();
             alert("Perfil cargado: " + profile.name);
         }
 
@@ -2265,8 +2400,8 @@
             if(type === 'acordeon') {
                 html = `
                 <div class="w-full flex justify-between items-center p-5 hover:bg-white/5 transition-colors">
-                    <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none break-words editable-text"><i class="fas fa-question-circle mr-2 text-white"></i> Nueva Pregunta</span>
-                    <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-lg text-white"></i></button>
+                    <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] md:text-[18px] text-left flex-1 outline-none break-words editable-text"><i class="fas fa-question-circle mr-2 text-[1.2em] text-white"></i> Nueva Pregunta</span>
+                    <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10"><i class="fas fa-chevron-down transition-transform duration-300 transform text-[1.2em] text-white"></i></button>
                 </div>
                 <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
                     <p contenteditable="${isEditMode}" class="mt-4 text-justify text-[20px] md:text-[26px] font-bold text-white leading-relaxed outline-none editable-text">Escribe aquí tu texto oculto persuasivo...</p>
@@ -2539,6 +2674,7 @@
             }
         });
 
+        // 5. INICIALIZADOR PRINCIPAL MODIFICADO
         window.addEventListener('DOMContentLoaded', async () => {
             await initIndexedDB(); 
             await loadTempStateFromDB(); 
@@ -2584,6 +2720,7 @@
             }
             
             updateUI();
+            syncWhiteDocumentHeaders(); 
             renderProfilesList();
         });
 
