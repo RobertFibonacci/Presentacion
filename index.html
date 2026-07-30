@@ -196,6 +196,15 @@
         }
         .pill-contact:hover { background: rgba(62,62,97,0.15); transform: translateY(-1px); }
 
+        /* Estilo para los placeholders de las redes sociales vacías en modo edición */
+        body.edit-mode-active .social-pill span:empty:before {
+            content: attr(data-placeholder);
+            color: #888;
+            pointer-events: none;
+            font-style: italic;
+            font-weight: 400;
+        }
+
         .stats-row {
             display: flex; justify-content: space-between; margin-top: 20px;
             padding-top: 15px; border-top: 1px solid rgba(62,62,97,0.1); z-index: 1; position: relative;
@@ -504,12 +513,16 @@
                         <div class="pill-contact" id="prof-mail" contenteditable="false"><i class="fas fa-envelope text-brand-primary text-sm"></i> hola@robertofibonacci.com.mx</div>
                         <div class="pill-contact" id="prof-loc" contenteditable="false"><i class="fas fa-map-marker-alt text-brand-primary text-sm"></i> Querétaro</div>
                     </div>
-                    <div class="flex flex-wrap justify-center gap-2 mb-4">
-                        <div class="pill-contact" title="Facebook"><i class="fab fa-facebook text-brand-primary"></i> Facebook</div>
-                        <div class="pill-contact" title="Instagram"><i class="fab fa-instagram text-brand-primary"></i> Instagram</div>
-                        <div class="pill-contact" title="LinkedIn"><i class="fab fa-linkedin text-brand-primary"></i> LinkedIn</div>
-                        <div class="pill-contact" title="TikTok"><i class="fab fa-tiktok text-brand-primary"></i> TikTok</div>
-                        <div class="pill-contact" title="YouTube"><i class="fab fa-youtube text-brand-primary"></i> YouTube</div>
+                    
+                    <!-- AQUI ESTÁN LAS NUEVAS REDES SOCIALES CONFIGURABLES -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-4" id="social-pills-container">
+                        <div class="pill-contact social-pill" id="pill-fb"><i class="fab fa-facebook text-brand-primary text-sm"></i> <span id="prof-social-fb" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Facebook"></span></div>
+                        <div class="pill-contact social-pill" id="pill-ig"><i class="fab fa-instagram text-brand-primary text-sm"></i> <span id="prof-social-ig" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Instagram"></span></div>
+                        <div class="pill-contact social-pill" id="pill-tt"><i class="fab fa-tiktok text-brand-primary text-sm"></i> <span id="prof-social-tt" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="TikTok"></span></div>
+                        <div class="pill-contact social-pill" id="pill-yt"><i class="fab fa-youtube text-brand-primary text-sm"></i> <span id="prof-social-yt" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="YouTube"></span></div>
+                        <div class="pill-contact social-pill" id="pill-x"><i class="fa-brands fa-x-twitter text-brand-primary text-sm"></i> <span id="prof-social-x" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="X / Twitter"></span></div>
+                        <div class="pill-contact social-pill" id="pill-th"><i class="fa-brands fa-threads text-brand-primary text-sm"></i> <span id="prof-social-th" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="Threads"></span></div>
+                        <div class="pill-contact social-pill" id="pill-li"><i class="fab fa-linkedin text-brand-primary text-sm"></i> <span id="prof-social-li" class="editable-text outline-none min-w-[20px]" contenteditable="false" oninput="saveCurrentState(); checkEmptySocials();" data-placeholder="LinkedIn"></span></div>
                     </div>
                     
                     <div class="stats-row">
@@ -1369,7 +1382,8 @@
             'own3-title', 'own3-text-1',
             'evid1-text', 'evid2-text', 'evid3-text', 'evid4-text',
             'z5-acc-title', 'z5-acc-phone',
-            'nav-text-1', 'nav-text-2', 'nav-text-3', 'nav-text-4', 'nav-text-5', 'nav-text-6', 'nav-text-7' 
+            'nav-text-1', 'nav-text-2', 'nav-text-3', 'nav-text-4', 'nav-text-5', 'nav-text-6', 'nav-text-7',
+            'prof-social-fb', 'prof-social-ig', 'prof-social-tt', 'prof-social-yt', 'prof-social-x', 'prof-social-th', 'prof-social-li'
         ];
         const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
@@ -1412,6 +1426,25 @@
 
             document.querySelectorAll('.editable-text').forEach(el => {
                 el.setAttribute('contenteditable', isEditMode.toString());
+            });
+
+            checkEmptySocials();
+        }
+
+        // Nueva función para controlar la visibilidad de las redes sociales
+        function checkEmptySocials() {
+            const nets = ['fb', 'ig', 'tt', 'yt', 'x', 'th', 'li'];
+            nets.forEach(n => {
+                const span = document.getElementById('prof-social-' + n);
+                const pill = document.getElementById('pill-' + n);
+                if(span && pill) {
+                    const text = span.innerText.trim();
+                    if(text === '') {
+                        pill.style.display = isEditMode ? 'inline-flex' : 'none';
+                    } else {
+                        pill.style.display = 'inline-flex';
+                    }
+                }
             });
         }
 
@@ -1818,7 +1851,6 @@
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
-        // 3. REESCRITURA DE FUNCIONES DE GUARDADO (Sin localStorage)
         function saveCurrentState() {
             CRM_TEXT_IDS.forEach(id => {
                 const el = document.getElementById(id);
@@ -1868,6 +1900,8 @@
                     if(placeholder) placeholder.classList.remove('hidden');
                 }
             });
+
+            checkEmptySocials();
         }
 
         async function saveChanges() {
@@ -2429,59 +2463,11 @@
             }
         });
 
-        function setRating(containerId, rating) {
-            if (!isEditMode) return; 
-            setRatingVisuals(containerId, rating);
-            saveCurrentState();
-        }
-
-        function setRatingVisuals(containerId, rating) {
-            const container = document.getElementById(containerId);
-            if(!container) return;
-            container.dataset.rating = rating;
-            const stars = container.querySelectorAll('.star-btn');
-            
-            stars.forEach((star, index) => {
-                if (index < rating) {
-                    star.classList.remove('far');
-                    star.classList.add('fas');    
-                } else {
-                    star.classList.remove('fas'); 
-                    star.classList.add('far');    
-                }
-            });
-        }
-
-        function toggleIconMenu(menuId) {
-            if (!isEditMode) return; 
-            document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                if(menu.id !== menuId) menu.classList.remove('show');
-            });
-            const menu = document.getElementById(menuId);
-            menu.classList.toggle('show');
-        }
-
-        function changeIcon(btnId, iconId, menuId, newIconClass) {
-            document.getElementById(iconId).className = newIconClass;
-            document.getElementById(btnId).dataset.icon = newIconClass;
-            document.getElementById(menuId).classList.remove('show');
-            saveCurrentState(); 
-        }
-
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.icon-selector') && !event.target.closest('.icon-dropdown')) {
-                document.querySelectorAll('.icon-dropdown.show').forEach(menu => {
-                    menu.classList.remove('show');
-                });
-            }
-        });
-
-        // 5. INICIALIZADOR PRINCIPAL MODIFICADO
         window.addEventListener('DOMContentLoaded', async () => {
             await initIndexedDB(); 
-            await loadTempStateFromDB(); // Cargamos el caché en memoria antes de hacer nada
+            await loadTempStateFromDB(); 
             
-            setupImportEmi(); // Inyectamos la lógica de importación al DOM invisiblemente
+            setupImportEmi(); 
 
             // Restauramos el ID del perfil activo desde la memoria
             activeProfileId = window.CRM_STATE['prospecta_active_profile_id'] || null;
@@ -2523,6 +2509,7 @@
             
             updateUI();
             renderProfilesList();
+            checkEmptySocials(); // Ocultar o mostrar las redes sociales al cargar la app
         });
 
         function setDateTime() {
