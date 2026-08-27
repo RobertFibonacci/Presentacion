@@ -169,7 +169,6 @@
         }
         .btn-cambiar-portada:hover { background: rgba(0,0,0,0.5); transform: scale(1.05); }
 
-        /* Avatar incrementado a 150px para mayor presencia */
         .avatar-container { position: relative; width: 150px; height: 150px; margin: 0 auto 15px; z-index: 1; }
         
         .avatar-img {
@@ -190,7 +189,6 @@
         .profile-name { font-size: 22px; font-weight: 800; color: #3E3E61; margin-bottom: 2px; z-index: 1; position: relative; line-height: 1.2; }
         .profile-role { font-size: 13px; font-weight: 800; color: #888; text-transform: uppercase; letter-spacing: 1px; z-index: 1; position: relative; }
         
-        /* Acabado premium unificado para todas las píldoras (redes sociales y contacto) */
         .pill-contact {
             display: inline-flex; align-items: center; gap: 6px;
             background: rgba(241, 245, 249, 0.95); 
@@ -318,7 +316,18 @@
             border-bottom: 1px dashed rgba(255,255,255,0.4);
             cursor: text;
         }
-        /* Fix especial para los spans editables dentro de la tarjeta blanca */
+        
+        /* FIX 1: Estilo claro para los campos de precios durante la edición */
+        body.edit-mode-active .price-val-element {
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed rgba(255,255,255,0.6);
+            padding: 4px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 80px;
+            cursor: text;
+        }
+
         body.edit-mode-active .profile-card .editable-text {
             background: rgba(0,0,0,0.05);
             border-bottom: 1px dashed rgba(0,0,0,0.3);
@@ -1204,17 +1213,23 @@
                     <div class="absolute inset-0 bg-slate-50 opacity-50 z-0 pointer-events-none"></div>
                     
                     <div class="relative z-10">
-                        <!-- Cabecera Ejecutiva: Dinámica con la Zona 2 -->
+                        <!-- FIX 3: Cabecera Ejecutiva - Se agregó Descuento y botones organizados -->
                         <div class="flex items-center gap-4 mb-8 border-b-2 border-slate-200 pb-6">
                             <img src="" id="doc-avatar-sync" class="w-16 h-16 rounded-full object-cover border-2 border-slate-300 shadow-sm" alt="Avatar">
                             <div class="flex flex-col">
                                 <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Propuesta Comercial</span>
                                 <span id="doc-name-sync" class="text-2xl font-black text-[#3E3E61] leading-tight">Nombre del Asesor</span>
                             </div>
-                            <!-- Botón para calcular, discreto en la esquina -->
-                            <button onclick="calcularCotizacion()" class="ml-auto bg-[#3E3E61] text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-slate-700 transition outline-none flex items-center gap-2 text-xs edit-only">
-                                <i class="fas fa-sync-alt text-white"></i> Actualizar Cotización
-                            </button>
+                            <!-- CONTENEDOR NUEVO PARA BOTÓN Y DESCUENTO -->
+                            <div class="ml-auto flex flex-col items-end gap-2 edit-only">
+                                <button onclick="calcularCotizacion()" class="bg-[#3E3E61] text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-slate-700 transition outline-none flex items-center gap-2 text-xs">
+                                    <i class="fas fa-sync-alt text-white"></i> Actualizar Cotización
+                                </button>
+                                <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 shadow-inner">
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase">Descuento: $</span>
+                                    <span id="doc-discount" class="editable-text text-[#3E3E61] font-bold text-sm min-w-[40px] outline-none text-right" contenteditable="false" oninput="saveCurrentState()">0</span>
+                                </div>
+                            </div>
                         </div>
                         
                         <h3 class="text-xl font-bold text-[#3E3E61] mb-6 flex items-center gap-2"><i class="fas fa-list-check text-[#3E3E61]"></i> Resumen de Entregables</h3>
@@ -1467,7 +1482,8 @@
             'nav-text-1', 'nav-text-2', 'nav-text-3', 'nav-text-4', 'nav-text-5', 'nav-text-6', 'nav-text-7',
             'prof-social-fb', 'prof-social-ig', 'prof-social-tt', 'prof-social-yt', 'prof-social-x', 'prof-social-th', 'prof-social-li',
             'prof-name', 'prof-role', 'prof-wa', 'prof-mail', 'prof-loc',
-            'summary-list-container' 
+            'summary-list-container', 
+            'doc-discount' /* FIX: Añadido al array para que se guarde */
         ];
         const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
@@ -1516,6 +1532,7 @@
             syncWhiteDocumentHeaders(); 
         }
 
+        // FIX 2: Limpieza de espacios invisibles
         function checkEmptySocials() {
             const fields = [
                 { id: 'prof-social-fb', pill: 'pill-fb' },
@@ -1534,6 +1551,12 @@
                 const span = document.getElementById(f.id);
                 const pill = document.getElementById(f.pill);
                 if(span && pill) {
+                    // Limpieza quirúrgica de HTML oculto
+                    let cleanHTML = span.innerHTML.replace(/<br\s*\/?>/gi, '').replace(/&nbsp;/g, '').trim();
+                    if(cleanHTML === '') {
+                        span.innerHTML = ''; // Forzar vacío total
+                    }
+                    
                     const text = span.innerText.trim();
                     if(text === '') {
                         pill.style.display = isEditMode ? 'inline-flex' : 'none';
@@ -1544,7 +1567,6 @@
             });
         }
 
-        // Función para sincronizar datos al Documento Blanco
         function syncWhiteDocumentHeaders() {
             const profileName = document.getElementById('prof-name');
             const docName = document.getElementById('doc-name-sync');
@@ -1633,7 +1655,7 @@
                 if (newHeight < 100) newHeight = 100;
                 
                 covers.forEach(c => c.style.height = newHeight + 'px');
-                cards.forEach(c => c.style.paddingTop = (newHeight - 70) + 'px'); // Ajuste por avatar de 150px
+                cards.forEach(c => c.style.paddingTop = (newHeight - 70) + 'px'); 
             };
             img.src = src;
         }
@@ -1972,11 +1994,11 @@
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
-        // FUNCION DE CALCULADORA INTELIGENTE (DOCUMENTO BLANCO)
+        // FIX 3: FUNCION DE CALCULADORA INTELIGENTE ACTUALIZADA (Descuentos añadidos)
         function calcularCotizacion() {
             const productCards = document.querySelectorAll('#z7-products-container .product-card');
             
-            let total = 0;
+            let subtotal = 0;
             let htmlList = `<div class="w-full flex flex-col gap-2">`;
             
             productCards.forEach((card) => {
@@ -1992,7 +2014,7 @@
                 let priceVal = parseFloat(numStr);
                 if(isNaN(priceVal)) priceVal = 0;
                 
-                total += priceVal;
+                subtotal += priceVal;
                 
                 // Buscar miniatura (si hay imagen o usamos un placeholder bonito)
                 let imgSrc = imgElement && !imgElement.classList.contains('hidden') ? imgElement.src : 'https://placehold.co/100x100/f1f5f9/94a3b8?text=Item';
@@ -2006,8 +2028,36 @@
                 `;
             });
             
+            // LECTURA DEL DESCUENTO
+            const discountSpan = document.getElementById('doc-discount');
+            let discountVal = 0;
+            if(discountSpan) {
+                let discStr = discountSpan.innerText.replace(/[^0-9.-]+/g,"");
+                discountVal = parseFloat(discStr);
+                if(isNaN(discountVal)) discountVal = 0;
+            }
+
+            let total = subtotal - discountVal;
+            if(total < 0) total = 0;
+            
+            // SI HAY DESCUENTO, AGREGAR FILAS AL HTML
+            if(discountVal > 0) {
+                htmlList += `
+                    <div class="flex justify-between items-center mt-4 pt-4 border-t border-slate-200 border-dashed">
+                        <span class="text-slate-500 text-sm font-bold uppercase tracking-wider">Subtotal</span>
+                        <span class="text-slate-600 font-bold text-lg">$${subtotal.toLocaleString('en-US')} USD</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-2 pb-2">
+                        <span class="text-brand-success text-sm font-bold uppercase tracking-wider">Descuento Especial</span>
+                        <span class="text-brand-success font-bold text-lg drop-shadow-sm">-$${discountVal.toLocaleString('en-US')} USD</span>
+                    </div>
+                `;
+            } else {
+                htmlList += `<div class="mt-4 pt-4 border-t border-slate-200 border-dashed hidden"></div>`;
+            }
+
             htmlList += `
-                <div class="flex justify-between items-center mt-6 pt-4 border-t-2 border-[#3E3E61]">
+                <div class="flex justify-between items-center mt-2 pt-4 border-t-2 border-[#3E3E61]">
                     <span class="text-[#3E3E61] text-lg font-black uppercase tracking-wider">Inversión Total</span>
                     <span class="text-brand-success font-black text-2xl drop-shadow-sm">$${total.toLocaleString('en-US')} USD</span>
                 </div>
@@ -2306,7 +2356,7 @@
                     try {
                         const loadedData = JSON.parse(evt.target.result);
                         if(loadedData.id && loadedData.name && loadedData.data) {
-                            loadedData.id = Date.now().toString(); // Asigna nuevo ID para evitar colisiones
+                            loadedData.id = Date.now().toString(); 
                             loadedData.name = loadedData.name + " (Importado)";
                             await dbPut('profiles', loadedData);
                             alert("Perfil importado con éxito: " + loadedData.name);
