@@ -316,8 +316,8 @@
             border-bottom: 1px dashed rgba(255,255,255,0.4);
             cursor: text;
         }
-        
-        /* FIX 1: Estilo claro para los campos de precios durante la edición */
+
+        /* Estilo claro para los campos de precios durante la edición */
         body.edit-mode-active .price-val-element {
             background: rgba(0,0,0,0.2);
             border: 1px dashed rgba(255,255,255,0.6);
@@ -1040,7 +1040,7 @@
                             </button>
                         </div>
                         <div class="hidden acc-content p-5 pt-0 border-t border-white/10 bg-brand-dark/30">
-                            <p id="z5-acc-phone" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-center text-[24px] md:text-[32px] font-black text-white tracking-widest outline-none editable-text">
+                            <p id="z5-acc-phone" contenteditable="false" oninput="saveCurrentState()" class="mt-4 text-center text-[24px] md:text-[32px] font-bold text-white tracking-widest outline-none editable-text">
                                 +52 55 0000 0000
                             </p>
                         </div>
@@ -1104,7 +1104,7 @@
                 
                 <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
                     
-                    <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
+                    <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block">
                         <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-red-800 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                         
                         <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
@@ -1127,7 +1127,7 @@
                             </label>
                         </div>
                         
-                        <div class="flex flex-col flex-1 w-full shrink-0">
+                        <div class="flex flex-col flex-1 w-full shrink-0 accordion-wrapper">
                             <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
                                 <span id="z7-title-1" contenteditable="false" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text prod-title-element">Escaparate Digital</span>
                                 <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
@@ -1182,18 +1182,12 @@
                             </div>
                         </div>
                         
-                        <div class="h-16 shrink-0 w-full opacity-0 pointer-events-none"></div>
+                        <div class="h-8 shrink-0 w-full opacity-0 pointer-events-none"></div>
                         
-                        <div class="bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full mt-auto accordion-wrapper">
-                            <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors cursor-pointer" onclick="toggleAccordion(this)">
-                                <span class="text-xs md:text-sm text-white/80 uppercase tracking-widest font-bold block">Inversión Requerida</span>
-                                <button class="p-1 text-white outline-none flex-shrink-0 z-10 pointer-events-none">
-                                    <i class="fas fa-chevron-down transition-transform duration-300 transform text-white/80"></i>
-                                </button>
-                            </div>
-                            <div class="hidden acc-content p-4 pt-0 text-center">
-                                <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-white editable-text price-val-element">$0,000 USD</div>
-                            </div>
+                        <!-- FIX: PRECIO SIEMPRE VISIBLE SIN ACORDEÓN -->
+                        <div class="bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full mt-auto p-4 flex justify-between items-center">
+                            <span class="text-xs md:text-sm text-white/80 uppercase tracking-widest font-bold block">Inversión Requerida</span>
+                            <div id="z7-price-1" contenteditable="false" class="text-2xl font-black text-white editable-text price-val-element text-right" oninput="saveCurrentState()">$0,000 MXN</div>
                         </div>
                     </div>
                 </div>
@@ -1213,14 +1207,13 @@
                     <div class="absolute inset-0 bg-slate-50 opacity-50 z-0 pointer-events-none"></div>
                     
                     <div class="relative z-10">
-                        <!-- FIX 3: Cabecera Ejecutiva - Se agregó Descuento y botones organizados -->
                         <div class="flex items-center gap-4 mb-8 border-b-2 border-slate-200 pb-6">
                             <img src="" id="doc-avatar-sync" class="w-16 h-16 rounded-full object-cover border-2 border-slate-300 shadow-sm" alt="Avatar">
                             <div class="flex flex-col">
                                 <span class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Propuesta Comercial</span>
                                 <span id="doc-name-sync" class="text-2xl font-black text-[#3E3E61] leading-tight">Nombre del Asesor</span>
                             </div>
-                            <!-- CONTENEDOR NUEVO PARA BOTÓN Y DESCUENTO -->
+                            <!-- CONTENEDOR PARA BOTÓN Y DESCUENTO -->
                             <div class="ml-auto flex flex-col items-end gap-2 edit-only">
                                 <button onclick="calcularCotizacion()" class="bg-[#3E3E61] text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-slate-700 transition outline-none flex items-center gap-2 text-xs">
                                     <i class="fas fa-sync-alt text-white"></i> Actualizar Cotización
@@ -1242,8 +1235,9 @@
                         <!-- Pie de página legal y firma -->
                         <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
                             <div class="flex-1">
+                                <!-- FIX: Nuevas notas legales -->
                                 <p class="text-[11px] text-slate-500 text-justify leading-relaxed italic">
-                                    Aviso importante: Los montos de inversión aquí expresados son netos y no incluyen el Impuesto al Valor Agregado (IVA). En caso de requerir comprobante fiscal, se adicionará el porcentaje correspondiente vigente al momento de la facturación.
+                                    Aviso importante: Los precios están sujetos a cambios sin previo aviso. Vigencia de cotización: 1 semana. Los precios están expresados en pesos mexicanos (MXN) y es de pago de contado anticipado.
                                 </p>
                             </div>
                             <div class="shrink-0 flex flex-col items-center">
@@ -1482,8 +1476,9 @@
             'nav-text-1', 'nav-text-2', 'nav-text-3', 'nav-text-4', 'nav-text-5', 'nav-text-6', 'nav-text-7',
             'prof-social-fb', 'prof-social-ig', 'prof-social-tt', 'prof-social-yt', 'prof-social-x', 'prof-social-th', 'prof-social-li',
             'prof-name', 'prof-role', 'prof-wa', 'prof-mail', 'prof-loc',
-            'summary-list-container', 
-            'doc-discount' /* FIX: Añadido al array para que se guarde */
+            'summary-list-container',
+            'z7-price-1', /* Agregado el precio hardcodeado */
+            'doc-discount' /* Agregado el descuento al state */
         ];
         const CRM_STAR_IDS = ['comp1-stars', 'comp2-stars', 'comp3-stars', 'own1-stars', 'own2-stars', 'own3-stars'];
         const CRM_ICON_IDS = ['comp1-btn-1', 'comp1-btn-2', 'comp2-btn-1', 'comp2-btn-2', 'comp3-btn-1', 'own1-btn-1', 'own1-btn-2', 'own2-btn-1', 'own3-btn-1'];
@@ -1532,7 +1527,7 @@
             syncWhiteDocumentHeaders(); 
         }
 
-        // FIX 2: Limpieza de espacios invisibles
+        // FIX: Limpieza quirúrgica del contenido de las burbujas vacías
         function checkEmptySocials() {
             const fields = [
                 { id: 'prof-social-fb', pill: 'pill-fb' },
@@ -1551,10 +1546,10 @@
                 const span = document.getElementById(f.id);
                 const pill = document.getElementById(f.pill);
                 if(span && pill) {
-                    // Limpieza quirúrgica de HTML oculto
+                    // Limpieza de etiquetas huérfanas invisibles
                     let cleanHTML = span.innerHTML.replace(/<br\s*\/?>/gi, '').replace(/&nbsp;/g, '').trim();
                     if(cleanHTML === '') {
-                        span.innerHTML = ''; // Forzar vacío total
+                        span.innerHTML = '';
                     }
                     
                     const text = span.innerText.trim();
@@ -1869,13 +1864,20 @@
             saveCurrentState();
         }
 
+        // FIX: Agregado el ID dinámico al arreglo CRM_TEXT_IDS cuando se crea para garantizar autoguardado.
         function addProductCard() {
             const container = document.getElementById('z7-products-container');
             if(!container) return;
             const id = 'prod_' + Date.now();
+            const priceId = 'z7-price-' + id;
+            
+            // Añadir dinámicamente al arreglo de autoguardado
+            if(!CRM_TEXT_IDS.includes(priceId)) {
+                CRM_TEXT_IDS.push(priceId);
+            }
             
             const html = `
-                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block accordion-wrapper">
+                <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block">
                     <button onclick="this.closest('.dynamic-block').remove(); saveCurrentState();" class="edit-only absolute -top-3 -right-3 w-8 h-8 bg-[#1e1e2f] hover:bg-slate-700 rounded-full text-white shadow-lg hidden group-hover:flex items-center justify-center z-50 transition-colors border border-white/30 outline-none"><i class="fas fa-trash text-xs text-white"></i></button>
                     
                     <div class="w-full min-h-[12rem] h-auto bg-black/40 flex flex-col items-center justify-center border-b border-white/20 relative shrink-0 rounded-t-2xl overflow-hidden">
@@ -1898,7 +1900,7 @@
                         </label>
                     </div>
                     
-                    <div class="flex flex-col flex-1 w-full shrink-0">
+                    <div class="flex flex-col flex-1 w-full shrink-0 accordion-wrapper">
                         <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors border-b border-white/10">
                             <span contenteditable="${isEditMode}" class="font-bold text-white text-[16px] text-center flex-1 outline-none editable-text prod-title-element">Nombre del Producto</span>
                             <button onclick="toggleAccordion(this)" class="p-2 -mr-2 text-white outline-none flex-shrink-0 cursor-pointer z-10">
@@ -1931,18 +1933,12 @@
                         </div>
                     </div>
                     
-                    <div class="h-16 shrink-0 w-full opacity-0 pointer-events-none"></div>
+                    <div class="h-8 shrink-0 w-full opacity-0 pointer-events-none"></div>
                     
-                    <div class="bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full mt-auto accordion-wrapper">
-                        <div class="w-full flex justify-between items-center p-4 hover:bg-white/5 transition-colors cursor-pointer" onclick="toggleAccordion(this)">
-                            <span class="text-xs md:text-sm text-white/80 uppercase tracking-widest font-bold block">Inversión Requerida</span>
-                            <button class="p-1 text-white outline-none flex-shrink-0 z-10 pointer-events-none">
-                                <i class="fas fa-chevron-down transition-transform duration-300 transform text-white/80"></i>
-                            </button>
-                        </div>
-                        <div class="hidden acc-content p-4 pt-0 text-center">
-                            <div contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text price-val-element">$0,000 USD</div>
-                        </div>
+                    <!-- FIX: PRECIO SIEMPRE VISIBLE SIN ACORDEÓN -->
+                    <div class="bg-[#1e1e2f] border-t border-white/10 shrink-0 w-full mt-auto p-4 flex justify-between items-center">
+                        <span class="text-xs md:text-sm text-white/80 uppercase tracking-widest font-bold block">Inversión Requerida</span>
+                        <div id="${priceId}" contenteditable="${isEditMode}" class="text-2xl font-black text-white editable-text price-val-element text-right" oninput="saveCurrentState()">$0,000 MXN</div>
                     </div>
                 </div>
             `;
@@ -1994,7 +1990,7 @@
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
-        // FIX 3: FUNCION DE CALCULADORA INTELIGENTE ACTUALIZADA (Descuentos añadidos)
+        // FIX: Función de cálculo que ahora lee el descuento y resta del subtotal, en MXN
         function calcularCotizacion() {
             const productCards = document.querySelectorAll('#z7-products-container .product-card');
             
@@ -2009,21 +2005,20 @@
                 const title = titleElement ? titleElement.innerText.trim() : 'Producto sin nombre';
                 const priceText = priceElement ? priceElement.innerText.trim() : '0';
                 
-                // Limpiar el texto del precio (quita $, comas, USD y deja solo el numero)
+                // Extrae sólo números (permite decimales)
                 let numStr = priceText.replace(/[^0-9.-]+/g,"");
                 let priceVal = parseFloat(numStr);
                 if(isNaN(priceVal)) priceVal = 0;
                 
                 subtotal += priceVal;
                 
-                // Buscar miniatura (si hay imagen o usamos un placeholder bonito)
                 let imgSrc = imgElement && !imgElement.classList.contains('hidden') ? imgElement.src : 'https://placehold.co/100x100/f1f5f9/94a3b8?text=Item';
 
                 htmlList += `
                     <div class="flex items-center gap-3 border-b border-slate-200 border-dashed pb-2 pt-1">
                         <img src="${imgSrc}" class="w-10 h-10 rounded-md object-cover shadow-sm shrink-0 border border-slate-200" alt="${title}">
                         <span class="text-[#3E3E61] text-[15px] font-medium flex-1">${title}</span>
-                        <span class="text-[#3E3E61] font-bold text-[15px] whitespace-nowrap">$${priceVal.toLocaleString('en-US')} USD</span>
+                        <span class="text-[#3E3E61] font-bold text-[15px] whitespace-nowrap">$${priceVal.toLocaleString('en-US')} MXN</span>
                     </div>
                 `;
             });
@@ -2040,16 +2035,15 @@
             let total = subtotal - discountVal;
             if(total < 0) total = 0;
             
-            // SI HAY DESCUENTO, AGREGAR FILAS AL HTML
             if(discountVal > 0) {
                 htmlList += `
                     <div class="flex justify-between items-center mt-4 pt-4 border-t border-slate-200 border-dashed">
                         <span class="text-slate-500 text-sm font-bold uppercase tracking-wider">Subtotal</span>
-                        <span class="text-slate-600 font-bold text-lg">$${subtotal.toLocaleString('en-US')} USD</span>
+                        <span class="text-slate-600 font-bold text-lg">$${subtotal.toLocaleString('en-US')} MXN</span>
                     </div>
                     <div class="flex justify-between items-center mt-2 pb-2">
                         <span class="text-brand-success text-sm font-bold uppercase tracking-wider">Descuento Especial</span>
-                        <span class="text-brand-success font-bold text-lg drop-shadow-sm">-$${discountVal.toLocaleString('en-US')} USD</span>
+                        <span class="text-brand-success font-bold text-lg drop-shadow-sm">-$${discountVal.toLocaleString('en-US')} MXN</span>
                     </div>
                 `;
             } else {
@@ -2059,14 +2053,14 @@
             htmlList += `
                 <div class="flex justify-between items-center mt-2 pt-4 border-t-2 border-[#3E3E61]">
                     <span class="text-[#3E3E61] text-lg font-black uppercase tracking-wider">Inversión Total</span>
-                    <span class="text-brand-success font-black text-2xl drop-shadow-sm">$${total.toLocaleString('en-US')} USD</span>
+                    <span class="text-brand-success font-black text-2xl drop-shadow-sm">$${total.toLocaleString('en-US')} MXN</span>
                 </div>
             </div>`;
             
             const container = document.getElementById('summary-list-container');
             if(container) {
                 container.innerHTML = htmlList;
-                saveCurrentState(); // Guardamos el nuevo resumen en la DB
+                saveCurrentState(); 
             }
         }
 
@@ -2724,14 +2718,12 @@
             }
         });
 
-        // 5. INICIALIZADOR PRINCIPAL MODIFICADO
         window.addEventListener('DOMContentLoaded', async () => {
             await initIndexedDB(); 
             await loadTempStateFromDB(); 
             
             setupImportEmi(); 
 
-            // Restauramos el ID del perfil activo desde la memoria
             activeProfileId = window.CRM_STATE['prospecta_active_profile_id'] || null;
             
             initBackgroundStars(); 
