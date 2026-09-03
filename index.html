@@ -14,7 +14,12 @@
     <link rel="apple-touch-icon" href="icono.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script>
+        window.FontAwesomeConfig = { autoReplaceSvg: false, observeMutations: false };
+    </script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/fontawesome.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/brands.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -200,6 +205,19 @@
         }
         .pill-contact:hover { background: #e2e8f0; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
 
+        .social-pill > i,
+        .social-pill > svg,
+        #pill-wa > i,
+        #pill-wa > svg {
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            font-size: 18px;
+            line-height: 1;
+            flex: 0 0 18px;
+            text-align: center;
+        }
+
         body.edit-mode-active .social-pill span:empty:before,
         body.edit-mode-active .pill-contact span:empty:before {
             content: attr(data-placeholder);
@@ -259,6 +277,7 @@
             gap: 0.75rem;
             align-items: flex-start;
             position: relative;
+            min-width: 0;
         }
         .icon-selector {
             padding: 0.25rem 0.5rem;
@@ -310,6 +329,87 @@
             line-height: 1.4;
         }
 
+        #comp-carousel-container .review-point > .editable-text,
+        #own-carousel-container .review-point > .editable-text {
+            min-width: 0;
+            width: 100%;
+            font-size: 16px;
+            line-height: 1.55;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        #comp-carousel-container .review-point > .icon-selector,
+        #own-carousel-container .review-point > .icon-selector,
+        #comp-carousel-container .review-point > button,
+        #own-carousel-container .review-point > button {
+            flex-shrink: 0;
+        }
+
+        .comparison-media-gallery {
+            width: 100%;
+            margin: 0.15rem 0 0.35rem;
+        }
+
+        body:not(.edit-mode-active) .comparison-media-gallery.is-empty {
+            display: none;
+        }
+
+        .comparison-media-track {
+            display: flex;
+            width: 100%;
+            gap: 0.75rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            border-radius: 0.85rem;
+        }
+
+        .comparison-media-item {
+            position: relative;
+            flex: 0 0 100%;
+            min-height: 170px;
+            max-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            scroll-snap-align: center;
+            border-radius: 0.85rem;
+            background: rgba(0, 0, 0, 0.38);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .comparison-media-item img {
+            width: 100%;
+            height: auto;
+            max-height: 360px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .comparison-media-add {
+            width: 100%;
+            min-height: 76px;
+            border: 1.5px dashed rgba(255, 255, 255, 0.45);
+            border-radius: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-media-gallery:not(.is-empty) .comparison-media-add {
+            min-height: auto;
+            margin-top: 0.65rem;
+            padding: 0.6rem;
+        }
+
         body.edit-mode-active .editable-text, 
         body.edit-mode-active [contenteditable="true"] {
             background: rgba(255,255,255,0.08);
@@ -357,6 +457,8 @@
         }
 
         .media-preview-box { width: 100%; min-height: 200px; max-height: 380px; background: #000; border: 1.5px dashed rgba(255,255,255,0.3); border-radius: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+        .media-preview-box.image-block-preview { max-height: none; }
+        .media-preview-box.image-block-preview > img { width: 100%; height: auto; max-height: none !important; object-fit: contain; display: block; }
         .video-controls { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 10; background: rgba(0,0,0,0.6); padding: 8px 16px; border-radius: 25px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); }
         .video-ctrl-btn { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; outline: none;}
         .audio-pro-container { width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
@@ -401,10 +503,6 @@
                 </button>
                 
                 <div class="h-px w-full bg-white/20 my-1"></div>
-
-                <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('guion'); toggleMainMenu();" class="w-full text-white hover:text-white hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
-                    <i class="fas fa-user-tie w-5 text-center text-white"></i> <span class="font-semibold text-sm">Mi Guión (Teleprompter)</span>
-                </button>
 
                 <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('perfiles'); toggleMainMenu();" class="w-full text-white hover:text-white hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
                     <i class="fas fa-users w-5 text-center text-white"></i> <span class="font-semibold text-sm">Mis Perfiles CRM</span>
@@ -908,10 +1006,10 @@
                     </div>
                 </div>
 
-                <div class="w-full mt-8 border-t border-white/20 pt-8">
+                <div id="legacy-evidence-section" class="edit-only w-full mt-8 border-t border-white/20 pt-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
                         <i class="fas fa-camera-retro text-[1.2em] text-white drop-shadow"></i>
-                        <h3 class="text-xl md:text-2xl font-bold text-white">Tu Situación Actual (Evidencias)</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-white">Evidencias anteriores (compatibilidad)</h3>
                     </div>
                     
                     <div class="carousel-container no-scrollbar" id="evid-carousel-container">
@@ -1252,35 +1350,19 @@
 
         </div>
 
-        <div id="notes-sidebar" class="w-0 md:w-96 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
-            <div class="flex border-b border-white shrink-0">
-                <button onclick="switchSidebarTab('guion')" id="tab-guion" class="flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-user-tie text-[1.2em] text-white"></i> Guión
-                </button>
-                <button onclick="switchSidebarTab('perfiles')" id="tab-perfiles" class="flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none">
-                    <i class="fas fa-users text-[1.2em] text-white"></i> Perfiles
-                </button>
+        <div id="notes-sidebar" class="w-0 bg-brand-panel border-l border-white flex flex-col transition-all duration-300 overflow-hidden absolute right-0 top-0 bottom-0 z-10 sm:relative shadow-2xl">
+            <div class="flex items-center justify-between border-b border-white shrink-0 bg-brand-primary">
+                <div class="flex-1 p-4 font-bold text-white flex items-center gap-2">
+                    <i class="fas fa-users text-[1.2em] text-white"></i> Mis Perfiles CRM
+                </div>
                 <button onclick="toggleNotes()" class="p-4 text-white hover:text-slate-300 bg-brand-dark border-l border-white/20 outline-none">
                     <i class="fas fa-times text-[1.2em] text-white"></i>
                 </button>
             </div>
-            
-            <div id="script-toolbar" class="flex justify-between items-center p-3 bg-[#2A2A42] border-b border-white/20 shrink-0">
-                <span class="text-white/70 text-xs font-bold uppercase tracking-wider">Tamaño de Letra</span>
-                <div class="flex gap-2">
-                    <button onclick="changeScriptSize(-1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10 outline-none"><i class="fas fa-minus text-white"></i></button>
-                    <button onclick="changeScriptSize(1)" class="w-8 h-8 bg-brand-primary text-white rounded-lg hover:bg-brand-dark transition-colors flex items-center justify-center shadow-md border border-white/10 outline-none"><i class="fas fa-plus text-white"></i></button>
-                </div>
-            </div>
 
-            <div class="flex-1 overflow-y-auto p-6 text-white text-sm leading-relaxed transition-all duration-300 outline-none" id="script-content" contenteditable="false"></div>
+            <div class="hidden" id="script-content" contenteditable="false" aria-hidden="true"></div>
             
-            <div class="hidden flex-1 overflow-y-auto p-4 space-y-3 bg-brand-dark/50" id="profiles-content"></div>
-
-            <div class="p-4 bg-brand-panel border-t border-white flex justify-between shrink-0" id="sidebar-footer">
-                <button onclick="prevSlide()" class="px-4 py-2 bg-brand-dark hover:bg-brand-primary border border-white rounded text-white transition outline-none">Anterior</button>
-                <button onclick="nextSlide()" class="px-4 py-2 bg-white text-brand-dark font-bold rounded transition shadow-md hover:bg-slate-200 outline-none">Siguiente</button>
-            </div>
+            <div class="flex-1 overflow-y-auto p-4 space-y-3 bg-brand-dark/50" id="profiles-content"></div>
         </div>
 
     </main>
@@ -1562,6 +1644,92 @@
             });
         }
 
+        function renderSocialIconsAsSvg() {
+            if (!window.FontAwesome || !window.FontAwesome.dom) return;
+            document.querySelectorAll('#social-pills-container .social-pill, #pill-wa').forEach(container => {
+                window.FontAwesome.dom.i2svg({ node: container });
+            });
+        }
+
+        function createComparisonMediaGallery() {
+            const gallery = document.createElement('div');
+            gallery.className = 'comparison-media-gallery is-empty';
+            gallery.setAttribute('data-comparison-gallery', 'true');
+            gallery.innerHTML = `
+                <div class="comparison-media-track no-scrollbar"></div>
+                <label class="comparison-media-add edit-only">
+                    <i class="fas fa-images text-white"></i>
+                    <span>Agregar imágenes</span>
+                    <input type="file" accept="image/*" multiple class="hidden" onchange="cargarImagenesComparativa(event, this.closest('.comparison-media-gallery'))">
+                </label>
+            `;
+            return gallery;
+        }
+
+        function syncComparisonGalleryVisibility(root = document) {
+            const galleries = [];
+            if (root.matches && root.matches('.comparison-media-gallery')) galleries.push(root);
+            galleries.push(...root.querySelectorAll('.comparison-media-gallery'));
+            galleries.forEach(gallery => {
+                gallery.classList.toggle('is-empty', !gallery.querySelector('.comparison-media-item'));
+            });
+        }
+
+        function ensureComparisonMediaGalleries() {
+            const cards = document.querySelectorAll('#comp-carousel-container .carousel-card, #own-carousel-container .carousel-card');
+            cards.forEach(card => {
+                if (card.querySelector('.comparison-media-gallery')) return;
+                const stars = card.querySelector('.star-rating');
+                if (!stars) return;
+                card.insertBefore(createComparisonMediaGallery(), stars);
+            });
+            syncComparisonGalleryVisibility();
+        }
+
+        function createComparisonMediaItem(src) {
+            const item = document.createElement('div');
+            item.className = 'comparison-media-item';
+            item.innerHTML = `
+                <img src="${src}" alt="Evidencia comparativa" onclick="abrirEvidencia(event, this.src)">
+                <button type="button" class="edit-only absolute top-2 right-2 w-9 h-9 bg-[#1e1e2f]/90 hover:bg-red-800 rounded-full text-white shadow-lg flex items-center justify-center z-20 border border-white/30 outline-none" onclick="removeComparisonMedia(this)">
+                    <i class="fas fa-trash text-xs text-white"></i>
+                </button>
+            `;
+            return item;
+        }
+
+        function cargarImagenesComparativa(event, gallery) {
+            const files = Array.from(event.target.files || []).filter(file => file.type.startsWith('image/'));
+            if (!gallery || files.length === 0) return;
+
+            const track = gallery.querySelector('.comparison-media-track');
+            files.forEach(file => {
+                comprimirImagen(file, function(optimizedBase64) {
+                    track.appendChild(createComparisonMediaItem(optimizedBase64));
+                    syncComparisonGalleryVisibility(gallery);
+                    track.scrollTo({ left: track.scrollWidth, behavior: 'smooth' });
+                    saveCurrentState();
+                });
+            });
+            event.target.value = '';
+        }
+
+        function removeComparisonMedia(button) {
+            const gallery = button.closest('.comparison-media-gallery');
+            const item = button.closest('.comparison-media-item');
+            if (item) item.remove();
+            if (gallery) syncComparisonGalleryVisibility(gallery);
+            saveCurrentState();
+        }
+
+        function normalizeImageBlocks(root = document) {
+            root.querySelectorAll('.media-preview-box').forEach(box => {
+                if (box.querySelector('img[id^="img_block_"]')) {
+                    box.classList.add('image-block-preview');
+                }
+            });
+        }
+
         function syncWhiteDocumentHeaders() {
             const profileName = document.getElementById('prof-name');
             const docName = document.getElementById('doc-name-sync');
@@ -1833,7 +2001,7 @@
         }
 
         function addProductListItem(btn) {
-            const list = btn.previousElementSibling;
+            const list = btn.parentElement;
             const idSuffix = Date.now() + Math.floor(Math.random() * 1000);
             const btnId = 'pbtn_' + idSuffix;
             const iconId = 'picon_' + idSuffix;
@@ -1860,7 +2028,7 @@
                 <div class="editable-text text-white text-[15px] leading-relaxed outline-none" contenteditable="${isEditMode}">Nuevo beneficio</div>
                 <button class="edit-only text-white hover:text-slate-300 ml-2 outline-none self-start mt-1" onclick="this.closest('.review-point').remove(); saveCurrentState();"><i class="fas fa-trash text-white"></i></button>
             `;
-            list.appendChild(div);
+            list.insertBefore(div, btn);
             saveCurrentState();
         }
 
@@ -2301,6 +2469,10 @@
                     }
                 }
             }
+
+            ensureComparisonMediaGalleries();
+            normalizeImageBlocks();
+            checkEmptySocials();
             
             updateUI(); 
             syncWhiteDocumentHeaders();
@@ -2408,29 +2580,10 @@
         }
 
         function switchSidebarTab(tabName) {
-            const btnGuion = document.getElementById('tab-guion');
-            const btnPerfiles = document.getElementById('tab-perfiles');
-            const contentGuion = document.getElementById('script-content');
-            const toolbarGuion = document.getElementById('script-toolbar');
             const contentPerfiles = document.getElementById('profiles-content');
-            const footer = document.getElementById('sidebar-footer');
-
-            if(tabName === 'guion') {
-                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none";
-                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none";
-                contentGuion.classList.remove('hidden');
-                toolbarGuion.classList.remove('hidden');
-                contentPerfiles.classList.add('hidden');
-                footer.classList.remove('hidden');
-            } else {
-                btnPerfiles.className = "flex-1 p-4 text-center font-bold text-white bg-brand-primary flex items-center justify-center gap-2 outline-none";
-                btnGuion.className = "flex-1 p-4 text-center font-bold text-white bg-brand-dark hover:bg-brand-primary transition flex items-center justify-center gap-2 outline-none";
-                contentPerfiles.classList.remove('hidden');
-                contentGuion.classList.add('hidden');
-                toolbarGuion.classList.add('hidden');
-                footer.classList.add('hidden');
-                renderProfilesList();
-            }
+            if (!contentPerfiles) return;
+            contentPerfiles.classList.remove('hidden');
+            renderProfilesList();
         }
 
         function addBlock(type) {
@@ -2453,12 +2606,12 @@
             } else if(type === 'texto') {
                 html = `<div class="p-5"><p contenteditable="${isEditMode}" class="text-white text-[16px] md:text-[18px] leading-relaxed outline-none text-justify editable-text">Texto libre directo al lienzo...</p></div>`;
             } else if(type === 'imagen') {
-                html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
+                html = `<div class="media-preview-box image-block-preview min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
                             <label class="edit-only absolute inset-0 flex flex-col items-center justify-center bg-black/60 cursor-pointer text-white/70 hover:text-white hover:bg-black/80 transition z-10">
                                 <i class="fas fa-cloud-upload-alt text-4xl text-white mb-2"></i><span class="text-sm font-bold text-white">Subir Imagen Local</span>
                                 <input type="file" accept="image/*" class="hidden" onchange="loadBlockMedia(this, '${id}', 'imagen')">
                             </label>
-                            <img id="img_${id}" src="" class="w-full h-auto max-h-48 object-contain hidden">
+                            <img id="img_${id}" src="" class="w-full h-auto object-contain hidden cursor-pointer" onclick="abrirEvidencia(event, this.src)">
                         </div>`;
             } else if(type === 'video') {
                 html = `<div class="media-preview-box min-h-[200px] w-full bg-black/50 border-[1.5px] border-dashed border-white/30 rounded-xl relative flex justify-center items-center overflow-hidden">
@@ -2499,14 +2652,22 @@
         function loadBlockMedia(input, blockId, type) {
             const file = input.files[0];
             if(!file) return;
-            const url = URL.createObjectURL(file); 
-            
-            input.parentElement.classList.add('hidden');
 
             if(type === 'imagen') {
-                const img = document.getElementById('img_'+blockId);
-                img.src = url; img.classList.remove('hidden');
-            } else if(type === 'video') {
+                comprimirImagen(file, function(optimizedBase64) {
+                    const img = document.getElementById('img_'+blockId);
+                    img.src = optimizedBase64;
+                    img.classList.remove('hidden');
+                    input.parentElement.classList.add('hidden');
+                    saveCurrentState();
+                });
+                return;
+            }
+
+            const url = URL.createObjectURL(file);
+            input.parentElement.classList.add('hidden');
+
+            if(type === 'video') {
                 const vid = document.getElementById('vid_'+blockId);
                 vid.src = url; vid.classList.remove('hidden');
                 document.getElementById('ctrl_'+blockId).classList.remove('hidden');
@@ -2728,6 +2889,9 @@
             
             initBackgroundStars(); 
             loadCurrentState(); 
+            ensureComparisonMediaGalleries();
+            normalizeImageBlocks();
+            checkEmptySocials();
             
             const savedSize = window.CRM_STATE['prospecta_script_fontsize'];
             if (savedSize) {
@@ -2763,6 +2927,7 @@
             
             updateUI();
             syncWhiteDocumentHeaders(); 
+            renderSocialIconsAsSvg();
             renderProfilesList();
         });
 
@@ -2777,4 +2942,4 @@
         setDateTime(); 
     </script>
 </body>
-</html>
+</html>
