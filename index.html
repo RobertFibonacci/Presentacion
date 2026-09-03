@@ -363,28 +363,27 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             border-radius: 0.85rem;
+            align-items: flex-start;
         }
 
         .comparison-media-item {
             position: relative;
             flex: 0 0 100%;
-            min-height: 170px;
-            max-height: 360px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            min-height: 0;
+            max-height: none;
+            height: auto;
+            display: block;
             overflow: hidden;
             scroll-snap-align: center;
             border-radius: 0.85rem;
-            background: rgba(0, 0, 0, 0.38);
+            background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .comparison-media-item img {
             width: 100%;
             height: auto;
-            max-height: 360px;
-            object-fit: contain;
+            max-height: none;
             display: block;
         }
 
@@ -2942,4 +2941,4 @@
         setDateTime(); 
     </script>
 </body>
-</html>
+</html>
