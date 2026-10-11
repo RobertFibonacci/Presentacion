@@ -7,7 +7,7 @@
     
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#1e1e2f">
+    <meta name="theme-color" content="#050611">
     
     <!-- PWA Configuración -->
     <link rel="manifest" href="manifest.json">
@@ -26,14 +26,14 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#1e1e2f',       
-                            panel: '#2A2A42',      
-                            primary: '#3E3E61',    
+                            dark: '#050611',       
+                            panel: '#111126',      
+                            primary: '#19163B',    
                             accentText: '#FFFFFF', 
                             gold: '#FFFFFF',       
-                            success: '#4CAF50',    
-                            accent: '#FFFFFF',     
-                            cardPrimary: '#3E3E61' 
+                            success: '#63D7A6',    
+                            accent: '#A78BFA',     
+                            cardPrimary: '#19163B' 
                         }
                     },
                     fontFamily: {
@@ -469,6 +469,203 @@
         .v-bar:nth-child(3n) { animation-duration: 1s; animation-delay: 0.2s; }
         .v-bar:nth-child(4n) { animation-duration: 0.7s; animation-delay: 0.4s; }
         .play-pro-btn { width: 55px; height: 55px; border-radius: 50%; background: #3E3E61; border: 2px solid white; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.4); outline: none;}
+
+        /* Tema Prospecta 2026: misma identidad visual del sitio web */
+        :root {
+            --prospecta-night: #050611;
+            --prospecta-night-soft: #0b0b1d;
+            --prospecta-panel: #111126;
+            --prospecta-panel-strong: #19163b;
+            --prospecta-purple: #8b5cf6;
+            --prospecta-purple-light: #c4b5fd;
+            --prospecta-blue-soft: #78aee8;
+            --prospecta-line: rgba(196, 181, 253, 0.22);
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 50% 108%, rgba(139, 92, 246, 0.36), transparent 42%),
+                linear-gradient(180deg, var(--prospecta-night) 0%, #080817 58%, #130d32 100%);
+        }
+
+        header {
+            background: rgba(5, 6, 17, 0.9) !important;
+            border-bottom-color: var(--prospecta-line) !important;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28) !important;
+        }
+
+        #presentation-area {
+            background:
+                radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.22), transparent 36%),
+                transparent;
+        }
+
+        .bg-pattern-dark {
+            background-image:
+                linear-gradient(rgba(196, 181, 253, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(196, 181, 253, 0.035) 1px, transparent 1px),
+                radial-gradient(rgba(196, 181, 253, 0.34) 1px, transparent 1px);
+            background-size: 42px 42px, 42px 42px, 24px 24px;
+        }
+
+        .bg-brand-panel,
+        .carousel-card,
+        .product-card {
+            background-color: rgba(17, 17, 38, 0.88) !important;
+            border-color: var(--prospecta-line) !important;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24), 0 0 0 1px rgba(139, 92, 246, 0.04);
+            backdrop-filter: blur(14px);
+        }
+
+        .floating-bubble,
+        .bg-brand-primary {
+            background-color: rgba(25, 22, 59, 0.96) !important;
+        }
+
+        .bg-\[\#1e1e2f\] { background-color: var(--prospecta-night) !important; }
+        .bg-\[\#2A2A42\] { background-color: var(--prospecta-panel) !important; }
+        .bg-\[\#3E3E61\] { background-color: var(--prospecta-panel-strong) !important; }
+        .border-\[\#3E3E61\] { border-color: rgba(196, 181, 253, 0.26) !important; }
+
+        .floating-bubble {
+            border-color: rgba(196, 181, 253, 0.5);
+            box-shadow: 0 10px 28px rgba(139, 92, 246, 0.16);
+        }
+
+        .star-icon-menu,
+        .star-btn.fas {
+            color: var(--prospecta-purple-light);
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.85));
+        }
+
+        #progress-bar {
+            background: linear-gradient(90deg, #6d4ce8 0%, #a66df7 58%, #e2b6ff 100%) !important;
+            box-shadow: 0 0 18px rgba(166, 109, 247, 0.82);
+        }
+
+        footer {
+            background: rgba(5, 6, 17, 0.94) !important;
+            border-top-color: var(--prospecta-line) !important;
+            backdrop-filter: blur(18px);
+        }
+
+        .quick-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 7px;
+        }
+
+        .quick-action-btn {
+            min-width: 42px;
+            height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 0 12px;
+            border: 1px solid rgba(196, 181, 253, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            color: white;
+            font-size: 13px;
+            font-weight: 800;
+            transition: transform .18s ease, background .18s ease, border-color .18s ease;
+        }
+
+        .quick-action-btn:hover,
+        .quick-action-btn:focus-visible {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(196, 181, 253, 0.72);
+        }
+
+        .quick-action-btn:active { transform: scale(0.96); }
+        .quick-action-btn--primary {
+            background: linear-gradient(135deg, #6d4ce8 0%, #9b65f4 100%);
+            border-color: transparent;
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.28);
+        }
+
+        .app-toast {
+            position: fixed;
+            left: 50%;
+            bottom: 84px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            max-width: calc(100vw - 32px);
+            padding: 12px 17px;
+            border: 1px solid rgba(196, 181, 253, 0.34);
+            border-radius: 999px;
+            background: rgba(17, 17, 38, 0.96);
+            color: white;
+            box-shadow: 0 18px 55px rgba(0, 0, 0, 0.42), 0 0 30px rgba(139, 92, 246, 0.16);
+            font-size: 14px;
+            font-weight: 800;
+            opacity: 0;
+            pointer-events: none;
+            transform: translate(-50%, 14px);
+            transition: opacity .2s ease, transform .2s ease;
+        }
+
+        .app-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+        .profile-name-modal-card {
+            width: min(100%, 420px);
+            border: 1px solid rgba(196, 181, 253, 0.28);
+            border-radius: 24px;
+            background: linear-gradient(180deg, rgba(25, 22, 59, 0.98), rgba(10, 10, 27, 0.99));
+            box-shadow: 0 34px 100px rgba(0, 0, 0, 0.58), 0 0 55px rgba(139, 92, 246, 0.18);
+        }
+
+        .profile-name-input {
+            width: 100%;
+            min-height: 52px;
+            padding: 12px 15px;
+            border: 1px solid rgba(196, 181, 253, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.07);
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .profile-name-input:focus {
+            border-color: var(--prospecta-purple-light);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.18);
+        }
+
+        /* Legibilidad específica de la Auditoría Competitiva */
+        [data-slide="4"] > h2 { font-size: clamp(1.05rem, 3.4vw, 1.25rem) !important; }
+        [data-slide="4"] > h1 {
+            font-size: clamp(2.25rem, 8vw, 3.25rem) !important;
+            line-height: 1.05;
+            text-align: center;
+        }
+        [data-slide="4"] h3 { font-size: clamp(1.35rem, 5vw, 1.65rem) !important; }
+        [data-slide="4"] .carousel-card > .editable-text {
+            font-size: clamp(1.18rem, 4.5vw, 1.35rem) !important;
+            line-height: 1.35;
+        }
+        [data-slide="4"] .review-point > .editable-text {
+            font-size: clamp(1.08rem, 4vw, 1.2rem) !important;
+            line-height: 1.55 !important;
+        }
+        [data-slide="4"] .icon-selector { font-size: 1.08rem; }
+        [data-slide="4"] .star-btn { font-size: 1.65rem; }
+        [data-slide="4"] .comparison-media-add,
+        [data-slide="4"] .edit-only { font-size: 0.9rem; }
+        [data-slide="4"] > .mt-8.text-center { font-size: clamp(1.18rem, 4.5vw, 1.35rem) !important; }
+
+        @media (max-width: 767px) {
+            header { padding-left: 12px !important; padding-right: 12px !important; }
+            .quick-action-label { display: none; }
+            .quick-action-btn { padding: 0; }
+            .brand-name-menu { font-size: 19px; }
+            .brand-sub-menu { font-size: 7px; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -525,7 +722,15 @@
             <div class="brand-sub-menu">COMUNICA | PERSUADE | VENDE</div>
         </div>
 
-        <div class="flex-none flex items-center justify-end z-10 gap-2 md:gap-3 w-8">
+        <div class="quick-actions flex-none z-10">
+            <button type="button" id="quick-save-button" class="quick-action-btn quick-action-btn--primary" onclick="guardarPerfilRapido()" aria-label="Guardar perfil" title="Guardar perfil">
+                <i class="fas fa-floppy-disk text-white"></i>
+                <span class="quick-action-label">Guardar</span>
+            </button>
+            <button type="button" id="quick-share-button" class="quick-action-btn" onclick="compartirPerfilActual()" aria-label="Compartir perfil" title="Compartir perfil">
+                <i class="fas fa-share-nodes text-white"></i>
+                <span class="quick-action-label">Compartir</span>
+            </button>
         </div>
         
         <div class="absolute bottom-0 left-0 w-full h-1 bg-brand-panel">
@@ -541,11 +746,11 @@
             <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
                 <div class="text-center w-full mb-10">
                     <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
-                        TODOS HABLAN DE INTELIGENCIA ARTIFICIAL.
+                        IA APLICADA A VENTAS PARA NEGOCIOS
                     </span>
                     <div class="h-5"></div> 
                     <h1 class="text-[28px] md:text-[36px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
-                        CASI NADIE TE ENSEÑA A CONSTRUIR UN SISTEMA COMERCIAL CON ELLA.
+                        CONSTRUYE UN SISTEMA COMERCIAL PARA COMUNICAR, PERSUADIR Y VENDER MÁS FÁCIL CON IA.
                     </h1>
                 </div>
 
@@ -578,20 +783,20 @@
                 
                 <div class="w-full px-4 mb-12 flex flex-col gap-5">
                     <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-center md:text-justify drop-shadow-sm">
-                        Tener ChatGPT no significa vender.<br>
-                        Tener WhatsApp no significa prospectar.<br>
-                        Tener redes sociales no significa generar clientes.<br>
-                        Tener IA no significa tener un sistema comercial.
+                        Contenido que comunique tu valor.<br>
+                        Conversaciones que descubran qué necesita tu cliente.<br>
+                        Seguimiento que mantenga viva cada oportunidad.<br>
+                        Un proceso claro que conduzca hacia una decisión.
                     </p>
                     <div class="h-px w-full bg-white/20 my-2"></div>
                     <p class="text-[16px] md:text-[18px] font-bold text-white text-justify md:text-center drop-shadow-md">
-                        La Metodología Prospecta™ integra Inteligencia Artificial en cada etapa del proceso comercial para que dejes de depender de la improvisación y empieces a construir un sistema que convierta conversaciones en clientes.
+                        La Metodología Prospecta™ conecta contenido, conversación y seguimiento con Inteligencia Artificial dentro de un sistema comercial diseñado para tu negocio.
                     </p>
                 </div>
                 
                 <div class="w-full flex flex-col items-center mb-10">
                     <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
-                        <i class="fas fa-arrow-right text-brand-dark mr-1"></i> EVALUAR MI PROCESO AHORA
+                        <i class="fas fa-arrow-right text-brand-dark mr-1"></i> EVALUAR MI PROCESO COMERCIAL
                     </button>
                     <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
                         <i class="fas fa-clock text-white mr-1"></i> Toma menos de 3 minutos.
@@ -1392,6 +1597,32 @@
         </div>
     </footer>
 
+    <div id="app-toast" class="app-toast" role="status" aria-live="polite">
+        <i id="app-toast-icon" class="fas fa-check-circle text-[#c4b5fd]"></i>
+        <span id="app-toast-text">Perfil guardado</span>
+    </div>
+
+    <div id="profile-name-modal" class="hidden fixed inset-0 z-[210] items-center justify-center bg-black/75 backdrop-blur-md p-4" role="dialog" aria-modal="true" aria-labelledby="profile-name-title">
+        <div class="profile-name-modal-card p-6">
+            <div class="flex items-start justify-between gap-4 mb-5">
+                <div>
+                    <p class="text-[#c4b5fd] text-xs font-black uppercase tracking-[0.16em] mb-2">Primer guardado</p>
+                    <h3 id="profile-name-title" class="text-white text-2xl font-black mb-1">Nombra este perfil</h3>
+                    <p class="text-white/65 text-sm">Después podrás guardarlo o compartirlo con un solo toque.</p>
+                </div>
+                <button type="button" onclick="resolverNombrePerfil(null)" class="w-10 h-10 shrink-0 rounded-full border border-white/15 bg-white/5 text-white flex items-center justify-center" aria-label="Cancelar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <label for="profile-name-input" class="block text-sm font-bold text-white mb-2">Nombre del cliente o negocio</label>
+            <input id="profile-name-input" class="profile-name-input" type="text" maxlength="80" autocomplete="off" placeholder="Ej. Clínica Horizonte">
+            <div class="grid grid-cols-2 gap-3 mt-6">
+                <button type="button" onclick="resolverNombrePerfil(null)" class="min-h-[50px] rounded-xl border border-white/15 bg-white/5 text-white font-bold">Cancelar</button>
+                <button type="button" onclick="confirmarNombrePerfil()" class="min-h-[50px] rounded-xl bg-gradient-to-r from-[#6d4ce8] to-[#9b65f4] text-white font-black shadow-lg">Guardar perfil</button>
+            </div>
+        </div>
+    </div>
+
     <div id="evidencia-modal" class="fixed inset-0 bg-[#1e1e2f]/95 z-[100] hidden flex-col backdrop-blur-md">
         <div class="flex justify-between items-center p-4 bg-[#2A2A42] absolute top-0 w-full z-50 border-b border-white/20 shadow-lg">
             <button onclick="zoomEvidencia()" class="text-white bg-[#3E3E61] p-3 rounded-full w-12 h-12 flex items-center justify-center shadow-lg border border-white/30 outline-none"><i class="fas fa-search-plus text-xl text-white" id="zoom-icon"></i></button>
@@ -1439,6 +1670,60 @@
         window.CRM_STATE = {};
         let activeProfileId = null;
         let saveTimeout = null;
+        let profileNameResolver = null;
+        let toastTimeout = null;
+
+        function showAppToast(message, iconClass = 'fas fa-check-circle') {
+            const toast = document.getElementById('app-toast');
+            const text = document.getElementById('app-toast-text');
+            const icon = document.getElementById('app-toast-icon');
+            if(!toast || !text || !icon) return;
+
+            text.textContent = message;
+            icon.className = iconClass + ' text-[#c4b5fd]';
+            toast.classList.add('show');
+            if(toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => toast.classList.remove('show'), 2400);
+        }
+
+        function solicitarNombrePerfil() {
+            const modal = document.getElementById('profile-name-modal');
+            const input = document.getElementById('profile-name-input');
+            if(!modal || !input) return Promise.resolve(null);
+
+            input.value = '';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => input.focus(), 80);
+
+            return new Promise(resolve => {
+                profileNameResolver = resolve;
+            });
+        }
+
+        function resolverNombrePerfil(value) {
+            const modal = document.getElementById('profile-name-modal');
+            if(modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+            if(profileNameResolver) {
+                const resolve = profileNameResolver;
+                profileNameResolver = null;
+                resolve(value);
+            }
+        }
+
+        function confirmarNombrePerfil() {
+            const input = document.getElementById('profile-name-input');
+            const value = input ? input.value.trim() : '';
+            if(!value) {
+                showAppToast('Escribe el nombre del cliente o negocio', 'fas fa-circle-exclamation');
+                if(input) input.focus();
+                return;
+            }
+            resolverNombrePerfil(value);
+        }
 
         function initIndexedDB() {
             return new Promise((resolve, reject) => {
@@ -2284,9 +2569,9 @@
 
         async function saveChanges() {
             try {
+                saveCurrentState();
                 if(!activeProfileId) {
-                    promptSaveProfile(); 
-                    return;
+                    return await promptSaveProfile(); 
                 }
 
                 let productosHTML = '';
@@ -2314,7 +2599,7 @@
                 let profiles = await dbGetAll('profiles');
                 const profile = profiles.find(p => p.id === activeProfileId);
                 
-                if(!profile) { promptSaveProfile(); return; }
+                if(!profile) { return await promptSaveProfile(); }
 
                 profile.portada = window.CRM_STATE['prospecta_portada'] || '';
                 profile.avatar = window.CRM_STATE['prospecta_avatar'] || '';
@@ -2340,15 +2625,18 @@
                     setTimeout(() => { saveBtn.innerHTML = origHTML; }, 2000);
                 }
                 renderProfilesList();
+                return profile;
             } catch (error) {
                 console.error("Error al guardar los cambios:", error);
                 alert("Hubo un error al intentar guardar los cambios.");
+                return null;
             }
         }
 
         async function promptSaveProfile() {
             try {
-                const name = prompt("Guardar Nuevo Perfil\n\n¿Con qué nombre deseas guardar este perfil de cliente?");
+                saveCurrentState();
+                const name = await solicitarNombrePerfil();
                 if(!name || name.trim() === "") return;
                 
                 let productosHTML = '';
@@ -2399,16 +2687,13 @@
                 window.CRM_STATE['prospecta_active_profile_id'] = profile.id; 
                 saveTempStateToDB();
                 
-                alert("Perfil guardado exitosamente: " + profile.name);
                 renderProfilesList();
-                
-                if (!notesVisible) {
-                    toggleNotes();
-                }
-                switchSidebarTab('perfiles');
+                showAppToast('Perfil guardado: ' + profile.name);
+                return profile;
             } catch (error) {
                 console.error("Error al crear el perfil:", error);
                 alert("Hubo un error al intentar crear el nuevo perfil.");
+                return null;
             }
         }
 
@@ -2475,7 +2760,7 @@
             
             updateUI(); 
             syncWhiteDocumentHeaders();
-            alert("Perfil cargado: " + profile.name);
+            showAppToast('Perfil abierto: ' + profile.name, 'fas fa-folder-open');
         }
 
         async function deleteProfile(id, event) {
@@ -2491,20 +2776,73 @@
             }
         }
 
+        function nombreArchivoPerfil(profile) {
+            const cleanName = (profile.name || 'Perfil_Cliente')
+                .trim()
+                .replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+/g, '_')
+                .replace(/^_+|_+$/g, '');
+            return (cleanName || 'Perfil_Cliente') + '.emi';
+        }
+
+        function crearArchivoPerfil(profile) {
+            const blob = new Blob([JSON.stringify(profile)], { type: 'application/json' });
+            return new File([blob], nombreArchivoPerfil(profile), { type: 'application/json' });
+        }
+
+        function descargarArchivoPerfil(profile) {
+            const blobUrl = URL.createObjectURL(crearArchivoPerfil(profile));
+            const downloadAnchorNode = document.createElement('a');
+            downloadAnchorNode.setAttribute('href', blobUrl);
+            downloadAnchorNode.setAttribute('download', nombreArchivoPerfil(profile));
+            document.body.appendChild(downloadAnchorNode);
+            downloadAnchorNode.click();
+            downloadAnchorNode.remove();
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+        }
+
+        async function compartirObjetoPerfil(profile) {
+            if(!profile) return false;
+            const file = crearArchivoPerfil(profile);
+            const shareData = {
+                title: 'Perfil Prospecta: ' + profile.name,
+                text: 'Perfil comercial de ' + profile.name,
+                files: [file]
+            };
+
+            try {
+                if(navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share(shareData);
+                    showAppToast('Perfil compartido', 'fas fa-share-nodes');
+                    return true;
+                }
+            } catch (error) {
+                if(error && error.name === 'AbortError') return false;
+                console.warn('No fue posible abrir el selector para compartir:', error);
+            }
+
+            descargarArchivoPerfil(profile);
+            showAppToast('Perfil descargado para compartirlo', 'fas fa-download');
+            return true;
+        }
+
+        async function guardarPerfilRapido(options = {}) {
+            const profile = await saveChanges();
+            if(profile && !options.silent) showAppToast('Perfil guardado: ' + profile.name);
+            return profile;
+        }
+
+        async function compartirPerfilActual() {
+            const profile = await guardarPerfilRapido({ silent: true });
+            if(!profile) return;
+            await compartirObjetoPerfil(profile);
+        }
+
         async function exportarPerfil(id, event) {
             if(event) event.stopPropagation();
             let profiles = await dbGetAll('profiles');
             const profile = profiles.find(p => p.id === id);
             if(!profile) return;
-
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(profile));
-            const downloadAnchorNode = document.createElement('a');
-            downloadAnchorNode.setAttribute("href", dataStr);
-            const fileName = (profile.name ? profile.name.replace(/\s+/g, '_') : 'Perfil_Cliente') + ".emi";
-            downloadAnchorNode.setAttribute("download", fileName);
-            document.body.appendChild(downloadAnchorNode);
-            downloadAnchorNode.click();
-            downloadAnchorNode.remove();
+            await compartirObjetoPerfil(profile);
         }
 
         function setupImportEmi() {
@@ -2557,20 +2895,21 @@
             }
 
             const perfilesHtml = profiles.map(p => `
-                <div class="bg-brand-primary border border-white/20 p-4 rounded-xl shadow-lg cursor-pointer hover:bg-white/10 transition group" onclick="loadProfile('${p.id}')">
-                    <div class="flex justify-between items-start">
-                        <div class="flex flex-col overflow-hidden">
-                            <span class="font-bold text-white text-lg truncate">${p.name}</span>
-                            <span class="text-xs text-white/60 mt-1"><i class="fas fa-clock text-white"></i> Guardado: ${p.date}</span>
-                        </div>
-                        <div class="flex flex-col gap-2 shrink-0">
-                            <button onclick="exportarPerfil('${p.id}', event)" class="text-white/40 hover:text-[#00ffff] p-2 outline-none" title="Exportar Archivo .emi">
-                                <i class="fas fa-download text-white"></i>
-                            </button>
-                            <button onclick="deleteProfile('${p.id}', event)" class="text-white/40 hover:text-white p-2 outline-none">
-                                <i class="fas fa-trash text-white"></i>
-                            </button>
-                        </div>
+                <div class="bg-brand-primary border border-white/20 p-4 rounded-xl shadow-lg transition group">
+                    <div class="flex flex-col overflow-hidden">
+                        <span class="font-bold text-white text-lg truncate">${p.name}</span>
+                        <span class="text-xs text-white/60 mt-1"><i class="fas fa-clock text-white"></i> Guardado: ${p.date}</span>
+                    </div>
+                    <div class="grid grid-cols-[1fr_1fr_auto] gap-2 mt-4">
+                        <button onclick="loadProfile('${p.id}')" class="min-h-[42px] rounded-lg bg-white text-brand-dark font-black text-sm px-3 flex items-center justify-center gap-2 outline-none">
+                            <i class="fas fa-folder-open text-brand-dark"></i> Abrir
+                        </button>
+                        <button onclick="exportarPerfil('${p.id}', event)" class="min-h-[42px] rounded-lg bg-[#6d4ce8] text-white font-black text-sm px-3 flex items-center justify-center gap-2 outline-none" title="Compartir perfil">
+                            <i class="fas fa-share-nodes text-white"></i> Compartir
+                        </button>
+                        <button onclick="deleteProfile('${p.id}', event)" class="min-w-[42px] min-h-[42px] rounded-lg border border-white/15 bg-white/5 text-white flex items-center justify-center outline-none" aria-label="Eliminar perfil" title="Eliminar perfil">
+                            <i class="fas fa-trash text-white"></i>
+                        </button>
                     </div>
                 </div>
             `).join('');
@@ -2699,10 +3038,10 @@
         }
 
         const scripts = {
-            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play text-white mr-2"></i> PORTADA DE ENGANCHE (GANCHO DE 60 SEGUNDOS)</p>
-                <p class="mb-4"><em>En esta pantalla no necesitas decir mucho al principio. Deja que el prospecto lea la pantalla y vea las animaciones de las burbujas ("Me dejan en visto...", "Solo piden info...").</em></p>
-                <p class="mb-4">Una vez que captes su atención, puedes decir:</p>
-                <p class="mb-4">"Hola, veo que te llamó la atención esta pantalla. Justamente este es el Escáner de Fugas de Ventas. Hoy vamos a descubrir por qué tu WhatsApp no está cerrando clientes como debería."</p>
+            1: `<p class="mb-4 text-white font-bold"><i class="fas fa-play text-white mr-2"></i> APERTURA DEL DIAGNÓSTICO</p>
+                <p class="mb-4"><em>Deja que el prospecto lea la pantalla y reconozca los síntomas que aparecen en las burbujas.</em></p>
+                <p class="mb-4">Después puedes decir:</p>
+                <p class="mb-4">"Hoy vamos a revisar cómo funciona tu proceso comercial: qué comunica tu contenido, cómo avanzan tus conversaciones y qué sucede durante el seguimiento. El objetivo es detectar dónde se rompe la ruta antes de que una oportunidad llegue a una decisión."</p>
                 <p class="mb-4 text-white"><i class="fas fa-arrow-right text-white mx-1"></i> (Haz clic en la Zona 2 en el menú inferior o en el botón central para avanzar a tu tarjeta de presentación).</p>`,
 
             2: `<p class="mb-4"><strong>Hola, soy Roberto Fibonacci</strong> y paso resolviendo problemas que nadie ve hasta que algo deja de funcionar.</p>
@@ -2883,6 +3222,18 @@
             await loadTempStateFromDB(); 
             
             setupImportEmi(); 
+
+            const profileNameInput = document.getElementById('profile-name-input');
+            if(profileNameInput) {
+                profileNameInput.addEventListener('keydown', event => {
+                    if(event.key === 'Enter') {
+                        event.preventDefault();
+                        confirmarNombrePerfil();
+                    } else if(event.key === 'Escape') {
+                        resolverNombrePerfil(null);
+                    }
+                });
+            }
 
             activeProfileId = window.CRM_STATE['prospecta_active_profile_id'] || null;
             
