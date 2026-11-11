@@ -666,6 +666,279 @@
             .brand-name-menu { font-size: 19px; }
             .brand-sub-menu { font-size: 7px; }
         }
+
+        /* Prospecta: adaptación exclusiva a pantallas de escritorio.
+           No modifica funciones, datos, ni las reglas para teléfonos. */
+        @media screen and (min-width: 1024px) {
+            #presentation-area {
+                padding: 26px clamp(28px, 4vw, 80px) 40px;
+                align-items: center;
+            }
+            #presentation-area > .slide[data-slide="1"].active {
+                display: grid;
+                grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+                grid-template-rows: auto auto auto;
+                column-gap: clamp(40px, 5vw, 96px);
+                row-gap: 18px;
+                max-width: 1200px;
+                width: 100%;
+                min-height: min(610px, calc(100dvh - 210px));
+                margin: 0 auto;
+                padding: 10px 0 28px;
+                align-items: center;
+            }
+            [data-slide="1"] > :nth-child(1) {
+                grid-column: 1;
+                grid-row: 1 / 4;
+                margin-bottom: 0;
+                text-align: left;
+            }
+            [data-slide="1"] > :nth-child(1) > span,
+            [data-slide="1"] > :nth-child(1) > h1 {
+                text-align: left !important;
+            }
+            [data-slide="1"] > :nth-child(1) > h1 {
+                font-size: clamp(34px, 3.8vw, 58px);
+                line-height: 1.08;
+                padding: 0;
+                text-wrap: balance;
+            }
+            [data-slide="1"] > :nth-child(2) {
+                grid-column: 2;
+                grid-row: 1;
+                justify-content: flex-start;
+                margin: 0;
+                align-self: end;
+            }
+            [data-slide="1"] > :nth-child(2) > div { max-width: 100%; }
+            [data-slide="1"] > :nth-child(3) {
+                grid-column: 2;
+                grid-row: 2;
+                padding: 0;
+                margin: 0;
+                gap: 16px;
+            }
+            [data-slide="1"] > :nth-child(3) > p {
+                text-align: left !important;
+                font-size: clamp(15px, 1.25vw, 18px);
+            }
+            [data-slide="1"] > :nth-child(4) {
+                grid-column: 2;
+                grid-row: 3;
+                margin: 0;
+                align-self: start;
+            }
+            #presentation-area > .slide[data-slide="3"],
+            #presentation-area > .slide[data-slide="5"],
+            #presentation-area > .slide[data-slide="6"] {
+                max-width: 1050px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #presentation-area > .slide[data-slide="4"],
+            #presentation-area > .slide[data-slide="7"] {
+                max-width: 1200px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #footer-carousel { justify-content: center; }
+        }
+        /* En pantallas de escritorio bajas, priorizar que todo pueda desplazarse. */
+        @media screen and (min-width: 1024px) and (max-height: 760px) {
+            #presentation-area > .slide[data-slide="1"].active {
+                min-height: 0;
+                row-gap: 12px;
+                padding-top: 10px;
+            }
+            [data-slide="1"] > :nth-child(1) > h1 { font-size: clamp(32px, 3.3vw, 48px); }
+            [data-slide="1"] > :nth-child(3) { gap: 10px; }
+        }
+
+        /* =============================================================
+           PROSPECTA - TEMA CLARO 2026
+           Exclusivamente apariencia. Sin cambiar HTML, JS o responsive.
+           Inspirado en el sistema de tarjetas y lavanda del expediente.
+           ============================================================= */
+        :root {
+            --light-bg: #f5f4fa;
+            --light-surface: #ffffff;
+            --light-surface-soft: #efedf7;
+            --light-border: #dedbec;
+            --light-text: #32345c;
+            --light-muted: #656984;
+            --light-accent: #554c88;
+            --light-accent-strong: #423b70;
+        }
+        body, body.bg-brand-dark {
+            background: var(--light-bg) !important;
+            color: var(--light-text);
+        }
+        .bg-pattern-dark {
+            background-image: radial-gradient(#d8d5e7 1px, transparent 1px) !important;
+            background-size: 25px 25px !important;
+            background-color: var(--light-bg) !important;
+        }
+        #presentation-area {
+            background: radial-gradient(circle at 60% 100%, rgba(215,205,238,.34), transparent 43%) !important;
+            color: var(--light-text);
+        }
+        header {
+            background: rgba(255,255,255,.97) !important;
+            border-bottom: 1px solid var(--light-border) !important;
+            box-shadow: 0 5px 18px rgba(38,32,78,.07) !important;
+        }
+        .brand-name-menu, .brand-sub-menu { color: var(--light-text) !important; }
+        .star-icon-menu { color: #7770a8 !important; filter: drop-shadow(0 0 5px rgba(112,101,168,.18)) !important; }
+        .hamburger-btn span { background-color: var(--light-text) !important; }
+        #progress-bar { background: #7266a9 !important; box-shadow: none !important; }
+        .bg-star { background-color: #a59bc3 !important; }
+        footer {
+            background: rgba(255,255,255,.98) !important;
+            border-top: 1px solid var(--light-border) !important;
+            box-shadow: 0 -5px 16px rgba(38,32,78,.04);
+        }
+        ::-webkit-scrollbar-track { background: #f0eff6; }
+        ::-webkit-scrollbar-thumb { background: #bbb5d1; }
+        ::-webkit-scrollbar-thumb:hover { background: #8880a9; }
+        /* Fondos utilitarios usados por las siete zonas. */
+        .bg-brand-dark, .bg-\[\#1e1e2f\] { background-color: var(--light-bg) !important; }
+        .bg-brand-primary, .bg-\[\#3E3E61\] { background-color: var(--light-surface-soft) !important; }
+        .bg-brand-panel, .bg-\[\#2A2A42\] {
+            background: var(--light-surface) !important;
+            border-color: var(--light-border) !important;
+            box-shadow: 0 9px 26px rgba(38,32,78,.07);
+        }
+        .bg-brand-dark\/30, .bg-brand-dark\/50,
+        .bg-\[\#1e1e2f\]\/95, .bg-\[\#1e1e2f\]\/90 {
+            background-color: rgba(245,244,250,.96) !important;
+        }
+        .bg-white\/5, .bg-white\/10 { background-color: rgba(235,232,245,.72) !important; }
+        .bg-white\/20 { background-color: #dedbec !important; }
+        .border-\[\#3E3E61\], .border-\[\#2A2A42\],
+        .border-white\/10, .border-white\/20, .border-white\/30,
+        .border-white\/40, .border-white\/50 { border-color: var(--light-border) !important; }
+        .slide { color: var(--light-text); }
+        .slide .text-white, #notes-sidebar .text-white,
+        #main-menu .text-white, footer .text-white {
+            color: var(--light-text) !important;
+        }
+        .slide .text-white\/50, .slide .text-white\/60,
+        .slide .text-white\/70, .slide .text-white\/80,
+        #notes-sidebar .text-white\/50, #notes-sidebar .text-white\/60,
+        #notes-sidebar .text-white\/70 { color: var(--light-muted) !important; }
+        .slide .text-gray-300, .slide .text-gray-400,
+        .slide .text-slate-300, .slide .text-slate-400,
+        .slide .text-slate-500 { color: var(--light-muted) !important; }
+        .slide .text-brand-accentText { color: var(--light-text) !important; }
+        .slide h1, .slide h2, .slide h3, .slide h4 { color: var(--light-text); }
+        .slide .drop-shadow-md, .slide .drop-shadow-lg, .slide .drop-shadow-sm { filter: none !important; }
+        .carousel-card, .product-card {
+            background: #ffffff !important;
+            color: var(--light-text) !important;
+            border-color: var(--light-border) !important;
+            box-shadow: 0 7px 24px rgba(38,32,78,.06) !important;
+        }
+        .floating-bubble {
+            background: var(--light-surface-soft) !important;
+            color: var(--light-text) !important;
+            border-color: #d6d1e7 !important;
+            box-shadow: 0 8px 24px rgba(38,32,78,.09) !important;
+        }
+        .typing-dot { background-color: #7a719f !important; }
+        /* Botones y navegación: contraste accesible con el tema claro. */
+        .quick-action-btn {
+            background: var(--light-surface-soft) !important;
+            color: var(--light-text) !important;
+            border-color: var(--light-border) !important;
+            box-shadow: none !important;
+        }
+        .quick-action-btn i { color: var(--light-text) !important; }
+        .quick-action-btn--primary {
+            background: var(--light-accent) !important;
+            border-color: var(--light-accent) !important;
+            color: #fff !important;
+        }
+        .quick-action-btn--primary i { color: #fff !important; }
+        .quick-action-btn:hover, .quick-action-btn:focus-visible { background: #e4e0f0 !important; }
+        .quick-action-btn--primary:hover, .quick-action-btn--primary:focus-visible { background: var(--light-accent-strong) !important; }
+        #main-menu { background: #fff !important; color: var(--light-text) !important; border-color: var(--light-border) !important; }
+        #main-menu button:hover { background: #efedf7 !important; }
+        #main-menu .bg-white\/20 { background: var(--light-border) !important; }
+        #footer-carousel button, footer button { border-color: #d9d6e7 !important; }
+        #footer-carousel button.bg-white {
+            background: var(--light-accent) !important;
+            color: white !important;
+            border-color: var(--light-accent) !important;
+        }
+        #footer-carousel button.bg-white.text-brand-dark { color: white !important; }
+        #footer-carousel button.bg-brand-dark {
+            background: #f0eef7 !important;
+            color: var(--light-text) !important;
+        }
+        #footer-carousel button.bg-brand-dark.text-white { color: var(--light-text) !important; }
+        #footer-carousel button:hover { background-color: #e7e2f2 !important; }
+        #footer-carousel button.bg-white:hover { background: var(--light-accent-strong) !important; }
+        /* Mantener letras blancas donde el fondo sigue siendo intenso. */
+        .slide button.bg-white { background: var(--light-accent) !important; color: #fff !important; border-color: var(--light-accent-strong) !important; }
+        .slide button.bg-white .text-brand-dark, .slide button.bg-white .text-white,
+        .slide button.bg-white i { color: #fff !important; }
+        .slide button.bg-white:hover { background: var(--light-accent-strong) !important; }
+        .slide .bg-red-800, .slide .bg-red-500, .slide .bg-\[\#6d4ce8\] { color: #fff !important; }
+        .slide .bg-red-800 .text-white, .slide .bg-red-500 .text-white,
+        .slide .bg-\[\#6d4ce8\] .text-white { color: #fff !important; }
+        /* Icono de robot: mantener fondo morado para los trazos SVG blancos. */
+        [data-slide="1"] > :nth-child(2) .bg-brand-dark {
+            background-color: var(--light-accent-strong) !important;
+            border-color: #ffffff !important;
+        }
+        [data-slide="1"] > :nth-child(2) .bg-brand-dark svg { color: #ffffff !important; }
+        /* Fondo de etiquetas oscuras que muestran texto blanco. */
+        .slide .bg-slate-700 { background: #67618d !important; }
+        .slide .bg-slate-700 .text-white { color: #ffffff !important; }
+        /* Portada y elementos con identidad propia. */
+        .profile-card { background: #fff !important; color: var(--light-text) !important;
+            border-color: var(--light-border) !important; box-shadow: 0 15px 36px rgba(38,32,78,.12) !important; }
+        .cover-bg { background-color: #7d75ac; }
+        .avatar-img { background: #e6e1f1; }
+        .avatar-container .btn-edit-avatar { background: var(--light-accent) !important; }
+        .avatar-container .btn-edit-avatar i { color: white !important; }
+        .profile-name { color: var(--light-text); }
+        .profile-role { color: var(--light-muted); }
+        .pill-contact { color: var(--light-text); border-color: var(--light-border); background: #f4f2f8; }
+        .star-btn.far { color: #bcb7cf !important; }
+        .star-btn.fas { color: #70659f !important; filter: none !important; text-shadow: none !important; }
+        .icon-selector, .icon-option { color: var(--light-text) !important; }
+        .icon-dropdown { background: #fff !important; border-color: var(--light-border) !important; box-shadow: 0 8px 24px rgba(38,32,78,.12); }
+        .icon-option:hover { background: #eeeaf7 !important; }
+        /* Modales y controles auxiliares sin tocar su apertura o eventos. */
+        .profile-name-modal-card {
+            background: #fff !important;
+            color: var(--light-text) !important;
+            border-color: var(--light-border) !important;
+            box-shadow: 0 24px 65px rgba(38,32,78,.19) !important;
+        }
+        .profile-name-modal-card .text-white { color: var(--light-text) !important; }
+        .profile-name-input {
+            background: #f8f7fc !important; color: var(--light-text) !important;
+            border-color: var(--light-border) !important;
+        }
+        .profile-name-input:focus { border-color: var(--light-accent) !important; }
+        .app-toast { background: #fff !important; color: var(--light-text) !important; border-color: var(--light-border) !important;
+            box-shadow: 0 12px 35px rgba(38,32,78,.18) !important; }
+        #notes-sidebar { background: #fff !important; color: var(--light-text) !important; }
+        #notes-sidebar .bg-brand-panel, #notes-sidebar .bg-\[\#1e1e2f\] { background: #f7f6fa !important; }
+        input, textarea, select { accent-color: #6b609e; }
+        .slide input:not([type="checkbox"]):not([type="radio"]),
+        .slide textarea, #notes-sidebar textarea, #notes-sidebar input:not([type="checkbox"]),
+        .profile-name-input { color: var(--light-text); }
+        /* Los controles oscuros especiales, de video y fotografía, conservan su contraste. */
+        .video-ctrl-btn, .play-pro-btn, .btn-cambiar-portada { color: white !important; }
+        .play-pro-btn { background: var(--light-accent) !important; }
+        .btn-cambiar-portada i, .play-pro-btn i { color: white !important; }
+        @media (prefers-reduced-motion: reduce) {
+            /* Se respeta el ajuste del dispositivo, sin suprimir interacciones. */
+            .bg-star { animation-duration: 5s; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
