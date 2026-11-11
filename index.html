@@ -1163,6 +1163,49 @@
             #footer-carousel button { font-size: 11px; gap: 5px; }
             #footer-carousel button::before { font-size: 11px; }
         }
+
+        /* GALERÍA V2: recuperar imágenes grandes sin recortar, incluso en móvil. */
+        #comp-carousel-container .comparison-media-item,
+        #own-carousel-container .comparison-media-item {
+            height: auto !important;
+            max-height: none !important;
+            min-height: 0 !important;
+            display: block;
+            overflow: hidden;
+        }
+        #comp-carousel-container .comparison-media-item img,
+        #own-carousel-container .comparison-media-item img {
+            width: 100% !important;
+            height: auto !important;
+            max-height: none !important;
+            object-fit: contain !important;
+            display: block;
+        }
+        .comparison-media-track { touch-action: pan-x pan-y; }
+        .comparison-media-gallery .gallery-counter {
+            font-size: 12px; font-weight: 700; color: #514a7c;
+            text-align: center; padding: 7px 4px 2px;
+        }
+        #evidencia-modal .evidence-viewer-tools {
+            position: absolute; inset-inline: 0; bottom: 12px; z-index: 55;
+            display: flex; justify-content: center; align-items: center; gap: 14px;
+            pointer-events: none;
+        }
+        #evidencia-modal .evidence-viewer-tools button,
+        #evidencia-modal .evidence-viewer-tools span {
+            pointer-events: auto; background: #f0eef8; color: #302e53;
+            border: 1px solid #cec9df; border-radius: 24px;
+            padding: 10px 15px; font-weight: 700; box-shadow: 0 4px 18px #29243b24;
+        }
+        #evidencia-modal .evidence-viewer-tools button:disabled { opacity: .35; }
+        #evidencia-modal #evidencia-scroll-container { padding: 12px; padding-bottom: 75px; }
+        #evidencia-modal #evidencia-modal-img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
+        @media (max-width: 639px) {
+            #comp-carousel-container .comparison-media-item,
+            #own-carousel-container .comparison-media-item { height: auto !important; }
+            #evidencia-modal #evidencia-scroll-container { padding: 4px; padding-bottom: 70px; }
+            #evidencia-modal .evidence-viewer-tools { bottom: 8px; gap: 8px; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -2129,7 +2172,11 @@
         <div class="flex-1 overflow-auto flex items-center justify-center w-full h-full p-2 mt-20 pb-10" id="evidencia-scroll-container">
             <img id="evidencia-modal-img" src="" class="max-w-full max-h-full object-contain transition-all duration-300 ease-in-out" alt="Evidencia Ampliada">
         </div>
-        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-white/50 text-xs uppercase tracking-widest pointer-events-none bg-black/40 px-4 py-1 rounded-full">Toca la lupa para explorar</div>
+        <div id="evidence-gallery-controls" class="evidence-viewer-tools hidden" aria-label="Navegación de fotografías">
+            <button type="button" id="evidence-prev" onclick="moveEvidenceGallery(-1)" aria-label="Fotografía anterior"><i class="fas fa-chevron-left"></i></button>
+            <span id="evidence-position" aria-live="polite">1 / 1</span>
+            <button type="button" id="evidence-next" onclick="moveEvidenceGallery(1)" aria-label="Fotografía siguiente"><i class="fas fa-chevron-right"></i></button>
+        </div>
     </div>
 
     <div id="block-selector-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm p-4">
@@ -2438,6 +2485,7 @@
             gallery.setAttribute('data-comparison-gallery', 'true');
             gallery.innerHTML = `
                 <div class="comparison-media-track no-scrollbar"></div>
+                <div class="gallery-counter" aria-live="polite"></div>
                 <label class="comparison-media-add edit-only">
                     <i class="fas fa-images text-white"></i>
                     <span>Agregar imágenes</span>
@@ -2452,7 +2500,15 @@
             if (root.matches && root.matches('.comparison-media-gallery')) galleries.push(root);
             galleries.push(...root.querySelectorAll('.comparison-media-gallery'));
             galleries.forEach(gallery => {
-                gallery.classList.toggle('is-empty', !gallery.querySelector('.comparison-media-item'));
+                const items = Array.from(gallery.querySelectorAll('.comparison-media-item'));
+                gallery.classList.toggle('is-empty', items.length === 0);
+                let count = gallery.querySelector('.gallery-counter');
+                if (!count) {
+                    count = document.createElement('div');
+                    count.className = 'gallery-counter';
+                    gallery.querySelector('.comparison-media-track')?.after(count);
+                }
+                if (count) count.textContent = items.length > 1 ? `${items.length} fotografías · Desliza para ver más` : '';
             });
         }
 
@@ -2654,13 +2710,59 @@
             });
         }
 
+        // El visor recorre exclusivamente las imágenes de la tarjeta seleccionada.
+        // No modifica las imágenes ni los datos persistidos del perfil.
+        let evidenceGalleryImages = [];
+        let evidenceGalleryIndex = 0;
+        function showEvidenceGalleryPosition() {
+            const controls = document.getElementById('evidence-gallery-controls');
+            const count = document.getElementById('evidence-position');
+            const hasMany = evidenceGalleryImages.length > 1;
+            controls.classList.toggle('hidden', !hasMany);
+            if (count) count.textContent = `${evidenceGalleryIndex + 1} / ${evidenceGalleryImages.length || 1}`;
+            document.getElementById('evidence-prev').disabled = !hasMany;
+            document.getElementById('evidence-next').disabled = !hasMany;
+        }
+        function moveEvidenceGallery(delta) {
+            if (evidenceGalleryImages.length < 2) return;
+            evidenceGalleryIndex = (evidenceGalleryIndex + delta + evidenceGalleryImages.length) % evidenceGalleryImages.length;
+            const img = document.getElementById('evidencia-modal-img');
+            img.src = evidenceGalleryImages[evidenceGalleryIndex];
+            if (isZoomed) zoomEvidencia(); // Regresar a imagen completa al avanzar.
+            showEvidenceGalleryPosition();
+        }
+        let evidenceTouchX = null;
+        document.addEventListener('touchstart', event => {
+            const viewer = document.getElementById('evidencia-modal');
+            if (!viewer || viewer.classList.contains('hidden') || evidenceGalleryImages.length < 2 || isZoomed) return;
+            evidenceTouchX = event.touches[0]?.clientX ?? null;
+        }, {passive: true});
+        document.addEventListener('touchend', event => {
+            if (evidenceTouchX === null) return;
+            const dx = (event.changedTouches[0]?.clientX ?? evidenceTouchX) - evidenceTouchX;
+            evidenceTouchX = null;
+            if (Math.abs(dx) > 55) moveEvidenceGallery(dx < 0 ? 1 : -1);
+        }, {passive: true});
+        document.addEventListener('keydown', event => {
+            if (document.getElementById('evidencia-modal')?.classList.contains('hidden')) return;
+            if (event.key === 'ArrowRight') moveEvidenceGallery(1);
+            if (event.key === 'ArrowLeft') moveEvidenceGallery(-1);
+            if (event.key === 'Escape') cerrarEvidencia();
+        });
+
         function abrirEvidencia(event, src) {
             if (!isEditMode && src && !src.endsWith('index.html')) {
                 event.preventDefault();
                 event.stopPropagation();
                 const modal = document.getElementById('evidencia-modal');
                 const img = document.getElementById('evidencia-modal-img');
-                img.src = src;
+                const track = event?.target?.closest('.comparison-media-track');
+                evidenceGalleryImages = track
+                    ? Array.from(track.querySelectorAll('.comparison-media-item img')).map(photo => photo.src).filter(Boolean)
+                    : [src];
+                evidenceGalleryIndex = Math.max(0, evidenceGalleryImages.indexOf(src));
+                img.src = evidenceGalleryImages[evidenceGalleryIndex] || src;
+                showEvidenceGalleryPosition();
                 
                 isZoomed = false;
                 document.getElementById('zoom-icon').classList.remove('fa-search-minus');
