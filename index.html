@@ -1294,6 +1294,69 @@
             [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(2) { grid-column: 5; }
             [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(3) { grid-column: 6; }
         }
+
+        /* AUDITORÍA: tres competidores al inicio; el cuarto permanece a la
+           derecha, accesible por desplazamiento horizontal o por Avanzar. */
+        [data-slide="4"] .comparison-four-grid { scroll-behavior: smooth; }
+        [data-slide="4"] .audit-controls {
+            display: flex; align-items: center; justify-content: space-between;
+            flex-wrap: wrap; gap: 10px; width: 100%; padding: 8px 12px 15px;
+        }
+        [data-slide="4"] .audit-controls button {
+            background: #eeebf7; color: #39365f; border: 1px solid #d5cee8;
+            padding: 10px 15px; border-radius: 12px; font-weight: 750;
+            display: inline-flex; align-items: center; gap: 9px;
+            box-shadow: 0 2px 8px #2c225511;
+        }
+        [data-slide="4"] .audit-controls button:focus-visible,
+        [data-slide="4"] .carousel-card:focus-visible { outline: 3px solid #7160ac; outline-offset: 3px; }
+        [data-slide="4"] .audit-controls #audit-back { display: none; }
+        [data-slide="4"].audit-focus .audit-controls #audit-back { display: inline-flex; }
+        [data-slide="4"].audit-focus .audit-controls #audit-forward { display: none; }
+        [data-slide="4"] .audit-hint { color: #554c88; font-size: 13px; font-weight: 600; }
+        [data-slide="4"] .comparison-four-grid .carousel-card.audit-pickable { cursor: pointer; }
+        [data-slide="4"] .comparison-four-grid .carousel-card.audit-pickable:hover { border-color: #8b7aba !important; }
+        @media (min-width: 1024px) {
+            [data-slide="4"] .comparison-four-grid {
+                grid-template-columns: repeat(4, calc((100% - 2 * clamp(12px, 1.5vw, 20px)) / 3));
+                overflow-x: auto; overscroll-behavior-x: contain;
+                scroll-snap-type: x proximity;
+                scrollbar-width: thin;
+                scrollbar-color: #a29ac5 #eeeaf5;
+            }
+            [data-slide="4"] #comp-carousel-container > .carousel-card,
+            [data-slide="4"] #own-carousel-container > .carousel-card { scroll-snap-align: start; }
+        }
+        /* La vista individual solamente cambia la representación, nunca
+           elimina ni mueve nodos que IndexedDB / archivos .emi serializan. */
+        [data-slide="4"].audit-focus .comparison-four-grid {
+            display: grid !important; grid-template-columns: minmax(0, 1fr) !important;
+            grid-auto-columns: minmax(0, 1fr) !important;
+            overflow-x: hidden !important; justify-items: center;
+            scroll-snap-type: none !important;
+        }
+        [data-slide="4"].audit-focus .comparison-four-grid .carousel-card:not(.audit-selected) {
+            display: none !important;
+        }
+        [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
+            display: flex !important; grid-column: 1 !important; grid-row: 2 !important;
+            width: min(100%, 900px) !important; max-width: 900px !important;
+            min-width: 0 !important; margin-inline: auto !important;
+        }
+        [data-slide="4"].audit-focus .comparison-four-grid > .w-full > .flex.items-center,
+        [data-slide="4"].audit-focus .comparison-four-grid > .flex.z-10 { display: none !important; }
+        [data-slide="4"].audit-focus .comparison-four-grid .comparison-media-item img {
+            width: 100%; height: auto; object-fit: contain;
+        }
+        @media (max-width: 1023px) {
+            [data-slide="4"].audit-focus .comparison-four-grid {
+                padding-inline: 12px; width: 100%;
+            }
+            [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
+                grid-column: 1 !important; grid-row: 1 !important;
+            }
+            [data-slide="4"] .audit-hint { flex-basis: 100%; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -1555,6 +1618,11 @@
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 flex items-center justify-center gap-2"><i class="fas fa-search text-[1.1em] text-white"></i> Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
+                <div class="audit-controls" id="audit-controls" aria-label="Controles de auditoría">
+                    <button type="button" id="audit-back" onclick="auditShowAll()"><i class="fas fa-th-large" aria-hidden="true"></i> Ver las tres</button>
+                    <span class="audit-hint" id="audit-hint">Selecciona una tarjeta para analizarla en detalle.</span>
+                    <button type="button" id="audit-forward" onclick="auditRevealNext()" aria-label="Avanzar en la comparación"><i class="fas fa-arrow-right" aria-hidden="true"></i> Avanzar</button>
+                </div>
                 <div class="comparison-four-grid">
                 <div class="w-full mb-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
@@ -3767,12 +3835,68 @@
         };
 
         let currentScripts = { ...scripts }; 
+
+        /* Controles efímeros: no forman parte de los datos del perfil. */
+        function auditGrid() { return document.querySelector('[data-slide="4"] .comparison-four-grid'); }
+        function auditSlide() { return document.querySelector('[data-slide="4"]'); }
+        function auditCards() { return [...document.querySelectorAll('#comp-carousel-container > .carousel-card, #own-carousel-container > .carousel-card')]; }
+        function auditShowAll() {
+            const slide = auditSlide(); const grid = auditGrid();
+            if (!slide || !grid) return;
+            slide.classList.remove('audit-focus');
+            auditCards().forEach(card => card.classList.remove('audit-selected'));
+            document.getElementById('audit-hint').textContent = 'Selecciona una tarjeta para analizarla en detalle.';
+            grid.scrollLeft = 0;
+        }
+        function auditSelectCard(card) {
+            if (!card || isEditMode) return;
+            const slide = auditSlide(), grid = auditGrid();
+            auditCards().forEach(other => other.classList.toggle('audit-selected', other === card));
+            slide.classList.add('audit-focus');
+            grid.scrollLeft = 0;
+            const name = card.querySelector('[id$="-title"]')?.textContent?.trim() || 'Tarjeta';
+            document.getElementById('audit-hint').textContent = name + ' · Pulsa una fotografía para ampliar o recorrer sus evidencias.';
+            slide.scrollIntoView({block:'nearest', behavior:'smooth'});
+        }
+        function auditRevealNext() {
+            const grid = auditGrid(); if (!grid) return;
+            const own = document.getElementById('own-card-1');
+            if (!own) return;
+            // El desplazamiento mantiene los tres competidores como primera vista.
+            grid.scrollTo({left: Math.max(0, own.offsetLeft - grid.offsetLeft), behavior:'smooth'});
+        }
+        function auditInit() {
+            const slide = auditSlide(); if (!slide || slide.dataset.auditBound === '1') return;
+            slide.dataset.auditBound = '1';
+            slide.addEventListener('click', event => {
+                if (isEditMode || slide.classList.contains('audit-focus')) return;
+                const card = event.target.closest('#comp-carousel-container > .carousel-card, #own-carousel-container > .carousel-card');
+                if (!card) return;
+                // Los botones, estrellas, galerías y campos editables conservan sus acciones.
+                if (event.target.closest('button, a, input, label, select, textarea, [contenteditable="true"], .star-rating, .icon-selector, .icon-dropdown, .comparison-media-gallery, video')) return;
+                auditSelectCard(card);
+            });
+            auditCards().forEach(card => {
+                card.classList.add('audit-pickable');
+                card.setAttribute('tabindex','0');
+                card.setAttribute('aria-label', 'Analizar ' + (card.querySelector('[id$="-title"]')?.textContent?.trim() || 'tarjeta'));
+            });
+            slide.addEventListener('keydown', event => {
+                if (isEditMode || (event.key !== 'Enter' && event.key !== ' ')) return;
+                if (event.target.matches('.carousel-card.audit-pickable') && !slide.classList.contains('audit-focus')) {
+                    event.preventDefault(); auditSelectCard(event.target);
+                }
+            });
+            auditShowAll();
+        }
+
         let currentSlide = 1;
         const totalSlides = 7;
         let notesVisible = false;
 
         function goToSlide(index) {
             if (index >= 1 && index <= totalSlides) {
+                if (index === 4 && currentSlide !== 4) auditShowAll();
                 currentSlide = index;
                 updateUI();
             }
@@ -3811,6 +3935,7 @@
         function nextSlide() {
             if (currentSlide < totalSlides) {
                 currentSlide++;
+                if (currentSlide === 4) auditShowAll();
                 updateUI();
             }
         }
@@ -3818,6 +3943,7 @@
         function prevSlide() {
             if (currentSlide > 1) {
                 currentSlide--;
+                if (currentSlide === 4) auditShowAll();
                 updateUI();
             }
         }
@@ -3965,6 +4091,7 @@
                 });
             }
             
+            auditInit();
             updateUI();
             syncWhiteDocumentHeaders(); 
             renderSocialIconsAsSvg();
