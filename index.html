@@ -1206,6 +1206,94 @@
             #evidencia-modal #evidencia-scroll-container { padding: 4px; padding-bottom: 70px; }
             #evidencia-modal .evidence-viewer-tools { bottom: 8px; gap: 8px; }
         }
+
+        /* COMPETENCIA V4: cuatro tarjetas perfectamente alineadas sin mover
+           nodos internos de los carruseles ni cambiar sus claves de guardado.
+           display: contents permite compartir una misma cuadrícula visual. */
+        @media (min-width: 1024px) {
+            [data-slide="4"] .comparison-four-grid {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                column-gap: clamp(12px, 1.5vw, 20px);
+                row-gap: 12px;
+                width: 100%;
+                padding-inline: clamp(12px, 1.5vw, 22px);
+                align-items: start;
+                box-sizing: border-box;
+            }
+            [data-slide="4"] .comparison-four-grid > .w-full,
+            [data-slide="4"] .comparison-four-grid #comp-carousel-container,
+            [data-slide="4"] .comparison-four-grid #own-carousel-container {
+                display: contents;
+            }
+            [data-slide="4"] .comparison-four-grid > .flex.z-10 { display: none; }
+            [data-slide="4"] .comparison-four-grid > .w-full > .flex.items-center {
+                margin: 0;
+                min-width: 0;
+                align-self: end;
+            }
+            [data-slide="4"] .comparison-four-grid > .w-full:first-child > .flex.items-center {
+                grid-column: 1 / 4;
+                grid-row: 1;
+            }
+            [data-slide="4"] .comparison-four-grid > .w-full:nth-child(3) > .flex.items-center {
+                grid-column: 4;
+                grid-row: 1;
+            }
+            [data-slide="4"] #comp-carousel-container > .carousel-card,
+            [data-slide="4"] #own-carousel-container > .carousel-card {
+                width: 100%;
+                min-width: 0;
+                max-width: none;
+                box-sizing: border-box;
+                margin: 0;
+                align-self: start;
+            }
+            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1) { grid-column: 1; grid-row: 2; }
+            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(2) { grid-column: 2; grid-row: 2; }
+            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(3) { grid-column: 3; grid-row: 2; }
+            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(1) { grid-column: 4; grid-row: 2; }
+            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(2) { grid-column: 3; grid-row: 3; }
+            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(3) { grid-column: 4; grid-row: 3; }
+        }
+        /* En celular, el negocio se visualiza en la misma secuencia horizontal,
+           a continuación de los tres competidores, en vez de debajo. */
+        @media (max-width: 1023px) {
+            [data-slide="4"] .comparison-four-grid {
+                display: grid;
+                grid-auto-flow: column;
+                grid-auto-columns: min(86vw, 360px);
+                gap: 14px;
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
+                scroll-snap-type: x mandatory;
+                padding: 8px max(12px, 3vw) 20px;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+                -webkit-overflow-scrolling: touch;
+            }
+            [data-slide="4"] .comparison-four-grid > .w-full,
+            [data-slide="4"] .comparison-four-grid #comp-carousel-container,
+            [data-slide="4"] .comparison-four-grid #own-carousel-container { display: contents; }
+            [data-slide="4"] .comparison-four-grid > .w-full > .flex.items-center,
+            [data-slide="4"] .comparison-four-grid > .flex.z-10 { display: none; }
+            [data-slide="4"] .comparison-four-grid .carousel-card {
+                flex-basis: auto;
+                width: 100%;
+                max-width: none;
+                min-width: 0;
+                scroll-snap-align: center;
+                margin: 0;
+                box-sizing: border-box;
+            }
+            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1) { grid-column: 1; }
+            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(2) { grid-column: 2; }
+            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(3) { grid-column: 3; }
+            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(1) { grid-column: 4; }
+            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(2) { grid-column: 5; }
+            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(3) { grid-column: 6; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -1467,6 +1555,7 @@
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 flex items-center justify-center gap-2"><i class="fas fa-search text-[1.1em] text-white"></i> Auditoría Competitiva</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white">Tú vs. La Competencia</h1>
                 
+                <div class="comparison-four-grid">
                 <div class="w-full mb-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
                         <i class="fas fa-building text-[1.2em] text-white drop-shadow"></i>
@@ -1749,6 +1838,8 @@
                         </div>
                     </div>
                 </div>
+
+                </div><!-- /comparison-four-grid: presentational wrapper, profile containers unchanged -->
 
                 <div id="legacy-evidence-section" class="edit-only w-full mt-8 border-t border-white/20 pt-8">
                     <div class="flex items-center gap-3 mb-4 px-2">
