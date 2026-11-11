@@ -939,6 +939,230 @@
             /* Se respeta el ajuste del dispositivo, sin suprimir interacciones. */
             .bg-star { animation-duration: 5s; }
         }
+        /* ==========================================================
+           PROSPECTA · INTERFAZ ORDENADA · v1
+           Solo reglas de presentación. Sin cambios a IDs, eventos,
+           elementos editables, persistencia, importación o navegación.
+           ========================================================== */
+        :root {
+            --ui-ink: #35365d;
+            --ui-subtle: #686c87;
+            --ui-stroke: #dedbec;
+            --ui-accent: #554c88;
+            --ui-paper: #fff;
+        }
+        /* Jerarquía coherente en títulos, información y controles. */
+        #presentation-area > .slide > h1 {
+            font-size: clamp(1.7rem, 3vw, 2.65rem) !important;
+            line-height: 1.18 !important;
+            letter-spacing: -.035em;
+            margin-bottom: clamp(12px, 2vh, 24px) !important;
+            text-wrap: balance;
+        }
+        #presentation-area > .slide > h2 {
+            font-size: clamp(.78rem, 1.3vw, .92rem) !important;
+            line-height: 1.4;
+            letter-spacing: .075em;
+            color: var(--ui-subtle) !important;
+        }
+        #presentation-area > .slide > h3 {
+            font-size: clamp(1.07rem, 1.8vw, 1.4rem) !important;
+        }
+        #presentation-area .carousel-card {
+            gap: .85rem;
+            padding: clamp(14px, 1.3vw, 20px);
+            border-radius: 18px;
+            min-width: 0;
+        }
+        #comp-carousel-container .carousel-card > .editable-text,
+        #own-carousel-container .carousel-card > .editable-text {
+            font-size: clamp(1rem, 1.4vw, 1.2rem) !important;
+            line-height: 1.3;
+            letter-spacing: -.02em;
+            font-weight: 800;
+            padding: 4px 8px 11px;
+            border-bottom: 1px solid var(--ui-stroke) !important;
+            color: var(--ui-ink) !important;
+        }
+        #comp-carousel-container .review-point,
+        #own-carousel-container .review-point {
+            padding: 8px 7px;
+            border-radius: 10px;
+            background: #f8f7fc;
+            border: 1px solid #eeecf5;
+            margin-bottom: 7px;
+            gap: .55rem;
+        }
+        #comp-carousel-container .review-point > .editable-text,
+        #own-carousel-container .review-point > .editable-text {
+            font-size: clamp(.88rem, 1vw, .98rem) !important;
+            line-height: 1.45;
+            color: var(--ui-ink) !important;
+        }
+        #comp-carousel-container .icon-selector,
+        #own-carousel-container .icon-selector {
+            width: 29px;
+            height: 29px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            background: #ece9f6;
+            color: var(--ui-accent) !important;
+            padding: 0;
+        }
+        #comp-carousel-container .icon-selector i,
+        #own-carousel-container .icon-selector i { color: var(--ui-accent) !important; }
+        #comp-carousel-container .star-btn,
+        #own-carousel-container .star-btn { font-size: 1.14rem; }
+        #comp-carousel-container .star-btn.far,
+        #own-carousel-container .star-btn.far { color: #c9c3dd; }
+        #comp-carousel-container .star-btn.fas,
+        #own-carousel-container .star-btn.fas { color: #7063a4; text-shadow: none; }
+        /* Fotografías comparativas: imagen completa sin recorte. */
+        .comparison-media-gallery { min-width: 0; }
+        .comparison-media-track { border-radius: 12px; gap: 10px; }
+        .comparison-media-item {
+            background: #f5f4fa !important;
+            border: 1px solid var(--ui-stroke) !important;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 180px;
+            height: clamp(230px, 39vh, 440px);
+        }
+        .comparison-media-item img {
+            display: block;
+            width: 100%;
+            height: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain !important;
+            object-position: center center;
+            cursor: zoom-in;
+        }
+        .comparison-media-add {
+            color: var(--ui-accent) !important;
+            border-color: #bdb5d6 !important;
+            background: #f8f7fc !important;
+        }
+        /* Indicadores visuales de evidencia sin introducir datos guardados. */
+        #comp-carousel-container .comparison-media-gallery:not(.is-empty)::before,
+        #own-carousel-container .comparison-media-gallery:not(.is-empty)::before {
+            content: '\f03e  EVIDENCIA VISUAL';
+            font-family: 'Font Awesome 6 Free', Arial, sans-serif;
+            font-weight: 900;
+            color: #686487;
+            font-size: 10px;
+            letter-spacing: .1em;
+            display: block;
+            margin: 0 0 9px 2px;
+        }
+        /* Evidencias adicionales y productos: mostrar íntegramente. */
+        [data-slide="4"] [id^="evid-card-"] img,
+        [data-slide="7"] .product-img-element,
+        [data-slide="7"] .image-block-preview > img {
+            object-fit: contain !important;
+            max-height: min(48vh, 470px) !important;
+            width: 100%;
+        }
+        [data-slide="4"] [id^="evid-card-"] .media-preview-box,
+        [data-slide="7"] .media-preview-box { background: #f8f7fc; }
+        /* Tarjeta de presentación: orden y compacidad sin mover campos guardados. */
+        #tarjeta_perfil {
+            box-shadow: 0 14px 38px rgba(39,36,78,.11);
+            border-color: var(--ui-stroke);
+        }
+        #tarjeta_perfil .profile-name { font-size: clamp(21px, 2vw, 27px); line-height: 1.17; }
+        #tarjeta_perfil .profile-role { font-size: 12px; letter-spacing: .08em; color: #6d6988; }
+        #tarjeta_perfil .pill-contact { min-height: 36px; font-size: 12px; }
+        #tarjeta_perfil .stat-label { color: #73738b; }
+        #tarjeta_perfil .stat-value { color: var(--ui-ink); }
+        #tarjeta_perfil #contact-pills-container,
+        #tarjeta_perfil #social-pills-container { row-gap: 9px; }
+        /* Íconos lineales de navegación. La etiqueta del botón sigue editable. */
+        #footer-carousel button { display: inline-flex; align-items: center; gap: 7px; }
+        #footer-carousel button::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 12px;
+            line-height: 1;
+            opacity: .85;
+            flex-shrink: 0;
+        }
+        #footer-carousel button:nth-child(1)::before { content: '\f015'; }
+        #footer-carousel button:nth-child(2)::before { content: '\f2bd'; }
+        #footer-carousel button:nth-child(3)::before { content: '\f059'; }
+        #footer-carousel button:nth-child(4)::before { content: '\f24e'; }
+        #footer-carousel button:nth-child(5)::before { content: '\f0eb'; }
+        #footer-carousel button:nth-child(6)::before { content: '\f0e0'; }
+        #footer-carousel button:nth-child(7)::before { content: '\f0b1'; }
+        #footer-carousel button { font-size: 12px; font-weight: 700; }
+        #footer-carousel { gap: clamp(5px, .8vw, 12px); }
+        /* Pantalla de escritorio: ordenar tarjetas sin obligar a desplazamiento lateral. */
+        @media (min-width: 1024px) {
+            #comp-carousel-container,
+            #own-carousel-container {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                align-items: start;
+                gap: clamp(12px, 1.2vw, 20px);
+                overflow: visible;
+                scroll-snap-type: none;
+            }
+            #comp-carousel-container > .carousel-card,
+            #own-carousel-container > .carousel-card {
+                width: 100%;
+                max-width: none;
+                min-width: 0;
+                flex: initial;
+            }
+            #presentation-area > .slide[data-slide="2"] { max-width: 980px; margin: 0 auto; }
+            #tarjeta_perfil {
+                max-width: 880px;
+                width: 100%;
+                display: grid;
+                grid-template-columns: minmax(180px, 210px) minmax(0, 1fr);
+                grid-template-rows: auto auto auto auto auto auto;
+                column-gap: 24px;
+                align-items: center;
+                padding: 135px 30px 20px;
+                text-align: left;
+            }
+            #tarjeta_perfil .cover-bg { height: 112px; }
+            #tarjeta_perfil .avatar-container {
+                grid-column: 1;
+                grid-row: 1 / span 4;
+                margin: -22px auto 0;
+                width: 142px;
+                height: 142px;
+            }
+            #tarjeta_perfil .profile-name,
+            #tarjeta_perfil .profile-role,
+            #tarjeta_perfil > .flex.justify-center.mt-2.mb-4,
+            #tarjeta_perfil #contact-pills-container { grid-column: 2; }
+            #tarjeta_perfil .profile-name { grid-row: 1; align-self: end; }
+            #tarjeta_perfil .profile-role { grid-row: 2; align-self: start; }
+            #tarjeta_perfil > .flex.justify-center.mt-2.mb-4 { grid-row: 3; justify-content: flex-start; margin: 2px 0; }
+            #tarjeta_perfil #contact-pills-container { grid-row: 4; justify-content: flex-start; margin: 3px 0 9px; }
+            #tarjeta_perfil #social-pills-container { grid-column: 1 / -1; grid-row: 5; margin: 6px 0 12px; }
+            #tarjeta_perfil .stats-row { grid-column: 1 / -1; grid-row: 6; margin-top: 0; }
+        }
+        @media (min-width: 640px) and (max-width: 1023px) {
+            #comp-carousel-container .carousel-card,
+            #own-carousel-container .carousel-card { flex-basis: 45%; max-width: 440px; }
+        }
+        @media (max-width: 639px) {
+            #presentation-area { padding: 12px 10px 20px; }
+            #comp-carousel-container .carousel-card,
+            #own-carousel-container .carousel-card { flex-basis: min(90vw, 350px); }
+            .comparison-media-item { height: clamp(210px, 38dvh, 360px); }
+            #tarjeta_perfil { padding-left: 14px; padding-right: 14px; }
+            #tarjeta_perfil .avatar-container { width: 125px; height: 125px; }
+            #tarjeta_perfil .pill-contact { max-width: 100%; overflow-wrap: anywhere; }
+            #footer-carousel button { font-size: 11px; gap: 5px; }
+            #footer-carousel button::before { font-size: 11px; }
+        }
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
