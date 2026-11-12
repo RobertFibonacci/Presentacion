@@ -1772,6 +1772,70 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
 [data-slide="7"] .ent-summary-row .ent-summary-bonus del{color:#766c78;text-decoration:line-through}
 @media(max-width:640px){.bank-modal{padding:15px}.bank-modal .bank-edit-grid{grid-template-columns:1fr}.bank-modal .bank-item{align-items:stretch;flex-direction:column}.bank-modal .bank-item-actions{justify-content:flex-start}[data-slide="7"] .bank-toolbar{padding:0 10px}[data-slide="7"] .bank-action{flex:1}}
 
+
+/* PROSPECTA: restaurar ancho aprovechable en móvil sin cambiar datos ni controles. */
+@media (max-width: 700px) {
+  /* En la versión anterior se restaban 82px para las flechas, estrechando las fichas. */
+  [data-slide="7"] #z7-products-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-inline: 0 !important;
+    padding: 4px 6px 15px !important;
+    scroll-padding-inline: 6px !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
+  }
+  [data-slide="7"] #z7-products-container > .product-card {
+    box-sizing: border-box !important;
+    flex: 0 0 calc(100% - 12px) !important;
+    width: calc(100% - 12px) !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin-inline: 0 !important;
+    scroll-snap-align: center !important;
+  }
+  /* Flechas en los extremos: no ocupan espacio dentro del carrusel. */
+  [data-slide="7"].active:not(.proposal-revealed) .delivery-side-navigation,
+  [data-slide="4"] .audit-controls .audit-nav-pair {
+    inset-inline: 1px !important;
+  }
+  [data-slide="7"] .delivery-side-navigation button,
+  [data-slide="4"] .audit-controls .audit-nav-pair button {
+    width: 29px !important;
+    min-width: 29px !important;
+    height: 46px !important;
+    background: rgba(250,249,254,.76) !important;
+    border-radius: 9px !important;
+    box-shadow: 0 2px 8px #24233d20 !important;
+  }
+  /* Auditoría: eliminar los 39px reservados a cada lado y hacer las fichas amplias. */
+  [data-slide="4"] .comparison-four-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 8px 6px 20px !important;
+    scroll-padding-inline: 6px !important;
+    grid-auto-columns: calc(100% - 12px) !important;
+    gap: 12px !important;
+    box-sizing: border-box !important;
+  }
+  [data-slide="4"] .comparison-four-grid .carousel-card {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    scroll-snap-align: center !important;
+  }
+  [data-slide="4"].audit-focus .comparison-four-grid {
+    padding: 8px 6px 20px !important;
+    overflow-x: visible !important;
+  }
+  [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-inline: auto !important;
+  }
+}
 </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
