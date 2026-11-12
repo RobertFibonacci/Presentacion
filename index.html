@@ -1734,6 +1734,44 @@
   #tarjeta_perfil .pill-contact {min-height: 28px; padding: 3px 8px;}
   #tarjeta_perfil .stats-row {padding-top: 5px; margin-top: 2px;}
 }
+
+/* Banco Maestro v1 · capa aislada: no modifica perfiles, imágenes ni licencias */
+[data-slide="7"] .bank-toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-items:center;margin:14px auto 22px;max-width:1100px;width:100%}
+[data-slide="7"] .bank-action{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;border:1px solid #b9b6d2;border-radius:12px;padding:10px 17px;font-size:14px;font-weight:800;background:#fff;color:#3e3e61;box-shadow:0 4px 14px #29284214}
+[data-slide="7"] .bank-action.primary{background:#3e3e61;color:white;border-color:#3e3e61}
+[data-slide="7"] .bank-action:focus-visible,[data-slide="7"] .bank-small-btn:focus-visible{outline:3px solid #ffd100;outline-offset:2px}
+[data-slide="7"] .bank-card-utilities{display:none;gap:8px;flex-wrap:wrap;padding:10px 13px;background:#f4f4fa;border-top:1px solid #e1e0ea}
+body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
+[data-slide="7"] .bank-small-btn{background:#fff;border:1px solid #d1cfe1;border-radius:9px;color:#3e3e61;font-size:12px;font-weight:800;min-height:38px;padding:7px 10px;display:inline-flex;align-items:center;gap:6px}
+[data-slide="7"] .bank-reference{color:#68677d;font-size:12px;font-weight:700;padding:4px 8px;display:inline-block}
+[data-slide="7"] .product-card[data-delivery-type="bonus"] .bank-reference{display:block}
+[data-slide="7"] .product-card[data-delivery-type="pending"] .delivery-bonus-badge{display:inline-flex;background:#fff4d8;border-color:#eacb85;color:#76510d}
+[data-slide="7"] .product-card[data-delivery-type="pending"] .price-val-element{opacity:.55}
+[data-slide="7"] .product-card .bank-resources{border-top:1px solid #e2e0eb;padding:9px 14px;background:#f8f7fc;display:flex;flex-wrap:wrap;gap:8px}
+[data-slide="7"] .product-card .bank-resources:empty{display:none}
+[data-slide="7"] .bank-resource-link{display:inline-flex;align-items:center;gap:6px;color:#3e3e61;font-size:12px;font-weight:750;border:1px solid #d6d3e5;border-radius:9px;background:white;padding:7px 9px;text-decoration:none;overflow-wrap:anywhere}
+.bank-overlay{position:fixed;inset:0;z-index:99999;display:none;align-items:center;justify-content:center;padding:16px;background:#201e36bb}
+.bank-overlay.open{display:flex}
+.bank-modal{width:min(880px,100%);max-height:93dvh;overflow:auto;border-radius:20px;background:#f8f8fc;color:#2c2c46;box-shadow:0 16px 70px #1118;padding:22px}
+.bank-modal *{box-sizing:border-box}.bank-modal h2{font-size:24px;font-weight:900;color:#3e3e61;margin:0 0 4px}.bank-modal p{font-size:13px;color:#65647a;line-height:1.45}
+.bank-modal .bank-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.bank-modal button{cursor:pointer}
+.bank-modal .bank-tab{border:1px solid #dad7ea;border-radius:9px;padding:10px 14px;background:#fff;font-weight:800;color:#3e3e61;min-height:42px}
+.bank-modal .bank-tab.active{background:#3e3e61;color:white}
+.bank-modal .bank-grid{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.bank-modal .bank-item{border:1px solid #e2dfed;border-radius:14px;padding:12px;background:white;margin-bottom:9px;display:flex;gap:10px;align-items:center}
+.bank-modal .bank-item h3{font-size:15px;font-weight:850;color:#3e3e61;margin:0 0 5px}.bank-modal .bank-item p{margin:0;font-size:12px}
+.bank-modal .bank-item-actions{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.bank-modal .bank-btn{border:1px solid #c9c6df;background:white;border-radius:9px;padding:9px 11px;min-height:40px;color:#3e3e61;font-weight:800;font-size:12px}
+.bank-modal .bank-btn.emph{background:#3e3e61;color:white}
+.bank-modal label{display:block;font-weight:850;font-size:13px;margin:10px 0 5px;color:#3e3e61}
+.bank-modal input,.bank-modal textarea,.bank-modal select{width:100%;background:white;color:#2c2c46;border:1px solid #c9c6da;border-radius:10px;padding:10px 12px;font-size:15px}
+.bank-modal textarea{min-height:72px}.bank-modal .bank-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bank-modal .bank-footer{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.bank-modal [hidden]{display:none!important}
+[data-slide="7"] .ent-summary-row .ent-summary-bonus strong{display:block;font-size:12px;color:#25634b}
+[data-slide="7"] .ent-summary-row .ent-summary-bonus del{color:#766c78;text-decoration:line-through}
+@media(max-width:640px){.bank-modal{padding:15px}.bank-modal .bank-edit-grid{grid-template-columns:1fr}.bank-modal .bank-item{align-items:stretch;flex-direction:column}.bank-modal .bank-item-actions{justify-content:flex-start}[data-slide="7"] .bank-toolbar{padding:0 10px}[data-slide="7"] .bank-action{flex:1}}
+
 </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -2486,6 +2524,10 @@
                 
                 <div class="solution-guide"><i class="fas fa-layer-group" aria-hidden="true"></i><span>Explora cada solución. Al terminar, descubre la propuesta completa con entregables, bonos e inversión.</span></div>
                 <button type="button" class="ent-mobile-jump" onclick="document.getElementById('white-document-container').scrollIntoView({behavior:'smooth',block:'start'})"><span><i class="fas fa-clipboard-list" aria-hidden="true"></i> Ver entregables e inversión</span><i class="fas fa-arrow-down" aria-hidden="true"></i></button>
+                <div class="bank-toolbar edit-only" id="bank-toolbar" aria-label="Constructor de propuestas">
+                    <button type="button" class="bank-action primary" onclick="openServiceBank()"><i class="fas fa-layer-group" aria-hidden="true"></i> Mi banco de servicios y favoritos</button>
+                    <button type="button" class="bank-action" onclick="createSpecializedService()"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Servicio por cotizar</button>
+                </div>
                 <!-- Navegación visual de entregables: fuera del contenido serializado del perfil. -->
                 <nav class="delivery-side-navigation" aria-label="Navegar entregables">
                   <button type="button" id="delivery-nav-prev" aria-label="Entregable anterior" title="Entregable anterior" onclick="navigateDeliveryCards(-1)"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
@@ -2609,7 +2651,7 @@
                                     <i class="fas fa-sync-alt text-white"></i> Actualizar Cotización
                                 </button>
                                 <div class="flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200 shadow-inner">
-                                    <span class="text-[10px] font-bold text-slate-500 uppercase">Descuento: $</span>
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase" title="Descuento por autorización de documentar el caso de éxito. Requiere consentimiento específico.">Descuento caso de éxito: $</span>
                                     <span id="doc-discount" class="editable-text text-[#3E3E61] font-bold text-sm min-w-[40px] outline-none text-right" contenteditable="false" oninput="saveCurrentState()">0</span>
                                 </div>
                             </div>
@@ -3601,18 +3643,39 @@
                 if (!card.querySelector('.delivery-choice')) {
                     const choice = document.createElement('div');
                     choice.className = 'delivery-choice edit-only';
-                    choice.innerHTML = '<label><i class="fas fa-tags" aria-hidden="true"></i> Tipo de entregable</label><select aria-label="Tipo de entregable"><option value="cost">Con costo</option><option value="bonus">Bono incluido</option></select>';
+                    choice.innerHTML = '<label><i class="fas fa-tags" aria-hidden="true"></i> Tipo de entregable</label><select aria-label="Tipo de entregable"><option value="cost">Con costo</option><option value="bonus">Bono incluido</option><option value="pending">Por cotizar</option></select>';
                     footer.parentElement.insertBefore(choice, footer);
                 }
                 const select = card.querySelector('.delivery-choice select');
                 if (select) {
-                    select.value = card.dataset.deliveryType === 'bonus' ? 'bonus' : 'cost';
+                    select.value = ['bonus','pending'].includes(card.dataset.deliveryType) ? card.dataset.deliveryType : 'cost';
                     // on-change se instala por delegación para no duplicar eventos al restaurar HTML.
                 }
+                if (!card.querySelector('.bank-card-utilities')) {
+                    const tools = document.createElement('div');
+                    tools.className = 'bank-card-utilities';
+                    tools.innerHTML = '<button type="button" class="bank-small-btn" onclick="saveCardToServiceBank(this)"><i class="fas fa-bookmark"></i> Guardar en mi banco</button><button type="button" class="bank-small-btn" onclick="addCardResourceLink(this)"><i class="fas fa-link"></i> Agregar enlace</button>';
+                    card.appendChild(tools);
+                }
+                if (!card.querySelector('.bank-resources')) {
+                    const resources = document.createElement('div');resources.className = 'bank-resources';
+                    const utility = card.querySelector('.bank-card-utilities');
+                    card.insertBefore(resources,utility);
+                }
+                if (!card.querySelector('.bank-reference')) {
+                    const note = document.createElement('span');note.className = 'bank-reference';note.textContent = '';
+                    footer.appendChild(note);
+                }
+                const mode = card.dataset.deliveryType;
+                const value = Number.parseFloat((card.querySelector('.price-val-element')?.innerText||'0').replace(/[^0-9.]/g,''))||0;
+                const reference = card.querySelector('.bank-reference');
+                if (reference) reference.textContent = mode === 'bonus' ? 'Valor regular: '+moneyDeliverable(value)+' · Tu cliente ahorra '+moneyDeliverable(value) : '';
+                const currentBadge = card.querySelector('.delivery-bonus-badge');
+                if (currentBadge) currentBadge.innerHTML = mode === 'pending' ? '<i class="fas fa-clock"></i> Por cotizar' : '<i class="fas fa-gift"></i> Bono incluido';
                 if (!card.querySelector('.delivery-bonus-badge')) {
                     const badge = document.createElement('span');
                     badge.className = 'delivery-bonus-badge';
-                    badge.innerHTML = '<i class="fas fa-gift" aria-hidden="true"></i> Bono incluido';
+                    badge.innerHTML = card.dataset.deliveryType === 'pending' ? '<i class="fas fa-clock"></i> Por cotizar' : '<i class="fas fa-gift"></i> Bono incluido';
                     footer.appendChild(badge);
                 }
             });
@@ -3621,7 +3684,7 @@
             if (!event.target.matches('#z7-products-container .delivery-choice select')) return;
             const card = event.target.closest('.product-card');
             if (!card || !isEditMode) return;
-            card.dataset.deliveryType = event.target.value === 'bonus' ? 'bonus' : 'cost';
+            card.dataset.deliveryType = ['bonus','pending'].includes(event.target.value) ? event.target.value : 'cost';
             calcularCotizacion();
         });
         // Recalcular al terminar una edición de texto de precio, título o descuento.
@@ -3643,6 +3706,8 @@
             
             let subtotal = 0;
             let bonusCount = 0;
+            let bonusSavings = 0;
+            let pendingCount = 0;
             let htmlList = `<div class="w-full flex flex-col gap-2">`;
             
             productCards.forEach((card) => {
@@ -3659,7 +3724,8 @@
                 if(isNaN(priceVal)) priceVal = 0;
                 
                 const isBonus = card.dataset.deliveryType === 'bonus';
-                if (isBonus) bonusCount++; else subtotal += priceVal;
+                const isPending = card.dataset.deliveryType === 'pending';
+                if (isBonus) {bonusCount++;bonusSavings += priceVal;} else if (isPending) pendingCount++; else subtotal += priceVal;
                 // No interpolar HTML del usuario en innerHTML sin escapar.
                 const safeTitle = escapeDeliverableText(title);
                 const imgSrc = imgElement && !imgElement.classList.contains('hidden') ? imgElement.src : '';
@@ -3668,11 +3734,13 @@
                     <div class="ent-summary-row">
                         ${safeImage}
                         <span class="ent-summary-name">${safeTitle}</span>
-                        ${isBonus ? '<span class="ent-summary-bonus"><i class="fas fa-gift" aria-hidden="true"></i> Bono</span>' : `<span class="ent-summary-price">${moneyDeliverable(priceVal)}</span>`}
+                        ${isBonus ? `<span class="ent-summary-bonus"><i class="fas fa-gift" aria-hidden="true"></i> Bono<br><del>${moneyDeliverable(priceVal)}</del><strong>Ahorras ${moneyDeliverable(priceVal)}</strong></span>` : isPending ? '<span class="ent-summary-bonus" style="color:#75510e;background:#fff4d8"><i class="fas fa-clock"></i> Por cotizar</span>' : `<span class="ent-summary-price">${moneyDeliverable(priceVal)}</span>`}
                     </div>
                 `;
             });
             
+            if (bonusSavings > 0) htmlList += `<div class="flex justify-between items-center p-3 rounded-lg" style="background:#e8f6ee;color:#235e47;font-weight:850"><span><i class="fas fa-gift"></i> Valor de tus bonos incluidos</span><span>${moneyDeliverable(bonusSavings)} de ahorro</span></div>`;
+            if (pendingCount) htmlList += `<p style="font-size:12px;color:#76510d">${pendingCount} servicio(s) pendiente(s) de cotización. No incluidos en el total.</p>`;
             // LECTURA DEL DESCUENTO
             const discountSpan = document.getElementById('doc-discount');
             let discountVal = 0;
@@ -3708,10 +3776,12 @@
             </div>`;
             
             const counter = document.getElementById('ent-delivery-count');
-            if (counter) counter.textContent = productCards.length + ' entregables' + (bonusCount ? ' · ' + bonusCount + ' bonos' : '');
+            if (counter) counter.textContent = productCards.length + ' entregables' + (bonusCount ? ' · ' + bonusCount + ' bonos' : '') + (pendingCount ? ' · ' + pendingCount + ' por cotizar' : '');
+            const warning = isEditMode && total < 8500 ? `<p style="margin-top:10px;font-size:12px;font-weight:800;color:#93520b;background:#fff4db;padding:10px;border-radius:8px"><i class="fas fa-exclamation-triangle"></i> Inversión inferior a tu referencia comercial de $8,500 MXN. Revisa el alcance antes de presentar.</p>` : '';
+            htmlList = htmlList.replace('</div></div>', '</div></div>');
             const container = document.getElementById('summary-list-container');
             if(container) {
-                container.innerHTML = htmlList;
+                container.innerHTML = htmlList + warning;
                 saveCurrentState(); 
             }
         }
@@ -4602,9 +4672,174 @@
             updateDeliveryNavButtons();
         }
 
+
+        // Banco maestro: información independiente del HTML del perfil; datos locales en IndexedDB.
+        // Nunca enviamos claves administrativas al navegador ni alteramos el servidor de licencias.
+        let serviceBankEntries = [];
+        let serviceBankTab = 'favorites';
+        const BANK_CONFIG_ID = 'prospecta_master_service_bank_v1';
+        function bankText(value, max = 700) { return String(value ?? '').trim().slice(0,max); }
+        function bankMoney(v) { const n=Number(v);return Number.isFinite(n)&&n>=0 ? Math.round(n*100)/100 : 0; }
+        function bankId() { return 'svc-'+(crypto.randomUUID ? crypto.randomUUID() : Date.now()+'-'+Math.random().toString(36).slice(2)); }
+        function bankNotice(message) { const el=document.getElementById('bank-message');if(el)el.textContent=message; }
+        async function restoreServiceBank() {
+            try {
+                if (!db) return;
+                const tx=db.transaction('config','readonly');
+                const row=await new Promise(resolve=>{const req=tx.objectStore('config').get(BANK_CONFIG_ID);req.onsuccess=()=>resolve(req.result);req.onerror=()=>resolve(null);});
+                serviceBankEntries=Array.isArray(row?.items) ? row.items : [];
+            } catch(e) { console.error('Banco maestro: lectura',e);bankNotice('No fue posible leer tu banco de servicios.'); }
+        }
+        async function persistServiceBank() {
+            if (!db) {bankNotice('Almacenamiento aún no disponible.');return false;}
+            try {await dbPut('config',{id:BANK_CONFIG_ID,items:serviceBankEntries,updatedAt:new Date().toISOString()});return true;}
+            catch(e){console.error('Banco maestro: guardado',e);bankNotice('No se pudo guardar el catálogo.');return false;}
+        }
+        function openServiceBank() {
+            if (!isEditMode) {showAppToast('Activa Modo Edición para construir tu propuesta.');return;}
+            const overlay=document.getElementById('service-bank-overlay');overlay.classList.add('open');
+            switchServiceBankTab('favorites');
+        }
+        function closeServiceBank() {document.getElementById('service-bank-overlay')?.classList.remove('open');}
+        function switchServiceBankTab(tab) {
+            serviceBankTab=tab;
+            document.querySelectorAll('[data-bank-tab]').forEach(btn=>btn.classList.toggle('active',btn.dataset.bankTab===tab));
+            document.getElementById('bank-catalog-pane').hidden=tab==='create';
+            document.getElementById('bank-editor-pane').hidden=tab!=='create';
+            document.getElementById('bank-catalog-footer').hidden=tab==='create';
+            if(tab==='create' && !document.getElementById('bank-edit-id').value) resetServiceBankEditor();
+            if(tab!=='create') renderServiceBankItems();
+        }
+        function resetServiceBankEditor() {
+            ['id','name','price','description','benefits','links'].forEach(x=>{const el=document.getElementById('bank-edit-'+x);if(el)el.value='';});
+            document.getElementById('bank-edit-favorite').checked=true;
+        }
+        function renderServiceBankItems() {
+            const el=document.getElementById('bank-items-list');el.replaceChildren();
+            const list=serviceBankEntries.filter(s=>serviceBankTab!=='favorites'||s.favorite).sort((a,b)=>Number(b.favorite)-Number(a.favorite)||a.name.localeCompare(b.name,'es'));
+            if(!list.length){const info=document.createElement('p');info.textContent=serviceBankTab==='favorites'?'No tienes favoritos todavía. En «Todos» puedes marcarlos con la estrella.':'Tu banco está vacío. Crea servicios o guarda una tarjeta existente.';el.appendChild(info);return;}
+            list.forEach(entry=>{
+                const row=document.createElement('article');row.className='bank-item';
+                const content=document.createElement('div');content.style.flex='1';
+                const head=document.createElement('h3');head.textContent=entry.name;
+                const desc=document.createElement('p');desc.textContent=(entry.description||'Sin descripción')+' · Referencia '+moneyDeliverable(bankMoney(entry.price));
+                content.append(head,desc);
+                const actions=document.createElement('div');actions.className='bank-item-actions';
+                const make=(label,icon,fn,emph=false)=>{const b=document.createElement('button');b.type='button';b.className='bank-btn'+(emph?' emph':'');b.innerHTML='<i class="fas fa-'+icon+'"></i> '+label;b.addEventListener('click',fn);actions.appendChild(b);};
+                make(entry.favorite?'★':'☆','star',()=>toggleServiceBankFavorite(entry.id));
+                make('Agregar','plus',()=>addServiceBankToProposal(entry.id),true);
+                make('Editar','pen',()=>editServiceBankEntry(entry.id));
+                make('Eliminar','trash',()=>deleteServiceBankEntry(entry.id));
+                row.append(content,actions);el.appendChild(row);
+            });
+        }
+        async function toggleServiceBankFavorite(id) {const v=serviceBankEntries.find(x=>x.id===id);if(!v)return;v.favorite=!v.favorite;await persistServiceBank();renderServiceBankItems();}
+        function editServiceBankEntry(id) {
+            const e=serviceBankEntries.find(x=>x.id===id);if(!e)return;
+            switchServiceBankTab('create');
+            document.getElementById('bank-edit-id').value=e.id;
+            document.getElementById('bank-edit-name').value=e.name;
+            document.getElementById('bank-edit-price').value=e.price;
+            document.getElementById('bank-edit-description').value=e.description||'';
+            document.getElementById('bank-edit-benefits').value=(e.benefits||[]).join('\n');
+            document.getElementById('bank-edit-links').value=(e.links||[]).join('\n');
+            document.getElementById('bank-edit-favorite').checked=Boolean(e.favorite);
+        }
+        async function saveServiceBankEditor() {
+            const name=bankText(document.getElementById('bank-edit-name').value,120);
+            if(name.length<3){bankNotice('Escribe un nombre de por lo menos 3 caracteres.');return;}
+            const id=document.getElementById('bank-edit-id').value||bankId();
+            const prev=serviceBankEntries.find(x=>x.id===id)||{};
+            const links=document.getElementById('bank-edit-links').value.split(/\n/).map(x=>x.trim()).filter(Boolean);
+            if(links.some(x=>!/^https:\/\/[^\s]+$/i.test(x))) {bankNotice('Los enlaces deben comenzar con https://');return;}
+            const next={...prev,id,name,price:bankMoney(document.getElementById('bank-edit-price').value),description:bankText(document.getElementById('bank-edit-description').value),benefits:document.getElementById('bank-edit-benefits').value.split(/\n/).map(x=>bankText(x,180)).filter(Boolean).slice(0,30),links:links.slice(0,30),favorite:document.getElementById('bank-edit-favorite').checked};
+            serviceBankEntries=serviceBankEntries.filter(x=>x.id!==id).concat(next);
+            if(await persistServiceBank()){bankNotice('Servicio guardado en tu banco.');resetServiceBankEditor();switchServiceBankTab('all');}
+        }
+        async function deleteServiceBankEntry(id) {
+            const entry=serviceBankEntries.find(x=>x.id===id);if(!entry||!confirm('¿Eliminar «'+entry.name+'» del banco maestro? Las propuestas guardadas no cambiarán.'))return;
+            serviceBankEntries=serviceBankEntries.filter(x=>x.id!==id);await persistServiceBank();renderServiceBankItems();
+        }
+        function bankSafeUrl(value) {try{const u=new URL(value,location.href);return u.protocol==='https:'?u.href:'';}catch{return '';}}
+        function bankCardResources(card,urls) {
+            let pane=card.querySelector('.bank-resources');if(!pane){pane=document.createElement('div');pane.className='bank-resources';card.appendChild(pane);}
+            pane.replaceChildren();urls.forEach(url=>{const href=bankSafeUrl(url);if(!href)return;const a=document.createElement('a');a.className='bank-resource-link';a.href=href;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Abrir recurso · '+new URL(href).hostname;pane.appendChild(a);});
+        }
+        function bankCardBenefits(card,benefits) {
+            const list=card.querySelector('.acc-content .text-left');if(!list)return;
+            // El editor de Prospecta ya gestiona los beneficios como filas editables.
+            list.querySelectorAll('.review-point').forEach(row=>row.remove());
+            benefits.forEach(text=>{
+                const row=document.createElement('div');row.className='review-point mb-2';
+                const mark=document.createElement('i');mark.className='fas fa-check';mark.style.marginRight='10px';
+                const span=document.createElement('div');span.className='editable-text text-white text-[15px] leading-relaxed outline-none';span.contentEditable=String(isEditMode);span.textContent=text;
+                row.append(mark,span);list.appendChild(row);
+            });
+        }
+        function readCardBenefits(card){return [...card.querySelectorAll('.acc-content .review-point .editable-text')].map(x=>bankText(x.innerText,180)).filter(Boolean);}
+        async function saveCardToServiceBank(button){
+            if(!isEditMode)return;
+            const card=button.closest('.product-card');if(!card)return;
+            const name=bankText(card.querySelector('.prod-title-element')?.innerText,120);
+            if(!name){bankNotice('Esta tarjeta necesita nombre.');showAppToast('Escribe primero el nombre del servicio.');return;}
+            const price=bankMoney((card.querySelector('.price-val-element')?.innerText||'0').replace(/[^0-9.]/g,''));
+            const links=[...card.querySelectorAll('.bank-resources a[href]')].map(a=>a.href).filter(Boolean);
+            const pic=card.querySelector('.product-img-element');
+            const image=(pic&&!pic.classList.contains('hidden')&&/^(data:image\/|https:\/\/)/i.test(pic.src))?pic.src:'';
+            const entry={id:bankId(),name,price,description:'',benefits:readCardBenefits(card),links,favorite:true,media:image};
+            serviceBankEntries.push(entry);
+            if(await persistServiceBank())showAppToast('Guardado en el banco: '+name);
+        }
+        function addCardResourceLink(button){
+            if(!isEditMode)return;const card=button.closest('.product-card');if(!card)return;
+            const input=prompt('Pega el enlace HTTPS a video, demo o red social:');if(input===null)return;
+            const url=bankSafeUrl(input);if(!url){alert('Introduce una dirección HTTPS válida.');return;}
+            const old=[...card.querySelectorAll('.bank-resources a[href]')].map(x=>x.href);bankCardResources(card,[...old,url]);saveCurrentState();
+        }
+        function addServiceBankToProposal(id) {
+            if(!isEditMode)return;
+            const entry=serviceBankEntries.find(x=>x.id===id);if(!entry)return;
+            addProductCard();const cards=document.querySelectorAll('#z7-products-container .product-card');const card=cards[cards.length-1];if(!card)return;
+            const title=card.querySelector('.prod-title-element');if(title)title.textContent=entry.name;
+            const price=card.querySelector('.price-val-element');if(price)price.textContent=moneyDeliverable(bankMoney(entry.price));
+            bankCardBenefits(card,entry.benefits||[]);bankCardResources(card,entry.links||[]);
+            if(entry.media){const img=card.querySelector('.product-img-element');if(img){img.src=entry.media;img.classList.remove('hidden');const placeholder=card.querySelector('[id$="-placeholder"]');if(placeholder)placeholder.classList.add('hidden');}}
+            card.dataset.serviceBankId=id;
+            enhanceProductChoices();calcularCotizacion();closeServiceBank();showAppToast('Agregado: '+entry.name);
+            card.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+        }
+        function createSpecializedService(){
+            if(!isEditMode)return;
+            addProductCard();const cards=document.querySelectorAll('#z7-products-container .product-card');const card=cards[cards.length-1];if(!card)return;
+            const title=card.querySelector('.prod-title-element');if(title)title.textContent='Servicio especializado · Por definir';
+            const price=card.querySelector('.price-val-element');if(price)price.textContent='$0 MXN';
+            card.dataset.deliveryType='pending';enhanceProductChoices();calcularCotizacion();
+            card.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+        }
+        function downloadServiceBankJSON(includeMedia) {
+            const data={schema:'prospecta-master-services-v1',exportedAt:new Date().toISOString(),items:serviceBankEntries.map(x=>includeMedia?x:{...x,media:''})};
+            const a=document.createElement('a');const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
+            a.href=url;a.download='Prospecta_Banco_Servicios_'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+            bankNotice(includeMedia ? 'JSON con fotos codificadas exportado; su tamaño puede ser elevado.' : 'JSON de textos y enlaces exportado, sin fotos incrustadas.');
+        }
+        async function importServiceBankJSON(event) {
+            const file=event.target.files?.[0];event.target.value='';if(!file)return;
+            if(file.size>15*1024*1024){bankNotice('El archivo supera el límite de 15 MB.');return;}
+            try {
+                const parsed=JSON.parse(await file.text());
+                if(!Array.isArray(parsed.items)||(parsed.schema&&parsed.schema!=='prospecta-master-services-v1'))throw Error('Formato no compatible.');
+                const cleanItems=parsed.items.slice(0,400).map(x=>({id:bankId(),name:bankText(x.name,120),price:bankMoney(x.price??x.referencePrice),description:bankText(x.description??x.shortDescription),benefits:(Array.isArray(x.benefits)?x.benefits:Array.isArray(x.deliverables)?x.deliverables:[]).slice(0,30).map(v=>bankText(v,180)),links:Array.isArray(x.links)?x.links.slice(0,30).map(bankSafeUrl).filter(Boolean):[],favorite:Boolean(x.favorite),media:typeof x.media==='string'&&/^(data:image\/|https:\/\/)/i.test(x.media)?x.media:''})).filter(x=>x.name.length>2);
+                if(!confirm('¿Agregar '+cleanItems.length+' servicios al banco actual? No se eliminarán los existentes.'))return;
+                serviceBankEntries.push(...cleanItems);await persistServiceBank();renderServiceBankItems();bankNotice(cleanItems.length+' servicios importados.');
+            } catch(e){bankNotice('No se pudo importar: '+e.message);}
+        }
+        window.addEventListener('keydown',event=>{if(event.key==='Escape'&&document.getElementById('service-bank-overlay')?.classList.contains('open'))closeServiceBank();});
+
+
         window.addEventListener('DOMContentLoaded', () => { enhanceProductChoices(); setupDeliveryNavigation(); });
         window.addEventListener('DOMContentLoaded', async () => {
             await initIndexedDB(); 
+            await restoreServiceBank();
             await loadTempStateFromDB(); 
             
             setupImportEmi(); 
@@ -4678,5 +4913,25 @@
         setInterval(setDateTime, 60000); 
         setDateTime(); 
     </script>
+
+<div id="service-bank-overlay" class="bank-overlay" role="dialog" aria-modal="true" aria-labelledby="bank-title" onclick="if(event.target===this)closeServiceBank()">
+  <section class="bank-modal">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><h2 id="bank-title">Banco maestro de servicios</h2><p>Elige lo que necesita tu prospecto. Tu catálogo no cambia al personalizar la propuesta.</p></div><button type="button" class="bank-btn" style="min-width:44px;min-height:44px" onclick="closeServiceBank()" aria-label="Cerrar catálogo"><i class="fas fa-times"></i></button></div>
+    <div class="bank-tabs"><button type="button" class="bank-tab active" data-bank-tab="favorites" onclick="switchServiceBankTab('favorites')"><i class="fas fa-star"></i> Favoritos</button><button type="button" class="bank-tab" data-bank-tab="all" onclick="switchServiceBankTab('all')"><i class="fas fa-layer-group"></i> Todos</button><button type="button" class="bank-tab" data-bank-tab="create" onclick="switchServiceBankTab('create')"><i class="fas fa-plus"></i> Crear servicio</button></div>
+    <div id="bank-catalog-pane"><div id="bank-items-list" aria-live="polite"></div></div>
+    <div id="bank-editor-pane" hidden>
+      <input type="hidden" id="bank-edit-id">
+      <div class="bank-edit-grid"><div><label for="bank-edit-name">Nombre del servicio</label><input id="bank-edit-name" maxlength="120" placeholder="Ej. Campañas en redes sociales"></div><div><label for="bank-edit-price">Precio de referencia (MXN)</label><input id="bank-edit-price" type="number" min="0" step="0.01" placeholder="Ej. 2500"></div></div>
+      <label for="bank-edit-description">Descripción breve</label><textarea id="bank-edit-description" maxlength="700" placeholder="Explica qué recibe el cliente"></textarea>
+      <label for="bank-edit-benefits">Beneficios / entregables (una línea por concepto)</label><textarea id="bank-edit-benefits" placeholder="Configuración inicial&#10;Capacitación y seguimiento"></textarea>
+      <label for="bank-edit-links">Videos, demos, redes o enlaces (uno por línea, URL HTTPS)</label><textarea id="bank-edit-links" placeholder="https://www.youtube.com/...&#10;https://www.instagram.com/..."></textarea>
+      <label style="display:flex;align-items:center;gap:8px"><input id="bank-edit-favorite" type="checkbox" style="width:20px;height:20px" checked> <span>Marcar como favorito</span></label>
+      <div class="bank-footer"><button type="button" class="bank-btn emph" onclick="saveServiceBankEditor()"><i class="fas fa-save"></i> Guardar en mi banco</button><button type="button" class="bank-btn" onclick="switchServiceBankTab('all')">Cancelar</button></div>
+    </div>
+    <div class="bank-footer" id="bank-catalog-footer"><button type="button" class="bank-btn" onclick="downloadServiceBankJSON(false)"><i class="fas fa-file-export"></i> JSON solo texto y enlaces</button><button type="button" class="bank-btn" onclick="downloadServiceBankJSON(true)"><i class="fas fa-images"></i> JSON con fotos codificadas</button><button type="button" class="bank-btn" onclick="document.getElementById('bank-import-file').click()"><i class="fas fa-file-import"></i> Importar JSON</button><input id="bank-import-file" type="file" accept="application/json,.json" hidden onchange="importServiceBankJSON(event)"></div>
+    <p id="bank-message" role="status" aria-live="polite"></p>
+  </section>
+</div>
+
 </body>
 </html>
