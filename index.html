@@ -1589,7 +1589,45 @@
 }
 @media(prefers-reduced-motion:reduce){[data-slide="7"] #z7-products-container {scroll-behavior:auto;}}
 
-    </style>
+    
+        /* PERFIL / PORTADA: separar el área gráfica de los datos en escritorio.
+           Mantener íntegro el diseño móvil y no modificar los campos del perfil. */
+        @media (min-width: 1024px) {
+            #tarjeta_perfil {
+                --perfil-banner-height: clamp(210px, 24vw, 260px);
+                padding-top: calc(var(--perfil-banner-height) + 20px) !important;
+                row-gap: 4px;
+                align-items: center;
+            }
+            #tarjeta_perfil .cover-bg {
+                height: var(--perfil-banner-height) !important;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center top;
+            }
+            #tarjeta_perfil .avatar-container {
+                margin-top: -64px;
+                align-self: start;
+            }
+            #tarjeta_perfil .profile-name,
+            #tarjeta_perfil .profile-role {
+                min-width: 0;
+                overflow-wrap: anywhere;
+                position: relative;
+                z-index: 2;
+            }
+            #tarjeta_perfil .profile-name {
+                grid-row: 1;
+                align-self: center;
+                margin: 0;
+            }
+            #tarjeta_perfil .profile-role {
+                grid-row: 2;
+                align-self: start;
+                margin: 0 0 3px;
+            }
+        }
+</style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
 
