@@ -1357,6 +1357,77 @@
             }
             [data-slide="4"] .audit-hint { flex-basis: 100%; }
         }
+
+
+        /* PROSPECTA / Entregables: sistema visual del portal de proyectos (estilos aislados) */
+        [data-slide="7"] { --ent-ink:#3e3e61; --ent-mute:#686681; --ent-line:#dfdfea; --ent-soft:#f1f0f7; --ent-canvas:#f7f7fb; --ent-purple:#625b92; }
+        [data-slide="7"] > h2 {font-size:14px!important;letter-spacing:.11em!important;color:var(--ent-purple)!important;}
+        [data-slide="7"] > h1 {font-size:clamp(26px,3.8vw,38px)!important;line-height:1.2!important;color:var(--ent-ink)!important;margin-bottom:17px!important;}
+        [data-slide="7"] .solution-guide {display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 12px 18px;color:var(--ent-mute);font-size:14px;line-height:1.5;text-align:center;}
+        [data-slide="7"] .solution-guide i {color:var(--ent-purple);font-size:18px;}
+        [data-slide="7"] #z7-products-container {scrollbar-width:thin;scrollbar-color:#bbb6d0 #f3f2f8;scroll-padding-inline:8px;gap:12px!important;min-width:0;padding:4px 8px 15px!important;}
+        [data-slide="7"] .product-card {width:min(85vw,360px)!important;max-width:360px!important;min-width:0!important;box-shadow:0 3px 17px #30304b14!important;border:1px solid var(--ent-line)!important;background:#fff!important;border-radius:15px!important;}
+        [data-slide="7"] .product-card .accordion-wrapper {background:#fff!important;}
+        [data-slide="7"] .product-card .prod-title-element {font-size:17px!important;line-height:1.35!important;font-weight:750!important;color:var(--ent-ink)!important;text-align:left!important;}
+        [data-slide="7"] .product-card .accordion-wrapper > div:first-child {background:var(--ent-canvas)!important;gap:9px;border-color:var(--ent-line)!important;padding:14px 15px!important;}
+        [data-slide="7"] .product-card .accordion-wrapper > div:first-child:before {content:'\f0b1';font:900 17px 'Font Awesome 6 Free';color:var(--ent-purple);background:var(--ent-soft);border-radius:10px;display:grid;place-items:center;flex:0 0 38px;height:40px;}
+        [data-slide="7"] .product-card .accordion-wrapper button i {color:var(--ent-ink)!important;}
+        [data-slide="7"] .product-card .acc-content {background:#fff!important;color:var(--ent-ink)!important;padding:14px!important;}
+        [data-slide="7"] .product-card .acc-content .review-point {display:flex;align-items:flex-start;gap:8px;margin:0 0 10px;}
+        [data-slide="7"] .product-card .acc-content .editable-text,[data-slide="7"] .product-card .acc-content .review-point .editable-text {font-size:15px!important;line-height:1.55!important;color:var(--ent-ink)!important;}
+        [data-slide="7"] .product-card .icon-selector {color:var(--ent-purple)!important;flex-shrink:0;}
+        [data-slide="7"] .product-card .icon-selector > i {color:var(--ent-purple)!important;}
+        [data-slide="7"] .product-card > div:last-child {background:var(--ent-soft)!important;border-color:var(--ent-line)!important;gap:12px;flex-wrap:wrap;border-radius:0 0 14px 14px;}
+        [data-slide="7"] .product-card > div:last-child > span {color:var(--ent-mute)!important;font-size:12px!important;letter-spacing:.03em!important;}
+        [data-slide="7"] .product-card .price-val-element {color:var(--ent-ink)!important;font-size:clamp(18px,2vw,23px)!important;}
+        [data-slide="7"] .delivery-choice {display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--ent-line);background:#fcfcff;}
+        [data-slide="7"] .delivery-choice label {font-size:13px;font-weight:700;color:var(--ent-ink);}
+        [data-slide="7"] .delivery-choice select {border:1px solid #c6c3d9;border-radius:9px;padding:8px 30px 8px 10px;background:#fff;color:var(--ent-ink);font-size:14px;min-height:40px;}
+        [data-slide="7"] .delivery-bonus-badge {display:none;align-items:center;gap:7px;font-size:13px;font-weight:750;border:1px solid #c8e4d6;color:#235e47;background:#edf9f2;border-radius:9px;padding:7px 10px;}
+        [data-slide="7"] .product-card[data-delivery-type="bonus"] .delivery-bonus-badge {display:inline-flex;}
+        [data-slide="7"] .product-card[data-delivery-type="bonus"] .price-val-element {display:none!important;}
+        [data-slide="7"] .product-card[data-delivery-type="bonus"] > div:last-child > span {display:none!important;}
+        [data-slide="7"] #white-document-container {max-width:none!important;min-width:0;margin:0!important;padding:20px!important;box-shadow:0 4px 22px #30304b12!important;border:1px solid var(--ent-line);border-radius:16px!important;align-self:start;}
+        [data-slide="7"] #white-document-container h3 {font-size:18px!important;line-height:1.3;margin-bottom:12px!important;}
+        [data-slide="7"] #white-document-container #summary-list-container {margin-bottom:14px!important;}
+        [data-slide="7"] #white-document-container #summary-list-container > div {gap:7px!important;}
+        [data-slide="7"] #white-document-container #summary-list-container .ent-summary-row {display:flex;align-items:center;gap:10px;border:1px solid #eeedf5;border-radius:10px;padding:9px;background:#fafafe;}
+        [data-slide="7"] .ent-summary-row img {width:38px;height:38px;border-radius:9px;object-fit:cover;flex:none;}
+        [data-slide="7"] .ent-summary-row .ent-summary-name {color:var(--ent-ink);font-size:14px;font-weight:700;min-width:0;overflow-wrap:anywhere;flex:1;}
+        [data-slide="7"] .ent-summary-row .ent-summary-price {color:var(--ent-ink);font-size:13px;font-weight:800;white-space:nowrap;}
+        [data-slide="7"] .ent-summary-row .ent-summary-bonus {color:#25634b;background:#e8f6ee;border-radius:7px;padding:5px 8px;font-size:12px;font-weight:750;white-space:nowrap;}
+        [data-slide="7"] #white-document-container .relative.z-10 > div:first-child {flex-wrap:wrap;gap:12px;margin-bottom:17px!important;padding-bottom:14px!important;}
+        [data-slide="7"] #doc-name-sync {font-size:clamp(18px,2vw,24px)!important;}
+        [data-slide="7"] .ent-status-line {display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;line-height:1.5;color:var(--ent-mute);margin-bottom:12px;}
+        [data-slide="7"] .ent-status-line strong {color:var(--ent-ink);font-weight:800;}
+        [data-slide="7"] .ent-mobile-jump {display:none;}
+        [data-slide="7"] button:focus-visible,[data-slide="7"] select:focus-visible {outline:3px solid #837bb6!important;outline-offset:2px;}
+        @media(min-width:1024px) {
+          [data-slide="7"] {display:none;grid-template-columns:minmax(0,1.05fr) minmax(350px,.95fr);gap:14px 20px;align-content:start;max-width:1360px!important;padding-inline:16px!important;}
+          [data-slide="7"].active {display:grid!important;}
+          [data-slide="7"] > h2,[data-slide="7"] > h1,[data-slide="7"] > .solution-guide {grid-column:1/-1;}
+          [data-slide="7"] > h2 {margin-bottom:0!important;}
+          [data-slide="7"] > h1 {margin-bottom:0!important;}
+          [data-slide="7"] #z7-products-container {grid-column:1;grid-row:4;align-self:start;}
+          [data-slide="7"] #white-document-container {grid-column:2;grid-row:4 / span 3;position:sticky;top:10px;max-height:calc(100dvh - 175px);overflow:auto;}
+          [data-slide="7"] > .edit-only {grid-column:1;grid-row:5;}
+          [data-slide="7"] #builder-canvas-7 {grid-column:1;grid-row:6;}
+          [data-slide="7"] .product-card {width:min(42vw,370px)!important;}
+        }
+        @media(max-width:1023px) {
+          [data-slide="7"] {padding-inline:10px!important;}
+          [data-slide="7"] .ent-mobile-jump {display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:10px 14px;margin:0 0 12px;border-radius:12px;background:var(--ent-soft);border:1px solid var(--ent-line);color:var(--ent-ink);font-size:14px;font-weight:750;width:100%;}
+          [data-slide="7"] #white-document-container {margin-top:18px!important;}
+          [data-slide="7"] .product-card {width:min(84vw,370px)!important;}
+        }
+        @media(max-width:420px) {
+          [data-slide="7"] #white-document-container {padding:13px!important;}
+          [data-slide="7"] .ent-summary-row {gap:7px!important;padding:7px!important;}
+          [data-slide="7"] .ent-summary-row .ent-summary-name {font-size:13px;}
+          [data-slide="7"] .ent-summary-row .ent-summary-price {font-size:12px;}
+          [data-slide="7"] .product-card {width:87vw!important;}
+        }
+        @media(min-width:1024px){[data-slide="7"] .solution-guide{grid-row:3;}[data-slide="7"] .ent-mobile-jump{display:none!important;}}
     </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -2103,6 +2174,8 @@
                 <h2 class="text-white text-lg font-bold tracking-widest uppercase mb-2 text-center flex items-center justify-center gap-2"><i class="fas fa-box-open text-[1.1em] text-white"></i> Soluciones</h2>
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
+                <div class="solution-guide"><i class="fas fa-layer-group" aria-hidden="true"></i><span>Explora las soluciones y consulta a la derecha todo lo que recibirá tu negocio.</span></div>
+                <button type="button" class="ent-mobile-jump" onclick="document.getElementById('white-document-container').scrollIntoView({behavior:'smooth',block:'start'})"><span><i class="fas fa-clipboard-list" aria-hidden="true"></i> Ver entregables e inversión</span><i class="fas fa-arrow-down" aria-hidden="true"></i></button>
                 <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
                     
                     <div class="product-card flex flex-col bg-brand-panel border border-white/20 rounded-2xl shadow-xl w-[90vw] max-w-[400px] shrink-0 relative snap-center group dynamic-block">
@@ -2228,6 +2301,7 @@
                         
                         <h3 class="text-xl font-bold text-[#3E3E61] mb-6 flex items-center gap-2"><i class="fas fa-list-check text-[#3E3E61]"></i> Resumen de Entregables</h3>
                         
+                        <div class="ent-status-line"><span><i class="fas fa-boxes-stacked" aria-hidden="true"></i> Conceptos de la propuesta</span><strong id="ent-delivery-count">—</strong></div>
                         <!-- Contenedor del listado (Se llena por JS) -->
                         <div id="summary-list-container" class="w-full mb-8 editable-text min-h-[100px] outline-none" contenteditable="false">
                             <p class="text-slate-400 text-center text-sm italic mt-8">Haz clic en "Actualizar Cotización" para generar la propuesta.</p>
@@ -3156,6 +3230,7 @@
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = html;
             container.appendChild(tempDiv.firstElementChild);
+            enhanceProductChoices();
             
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
@@ -3200,11 +3275,58 @@
             setTimeout(() => { container.scrollTo({left: container.scrollWidth, behavior:'smooth'}); }, 100);
         }
 
+        // Presentación de entregables: atributo serializable dentro del HTML del perfil.
+        // Los perfiles históricos sin atributo mantienen su precio como concepto de costo.
+        function enhanceProductChoices() {
+            document.querySelectorAll('#z7-products-container .product-card').forEach(card => {
+                if (!card.dataset.deliveryType) card.dataset.deliveryType = 'cost';
+                const footer = card.querySelector('.price-val-element')?.parentElement;
+                if (!footer) return;
+                if (!card.querySelector('.delivery-choice')) {
+                    const choice = document.createElement('div');
+                    choice.className = 'delivery-choice edit-only';
+                    choice.innerHTML = '<label><i class="fas fa-tags" aria-hidden="true"></i> Tipo de entregable</label><select aria-label="Tipo de entregable"><option value="cost">Con costo</option><option value="bonus">Bono incluido</option></select>';
+                    footer.parentElement.insertBefore(choice, footer);
+                }
+                const select = card.querySelector('.delivery-choice select');
+                if (select) {
+                    select.value = card.dataset.deliveryType === 'bonus' ? 'bonus' : 'cost';
+                    // on-change se instala por delegación para no duplicar eventos al restaurar HTML.
+                }
+                if (!card.querySelector('.delivery-bonus-badge')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'delivery-bonus-badge';
+                    badge.innerHTML = '<i class="fas fa-gift" aria-hidden="true"></i> Bono incluido';
+                    footer.appendChild(badge);
+                }
+            });
+        }
+        document.addEventListener('change', function(event) {
+            if (!event.target.matches('#z7-products-container .delivery-choice select')) return;
+            const card = event.target.closest('.product-card');
+            if (!card || !isEditMode) return;
+            card.dataset.deliveryType = event.target.value === 'bonus' ? 'bonus' : 'cost';
+            calcularCotizacion();
+        });
+        // Recalcular al terminar una edición de texto de precio, título o descuento.
+        document.addEventListener('focusout', function(event) {
+            if (!isEditMode || !event.target.closest('[data-slide="7"]')) return;
+            if (event.target.matches('.price-val-element,.prod-title-element,#doc-discount') || event.target.closest('.price-val-element,.prod-title-element,#doc-discount')) calcularCotizacion();
+        });
+        function escapeDeliverableText(text) {
+            const div = document.createElement('div'); div.textContent = text; return div.innerHTML;
+        }
+        function moneyDeliverable(value) {
+            return '$' + value.toLocaleString('es-MX', {maximumFractionDigits:2}) + ' MXN';
+        }
+
         // FIX: Función de cálculo que ahora lee el descuento y resta del subtotal, en MXN
         function calcularCotizacion() {
+            enhanceProductChoices();
             const productCards = document.querySelectorAll('#z7-products-container .product-card');
             
             let subtotal = 0;
+            let bonusCount = 0;
             let htmlList = `<div class="w-full flex flex-col gap-2">`;
             
             productCards.forEach((card) => {
@@ -3220,15 +3342,17 @@
                 let priceVal = parseFloat(numStr);
                 if(isNaN(priceVal)) priceVal = 0;
                 
-                subtotal += priceVal;
-                
-                let imgSrc = imgElement && !imgElement.classList.contains('hidden') ? imgElement.src : 'https://placehold.co/100x100/f1f5f9/94a3b8?text=Item';
-
+                const isBonus = card.dataset.deliveryType === 'bonus';
+                if (isBonus) bonusCount++; else subtotal += priceVal;
+                // No interpolar HTML del usuario en innerHTML sin escapar.
+                const safeTitle = escapeDeliverableText(title);
+                const imgSrc = imgElement && !imgElement.classList.contains('hidden') ? imgElement.src : '';
+                const safeImage = imgSrc && (imgSrc.startsWith('data:image/') || /^https?:\/\//i.test(imgSrc)) ? `<img src="${imgSrc.replace(/&/g,'&amp;').replace(/"/g,'&quot;')}" alt="" loading="lazy">` : '<i class="fas fa-box" aria-hidden="true" style="width:38px;text-align:center;color:#625b92"></i>';
                 htmlList += `
-                    <div class="flex items-center gap-3 border-b border-slate-200 border-dashed pb-2 pt-1">
-                        <img src="${imgSrc}" class="w-10 h-10 rounded-md object-cover shadow-sm shrink-0 border border-slate-200" alt="${title}">
-                        <span class="text-[#3E3E61] text-[15px] font-medium flex-1">${title}</span>
-                        <span class="text-[#3E3E61] font-bold text-[15px] whitespace-nowrap">$${priceVal.toLocaleString('en-US')} MXN</span>
+                    <div class="ent-summary-row">
+                        ${safeImage}
+                        <span class="ent-summary-name">${safeTitle}</span>
+                        ${isBonus ? '<span class="ent-summary-bonus"><i class="fas fa-gift" aria-hidden="true"></i> Bono</span>' : `<span class="ent-summary-price">${moneyDeliverable(priceVal)}</span>`}
                     </div>
                 `;
             });
@@ -3267,6 +3391,8 @@
                 </div>
             </div>`;
             
+            const counter = document.getElementById('ent-delivery-count');
+            if (counter) counter.textContent = productCards.length + ' entregables' + (bonusCount ? ' · ' + bonusCount + ' bonos' : '');
             const container = document.getElementById('summary-list-container');
             if(container) {
                 container.innerHTML = htmlList;
@@ -3492,6 +3618,7 @@
             const prodCont = document.getElementById('z7-products-container');
             if(prodCont && profile.productos) {
                 prodCont.innerHTML = profile.productos;
+                enhanceProductChoices();
             }
 
             const compCont = document.getElementById('comp-carousel-container');
@@ -3910,6 +4037,8 @@
                 }
             });
 
+            if (currentSlide === 7) calcularCotizacion();
+
             document.getElementById('progress-bar').style.width = `${(currentSlide / totalSlides) * 100}%`;
             document.getElementById('script-content').innerHTML = currentScripts[currentSlide] || "<p>Sin notas para esta diapositiva.</p>";
             
@@ -4033,6 +4162,7 @@
             }
         });
 
+        window.addEventListener('DOMContentLoaded', () => { enhanceProductChoices(); });
         window.addEventListener('DOMContentLoaded', async () => {
             await initIndexedDB(); 
             await loadTempStateFromDB(); 
