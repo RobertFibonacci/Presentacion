@@ -1742,21 +1742,21 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
         .intro-cover .intro-cta {
             display: inline-flex; align-items: center; justify-content: center; gap: 14px;
             padding: 10px 22px; min-height: 44px; border-radius: 12px;
-            background: #fff; color: #050611; font-size: 16px; font-weight: 800;
+            background: #fff; color: #3e3e61; font-size: 16px; font-weight: 800;
             box-shadow: 0 5px 16px rgba(89,5,91,.19); transition: background .2s ease;
         }
         .intro-cover .intro-cta:hover { background: #e2e8f0; }
         .intro-cover .intro-cta:focus-visible { outline: 3px solid #9d83c5; outline-offset: 3px; }
         @media (min-width:1024px) {
             #presentation-area:has(> .intro-cover.active) { padding: 12px 24px 10px; }
-            #presentation-area > .intro-cover.active { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; gap: 10px 30px; }
+            #presentation-area > .intro-cover.active { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; align-content: space-evenly; min-height: 100%; gap: clamp(12px, 2vh, 20px) 30px; }
             .intro-cover .intro-introduction { text-align: left; }
             .intro-cover h1 { margin-left: 0; }
             .intro-cover .intro-process { grid-column: 2; grid-row: 1; }
-            .intro-cover .intro-steps { grid-template-columns: minmax(0,1fr); gap: 7px; }
+            .intro-cover .intro-steps { grid-template-columns: minmax(0,1fr); gap: clamp(8px, 1.25vh, 12px); }
             .intro-cover .intro-step:last-child:nth-child(odd) { grid-column: auto; }
-            .intro-cover .intro-step { padding: 9px 12px; }
-            .intro-cover .intro-conclusion { grid-column: 1 / -1; border-top: 1px solid #ddd7eb; padding-top: 9px; }
+            .intro-cover .intro-step { padding: 10px 12px; }
+            .intro-cover .intro-conclusion { grid-column: 1 / -1; border-top: 1px solid #ddd7eb; padding-top: 12px; }
         }
         @media (max-width:700px) {
             #presentation-area > .intro-cover.active { padding: 4px 0 30px; gap: 16px; }
