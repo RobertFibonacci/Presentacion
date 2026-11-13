@@ -674,60 +674,6 @@
                 padding: 26px clamp(28px, 4vw, 80px) 40px;
                 align-items: center;
             }
-            #presentation-area > .slide[data-slide="1"].active {
-                display: grid;
-                grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
-                grid-template-rows: auto auto auto;
-                column-gap: clamp(40px, 5vw, 96px);
-                row-gap: 18px;
-                max-width: 1200px;
-                width: 100%;
-                min-height: min(610px, calc(100dvh - 210px));
-                margin: 0 auto;
-                padding: 10px 0 28px;
-                align-items: center;
-            }
-            [data-slide="1"] > :nth-child(1) {
-                grid-column: 1;
-                grid-row: 1 / 4;
-                margin-bottom: 0;
-                text-align: left;
-            }
-            [data-slide="1"] > :nth-child(1) > span,
-            [data-slide="1"] > :nth-child(1) > h1 {
-                text-align: left !important;
-            }
-            [data-slide="1"] > :nth-child(1) > h1 {
-                font-size: clamp(34px, 3.8vw, 58px);
-                line-height: 1.08;
-                padding: 0;
-                text-wrap: balance;
-            }
-            [data-slide="1"] > :nth-child(2) {
-                grid-column: 2;
-                grid-row: 1;
-                justify-content: flex-start;
-                margin: 0;
-                align-self: end;
-            }
-            [data-slide="1"] > :nth-child(2) > div { max-width: 100%; }
-            [data-slide="1"] > :nth-child(3) {
-                grid-column: 2;
-                grid-row: 2;
-                padding: 0;
-                margin: 0;
-                gap: 16px;
-            }
-            [data-slide="1"] > :nth-child(3) > p {
-                text-align: left !important;
-                font-size: clamp(15px, 1.25vw, 18px);
-            }
-            [data-slide="1"] > :nth-child(4) {
-                grid-column: 2;
-                grid-row: 3;
-                margin: 0;
-                align-self: start;
-            }
             #presentation-area > .slide[data-slide="3"],
             #presentation-area > .slide[data-slide="5"],
             #presentation-area > .slide[data-slide="6"] {
@@ -743,17 +689,6 @@
             }
             #footer-carousel { justify-content: center; }
         }
-        /* En pantallas de escritorio bajas, priorizar que todo pueda desplazarse. */
-        @media screen and (min-width: 1024px) and (max-height: 760px) {
-            #presentation-area > .slide[data-slide="1"].active {
-                min-height: 0;
-                row-gap: 12px;
-                padding-top: 10px;
-            }
-            [data-slide="1"] > :nth-child(1) > h1 { font-size: clamp(32px, 3.3vw, 48px); }
-            [data-slide="1"] > :nth-child(3) { gap: 10px; }
-        }
-
         /* =============================================================
            PROSPECTA - TEMA CLARO 2026
            Exclusivamente apariencia. Sin cambiar HTML, JS o responsive.
@@ -1601,43 +1536,6 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
     line-height: 1.4 !important;
     letter-spacing: .075em !important;
   }
-  /* Portada: el título ahora es comparable a los encabezados del expediente. */
-  #presentation-area > [data-slide="1"] > :first-child { margin-bottom: 24px !important; }
-  #presentation-area > [data-slide="1"] > :first-child > span {
-    font-size: 11px !important;
-    line-height: 1.4 !important;
-  }
-  #presentation-area > [data-slide="1"] > :first-child > h1 {
-    font-size: clamp(22px, 5.8vw, 26px) !important;
-    line-height: 1.16 !important;
-    letter-spacing: -.025em !important;
-    padding-inline: 4px !important;
-    overflow-wrap: anywhere;
-  }
-  #presentation-area > [data-slide="1"] > :first-child > .h-5 { height: 9px !important; }
-  #presentation-area > [data-slide="1"] > :nth-child(2) { margin-bottom: 24px !important; }
-  #presentation-area > [data-slide="1"] > :nth-child(3) {
-    gap: 12px !important;
-    margin-bottom: 25px !important;
-    padding-inline: 8px !important;
-  }
-  #presentation-area > [data-slide="1"] > :nth-child(3) > p:first-child {
-    font-size: 14px !important;
-    line-height: 1.6 !important;
-    text-align: center !important;
-    font-weight: 500 !important;
-  }
-  #presentation-area > [data-slide="1"] > :nth-child(3) > p:last-child {
-    font-size: 14px !important;
-    line-height: 1.55 !important;
-    text-align: left !important;
-    font-weight: 700 !important;
-  }
-  #presentation-area > [data-slide="1"] > :nth-child(4) > button {
-    font-size: 14px !important;
-    line-height: 1.3 !important;
-    min-height: 48px;
-  }
   /* Soluciones, competencia y tarjetas con la escala del sistema de entregables. */
   [data-slide="7"] .solution-guide {
     font-size: 14px !important;
@@ -1801,6 +1699,80 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
   [data-slide="4"] .comparison-four-grid,[data-slide="7"] #z7-products-container{scroll-behavior:auto;}
   [data-slide="7"].proposal-revealed #white-document-container{animation:none;}
 }
+
+        /* ZONA 1 · Estilos únicos de la portada del Método Prospecta.
+           Se sustituyeron los estilos antiguos asociados a los cuatro bloques anteriores. */
+        #presentation-area > .intro-cover.active {
+            display: grid; grid-template-columns: minmax(0,1fr); gap: 20px;
+            width: 100%; max-width: 1060px; margin: 0 auto; padding: 12px 0 36px;
+            box-sizing: border-box; align-content: start; color: #353353;
+        }
+        .intro-cover .intro-introduction { text-align: center; min-width: 0; }
+        .intro-cover .intro-eyebrow {
+            font-size: 12px; font-weight: 800; letter-spacing: .12em;
+            line-height: 1.4; color: #625587; margin: 0 0 12px;
+        }
+        .intro-cover h1 {
+            font-size: clamp(25px,3.35vw,43px); line-height: 1.12; letter-spacing: -.035em;
+            font-weight: 900; color: #3e3e61; margin: 0 auto 12px; max-width: 820px;
+            overflow-wrap: normal; text-wrap: balance;
+        }
+        .intro-cover .intro-subtitle { font-size: clamp(14px,1.35vw,18px); line-height: 1.5; font-weight: 600; color: #5d5578; margin: 0; }
+        .intro-cover .intro-steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+        .intro-cover .intro-step {
+            display: flex; align-items: flex-start; gap: 13px;
+            background: #ffffff; border: 1px solid #e2deed; border-radius: 15px;
+            padding: 16px; min-width: 0; box-shadow: 0 3px 14px rgba(54,46,85,.055);
+        }
+        .intro-cover .intro-step:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .intro-cover .intro-step-icon {
+            flex: 0 0 43px; height: 43px; display: grid; place-items: center;
+            border-radius: 12px; color: #554a82; background: #f0edf9;
+        }
+        .intro-cover .intro-step-copy { min-width: 0; }
+        .intro-cover .intro-step-heading { display: flex; align-items: baseline; gap: 8px; margin-bottom: 5px; }
+        .intro-cover .intro-step-num { font-size: 12px; font-weight: 900; color: #7663a2; flex: none; }
+        .intro-cover .intro-step-heading h3 { font-size: 15px; line-height: 1.3; font-weight: 800; color: #3e3e61; margin: 0; }
+        .intro-cover .intro-step p { margin: 0; font-size: 14px; line-height: 1.48; color: #55536d; }
+        .intro-cover .intro-conclusion { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+        .intro-cover .intro-impact {
+            max-width: 800px; margin: 0; font-size: clamp(15px,1.35vw,18px);
+            line-height: 1.48; font-weight: 750; color: #3e3e61; text-wrap: pretty;
+        }
+        .intro-cover .intro-cta {
+            display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+            padding: 13px 24px; min-height: 48px; border-radius: 12px;
+            background: #fff; color: #050611; font-size: 16px; font-weight: 800;
+            box-shadow: 0 5px 16px rgba(89,5,91,.19); transition: background .2s ease;
+        }
+        .intro-cover .intro-cta:hover { background: #e2e8f0; }
+        .intro-cover .intro-cta:focus-visible { outline: 3px solid #9d83c5; outline-offset: 3px; }
+        @media (min-width:1024px) {
+            #presentation-area > .intro-cover.active { grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; gap: 22px 34px; }
+            .intro-cover .intro-introduction { text-align: left; }
+            .intro-cover h1 { margin-left: 0; }
+            .intro-cover .intro-process { grid-column: 2; grid-row: 1; }
+            .intro-cover .intro-steps { grid-template-columns: minmax(0,1fr); gap: 9px; }
+            .intro-cover .intro-step:last-child:nth-child(odd) { grid-column: auto; }
+            .intro-cover .intro-step { padding: 12px 14px; }
+            .intro-cover .intro-conclusion { grid-column: 1 / -1; border-top: 1px solid #ddd7eb; padding-top: 18px; }
+        }
+        @media (max-width:700px) {
+            #presentation-area > .intro-cover.active { padding: 4px 0 30px; gap: 16px; }
+            .intro-cover .intro-eyebrow { font-size: 10.5px; margin-bottom: 9px; }
+            .intro-cover h1 { font-size: clamp(23px,6.1vw,29px); }
+            .intro-cover .intro-subtitle { font-size: 14px; }
+            .intro-cover .intro-steps { grid-template-columns: minmax(0,1fr); gap: 9px; }
+            .intro-cover .intro-step:last-child:nth-child(odd) { grid-column: auto; }
+            .intro-cover .intro-step { padding: 12px; gap: 11px; }
+            .intro-cover .intro-step-icon { flex-basis: 38px; height: 38px; }
+            .intro-cover .intro-step-icon svg { width: 21px; height: 21px; }
+            .intro-cover .intro-step-heading h3 { font-size: 14px; }
+            .intro-cover .intro-step p { font-size: 13px; }
+            .intro-cover .intro-impact { font-size: 14px; }
+            .intro-cover .intro-cta { width: 100%; }
+        }
+
 </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -1877,67 +1849,60 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
         
         <div id="presentation-area" class="flex-1 w-full flex flex-col items-center justify-start p-4 pt-6 md:px-8 lg:p-12 transition-all duration-300 overflow-y-auto overscroll-y-contain">
             
-            <!-- Zona 1: Portada -->
-            <div class="slide active flex-col w-full max-w-xl mx-auto relative z-10 shrink-0 pb-12 mt-4" data-slide="1">
-                <div class="text-center w-full mb-10">
-                    <span class="text-[11px] md:text-[13px] font-black tracking-widest text-white uppercase block text-center drop-shadow-md">
-                        IA APLICADA A VENTAS PARA NEGOCIOS
-                    </span>
-                    <div class="h-5"></div> 
-                    <h1 class="text-[28px] md:text-[36px] font-black text-white leading-[1.05] uppercase tracking-tight text-center drop-shadow-lg px-2">
-                        CONSTRUYE UN SISTEMA COMERCIAL PARA COMUNICAR, PERSUADIR Y VENDER MÁS FÁCIL CON IA.
-                    </h1>
+            <!-- Zona 1: Portada · Método Prospecta (contenido visual únicamente) -->
+            <section class="slide intro-cover w-full" data-slide="1" aria-labelledby="intro-main-title">
+                <div class="intro-introduction">
+                    <p class="intro-eyebrow">IA APLICADA A VENTAS PARA NEGOCIOS</p>
+                    <h1 id="intro-main-title">COMUNICA, PERSUADE Y VENDE MÁS FÁCIL</h1>
+                    <p class="intro-subtitle">con el Método Prospecta e Inteligencia Artificial</p>
                 </div>
-
-                <div class="relative w-full flex justify-center mb-10">
-                    <div class="flex items-center w-full max-w-sm relative justify-center md:justify-start">
-                        <div class="relative w-16 h-16 bg-brand-dark rounded-full border-[3px] border-white flex items-center justify-center avatar-alive shrink-0 z-20 shadow-md">
-                            <svg viewBox="0 0 100 100" class="w-9 h-9" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="50" y1="34" x2="50" y2="18" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <circle cx="50" cy="12" r="5" fill="#FFFFFF"/>
-                                <rect x="22" y="34" width="56" height="38" rx="10" fill="transparent" stroke="#FFFFFF" stroke-width="4"/>
-                                <line x1="22" y1="53" x2="12" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <line x1="78" y1="53" x2="88" y2="53" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
-                                <rect x="34" y="44" width="32" height="10" rx="5" fill="#FFFFFF"/>
-                                <path d="M 38 60 Q 50 68 62 60" stroke="#FFFFFF" stroke-width="4" fill="none" stroke-linecap="round"/>
-                            </svg>
-                            <svg viewBox="0 0 24 24" class="absolute -top-1 -right-1 w-4 h-4 text-white animate-pulse" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+                <div class="intro-process" aria-label="Cinco etapas del Método Prospecta">
+                    <ol class="intro-steps">
+                    <li class="intro-step">
+                        <span class="intro-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="14" x="3" y="7" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></svg></span>
+                        <div class="intro-step-copy">
+                            <div class="intro-step-heading"><span class="intro-step-num">01</span><h3>PREPARAMOS TU NEGOCIO</h3></div>
+                            <p>Perfil, oferta, presentación y materiales comerciales.</p>
                         </div>
-                        <div class="relative flex-1 h-14 ml-4 pointer-events-none">
-                            <div class="absolute left-1 bottom-1 flex items-center gap-1 opacity-60">
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0s;"></div>
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.2s;"></div>
-                                <div class="w-1.5 h-1.5 bg-white rounded-full typing-dot" style="animation-delay: 0.4s;"></div>
-                            </div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 0s;">"Me dejan en visto."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 3.5s;">"Solo preguntan precios."</div>
-                            <div class="floating-bubble" style="bottom: 16px; left: 0px; animation-delay: 7s;">"No convierto conversaciones."</div>
+                    </li>
+                    <li class="intro-step">
+                        <span class="intro-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 13v-2Z"/><path d="M7 14.1 9 20h4l-2.4-4.6M3 11v2M21 8a4 4 0 0 1 0 8"/></svg></span>
+                        <div class="intro-step-copy">
+                            <div class="intro-step-heading"><span class="intro-step-num">02</span><h3>PROBAMOS LA CAPTACIÓN</h3></div>
+                            <p>Campaña piloto con presupuesto publicitario definido.</p>
                         </div>
-                    </div>
+                    </li>
+                    <li class="intro-step">
+                        <span class="intro-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19.5 3 21v-5a8 8 0 0 1 8-11h2a8 8 0 0 1 7 12H9Z"/><path d="M8 11h8M8 15h5"/></svg></span>
+                        <div class="intro-step-copy">
+                            <div class="intro-step-heading"><span class="intro-step-num">03</span><h3>ATENDEMOS EL INTERÉS</h3></div>
+                            <p>Conversaciones, diagnóstico y presentación de valor.</p>
+                        </div>
+                    </li>
+                    <li class="intro-step">
+                        <span class="intro-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="18" rx="2"/><rect x="9" y="2" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg></span>
+                        <div class="intro-step-copy">
+                            <div class="intro-step-heading"><span class="intro-step-num">04</span><h3>DAMOS SEGUIMIENTO</h3></div>
+                            <p>Registro de oportunidades y continuidad comercial.</p>
+                        </div>
+                    </li>
+                    <li class="intro-step">
+                        <span class="intro-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 16 4-5 3 2 6-7"/><path d="M16 6h4v4"/></svg></span>
+                        <div class="intro-step-copy">
+                            <div class="intro-step-heading"><span class="intro-step-num">05</span><h3>MEDIMOS Y MEJORAMOS</h3></div>
+                            <p>Consultas, conversaciones, cotizaciones y ventas registradas.</p>
+                        </div>
+                    </li>
+                    </ol>
                 </div>
-                
-                <div class="w-full px-4 mb-12 flex flex-col gap-5">
-                    <p class="text-[15px] md:text-[17px] font-medium text-white leading-relaxed text-center md:text-justify drop-shadow-sm">
-                        Contenido que comunique tu valor.<br>
-                        Conversaciones que descubran qué necesita tu cliente.<br>
-                        Seguimiento que mantenga viva cada oportunidad.<br>
-                        Un proceso claro que conduzca hacia una decisión.
-                    </p>
-                    <div class="h-px w-full bg-white/20 my-2"></div>
-                    <p class="text-[16px] md:text-[18px] font-bold text-white text-justify md:text-center drop-shadow-md">
-                        La Metodología Prospecta™ conecta contenido, conversación y seguimiento con Inteligencia Artificial dentro de un sistema comercial diseñado para tu negocio.
-                    </p>
-                </div>
-                
-                <div class="w-full flex flex-col items-center mb-10">
-                    <button onclick="goToSlide(2)" class="w-full bg-white text-brand-dark font-extrabold text-[15px] md:text-[17px] py-4 px-4 rounded-xl shadow-xl hover:bg-slate-200 transition-all active:scale-95 flex items-center justify-center gap-2 border-b-4 border-slate-300 uppercase tracking-wide">
-                        <i class="fas fa-arrow-right text-brand-dark mr-1"></i> EVALUAR MI PROCESO COMERCIAL
+                <div class="intro-conclusion">
+                    <p class="intro-impact">No necesitas más herramientas sueltas. Necesitas un proceso que convierta interesados en conversaciones, conversaciones en seguimiento y seguimiento en ventas.</p>
+                    <button type="button" class="intro-cta" onclick="goToSlide(2)">
+                        <span>¿Cómo vendo más?</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
                     </button>
-                    <div class="text-white text-[11px] md:text-xs mt-4 font-bold uppercase tracking-wider opacity-90 flex items-center gap-1">
-                        <i class="fas fa-clock text-white mr-1"></i> Toma menos de 3 minutos.
-                    </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Zona 2: Perfil -->
             <div class="slide flex-col items-center justify-start w-full mb-8 shrink-0" data-slide="2">
