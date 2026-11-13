@@ -1810,6 +1810,10 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
                 <button onclick="if(!notesVisible) toggleNotes(); switchSidebarTab('perfiles'); toggleMainMenu();" class="w-full text-white hover:text-white hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3 mt-1">
                     <i class="fas fa-users w-5 text-center text-white"></i> <span class="font-semibold text-sm">Mis Perfiles CRM</span>
                 </button>
+
+                <button type="button" id="menu-share-profile" onclick="compartirPerfilActual(); toggleMainMenu();" class="w-full text-white hover:text-white hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
+                    <i class="fas fa-share-nodes w-5 text-center text-white"></i> <span class="font-semibold text-sm">Compartir</span>
+                </button>
                 
                 <div class="h-px w-full bg-white/20 my-1"></div>
                 <button onclick="toggleFullScreen(); toggleMainMenu();" class="w-full text-white hover:text-white hover:bg-white/10 text-left px-4 py-3 rounded-lg transition-colors flex items-center gap-3">
@@ -1830,13 +1834,9 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
         </div>
 
         <div class="quick-actions flex-none z-10">
-            <button type="button" id="quick-save-button" class="quick-action-btn quick-action-btn--primary" onclick="guardarPerfilRapido()" aria-label="Guardar perfil" title="Guardar perfil">
+            <button type="button" id="quick-save-button" class="quick-action-btn quick-action-btn--primary" style="display:none" onclick="guardarPerfilRapido()" aria-label="Guardar perfil" title="Guardar perfil">
                 <i class="fas fa-floppy-disk text-white"></i>
                 <span class="quick-action-label">Guardar</span>
-            </button>
-            <button type="button" id="quick-share-button" class="quick-action-btn" onclick="compartirPerfilActual()" aria-label="Compartir perfil" title="Compartir perfil">
-                <i class="fas fa-share-nodes text-white"></i>
-                <span class="quick-action-label">Compartir</span>
             </button>
         </div>
         
@@ -2979,6 +2979,35 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
         const CRM_IMG_IDS = ['evid1-img', 'evid2-img', 'evid3-img', 'evid4-img'];
 
         let isEditMode = false;
+        let profileHasUnsavedEdits = false;
+
+        function refreshQuickSaveVisibility() {
+            const quickSave = document.getElementById('quick-save-button');
+            if (quickSave) quickSave.style.display = isEditMode && profileHasUnsavedEdits ? 'inline-flex' : 'none';
+        }
+        function markProfileEdited() {
+            if (!isEditMode) return;
+            profileHasUnsavedEdits = true;
+            refreshQuickSaveVisibility();
+        }
+        function clearProfileEdited() {
+            profileHasUnsavedEdits = false;
+            refreshQuickSaveVisibility();
+        }
+        // Solo interacciones de edición. Los controles de navegación no activan Guardar.
+        document.addEventListener('input', event => {
+            if (event.target.closest('#presentation-area, #script-content')) markProfileEdited();
+        }, true);
+        document.addEventListener('change', event => {
+            if (event.target.closest('#presentation-area, #input-portada, #input-avatar')) markProfileEdited();
+        }, true);
+        document.addEventListener('click', event => {
+            if (!isEditMode) return;
+            const control = event.target.closest('[onclick]');
+            if (!control || !control.closest('#presentation-area')) return;
+            const action = control.getAttribute('onclick') || '';
+            if (/\b(?:remove|addProduct|addBenefit|setRating|setIcon|delete|duplicate|addNew|addCardResourceLink|toggleProductType|setProduct|removeProduct|addBlock|addItem|move)\b|\.remove\s*\(/i.test(action)) markProfileEdited();
+        }, true);
         
         function toggleEditMode() {
             isEditMode = !isEditMode;
@@ -3019,6 +3048,7 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
 
             checkEmptySocials();
             syncWhiteDocumentHeaders(); 
+            clearProfileEdited();
         }
 
         // FIX: Limpieza quirúrgica del contenido de las burbujas vacías
@@ -3933,6 +3963,7 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
                 CRM_IMG_IDS.forEach(id => profile.data[id] = window.CRM_STATE['prospecta_' + id] || '');
 
                 await dbPut('profiles', profile);
+                clearProfileEdited();
 
                 const saveBtn = document.getElementById('btn-save-changes');
                 if(saveBtn) {
@@ -4000,6 +4031,7 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
                 await dbPut('profiles', profile);
                 
                 activeProfileId = profile.id; 
+                clearProfileEdited();
                 window.CRM_STATE['prospecta_active_profile_id'] = profile.id; 
                 saveTempStateToDB();
                 
@@ -4019,6 +4051,7 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
             if(!profile) return;
 
             activeProfileId = id; 
+            clearProfileEdited();
             window.CRM_STATE['prospecta_active_profile_id'] = id; 
 
             if(profile.data) {
