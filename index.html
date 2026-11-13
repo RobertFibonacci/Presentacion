@@ -44,11 +44,11 @@
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap'); /* Fuente para la firma */
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"); /* Fuente para la firma */
         
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: "Inter", sans-serif; 
             background-color: #1e1e2f; 
             color: white; 
             overflow: hidden; 
@@ -1049,8 +1049,8 @@
         /* Indicadores visuales de evidencia sin introducir datos guardados. */
         #comp-carousel-container .comparison-media-gallery:not(.is-empty)::before,
         #own-carousel-container .comparison-media-gallery:not(.is-empty)::before {
-            content: '\f03e  EVIDENCIA VISUAL';
-            font-family: 'Font Awesome 6 Free', Arial, sans-serif;
+            content: " EVIDENCIA VISUAL";
+            font-family: "Font Awesome 6 Free", Arial, sans-serif;
             font-weight: 900;
             color: #686487;
             font-size: 10px;
@@ -1083,20 +1083,20 @@
         /* Íconos lineales de navegación. La etiqueta del botón sigue editable. */
         #footer-carousel button { display: inline-flex; align-items: center; gap: 7px; }
         #footer-carousel button::before {
-            font-family: 'Font Awesome 6 Free';
+            font-family: "Font Awesome 6 Free";
             font-weight: 900;
             font-size: 12px;
             line-height: 1;
             opacity: .85;
             flex-shrink: 0;
         }
-        #footer-carousel button:nth-child(1)::before { content: '\f015'; }
-        #footer-carousel button:nth-child(2)::before { content: '\f2bd'; }
-        #footer-carousel button:nth-child(3)::before { content: '\f059'; }
-        #footer-carousel button:nth-child(4)::before { content: '\f24e'; }
-        #footer-carousel button:nth-child(5)::before { content: '\f0eb'; }
-        #footer-carousel button:nth-child(6)::before { content: '\f0e0'; }
-        #footer-carousel button:nth-child(7)::before { content: '\f0b1'; }
+        #footer-carousel button:nth-child(1)::before { content: ""; }
+        #footer-carousel button:nth-child(2)::before { content: ""; }
+        #footer-carousel button:nth-child(3)::before { content: ""; }
+        #footer-carousel button:nth-child(4)::before { content: ""; }
+        #footer-carousel button:nth-child(5)::before { content: ""; }
+        #footer-carousel button:nth-child(6)::before { content: ""; }
+        #footer-carousel button:nth-child(7)::before { content: ""; }
         #footer-carousel button { font-size: 12px; font-weight: 700; }
         #footer-carousel { gap: clamp(5px, .8vw, 12px); }
         /* Pantalla de escritorio: ordenar tarjetas sin obligar a desplazamiento lateral. */
@@ -1211,35 +1211,12 @@
            nodos internos de los carruseles ni cambiar sus claves de guardado.
            display: contents permite compartir una misma cuadrícula visual. */
         @media (min-width: 1024px) {
-            [data-slide="4"] .comparison-four-grid {
-                display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                column-gap: clamp(12px, 1.5vw, 20px);
-                row-gap: 12px;
-                width: 100%;
-                padding-inline: clamp(12px, 1.5vw, 22px);
-                align-items: start;
-                box-sizing: border-box;
-            }
-            [data-slide="4"] .comparison-four-grid > .w-full,
-            [data-slide="4"] .comparison-four-grid #comp-carousel-container,
-            [data-slide="4"] .comparison-four-grid #own-carousel-container {
-                display: contents;
-            }
-            [data-slide="4"] .comparison-four-grid > .flex.z-10 { display: none; }
-            [data-slide="4"] .comparison-four-grid > .w-full > .flex.items-center {
-                margin: 0;
-                min-width: 0;
-                align-self: end;
-            }
-            [data-slide="4"] .comparison-four-grid > .w-full:first-child > .flex.items-center {
-                grid-column: 1 / 4;
-                grid-row: 1;
-            }
-            [data-slide="4"] .comparison-four-grid > .w-full:nth-child(3) > .flex.items-center {
-                grid-column: 4;
-                grid-row: 1;
-            }
+            
+            
+            
+            
+            
+            
             [data-slide="4"] #comp-carousel-container > .carousel-card,
             [data-slide="4"] #own-carousel-container > .carousel-card {
                 width: 100%;
@@ -1259,34 +1236,10 @@
         /* En celular, el negocio se visualiza en la misma secuencia horizontal,
            a continuación de los tres competidores, en vez de debajo. */
         @media (max-width: 1023px) {
-            [data-slide="4"] .comparison-four-grid {
-                display: grid;
-                grid-auto-flow: column;
-                grid-auto-columns: min(86vw, 360px);
-                gap: 14px;
-                overflow-x: auto;
-                overscroll-behavior-x: contain;
-                scroll-snap-type: x mandatory;
-                padding: 8px max(12px, 3vw) 20px;
-                width: 100%;
-                max-width: 100%;
-                box-sizing: border-box;
-                -webkit-overflow-scrolling: touch;
-            }
-            [data-slide="4"] .comparison-four-grid > .w-full,
-            [data-slide="4"] .comparison-four-grid #comp-carousel-container,
-            [data-slide="4"] .comparison-four-grid #own-carousel-container { display: contents; }
-            [data-slide="4"] .comparison-four-grid > .w-full > .flex.items-center,
-            [data-slide="4"] .comparison-four-grid > .flex.z-10 { display: none; }
-            [data-slide="4"] .comparison-four-grid .carousel-card {
-                flex-basis: auto;
-                width: 100%;
-                max-width: none;
-                min-width: 0;
-                scroll-snap-align: center;
-                margin: 0;
-                box-sizing: border-box;
-            }
+            
+            
+            
+            
             [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1) { grid-column: 1; }
             [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(2) { grid-column: 2; }
             [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(3) { grid-column: 3; }
@@ -1297,65 +1250,32 @@
 
         /* AUDITORÍA: tres competidores al inicio; el cuarto permanece a la
            derecha, accesible por desplazamiento horizontal o por Avanzar. */
-        [data-slide="4"] .comparison-four-grid { scroll-behavior: smooth; }
-        [data-slide="4"] .audit-controls {
-            display: flex; align-items: center; justify-content: space-between;
-            flex-wrap: wrap; gap: 10px; width: 100%; padding: 8px 12px 15px;
-        }
-        [data-slide="4"] .audit-controls button {
-            background: #eeebf7; color: #39365f; border: 1px solid #d5cee8;
-            padding: 10px 15px; border-radius: 12px; font-weight: 750;
-            display: inline-flex; align-items: center; gap: 9px;
-            box-shadow: 0 2px 8px #2c225511;
-        }
-        [data-slide="4"] .audit-controls button:focus-visible,
-        [data-slide="4"] .carousel-card:focus-visible { outline: 3px solid #7160ac; outline-offset: 3px; }
-        [data-slide="4"] .audit-controls #audit-back { display: none; }
-        [data-slide="4"].audit-focus .audit-controls #audit-back { display: inline-flex; }
-        [data-slide="4"].audit-focus .audit-controls #audit-forward { display: none; }
-        [data-slide="4"] .audit-hint { color: #554c88; font-size: 13px; font-weight: 600; }
-        [data-slide="4"] .comparison-four-grid .carousel-card.audit-pickable { cursor: pointer; }
-        [data-slide="4"] .comparison-four-grid .carousel-card.audit-pickable:hover { border-color: #8b7aba !important; }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         @media (min-width: 1024px) {
-            [data-slide="4"] .comparison-four-grid {
-                grid-template-columns: repeat(4, calc((100% - 2 * clamp(12px, 1.5vw, 20px)) / 3));
-                overflow-x: auto; overscroll-behavior-x: contain;
-                scroll-snap-type: x proximity;
-                scrollbar-width: thin;
-                scrollbar-color: #a29ac5 #eeeaf5;
-            }
+            
             [data-slide="4"] #comp-carousel-container > .carousel-card,
             [data-slide="4"] #own-carousel-container > .carousel-card { scroll-snap-align: start; }
         }
         /* La vista individual solamente cambia la representación, nunca
            elimina ni mueve nodos que IndexedDB / archivos .emi serializan. */
-        [data-slide="4"].audit-focus .comparison-four-grid {
-            display: grid !important; grid-template-columns: minmax(0, 1fr) !important;
-            grid-auto-columns: minmax(0, 1fr) !important;
-            overflow-x: hidden !important; justify-items: center;
-            scroll-snap-type: none !important;
-        }
-        [data-slide="4"].audit-focus .comparison-four-grid .carousel-card:not(.audit-selected) {
-            display: none !important;
-        }
-        [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
-            display: flex !important; grid-column: 1 !important; grid-row: 2 !important;
-            width: min(100%, 900px) !important; max-width: 900px !important;
-            min-width: 0 !important; margin-inline: auto !important;
-        }
-        [data-slide="4"].audit-focus .comparison-four-grid > .w-full > .flex.items-center,
-        [data-slide="4"].audit-focus .comparison-four-grid > .flex.z-10 { display: none !important; }
-        [data-slide="4"].audit-focus .comparison-four-grid .comparison-media-item img {
-            width: 100%; height: auto; object-fit: contain;
-        }
+        
+        
+        
+        
+        
         @media (max-width: 1023px) {
-            [data-slide="4"].audit-focus .comparison-four-grid {
-                padding-inline: 12px; width: 100%;
-            }
-            [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
-                grid-column: 1 !important; grid-row: 1 !important;
-            }
-            [data-slide="4"] .audit-hint { flex-basis: 100%; }
+            
+            
+            
         }
 
 
@@ -1365,12 +1285,12 @@
         [data-slide="7"] > h1 {font-size:clamp(26px,3.8vw,38px)!important;line-height:1.2!important;color:var(--ent-ink)!important;margin-bottom:17px!important;}
         [data-slide="7"] .solution-guide {display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:0 12px 18px;color:var(--ent-mute);font-size:14px;line-height:1.5;text-align:center;}
         [data-slide="7"] .solution-guide i {color:var(--ent-purple);font-size:18px;}
-        [data-slide="7"] #z7-products-container {scrollbar-width:thin;scrollbar-color:#bbb6d0 #f3f2f8;scroll-padding-inline:8px;gap:12px!important;min-width:0;padding:4px 8px 15px!important;}
-        [data-slide="7"] .product-card {width:min(85vw,360px)!important;max-width:360px!important;min-width:0!important;box-shadow:0 3px 17px #30304b14!important;border:1px solid var(--ent-line)!important;background:#fff!important;border-radius:15px!important;}
+        
+        [data-slide="7"] .product-card {box-shadow:0 3px 17px #30304b14!important;border:1px solid var(--ent-line)!important;background:#fff!important;border-radius:15px!important;}
         [data-slide="7"] .product-card .accordion-wrapper {background:#fff!important;}
         [data-slide="7"] .product-card .prod-title-element {font-size:17px!important;line-height:1.35!important;font-weight:750!important;color:var(--ent-ink)!important;text-align:left!important;}
         [data-slide="7"] .product-card .accordion-wrapper > div:first-child {background:var(--ent-canvas)!important;gap:9px;border-color:var(--ent-line)!important;padding:14px 15px!important;}
-        [data-slide="7"] .product-card .accordion-wrapper > div:first-child:before {content:'\f0b1';font:900 17px 'Font Awesome 6 Free';color:var(--ent-purple);background:var(--ent-soft);border-radius:10px;display:grid;place-items:center;flex:0 0 38px;height:40px;}
+        [data-slide="7"] .product-card .accordion-wrapper > div:first-child:before {content:"";font:900 17px "Font Awesome 6 Free";color:var(--ent-purple);background:var(--ent-soft);border-radius:10px;display:grid;place-items:center;height:40px;}
         [data-slide="7"] .product-card .accordion-wrapper button i {color:var(--ent-ink)!important;}
         [data-slide="7"] .product-card .acc-content {background:#fff!important;color:var(--ent-ink)!important;padding:14px!important;}
         [data-slide="7"] .product-card .acc-content .review-point {display:flex;align-items:flex-start;gap:8px;margin:0 0 10px;}
@@ -1400,7 +1320,7 @@
         [data-slide="7"] #doc-name-sync {font-size:clamp(18px,2vw,24px)!important;}
         [data-slide="7"] .ent-status-line {display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;line-height:1.5;color:var(--ent-mute);margin-bottom:12px;}
         [data-slide="7"] .ent-status-line strong {color:var(--ent-ink);font-weight:800;}
-        [data-slide="7"] .ent-mobile-jump {display:none;}
+        
         [data-slide="7"] button:focus-visible,[data-slide="7"] select:focus-visible {outline:3px solid #837bb6!important;outline-offset:2px;}
         @media(min-width:1024px) {
           [data-slide="7"] {display:none;grid-template-columns:minmax(0,1.05fr) minmax(350px,.95fr);gap:14px 20px;align-content:start;max-width:1360px!important;padding-inline:16px!important;}
@@ -1408,138 +1328,99 @@
           [data-slide="7"] > h2,[data-slide="7"] > h1,[data-slide="7"] > .solution-guide {grid-column:1/-1;}
           [data-slide="7"] > h2 {margin-bottom:0!important;}
           [data-slide="7"] > h1 {margin-bottom:0!important;}
-          [data-slide="7"] #z7-products-container {grid-column:1;grid-row:4;align-self:start;}
+          
           [data-slide="7"] #white-document-container {grid-column:2;grid-row:4 / span 3;position:sticky;top:10px;max-height:calc(100dvh - 175px);overflow:auto;}
           [data-slide="7"] > .edit-only {grid-column:1;grid-row:5;}
           [data-slide="7"] #builder-canvas-7 {grid-column:1;grid-row:6;}
-          [data-slide="7"] .product-card {width:min(42vw,370px)!important;}
+          
         }
         @media(max-width:1023px) {
           [data-slide="7"] {padding-inline:10px!important;}
-          [data-slide="7"] .ent-mobile-jump {display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:10px 14px;margin:0 0 12px;border-radius:12px;background:var(--ent-soft);border:1px solid var(--ent-line);color:var(--ent-ink);font-size:14px;font-weight:750;width:100%;}
+          
           [data-slide="7"] #white-document-container {margin-top:18px!important;}
-          [data-slide="7"] .product-card {width:min(84vw,370px)!important;}
+          
         }
         @media(max-width:420px) {
           [data-slide="7"] #white-document-container {padding:13px!important;}
           [data-slide="7"] .ent-summary-row {gap:7px!important;padding:7px!important;}
           [data-slide="7"] .ent-summary-row .ent-summary-name {font-size:13px;}
           [data-slide="7"] .ent-summary-row .ent-summary-price {font-size:12px;}
-          [data-slide="7"] .product-card {width:87vw!important;}
+          
         }
-        @media(min-width:1024px){[data-slide="7"] .solution-guide{grid-row:3;}[data-slide="7"] .ent-mobile-jump{display:none!important;}}
+        @media(min-width:1024px){[data-slide="7"] .solution-guide{grid-row:3;}}
 
 
 /* === Auditoría refinada: controles y disposición visual. No cambia datos persistentes. === */
-[data-slide="7"] .ent-mobile-jump {display:none!important;}
+
 [data-slide="7"] .solution-guide {text-align:center;}
 [data-slide="7"] .solution-guide .fa-layer-group {flex:none;}
-[data-slide="7"] .proposal-reveal-control {display:flex;align-items:center;justify-content:center;margin:18px auto 20px;max-width:410px;gap:11px;min-height:48px;background:#51477d;color:white;border-radius:12px;border:1px solid #d3cde4;padding:12px 18px;font-weight:800;font-size:14px;box-shadow:0 3px 13px #40336622;cursor:pointer;}
-[data-slide="7"] .proposal-reveal-control i {color:inherit;}
+
+
 [data-slide="7"] #white-document-container {scroll-margin-top:22px;}
-[data-slide="7"]:not(.proposal-revealed) #white-document-container {display:none!important;}
-[data-slide="7"] .proposal-reveal-control[aria-expanded="true"] {background:#ece9f5;color:#39365f;}
+
+
 @media(min-width:1024px) {
  [data-slide="7"] {display:none!important;max-width:1360px!important;}
  [data-slide="7"].active {display:flex!important;flex-direction:column!important;align-items:stretch!important;}
  [data-slide="7"] > h2,[data-slide="7"] > h1 {text-align:center!important;}
- [data-slide="7"] #z7-products-container {width:100%!important;max-width:100%!important;align-self:stretch!important;}
- [data-slide="7"] .product-card {width:min(30vw,395px)!important;max-width:395px!important;}
+ 
+ 
  [data-slide="7"] #white-document-container {position:relative!important;top:auto!important;max-height:none!important;overflow:visible!important;width:min(100%,1090px)!important;max-width:1090px!important;margin:12px auto 40px!important;align-self:center!important;}
- [data-slide="7"] .proposal-reveal-control {margin-top:22px;}
+ 
 }
 @media(max-width:1023px) {
- [data-slide="7"] .proposal-reveal-control {margin-inline:12px;max-width:none;}
+ 
  [data-slide="7"] #white-document-container {margin-top:8px!important;}
 }
 /* Las fotografías y fichas de análisis individual mantienen dimensiones útiles. */
-[data-slide="4"].audit-focus .comparison-four-grid {display:flex!important;flex-direction:column!important;align-items:center!important;overflow-x:visible!important;max-width:100%!important;width:100%!important;}
-[data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {display:flex!important;width:min(100%,560px)!important;max-width:560px!important;min-width:0!important;flex:none!important;margin-inline:auto!important;grid-column:auto!important;grid-row:auto!important;}
-[data-slide="4"].audit-focus .comparison-four-grid .comparison-media-item img {width:100%!important;height:auto!important;object-fit:contain!important;}
-@media(max-width:639px){[data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {width:100%!important;max-width:100%!important;}}
+
+
+
+@media(max-width:639px){}
 /* Barra de avance siempre visible sin buscar el scrollbar. */
-[data-slide="4"] .audit-controls {position:sticky;top:0;z-index:12;background:#f7f6fcf2;border:1px solid #e3dfef;border-radius:13px;padding:9px!important;backdrop-filter:blur(10px);}
-[data-slide="4"] .audit-controls .audit-nav-pair {display:flex;gap:7px;margin-left:auto;}
-[data-slide="4"] .audit-controls .audit-nav-pair button {min-width:44px;min-height:44px;padding:9px 12px;justify-content:center;}
-[data-slide="4"] .audit-controls .audit-nav-pair button:disabled {opacity:.4;cursor:not-allowed;}
+
+
+
+
 [data-slide="4"] .audit-reorder-handle {display:flex;align-items:center;justify-content:center;gap:7px;align-self:center;background:#efecf7;color:#443c6e;border:1px solid #d6d0e8;border-radius:9px;min-height:38px;padding:8px 13px;font-size:12px;font-weight:800;cursor:grab;touch-action:none;user-select:none;margin-bottom:10px;}
 [data-slide="4"] .audit-reorder-handle:active {cursor:grabbing;}
 [data-slide="4"].audit-focus .audit-reorder-handle {display:none;}
 [data-slide="4"] .audit-dragging {opacity:.7;outline:3px dashed #8577ac;outline-offset:3px;}
-[data-slide="4"] .comparison-four-grid.is-dragging {scroll-snap-type:none!important;scroll-behavior:auto!important;}
-@media(max-width:700px){[data-slide="4"] .audit-hint{font-size:11px;}[data-slide="4"] .audit-controls {gap:5px;}[data-slide="4"] .audit-controls .audit-nav-pair {margin-left:auto;}}
+
+@media(max-width:700px){}
 /* Vista de lupa: más área útil sin recortar la captura vertical. */
 #evidencia-modal #evidencia-modal-img {max-height:calc(100dvh - 165px)!important;max-width:calc(100vw - 40px)!important;width:auto!important;height:auto!important;object-fit:contain!important;}
 #evidencia-modal #evidencia-scroll-container {display:flex;align-items:center;justify-content:center;}
 
     
 /* === Refinamiento: controles laterales que no tapan la evidencia === */
-[data-slide="4"] .audit-controls {
-    position:static!important;top:auto!important;z-index:auto!important;
-    width:100%;min-height:42px;padding:4px 8px 10px!important;
-    background:transparent!important;border:0!important;box-shadow:none!important;
-    backdrop-filter:none!important;justify-content:center!important;
-}
-[data-slide="4"] .audit-controls .audit-hint {font-size:13px;line-height:1.5;text-align:center;max-width:72ch;}
+
+
 /* Las flechas salen de la barra central y quedan en los extremos del viewport.
    El contenedor no intercepta gestos ni clics sobre las fotografías. */
-[data-slide="4"] .audit-controls .audit-nav-pair {
-    position:fixed!important;inset-inline:8px!important;top:50%!important;
-    transform:translateY(-50%);width:auto!important;height:0!important;
-    display:flex!important;justify-content:space-between!important;align-items:center!important;
-    margin:0!important;gap:0!important;pointer-events:none!important;
-    z-index:35!important;
-}
-[data-slide="4"] .audit-controls .audit-nav-pair button {
-    pointer-events:auto!important;display:inline-flex!important;
-    align-items:center!important;justify-content:center!important;
-    width:44px!important;height:52px!important;min-width:44px!important;
-    padding:0!important;border-radius:13px!important;
-    color:#3e3e61!important;background:rgba(250,249,254,.94)!important;
-    border:1px solid #c9c4dc!important;box-shadow:0 5px 18px #24233d24!important;
-    font-size:18px!important;backdrop-filter:blur(6px);
-}
-[data-slide="4"] .audit-controls .audit-nav-pair button:disabled {opacity:.34!important;}
-[data-slide="4"] .audit-controls #audit-forward {display:none!important;}
-[data-slide="4"] .audit-controls #audit-back {min-height:40px;}
+
+
+
+
+
 /* Margen libre junto a las flechas, sin comprimir las fotografías. */
 @media(min-width:1024px) {
-    [data-slide="4"] .comparison-four-grid {max-width:calc(100% - 96px)!important;margin-inline:auto!important;}
+    
 }
 @media(max-width:1023px) {
-    [data-slide="4"] .audit-controls .audit-nav-pair {inset-inline:3px!important;}
-    [data-slide="4"] .audit-controls .audit-nav-pair button {
-        width:35px!important;min-width:35px!important;height:46px!important;
-        border-radius:11px!important;font-size:15px!important;
-    }
-    [data-slide="4"] .audit-hint {font-size:12px!important;}
-    [data-slide="4"] .comparison-four-grid {padding-inline:39px!important;scroll-padding-inline:39px!important;}
+    
+    
+    
+    
 }
 /* === Propuesta: revelación exclusiva a la derecha, nunca debajo === */
-[data-slide="7"].proposal-revealed > :not(#proposal-reveal-button):not(#white-document-container) {
-    display:none!important;
-}
-[data-slide="7"].proposal-revealed {
-    display:flex!important;flex-direction:column!important;align-items:stretch!important;
-    max-width:1360px!important;width:100%!important;gap:0!important;
-}
-[data-slide="7"].proposal-revealed #proposal-reveal-button {
-    align-self:flex-end!important;margin:8px 0 14px auto!important;
-    max-width:100%!important;position:relative!important;z-index:1!important;
-}
-[data-slide="7"].proposal-revealed #white-document-container {
-    display:block!important;position:relative!important;grid-column:auto!important;
-    grid-row:auto!important;top:auto!important;max-height:none!important;
-    overflow:visible!important;width:min(100%,1090px)!important;
-    max-width:1090px!important;margin:0 0 35px auto!important;
-    align-self:flex-end!important;animation:proposalEnterFromRight .28s ease-out both;
-}
+
+
+
+
 @keyframes proposalEnterFromRight {from{opacity:.6;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
 @media(max-width:1023px){
-    [data-slide="7"].proposal-revealed #white-document-container {
-        width:100%!important;max-width:100%!important;margin:0 0 25px!important;
-        align-self:stretch!important;
-    }
+    
 }
 /* Tipografía equivalente a las tarjetas del sistema de entregables. */
 [data-slide="7"] #white-document-container h3 {font-size:20px!important;line-height:1.3!important;}
@@ -1551,43 +1432,23 @@
     [data-slide="7"] #white-document-container .ent-summary-row .ent-summary-name {font-size:14px!important;}
     [data-slide="7"] #white-document-container .ent-summary-row .ent-summary-price {font-size:13px!important;}
 }
-@media(prefers-reduced-motion:reduce){[data-slide="7"].proposal-revealed #white-document-container{animation:none!important;}}
+@media(prefers-reduced-motion:reduce){}
 
     
 /* === Entregables: navegación lateral, independiente del guardado del perfil. === */
-[data-slide="7"] .delivery-side-navigation { display:none; }
-[data-slide="7"].active:not(.proposal-revealed) .delivery-side-navigation {
-  position:fixed;inset-inline:7px;top:50%;transform:translateY(-50%);
-  display:flex;align-items:center;justify-content:space-between;
-  height:0;z-index:34;pointer-events:none;
-}
-[data-slide="7"] .delivery-side-navigation button {
-  pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;
-  width:44px;height:52px;min-width:44px;min-height:44px;padding:0;
-  border-radius:13px;border:1px solid #c9c4dc;
-  background:rgba(250,249,254,.96);color:#3e3e61;
-  box-shadow:0 5px 18px #24233d24;backdrop-filter:blur(6px);
-  font-size:18px;cursor:pointer;transition:opacity .15s ease,background .15s ease;
-}
-[data-slide="7"] .delivery-side-navigation button:disabled {opacity:.30;cursor:default;pointer-events:none;}
-[data-slide="7"] .delivery-side-navigation button:focus-visible {outline:3px solid #837bb6;outline-offset:3px;}
+
+
+
+
+
 /* Dejar una franja libre a cada extremo del carrusel sin recortar tarjetas ni imágenes. */
-[data-slide="7"] #z7-products-container {
-  width:calc(100% - 108px)!important;max-width:calc(100% - 108px)!important;
-  margin-inline:auto!important;align-self:center!important;
-  scroll-behavior:smooth;overscroll-behavior-x:contain;
-}
+
 @media(max-width:700px) {
- [data-slide="7"].active:not(.proposal-revealed) .delivery-side-navigation {inset-inline:2px;}
- [data-slide="7"] .delivery-side-navigation button {
-   width:35px;min-width:35px;height:46px;min-height:44px;
-   border-radius:11px;font-size:15px;
- }
- [data-slide="7"] #z7-products-container {
-   width:calc(100% - 82px)!important;max-width:calc(100% - 82px)!important;
- }
+ 
+ 
+ 
 }
-@media(prefers-reduced-motion:reduce){[data-slide="7"] #z7-products-container {scroll-behavior:auto;}}
+@media(prefers-reduced-motion:reduce){}
 
     
         /* PERFIL / PORTADA: separar el área gráfica de los datos en escritorio.
@@ -1776,65 +1637,16 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
 /* PROSPECTA: restaurar ancho aprovechable en móvil sin cambiar datos ni controles. */
 @media (max-width: 700px) {
   /* En la versión anterior se restaban 82px para las flechas, estrechando las fichas. */
-  [data-slide="7"] #z7-products-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    margin-inline: 0 !important;
-    padding: 4px 6px 15px !important;
-    scroll-padding-inline: 6px !important;
-    gap: 12px !important;
-    box-sizing: border-box !important;
-  }
-  [data-slide="7"] #z7-products-container > .product-card {
-    box-sizing: border-box !important;
-    flex: 0 0 calc(100% - 12px) !important;
-    width: calc(100% - 12px) !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    margin-inline: 0 !important;
-    scroll-snap-align: center !important;
-  }
+  
+  
   /* Flechas en los extremos: no ocupan espacio dentro del carrusel. */
-  [data-slide="7"].active:not(.proposal-revealed) .delivery-side-navigation,
-  [data-slide="4"] .audit-controls .audit-nav-pair {
-    inset-inline: 1px !important;
-  }
-  [data-slide="7"] .delivery-side-navigation button,
-  [data-slide="4"] .audit-controls .audit-nav-pair button {
-    width: 29px !important;
-    min-width: 29px !important;
-    height: 46px !important;
-    background: rgba(250,249,254,.76) !important;
-    border-radius: 9px !important;
-    box-shadow: 0 2px 8px #24233d20 !important;
-  }
+  
+  
   /* Auditoría: eliminar los 39px reservados a cada lado y hacer las fichas amplias. */
-  [data-slide="4"] .comparison-four-grid {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 8px 6px 20px !important;
-    scroll-padding-inline: 6px !important;
-    grid-auto-columns: calc(100% - 12px) !important;
-    gap: 12px !important;
-    box-sizing: border-box !important;
-  }
-  [data-slide="4"] .comparison-four-grid .carousel-card {
-    width: 100% !important;
-    max-width: none !important;
-    min-width: 0 !important;
-    box-sizing: border-box !important;
-    scroll-snap-align: center !important;
-  }
-  [data-slide="4"].audit-focus .comparison-four-grid {
-    padding: 8px 6px 20px !important;
-    overflow-x: visible !important;
-  }
-  [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-inline: auto !important;
-  }
+  
+  
+  
+  
 }
 
 /* ================================================================
@@ -1926,40 +1738,150 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
   #footer-carousel button {font-size: 12px !important;min-height: 42px;}
 }
 
-/* PROSPECTA · Entregables: tipografía, descripción, notas y acordeón localizado. */
-[data-slide="7"] .product-card .accordion-wrapper{flex:0 0 auto!important;min-height:0!important;gap:0!important;}
-[data-slide="7"] .product-card .accordion-wrapper > div:first-child{padding:11px 12px!important;border-bottom:0!important;cursor:pointer;}
-[data-slide="7"] .product-card .accordion-wrapper > div:first-child .prod-title-element{text-align:left!important;font-size:17px!important;line-height:1.36!important;}
-[data-slide="7"] .product-card .accordion-wrapper .product-short-description{font-size:14px!important;line-height:1.45!important;color:#64617b!important;padding:0 14px 11px 14px;overflow-wrap:anywhere;min-height:1.45em;}
-[data-slide="7"] .product-card .accordion-wrapper .product-short-description:empty::before{content:'Descripción breve del producto';color:#8c89a1;}
-body:not(.edit-mode-active) [data-slide="7"] .product-card .product-short-description:empty{display:none!important;}
-body.edit-mode-active [data-slide="7"] .product-card .product-short-description{outline:1px dashed #b6b0ce;outline-offset:-2px;border-radius:6px;}
-[data-slide="7"] .product-card .acc-content.hidden{display:none!important;}
-[data-slide="7"] .product-card .acc-content{padding:10px 14px 12px!important;border-top:1px solid #e8e5f0!important;}
-[data-slide="7"] .product-card .acc-content .review-point{margin:0!important;padding:5px 0!important;gap:8px!important;line-height:1.42!important;}
-[data-slide="7"] .product-card .acc-content .review-point .editable-text{font-size:14px!important;line-height:1.45!important;}
-[data-slide="7"] .product-card .product-additional-note{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;margin:0 0 8px;background:#f4f2f9;border-radius:9px;color:#4b486c;}
-[data-slide="7"] .product-card .product-additional-note .product-note-text{font-size:13px;line-height:1.48;flex:1;min-width:0;overflow-wrap:anywhere;}
-[data-slide="7"] .product-card .product-additional-note .product-note-text:empty::before{content:'Anotación adicional (opcional)';color:#8c89a1;}
-body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-note:has(.product-note-text:empty){display:none!important;}
-[data-slide="7"] .product-card .accordion-wrapper button[aria-expanded] {min-width:44px;min-height:44px;display:grid;place-items:center;border-radius:8px;}
-[data-slide="7"] .product-card .accordion-wrapper button[aria-expanded]:focus-visible {outline:2px solid #62568d;}
-[data-slide="7"] .product-card > .h-8.opacity-0.pointer-events-none{display:none!important;}
-/* La propuesta no queda bajo las tarjetas: está al extremo derecho del carrusel. */
-[data-slide="7"]:not(.proposal-revealed) #proposal-reveal-button {display:none!important;}
-[data-slide="7"] .proposal-final-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;flex:0 0 min(85vw,380px);min-height:295px;padding:28px 20px;border:1px solid #d8d3e7;background:#fff;border-radius:16px;scroll-snap-align:center;text-align:center;box-shadow:0 3px 17px #30304b14;}
-[data-slide="7"] .proposal-final-card .proposal-final-icon{display:grid;place-items:center;background:#efedf8;width:65px;height:65px;border-radius:18px;color:#53487c;font-size:25px;}
-[data-slide="7"] .proposal-final-card h3{font-size:20px;line-height:1.3;color:#39365f;font-weight:800;}
-[data-slide="7"] .proposal-final-card p{font-size:14px;line-height:1.48;color:#65617d;}
-[data-slide="7"] .proposal-final-card button{display:flex;align-items:center;justify-content:center;gap:9px;background:#554a88;color:#fff;padding:13px 17px;border-radius:11px;font-size:14px;font-weight:750;min-height:46px;cursor:pointer;}
-[data-slide="7"] .proposal-final-card button:focus-visible{outline:3px solid #988fd0;outline-offset:3px;}
-[data-slide="7"].proposal-revealed #white-document-container{margin:0 0 35px auto!important;align-self:flex-end!important;max-width:1090px!important;}
-@media(max-width:700px){
- [data-slide="7"] #z7-products-container > .proposal-final-card{flex:0 0 calc(100% - 12px);width:calc(100% - 12px);min-width:0;}
- [data-slide="7"] .product-card .accordion-wrapper .product-short-description{font-size:14px!important;}
- [data-slide="7"].proposal-revealed #white-document-container{margin:0 0 25px!important;align-self:stretch!important;}
+/* PROSPECTA: acordeones compactos para fichas de entregables; no altera datos de perfil. */
+[data-slide="7"] .product-card .accordion-wrapper > .product-accordion-heading {
+    display:flex!important; align-items:center!important; gap:9px!important;
+    padding:11px 12px!important; border-bottom:0!important; background:#f7f7fb!important;
+}
+[data-slide="7"] .product-card .accordion-wrapper > .product-accordion-heading::before {content:none!important;display:none!important;}
+[data-slide="7"] .product-accordion-head-copy {display:flex;flex-direction:column;gap:5px;min-width:0;flex:1;}
+[data-slide="7"] .product-card .prod-title-element {display:block;text-align:left!important;font-size:17px!important;line-height:1.32!important;min-width:0;}
+[data-slide="7"] .product-card .product-short-description {display:block;font-size:13px!important;line-height:1.45!important;font-weight:450;color:#686681!important;min-height:0;overflow-wrap:anywhere;}
+[data-slide="7"] .product-card .product-short-description:empty {display:none;}
+body.edit-mode-active [data-slide="7"] .product-card .product-short-description:empty {display:block;min-height:24px;}
+body.edit-mode-active [data-slide="7"] .product-card .product-short-description:empty::before {content:"Descripción breve (opcional)";color:#9290a5;pointer-events:none;}
+[data-slide="7"] .product-card .product-accordion-trigger {display:grid;place-items:center;min-height:44px;margin:0!important;padding:8px!important;border-radius:10px!important;background:#efedf7!important;border:1px solid #dcd9e9!important;color:#3e3e61!important;cursor:pointer;}
+[data-slide="7"] .product-card .product-accordion-trigger i {transition:transform .2s ease;}
+[data-slide="7"] .product-card .product-accordion-trigger[aria-expanded="true"] i {transform:rotate(180deg)!important;}
+[data-slide="7"] .product-card .acc-content {padding:10px 13px 12px!important;border-top:1px solid #e4e2ed!important;}
+[data-slide="7"] .product-card .acc-content.hidden {display:none!important;}
+[data-slide="7"] .product-card .acc-content .review-point {margin:0 0 5px!important;gap:7px!important;align-items:flex-start;}
+[data-slide="7"] .product-card .acc-content .review-point .editable-text {line-height:1.4!important;font-size:14px!important;}
+[data-slide="7"] .product-card .product-note-box {padding:8px 10px;margin:0 0 9px;border-radius:9px;background:#f5f3fa;border:1px solid #e5e1ef;}
+[data-slide="7"] .product-card .product-note-box .product-note-label {display:flex;gap:6px;align-items:center;font-size:11px;font-weight:800;letter-spacing:.025em;color:#5c5681;margin-bottom:4px;}
+[data-slide="7"] .product-card .product-note-text {font-size:13px!important;line-height:1.45!important;color:#45405e!important;overflow-wrap:anywhere;}
+[data-slide="7"] .product-card .product-note-box:has(.product-note-text:empty) {display:none;}
+body.edit-mode-active [data-slide="7"] .product-card .product-note-box:has(.product-note-text:empty) {display:block;}
+body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::before {content:"Añadir anotación (opcional)";color:#9290a5;pointer-events:none;}
+[data-slide="7"] .product-card .product-benefit-list-label {font-size:11px;font-weight:800;letter-spacing:.045em;color:#686681;margin-bottom:6px;}
+[data-slide="7"] .product-card .accordion-wrapper .acc-content .edit-only {margin-top:7px!important;}
+/* La cotización NO aparece debajo del carrusel: al activarse queda sola, a la derecha. */
+
+@media(min-width:1024px) {
+  
+  
+  
+}
+@media(max-width:1023px) {
+ 
 }
 
+
+/* ==============================================================
+   DISEÑO CANÓNICO · AUDITORÍA Y SOLUCIONES
+   Reemplaza reglas duplicadas de tamaño, navegación y revelación.
+   Los demás componentes conservan su apariencia y eventos.
+   ============================================================== */
+[data-slide="4"], [data-slide="7"] {position:relative;min-width:0;}
+[data-slide="4"] .comparison-four-grid {
+  display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 28px)/3);
+  gap:14px;box-sizing:border-box;width:100%;max-width:100%;
+  padding:8px 12px 20px;scroll-padding-inline:12px;
+  overflow-x:auto;overflow-y:visible;scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain;scroll-behavior:smooth;align-items:start;
+  -webkit-overflow-scrolling:touch;
+}
+[data-slide="4"] .comparison-four-grid > .w-full,
+[data-slide="4"] .comparison-four-grid #comp-carousel-container,
+[data-slide="4"] .comparison-four-grid #own-carousel-container {display:contents;}
+[data-slide="4"] .comparison-four-grid > .w-full > .flex.items-center,
+[data-slide="4"] .comparison-four-grid > .flex.z-10 {display:none;}
+[data-slide="4"] .comparison-four-grid .carousel-card {
+  width:100%;max-width:none;min-width:0;box-sizing:border-box;margin:0;
+  scroll-snap-align:start;align-self:start;
+}
+/* Orden visual estable, también cuando se reordenan los nodos de competencia. */
+[data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1){grid-column:1;grid-row:1;}
+[data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(2){grid-column:2;grid-row:1;}
+[data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(3){grid-column:3;grid-row:1;}
+[data-slide="4"] #own-carousel-container > .carousel-card:nth-child(1){grid-column:4;grid-row:1;}
+[data-slide="4"] #own-carousel-container > .carousel-card:nth-child(2){grid-column:5;grid-row:1;}
+[data-slide="4"] #own-carousel-container > .carousel-card:nth-child(3){grid-column:6;grid-row:1;}
+[data-slide="4"] .audit-controls {
+  display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;
+  padding:4px 12px 8px;position:relative;width:100%;flex-wrap:wrap;
+}
+[data-slide="4"] .audit-controls button {
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  padding:7px 10px;min-height:40px;font-size:12px;font-weight:700;
+  border:1px solid #d5cee8;border-radius:10px;background:#eeebf7;color:#39365f;
+}
+[data-slide="4"] .audit-hint {font-size:12px;line-height:1.35;color:#554c88;text-align:center;}
+[data-slide="4"] #audit-back {display:none;}
+[data-slide="4"].audit-focus #audit-back{display:inline-flex;}
+[data-slide="4"] #audit-forward{display:none;}
+[data-slide="4"] .audit-nav-pair {position:fixed;inset-inline:2px;top:51%;transform:translateY(-50%);
+  display:flex;justify-content:space-between;pointer-events:none;z-index:30;}
+[data-slide="4"] .audit-nav-pair button,
+[data-slide="7"] .delivery-side-navigation button {
+  pointer-events:auto;display:grid;place-items:center;
+  width:34px;height:46px;min-width:34px;min-height:44px;padding:0;
+  border:1px solid #cfc9e1;border-radius:11px;
+  background:rgba(249,248,253,.88);color:#3e3e61;
+  box-shadow:0 2px 8px #24233d1c;font-size:16px;
+}
+[data-slide="4"] .audit-nav-pair button:disabled,
+[data-slide="7"] .delivery-side-navigation button:disabled {opacity:.25;pointer-events:none;}
+[data-slide="4"].audit-focus .comparison-four-grid {
+  display:flex;justify-content:center;align-items:flex-start;
+  overflow-x:hidden;scroll-snap-type:none;padding:8px 12px 18px;
+}
+[data-slide="4"].audit-focus .comparison-four-grid .carousel-card:not(.audit-selected) {display:none;}
+[data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {
+  display:flex;flex:0 1 620px;width:min(100%,620px);max-width:620px;
+  margin-inline:auto;min-width:0;grid-column:auto;grid-row:auto;
+}
+[data-slide="4"] .comparison-four-grid .carousel-card.audit-pickable {cursor:pointer;}
+[data-slide="4"] .comparison-four-grid.is-dragging {scroll-snap-type:none;scroll-behavior:auto;}
+[data-slide="7"] #z7-products-container {
+  display:flex;width:100%;max-width:100%;min-width:0;box-sizing:border-box;
+  gap:14px;padding:5px 12px 18px;scroll-padding-inline:12px;
+  overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+}
+[data-slide="7"] #z7-products-container > .product-card {
+  flex:0 0 calc((100% - 28px)/3);width:calc((100% - 28px)/3);max-width:none;min-width:0;
+  scroll-snap-align:start;box-sizing:border-box;
+}
+[data-slide="7"] .delivery-side-navigation{display:none;}
+[data-slide="7"].active .delivery-side-navigation {
+  position:fixed;inset-inline:2px;top:51%;transform:translateY(-50%);
+  display:flex;justify-content:space-between;pointer-events:none;z-index:30;
+}
+[data-slide="7"] #white-document-container{display:none;}
+[data-slide="7"].proposal-revealed > :not(#white-document-container):not(.delivery-side-navigation){display:none;}
+[data-slide="7"].proposal-revealed{display:flex;flex-direction:column;align-items:stretch;width:100%;max-width:1360px;}
+[data-slide="7"].proposal-revealed #white-document-container {
+  display:block;position:relative;width:min(100%,1090px);max-width:1090px;
+  margin:0 0 24px auto;align-self:flex-end;overflow:visible;
+  animation:prospectaProposalRight .22s ease-out both;
+}
+@keyframes prospectaProposalRight {from{opacity:.5;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:1023px){
+  [data-slide="4"] .comparison-four-grid {
+    grid-auto-columns:calc(100% - 24px);gap:12px;
+    padding:8px 12px 18px;scroll-padding-inline:12px;
+  }
+  [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {max-width:100%;width:100%;flex-basis:100%;}
+  [data-slide="7"] #z7-products-container > .product-card {
+    flex:0 0 calc(100% - 24px);width:calc(100% - 24px);max-width:none;
+  }
+  [data-slide="7"].proposal-revealed #white-document-container {width:100%;max-width:100%;margin-inline:0;}
+}
+@media(prefers-reduced-motion:reduce){
+  [data-slide="4"] .comparison-four-grid,[data-slide="7"] #z7-products-container{scroll-behavior:auto;}
+  [data-slide="7"].proposal-revealed #white-document-container{animation:none;}
+}
 </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -2711,15 +2633,14 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
                 <div class="solution-guide"><i class="fas fa-layer-group" aria-hidden="true"></i><span>Explora cada solución. Al terminar, descubre la propuesta completa con entregables, bonos e inversión.</span></div>
-                <button type="button" class="ent-mobile-jump" onclick="document.getElementById('z7-products-container').scrollTo({left:document.getElementById('z7-products-container').scrollWidth,behavior:'smooth'})"><span><i class="fas fa-clipboard-list" aria-hidden="true"></i> Ir a la propuesta final</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
                 <div class="bank-toolbar edit-only" id="bank-toolbar" aria-label="Constructor de propuestas">
                     <button type="button" class="bank-action primary" onclick="openServiceBank()"><i class="fas fa-layer-group" aria-hidden="true"></i> Mi banco de servicios y favoritos</button>
                     <button type="button" class="bank-action" onclick="createSpecializedService()"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Servicio por cotizar</button>
                 </div>
                 <!-- Navegación visual de entregables: fuera del contenido serializado del perfil. -->
-                <nav class="delivery-side-navigation" aria-label="Navegar entregables">
-                  <button type="button" id="delivery-nav-prev" aria-label="Entregable anterior" title="Entregable anterior" onclick="navigateDeliveryCards(-1)"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
-                  <button type="button" id="delivery-nav-next" aria-label="Entregable siguiente" title="Entregable siguiente" onclick="navigateDeliveryCards(1)"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                <nav class="delivery-side-navigation" aria-label="Recorrer entregables y propuesta económica">
+                  <button type="button" id="delivery-nav-prev" aria-label="Anterior" title="Anterior" onclick="navigateDeliveryCards(-1)"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                  <button type="button" id="delivery-nav-next" aria-label="Siguiente" title="Siguiente" onclick="navigateDeliveryCards(1)"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
                 </nav>
                 <div class="w-full flex overflow-x-auto gap-6 snap-x snap-mandatory pb-6 px-2 no-scrollbar" id="z7-products-container">
                     
@@ -2820,7 +2741,6 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
                 <div id="builder-canvas-7" class="flex flex-col gap-5 w-full px-2 mt-8"></div>
 
                 <!-- RESUMEN DE INVERSIÓN (CALCULADORA "DOCUMENTO BLANCO") -->
-                <button type="button" id="proposal-reveal-button" class="proposal-reveal-control" aria-expanded="false" aria-controls="white-document-container" onclick="toggleProposalReveal()"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i><span>Presentar entregables e inversión</span><i class="fas fa-chevron-down" aria-hidden="true"></i></button>
                 <div class="w-full max-w-3xl mx-auto mt-12 bg-white rounded-xl shadow-2xl p-6 md:p-10 relative overflow-hidden" id="white-document-container">
                     
                     <!-- Fondo sutil para el documento -->
@@ -3822,41 +3742,63 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
         }
 
         // Presentación de entregables: atributo serializable dentro del HTML del perfil.
+        // Compatibilidad con fichas antiguas: añade campos visuales sin reemplazar beneficios.
+        function enhanceProductAccordion(card) {
+            const wrapper = card.querySelector('.accordion-wrapper');
+            if (!wrapper) return;
+            const heading = wrapper.firstElementChild;
+            const panel = wrapper.querySelector(':scope > .acc-content');
+            const title = heading?.querySelector('.prod-title-element');
+            const button = heading?.querySelector('button[onclick*="toggleAccordion"]');
+            if (!heading || !title || !button || !panel) return;
+            heading.classList.add('product-accordion-heading');
+            let headingCopy = heading.querySelector('.product-accordion-head-copy');
+            if (!headingCopy) {
+                headingCopy = document.createElement('div');
+                headingCopy.className = 'product-accordion-head-copy';
+                heading.insertBefore(headingCopy, title);
+                headingCopy.appendChild(title);
+            }
+            if (!headingCopy.querySelector('.product-short-description')) {
+                const summary = document.createElement('div');
+                summary.className = 'product-short-description editable-text';
+                summary.setAttribute('contenteditable',String(isEditMode));
+                summary.setAttribute('aria-label','Descripción breve del producto');
+                headingCopy.appendChild(summary);
+            }
+            button.classList.add('product-accordion-trigger');
+            button.type = 'button';
+            button.setAttribute('aria-label','Mostrar u ocultar qué incluye este entregable');
+            button.setAttribute('aria-expanded',String(!panel.classList.contains('hidden')));
+            if (!panel.querySelector('.product-note-box')) {
+                const noteBox = document.createElement('div');
+                noteBox.className = 'product-note-box';
+                noteBox.innerHTML = '<div class="product-note-label"><i class="fas fa-note-sticky" aria-hidden="true"></i> Anotación adicional</div><div class="product-note-text editable-text" contenteditable="false" aria-label="Anotación opcional"></div>';
+                panel.insertBefore(noteBox, panel.firstChild);
+            }
+            const note = panel.querySelector('.product-note-text');
+            if (note) note.setAttribute('contenteditable',String(isEditMode));
+            const list = panel.querySelector('.text-left');
+            if (list && !panel.querySelector('.product-benefit-list-label')) {
+                const label = document.createElement('div');
+                label.className = 'product-benefit-list-label';
+                label.textContent = 'QUÉ INCLUYE';
+                list.parentElement.insertBefore(label,list);
+            }
+            // El espacio transparente previo al precio era un separador obsoleto.
+            const spacer = [...card.children].find(el=>el.classList.contains('opacity-0') && el.classList.contains('pointer-events-none') && el.classList.contains('h-8'));
+            if (spacer) spacer.style.display = 'none';
+        }
+        document.addEventListener('input', function(event) {
+            if (!isEditMode || !event.target.matches('#z7-products-container .product-short-description, #z7-products-container .product-note-text')) return;
+            saveCurrentState();
+        });
+
         // Los perfiles históricos sin atributo mantienen su precio como concepto de costo.
         function enhanceProductChoices() {
             document.querySelectorAll('#z7-products-container .product-card').forEach(card => {
+                enhanceProductAccordion(card);
                 if (!card.dataset.deliveryType) card.dataset.deliveryType = 'cost';
-                // Metadatos visuales persistentes: forman parte del HTML del perfil.
-                const wrapper = card.querySelector('.accordion-wrapper');
-                if (wrapper) {
-                    const header = wrapper.firstElementChild;
-                    const details = wrapper.querySelector('.acc-content');
-                    if (header && details) {
-                        if (!wrapper.querySelector('.product-short-description')) {
-                            const desc = document.createElement('div');
-                            desc.className = 'product-short-description editable-text';
-                            desc.setAttribute('contenteditable', String(isEditMode));
-                            desc.setAttribute('role', 'textbox');
-                            desc.setAttribute('aria-label', 'Descripción breve del producto');
-                            desc.dataset.productField = 'description';
-                            header.insertAdjacentElement('afterend', desc);
-                        }
-                        if (!details.querySelector('.product-additional-note')) {
-                            const note = document.createElement('div');
-                            note.className = 'product-additional-note';
-                            note.innerHTML = '<i class="fas fa-note-sticky" aria-hidden="true"></i><div class="product-note-text editable-text" contenteditable="' + String(isEditMode) + '" role="textbox" aria-label="Anotación adicional opcional" data-product-field="note"></div>';
-                            details.insertBefore(note, details.firstChild);
-                        }
-                        const toggle = header.querySelector('button');
-                        if (toggle) {
-                            const expanded = !details.classList.contains('hidden');
-                            toggle.setAttribute('type', 'button');
-                            toggle.setAttribute('aria-expanded', String(expanded));
-                            toggle.setAttribute('aria-label', expanded ? 'Ocultar detalles del producto' : 'Mostrar detalles del producto');
-                        }
-                    }
-                }
-
                 const footer = card.querySelector('.price-val-element')?.parentElement;
                 if (!footer) return;
                 if (!card.querySelector('.delivery-choice')) {
@@ -3898,7 +3840,6 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
                     footer.appendChild(badge);
                 }
             });
-            ensureProposalEndCard();
         }
         document.addEventListener('change', function(event) {
             if (!event.target.matches('#z7-products-container .delivery-choice select')) return;
@@ -4066,7 +4007,7 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
 
                 let productosHTML = '';
                 const prodCont = document.getElementById('z7-products-container');
-                if(prodCont) productosHTML = serializedProductCardsHTML();
+                if(prodCont) productosHTML = prodCont.innerHTML;
 
                 let compHTML = '';
                 const compCont = document.getElementById('comp-carousel-container');
@@ -4131,7 +4072,7 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
                 
                 let productosHTML = '';
                 const prodCont = document.getElementById('z7-products-container');
-                if(prodCont) productosHTML = serializedProductCardsHTML();
+                if(prodCont) productosHTML = prodCont.innerHTML;
 
                 let compHTML = '';
                 const compCont = document.getElementById('comp-carousel-container');
@@ -4572,38 +4513,31 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
         let currentScripts = { ...scripts }; 
 
         /* Controles efímeros: no forman parte de los datos del perfil. */
-        /* Presentación secuencial: el documento original no se mueve ni se reconstruye. */
+        /* Una sola secuencia horizontal: entregables -> propuesta. No hay botón de revelación
+           ni desplazamiento vertical. Los productos y el documento mantienen sus nodos e IDs. */
         function toggleProposalReveal(force) {
             const slide = document.querySelector('[data-slide="7"]');
-            const btn = document.getElementById('proposal-reveal-button');
-            if (!slide || !btn) return;
+            if (!slide) return;
             const show = typeof force === 'boolean' ? force : !slide.classList.contains('proposal-revealed');
             slide.classList.toggle('proposal-revealed', show);
-            btn.setAttribute('aria-expanded', String(show));
-            btn.querySelector('span').textContent = show ? 'Volver a soluciones' : 'Presentar entregables e inversión';
-            btn.querySelector('.fa-chevron-down, .fa-chevron-up')?.classList.toggle('fa-chevron-up', show);
-            btn.querySelector('.fa-chevron-up, .fa-chevron-down')?.classList.toggle('fa-chevron-down', !show);
-            if (show) {
-                calcularCotizacion();
-                slide.scrollIntoView({behavior:'smooth',block:'start'});
-            }
+            if (show) calcularCotizacion();
+            requestAnimationFrame(updateDeliveryNavButtons);
         }
         function auditPrimaryCards() {
             return [...document.querySelectorAll('#comp-carousel-container > .carousel-card')];
         }
         function auditNavigate(delta) {
-            const grid = auditGrid(); const slide = auditSlide();
+            const grid = auditGrid(), slide = auditSlide();
             if (!grid || !slide) return;
             if (slide.classList.contains('audit-focus')) auditShowAll();
             const cards = [...auditPrimaryCards(), document.querySelector('#own-carousel-container > .carousel-card')].filter(Boolean);
             if (!cards.length) return;
-            const left = grid.getBoundingClientRect().left;
-            const current = Math.max(0, cards.findIndex(card => card.getBoundingClientRect().left >= left - 18));
-            let next = Math.max(0, Math.min(cards.length - 1, current + delta));
-            // Avanzar desde una vista de tres columnas enseña la cuarta sin tocar los perfiles.
-            if (delta > 0 && grid.scrollLeft < 8 && window.innerWidth >= 1024) next = cards.length - 1;
-            const rect = cards[next].getBoundingClientRect();
-            grid.scrollBy({left:rect.left - left - 12,behavior:'smooth'});
+            const gridLeft = grid.getBoundingClientRect().left;
+            const firstVisible = cards.findIndex(card => card.getBoundingClientRect().right > gridLeft + 12);
+            const index = Math.max(0, firstVisible);
+            const targetIndex = Math.min(cards.length - 1, Math.max(0, index + delta));
+            const left = cards[targetIndex].getBoundingClientRect().left - gridLeft + grid.scrollLeft;
+            grid.scrollTo({left: Math.max(0,left), behavior:'smooth'});
         }
         /* Arrastre mediante asa: no intercepta fotos, botones ni clics de análisis.
            El orden se conserva en el HTML original que serializa cada perfil. */
@@ -4784,43 +4718,33 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
         }
 
         function toggleAccordion(btn) {
-            const productCard = btn.closest('#z7-products-container .product-card');
-            if (productCard) {
-                const panel = productCard.querySelector('.accordion-wrapper > .acc-content');
+            // Las fichas de Soluciones usan su acordeón local, sin afectar otros bloques.
+            const product = btn.closest('#z7-products-container .product-card');
+            if (product) {
+                const panel = product.querySelector('.accordion-wrapper > .acc-content');
                 if (!panel) return;
                 const opening = panel.classList.contains('hidden');
-                // Una sola tarjeta detallada a la vez, sin alterar precios ni los otros acordeones.
                 document.querySelectorAll('#z7-products-container .product-card').forEach(other => {
-                    const body = other.querySelector('.accordion-wrapper > .acc-content');
-                    const toggle = other.querySelector('.accordion-wrapper > div:first-child button');
-                    if (!body || !toggle) return;
-                    body.classList.add('hidden');
-                    body.classList.remove('block');
-                    toggle.setAttribute('aria-expanded', 'false');
-                    toggle.setAttribute('aria-label', 'Mostrar detalles del producto');
-                    toggle.querySelector('.fa-chevron-down')?.classList.remove('rotate-180');
+                    if (other === product) return;
+                    const otherPanel = other.querySelector('.accordion-wrapper > .acc-content');
+                    const otherButton = other.querySelector('.product-accordion-trigger');
+                    if (otherPanel) {otherPanel.classList.add('hidden');otherPanel.classList.remove('block');}
+                    if (otherButton) {otherButton.setAttribute('aria-expanded','false');otherButton.querySelector('i')?.classList.remove('rotate-180');}
                 });
-                if (opening) {
-                    panel.classList.remove('hidden');
-                    panel.classList.add('block');
-                    btn.setAttribute('aria-expanded', 'true');
-                    btn.setAttribute('aria-label', 'Ocultar detalles del producto');
-                    btn.querySelector('.fa-chevron-down')?.classList.add('rotate-180');
-                }
+                panel.classList.toggle('hidden',!opening);
+                panel.classList.toggle('block',opening);
+                btn.setAttribute('aria-expanded',String(opening));
+                btn.querySelector('i')?.classList.toggle('rotate-180',opening);
                 return;
             }
+            // Mantener intactos los demás acordeones de la aplicación.
             const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block') || btn.closest('.accordion-wrapper');
-            const content = container.querySelector('.acc-content'); 
+            if (!container) return;
+            const content = container.querySelector('.acc-content');
             const icon = btn.querySelector('.fa-chevron-down');
-            
             if(content) {
-                if(content.classList.contains('hidden')) {
-                    content.classList.remove('hidden');
-                    content.classList.add('block');
-                } else {
-                    content.classList.add('hidden');
-                    content.classList.remove('block');
-                }
+                if(content.classList.contains('hidden')) {content.classList.remove('hidden');content.classList.add('block');}
+                else {content.classList.add('hidden');content.classList.remove('block');}
             }
             if(icon) icon.classList.toggle('rotate-180');
         }
@@ -4881,74 +4805,84 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
         });
 
 
-        /* Navegación en entregables: solo desplaza el carrusel, nunca modifica productos o perfiles. */
+        /* Recorrido con flechas discretas. Una pulsación tras el último producto muestra
+           la propuesta; hacia atrás devuelve el último producto, sin scroll vertical. */
         function updateDeliveryNavButtons() {
             const track = document.getElementById('z7-products-container');
+            const slide = document.querySelector('[data-slide="7"]');
             const prev = document.getElementById('delivery-nav-prev');
             const next = document.getElementById('delivery-nav-next');
-            if (!track || !prev || !next) return;
-            const remaining = track.scrollWidth - track.clientWidth;
-            prev.disabled = remaining <= 2 || track.scrollLeft <= 2;
-            next.disabled = remaining <= 2 || track.scrollLeft >= remaining - 2;
+            if (!track || !prev || !next || !slide) return;
+            const showingProposal = slide.classList.contains('proposal-revealed');
+            prev.disabled = !showingProposal && track.scrollLeft <= 3;
+            next.disabled = showingProposal;
+            prev.setAttribute('aria-label', showingProposal ? 'Volver al último entregable' : 'Entregable anterior');
+            next.setAttribute('aria-label', showingProposal ? 'Fin de la propuesta' : 'Siguiente entregable o propuesta');
         }
         function navigateDeliveryCards(direction) {
             const track = document.getElementById('z7-products-container');
-            if (!track) return;
-            const cards = [...track.querySelectorAll(':scope > .product-card, :scope > .proposal-final-card')];
-            if (!cards.length) return;
-            const left = track.scrollLeft;
+            const slide = document.querySelector('[data-slide="7"]');
+            if (!track || !slide) return;
+            if (slide.classList.contains('proposal-revealed')) {
+                if (direction < 0) {
+                    toggleProposalReveal(false);
+                    requestAnimationFrame(() => {
+                        track.scrollTo({left: Math.max(0, track.scrollWidth-track.clientWidth), behavior:'instant'});
+                        updateDeliveryNavButtons();
+                    });
+                }
+                return;
+            }
+            const cards = [...track.querySelectorAll(':scope > .product-card')];
+            if (!cards.length) {
+                if (direction > 0) toggleProposalReveal(true);
+                return;
+            }
+            const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 8;
+            if (direction > 0 && atEnd) { toggleProposalReveal(true); return; }
+            const currentLeft = track.scrollLeft;
             const trackLeft = track.getBoundingClientRect().left;
-            const positions = cards.map(card => card.getBoundingClientRect().left - trackLeft + left);
-            const nextPosition = direction > 0
-                ? positions.find(p => p > left + 4)
-                : [...positions].reverse().find(p => p < left - 4);
-            const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
-            const fallback = direction > 0 ? maxScroll : 0;
-            track.scrollTo({left: Math.max(0, Math.min(maxScroll, nextPosition ?? fallback)), behavior: 'smooth'});
+            const offsets = cards.map(card => card.getBoundingClientRect().left - trackLeft + currentLeft);
+            const target = direction > 0
+                ? offsets.find(p => p > currentLeft + 8)
+                : [...offsets].reverse().find(p => p < currentLeft - 8);
+            track.scrollTo({left: Math.max(0, Math.min(track.scrollWidth-track.clientWidth,
+                    target ?? (direction > 0 ? track.scrollWidth-track.clientWidth : 0))), behavior:'smooth'});
         }
         function setupDeliveryNavigation() {
             const track = document.getElementById('z7-products-container');
             if (!track || track.dataset.deliveryNavBound === '1') return;
             track.dataset.deliveryNavBound = '1';
             track.addEventListener('scroll', updateDeliveryNavButtons, {passive: true});
+            let swipeX = null;
+            track.addEventListener('touchstart', e => {
+                swipeX = e.touches.length === 1 ? e.touches[0].clientX : null;
+            }, {passive:true});
+            track.addEventListener('touchend', e => {
+                if (swipeX === null || !e.changedTouches.length) return;
+                const delta = e.changedTouches[0].clientX - swipeX;
+                swipeX = null;
+                if (delta < -55 && track.scrollLeft >= track.scrollWidth-track.clientWidth-8) {
+                    toggleProposalReveal(true);
+                }
+            }, {passive:true});
+            const doc = document.getElementById('white-document-container');
+            if (doc && doc.dataset.proposalSwipeBound !== '1') {
+                doc.dataset.proposalSwipeBound = '1';
+                let docStart = null;
+                doc.addEventListener('touchstart',e=>{docStart=e.touches.length===1?e.touches[0].clientX:null;},{passive:true});
+                doc.addEventListener('touchend',e=>{
+                    if(docStart===null||!e.changedTouches.length)return;
+                    const delta=e.changedTouches[0].clientX-docStart;docStart=null;
+                    if(delta>65)navigateDeliveryCards(-1);
+                },{passive:true});
+            }
             window.addEventListener('resize', updateDeliveryNavButtons, {passive: true});
             if (typeof ResizeObserver !== 'undefined') new ResizeObserver(updateDeliveryNavButtons).observe(track);
             if (typeof MutationObserver !== 'undefined') new MutationObserver(updateDeliveryNavButtons).observe(track, {childList:true});
             updateDeliveryNavButtons();
         }
 
-
-        // Cabecera completa pulsable en modo presentación, sin interferir con edición.
-        document.addEventListener('click', function(event) {
-            const header = event.target.closest('#z7-products-container .product-card .accordion-wrapper > div:first-child');
-            if (!header || event.target.closest('button') || event.target.closest('[contenteditable="true"]')) return;
-            const toggle = header.querySelector('button');
-            if (toggle) toggleAccordion(toggle);
-        });
-        // Descripción y anotación: guardar contenido editable sin crear almacenamiento paralelo.
-        document.addEventListener('focusout', function(event) {
-            if (isEditMode && event.target.matches('#z7-products-container [data-product-field]')) saveCurrentState();
-        });
-        // La propuesta se revela como última tarjeta, a la derecha; nunca en una segunda fila.
-        function ensureProposalEndCard() {
-            const track = document.getElementById('z7-products-container');
-            if (!track) return;
-            let card = track.querySelector(':scope > .proposal-final-card');
-            if (!card) {
-                card = document.createElement('section');
-                card.className = 'proposal-final-card';
-                card.setAttribute('aria-label', 'Presentación final de propuesta económica');
-                card.innerHTML = '<div class="proposal-final-icon"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i></div><h3>Tu propuesta personalizada</h3><p>Al terminar de revisar las soluciones, presenta el detalle de entregables, bonos y la inversión acordada.</p><button type="button" onclick="toggleProposalReveal(true)"><i class="fas fa-arrow-right" aria-hidden="true"></i> Presentar propuesta económica</button>';
-            }
-            if (track.lastElementChild !== card) track.appendChild(card);
-        }
-        function serializedProductCardsHTML() {
-            const track = document.getElementById('z7-products-container');
-            if (!track) return '';
-            const copy = track.cloneNode(true);
-            copy.querySelectorAll('.proposal-final-card').forEach(el => el.remove());
-            return copy.innerHTML;
-        }
 
         // Banco maestro: información independiente del HTML del perfil; datos locales en IndexedDB.
         // Nunca enviamos claves administrativas al navegador ni alteramos el servidor de licencias.
@@ -5173,7 +5107,6 @@ body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-n
                 });
             }
             
-            enhanceProductChoices();
             auditInit();
             updateUI();
             syncWhiteDocumentHeaders(); 
