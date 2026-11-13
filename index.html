@@ -1207,78 +1207,6 @@
             #evidencia-modal .evidence-viewer-tools { bottom: 8px; gap: 8px; }
         }
 
-        /* COMPETENCIA V4: cuatro tarjetas perfectamente alineadas sin mover
-           nodos internos de los carruseles ni cambiar sus claves de guardado.
-           display: contents permite compartir una misma cuadrícula visual. */
-        @media (min-width: 1024px) {
-            
-            
-            
-            
-            
-            
-            [data-slide="4"] #comp-carousel-container > .carousel-card,
-            [data-slide="4"] #own-carousel-container > .carousel-card {
-                width: 100%;
-                min-width: 0;
-                max-width: none;
-                box-sizing: border-box;
-                margin: 0;
-                align-self: start;
-            }
-            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1) { grid-column: 1; grid-row: 2; }
-            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(2) { grid-column: 2; grid-row: 2; }
-            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(3) { grid-column: 3; grid-row: 2; }
-            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(1) { grid-column: 4; grid-row: 2; }
-            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(2) { grid-column: 3; grid-row: 3; }
-            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(3) { grid-column: 4; grid-row: 3; }
-        }
-        /* En celular, el negocio se visualiza en la misma secuencia horizontal,
-           a continuación de los tres competidores, en vez de debajo. */
-        @media (max-width: 1023px) {
-            
-            
-            
-            
-            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1) { grid-column: 1; }
-            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(2) { grid-column: 2; }
-            [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(3) { grid-column: 3; }
-            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(1) { grid-column: 4; }
-            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(2) { grid-column: 5; }
-            [data-slide="4"] #own-carousel-container > .carousel-card:nth-child(3) { grid-column: 6; }
-        }
-
-        /* AUDITORÍA: tres competidores al inicio; el cuarto permanece a la
-           derecha, accesible por desplazamiento horizontal o por Avanzar. */
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        @media (min-width: 1024px) {
-            
-            [data-slide="4"] #comp-carousel-container > .carousel-card,
-            [data-slide="4"] #own-carousel-container > .carousel-card { scroll-snap-align: start; }
-        }
-        /* La vista individual solamente cambia la representación, nunca
-           elimina ni mueve nodos que IndexedDB / archivos .emi serializan. */
-        
-        
-        
-        
-        
-        @media (max-width: 1023px) {
-            
-            
-            
-        }
-
-
         /* PROSPECTA / Entregables: sistema visual del portal de proyectos (estilos aislados) */
         [data-slide="7"] { --ent-ink:#3e3e61; --ent-mute:#686681; --ent-line:#dfdfea; --ent-soft:#f1f0f7; --ent-canvas:#f7f7fb; --ent-purple:#625b92; }
         [data-slide="7"] > h2 {font-size:14px!important;letter-spacing:.11em!important;color:var(--ent-purple)!important;}
@@ -1767,15 +1695,6 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
 [data-slide="7"] .product-card .accordion-wrapper .acc-content .edit-only {margin-top:7px!important;}
 /* La cotización NO aparece debajo del carrusel: al activarse queda sola, a la derecha. */
 
-@media(min-width:1024px) {
-  
-  
-  
-}
-@media(max-width:1023px) {
- 
-}
-
 
 /* ==============================================================
    DISEÑO CANÓNICO · AUDITORÍA Y SOLUCIONES
@@ -1788,7 +1707,7 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
   gap:14px;box-sizing:border-box;width:100%;max-width:100%;
   padding:8px 12px 20px;scroll-padding-inline:12px;
   overflow-x:auto;overflow-y:visible;scroll-snap-type:x proximity;
-  overscroll-behavior-x:contain;scroll-behavior:smooth;align-items:start;
+  overscroll-behavior-x:contain;scroll-behavior:auto;align-items:start;
   -webkit-overflow-scrolling:touch;
 }
 [data-slide="4"] .comparison-four-grid > .w-full,
@@ -1798,7 +1717,7 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
 [data-slide="4"] .comparison-four-grid > .flex.z-10 {display:none;}
 [data-slide="4"] .comparison-four-grid .carousel-card {
   width:100%;max-width:none;min-width:0;box-sizing:border-box;margin:0;
-  scroll-snap-align:start;align-self:start;
+  scroll-snap-align:center;align-self:start;
 }
 /* Orden visual estable, también cuando se reordenan los nodos de competencia. */
 [data-slide="4"] #comp-carousel-container > .carousel-card:nth-child(1){grid-column:1;grid-row:1;}
@@ -1847,11 +1766,11 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
   display:flex;width:100%;max-width:100%;min-width:0;box-sizing:border-box;
   gap:14px;padding:5px 12px 18px;scroll-padding-inline:12px;
   overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;
-  scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;
+  scroll-snap-type:x proximity;scroll-behavior:auto;-webkit-overflow-scrolling:touch;
 }
 [data-slide="7"] #z7-products-container > .product-card {
   flex:0 0 calc((100% - 28px)/3);width:calc((100% - 28px)/3);max-width:none;min-width:0;
-  scroll-snap-align:start;box-sizing:border-box;
+  scroll-snap-align:center;box-sizing:border-box;
 }
 [data-slide="7"] .delivery-side-navigation{display:none;}
 [data-slide="7"].active .delivery-side-navigation {
@@ -1869,12 +1788,12 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
 @keyframes prospectaProposalRight {from{opacity:.5;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
 @media(max-width:1023px){
   [data-slide="4"] .comparison-four-grid {
-    grid-auto-columns:calc(100% - 24px);gap:12px;
+    grid-auto-columns:100%;gap:12px;
     padding:8px 12px 18px;scroll-padding-inline:12px;
   }
   [data-slide="4"].audit-focus .comparison-four-grid .carousel-card.audit-selected {max-width:100%;width:100%;flex-basis:100%;}
   [data-slide="7"] #z7-products-container > .product-card {
-    flex:0 0 calc(100% - 24px);width:calc(100% - 24px);max-width:none;
+    flex:0 0 100%;width:100%;max-width:none;
   }
   [data-slide="7"].proposal-revealed #white-document-container {width:100%;max-width:100%;margin-inline:0;}
 }
@@ -4526,18 +4445,29 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
         function auditPrimaryCards() {
             return [...document.querySelectorAll('#comp-carousel-container > .carousel-card')];
         }
+        /* Centro único para flechas y gestos: respeta padding y ancho real del viewport. */
+        function centerCarouselCard(track, card, behavior = 'smooth') {
+            if (!track || !card) return;
+            const trackBox = track.getBoundingClientRect();
+            const cardBox = card.getBoundingClientRect();
+            const target = track.scrollLeft + (cardBox.left + cardBox.width / 2) - (trackBox.left + trackBox.width / 2);
+            const max = Math.max(0, track.scrollWidth - track.clientWidth);
+            track.scrollTo({left: Math.max(0, Math.min(max, target)), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : behavior});
+        }
         function auditNavigate(delta) {
-            const grid = auditGrid(), slide = auditSlide();
-            if (!grid || !slide) return;
+            const track = auditGrid(), slide = auditSlide();
+            if (!track || !slide) return;
             if (slide.classList.contains('audit-focus')) auditShowAll();
-            const cards = [...auditPrimaryCards(), document.querySelector('#own-carousel-container > .carousel-card')].filter(Boolean);
+            const cards = [...auditPrimaryCards(), ...document.querySelectorAll('#own-carousel-container > .carousel-card')];
             if (!cards.length) return;
-            const gridLeft = grid.getBoundingClientRect().left;
-            const firstVisible = cards.findIndex(card => card.getBoundingClientRect().right > gridLeft + 12);
-            const index = Math.max(0, firstVisible);
-            const targetIndex = Math.min(cards.length - 1, Math.max(0, index + delta));
-            const left = cards[targetIndex].getBoundingClientRect().left - gridLeft + grid.scrollLeft;
-            grid.scrollTo({left: Math.max(0,left), behavior:'smooth'});
+            const midpoint = track.getBoundingClientRect().left + track.clientWidth / 2;
+            const index = cards.reduce((best, card, i) => {
+                const box = card.getBoundingClientRect();
+                const distance = Math.abs(box.left + box.width / 2 - midpoint);
+                return distance < best.distance ? {index: i, distance} : best;
+            }, {index: 0, distance: Infinity}).index;
+            const next = Math.max(0, Math.min(cards.length - 1, index + delta));
+            centerCarouselCard(track, cards[next]);
         }
         /* Arrastre mediante asa: no intercepta fotos, botones ni clics de análisis.
            El orden se conserva en el HTML original que serializa cada perfil. */
@@ -4608,14 +4538,11 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
             grid.scrollLeft = 0;
             const name = card.querySelector('[id$="-title"]')?.textContent?.trim() || 'Tarjeta';
             document.getElementById('audit-hint').textContent = name + ' · Pulsa una fotografía para ampliar o recorrer sus evidencias.';
-            slide.scrollIntoView({block:'nearest', behavior:'smooth'});
+            // Mantener el área estable: no desplazar toda la página al seleccionar.
         }
         function auditRevealNext() {
-            const grid = auditGrid(); if (!grid) return;
-            const own = document.getElementById('own-card-1');
-            if (!own) return;
-            // El desplazamiento mantiene los tres competidores como primera vista.
-            grid.scrollTo({left: Math.max(0, own.offsetLeft - grid.offsetLeft), behavior:'smooth'});
+            const track = auditGrid(), own = document.getElementById('own-card-1');
+            if (track && own) centerCarouselCard(track, own);
         }
         function auditInit() {
             const slide = auditSlide(); if (!slide || slide.dataset.auditBound === '1') return;
@@ -4827,33 +4754,35 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
                 if (direction < 0) {
                     toggleProposalReveal(false);
                     requestAnimationFrame(() => {
-                        track.scrollTo({left: Math.max(0, track.scrollWidth-track.clientWidth), behavior:'instant'});
+                        const cards = [...track.querySelectorAll(':scope > .product-card')];
+                        centerCarouselCard(track, cards[cards.length - 1], 'instant');
                         updateDeliveryNavButtons();
                     });
                 }
                 return;
             }
             const cards = [...track.querySelectorAll(':scope > .product-card')];
-            if (!cards.length) {
-                if (direction > 0) toggleProposalReveal(true);
-                return;
-            }
-            const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 8;
-            if (direction > 0 && atEnd) { toggleProposalReveal(true); return; }
-            const currentLeft = track.scrollLeft;
-            const trackLeft = track.getBoundingClientRect().left;
-            const offsets = cards.map(card => card.getBoundingClientRect().left - trackLeft + currentLeft);
-            const target = direction > 0
-                ? offsets.find(p => p > currentLeft + 8)
-                : [...offsets].reverse().find(p => p < currentLeft - 8);
-            track.scrollTo({left: Math.max(0, Math.min(track.scrollWidth-track.clientWidth,
-                    target ?? (direction > 0 ? track.scrollWidth-track.clientWidth : 0))), behavior:'smooth'});
+            if (!cards.length) {if (direction > 0) toggleProposalReveal(true); return;}
+            const bounds = track.getBoundingClientRect();
+            const midpoint = bounds.left + bounds.width / 2;
+            const nearest = cards.reduce((best,card,i)=>{
+                const b=card.getBoundingClientRect();
+                const distance=Math.abs(b.left+b.width/2-midpoint);
+                return distance<best.distance?{index:i,distance}:best;
+            },{index:0,distance:Infinity}).index;
+            const atLast = nearest === cards.length - 1 && track.scrollLeft >= track.scrollWidth-track.clientWidth - 10;
+            if(direction > 0 && atLast) {toggleProposalReveal(true);return;}
+            centerCarouselCard(track, cards[Math.max(0,Math.min(cards.length-1,nearest+direction))]);
         }
         function setupDeliveryNavigation() {
             const track = document.getElementById('z7-products-container');
             if (!track || track.dataset.deliveryNavBound === '1') return;
             track.dataset.deliveryNavBound = '1';
-            track.addEventListener('scroll', updateDeliveryNavButtons, {passive: true});
+            let navFrame = 0;
+            track.addEventListener('scroll', () => {
+                if (navFrame) return;
+                navFrame = requestAnimationFrame(() => {navFrame = 0; updateDeliveryNavButtons();});
+            }, {passive:true});
             let swipeX = null;
             track.addEventListener('touchstart', e => {
                 swipeX = e.touches.length === 1 ? e.touches[0].clientX : null;
@@ -4878,8 +4807,6 @@ body.edit-mode-active [data-slide="7"] .product-card .product-note-text:empty::b
                 },{passive:true});
             }
             window.addEventListener('resize', updateDeliveryNavButtons, {passive: true});
-            if (typeof ResizeObserver !== 'undefined') new ResizeObserver(updateDeliveryNavButtons).observe(track);
-            if (typeof MutationObserver !== 'undefined') new MutationObserver(updateDeliveryNavButtons).observe(track, {childList:true});
             updateDeliveryNavButtons();
         }
 
