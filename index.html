@@ -1925,6 +1925,41 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
   /* Los controles siguen siendo grandes para los dedos. */
   #footer-carousel button {font-size: 12px !important;min-height: 42px;}
 }
+
+/* PROSPECTA · Entregables: tipografía, descripción, notas y acordeón localizado. */
+[data-slide="7"] .product-card .accordion-wrapper{flex:0 0 auto!important;min-height:0!important;gap:0!important;}
+[data-slide="7"] .product-card .accordion-wrapper > div:first-child{padding:11px 12px!important;border-bottom:0!important;cursor:pointer;}
+[data-slide="7"] .product-card .accordion-wrapper > div:first-child .prod-title-element{text-align:left!important;font-size:17px!important;line-height:1.36!important;}
+[data-slide="7"] .product-card .accordion-wrapper .product-short-description{font-size:14px!important;line-height:1.45!important;color:#64617b!important;padding:0 14px 11px 14px;overflow-wrap:anywhere;min-height:1.45em;}
+[data-slide="7"] .product-card .accordion-wrapper .product-short-description:empty::before{content:'Descripción breve del producto';color:#8c89a1;}
+body:not(.edit-mode-active) [data-slide="7"] .product-card .product-short-description:empty{display:none!important;}
+body.edit-mode-active [data-slide="7"] .product-card .product-short-description{outline:1px dashed #b6b0ce;outline-offset:-2px;border-radius:6px;}
+[data-slide="7"] .product-card .acc-content.hidden{display:none!important;}
+[data-slide="7"] .product-card .acc-content{padding:10px 14px 12px!important;border-top:1px solid #e8e5f0!important;}
+[data-slide="7"] .product-card .acc-content .review-point{margin:0!important;padding:5px 0!important;gap:8px!important;line-height:1.42!important;}
+[data-slide="7"] .product-card .acc-content .review-point .editable-text{font-size:14px!important;line-height:1.45!important;}
+[data-slide="7"] .product-card .product-additional-note{display:flex;gap:9px;align-items:flex-start;padding:9px 10px;margin:0 0 8px;background:#f4f2f9;border-radius:9px;color:#4b486c;}
+[data-slide="7"] .product-card .product-additional-note .product-note-text{font-size:13px;line-height:1.48;flex:1;min-width:0;overflow-wrap:anywhere;}
+[data-slide="7"] .product-card .product-additional-note .product-note-text:empty::before{content:'Anotación adicional (opcional)';color:#8c89a1;}
+body:not(.edit-mode-active) [data-slide="7"] .product-card .product-additional-note:has(.product-note-text:empty){display:none!important;}
+[data-slide="7"] .product-card .accordion-wrapper button[aria-expanded] {min-width:44px;min-height:44px;display:grid;place-items:center;border-radius:8px;}
+[data-slide="7"] .product-card .accordion-wrapper button[aria-expanded]:focus-visible {outline:2px solid #62568d;}
+[data-slide="7"] .product-card > .h-8.opacity-0.pointer-events-none{display:none!important;}
+/* La propuesta no queda bajo las tarjetas: está al extremo derecho del carrusel. */
+[data-slide="7"]:not(.proposal-revealed) #proposal-reveal-button {display:none!important;}
+[data-slide="7"] .proposal-final-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:15px;flex:0 0 min(85vw,380px);min-height:295px;padding:28px 20px;border:1px solid #d8d3e7;background:#fff;border-radius:16px;scroll-snap-align:center;text-align:center;box-shadow:0 3px 17px #30304b14;}
+[data-slide="7"] .proposal-final-card .proposal-final-icon{display:grid;place-items:center;background:#efedf8;width:65px;height:65px;border-radius:18px;color:#53487c;font-size:25px;}
+[data-slide="7"] .proposal-final-card h3{font-size:20px;line-height:1.3;color:#39365f;font-weight:800;}
+[data-slide="7"] .proposal-final-card p{font-size:14px;line-height:1.48;color:#65617d;}
+[data-slide="7"] .proposal-final-card button{display:flex;align-items:center;justify-content:center;gap:9px;background:#554a88;color:#fff;padding:13px 17px;border-radius:11px;font-size:14px;font-weight:750;min-height:46px;cursor:pointer;}
+[data-slide="7"] .proposal-final-card button:focus-visible{outline:3px solid #988fd0;outline-offset:3px;}
+[data-slide="7"].proposal-revealed #white-document-container{margin:0 0 35px auto!important;align-self:flex-end!important;max-width:1090px!important;}
+@media(max-width:700px){
+ [data-slide="7"] #z7-products-container > .proposal-final-card{flex:0 0 calc(100% - 12px);width:calc(100% - 12px);min-width:0;}
+ [data-slide="7"] .product-card .accordion-wrapper .product-short-description{font-size:14px!important;}
+ [data-slide="7"].proposal-revealed #white-document-container{margin:0 0 25px!important;align-self:stretch!important;}
+}
+
 </style>
 </head>
 <body class="h-[100dvh] w-full flex flex-col bg-brand-dark overflow-hidden overscroll-y-none relative">
@@ -2676,7 +2711,7 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
                 <h1 class="text-4xl md:text-5xl font-bold mb-8 text-white text-center">Nuestros Entregables</h1>
                 
                 <div class="solution-guide"><i class="fas fa-layer-group" aria-hidden="true"></i><span>Explora cada solución. Al terminar, descubre la propuesta completa con entregables, bonos e inversión.</span></div>
-                <button type="button" class="ent-mobile-jump" onclick="document.getElementById('white-document-container').scrollIntoView({behavior:'smooth',block:'start'})"><span><i class="fas fa-clipboard-list" aria-hidden="true"></i> Ver entregables e inversión</span><i class="fas fa-arrow-down" aria-hidden="true"></i></button>
+                <button type="button" class="ent-mobile-jump" onclick="document.getElementById('z7-products-container').scrollTo({left:document.getElementById('z7-products-container').scrollWidth,behavior:'smooth'})"><span><i class="fas fa-clipboard-list" aria-hidden="true"></i> Ir a la propuesta final</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
                 <div class="bank-toolbar edit-only" id="bank-toolbar" aria-label="Constructor de propuestas">
                     <button type="button" class="bank-action primary" onclick="openServiceBank()"><i class="fas fa-layer-group" aria-hidden="true"></i> Mi banco de servicios y favoritos</button>
                     <button type="button" class="bank-action" onclick="createSpecializedService()"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Servicio por cotizar</button>
@@ -3791,6 +3826,37 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
         function enhanceProductChoices() {
             document.querySelectorAll('#z7-products-container .product-card').forEach(card => {
                 if (!card.dataset.deliveryType) card.dataset.deliveryType = 'cost';
+                // Metadatos visuales persistentes: forman parte del HTML del perfil.
+                const wrapper = card.querySelector('.accordion-wrapper');
+                if (wrapper) {
+                    const header = wrapper.firstElementChild;
+                    const details = wrapper.querySelector('.acc-content');
+                    if (header && details) {
+                        if (!wrapper.querySelector('.product-short-description')) {
+                            const desc = document.createElement('div');
+                            desc.className = 'product-short-description editable-text';
+                            desc.setAttribute('contenteditable', String(isEditMode));
+                            desc.setAttribute('role', 'textbox');
+                            desc.setAttribute('aria-label', 'Descripción breve del producto');
+                            desc.dataset.productField = 'description';
+                            header.insertAdjacentElement('afterend', desc);
+                        }
+                        if (!details.querySelector('.product-additional-note')) {
+                            const note = document.createElement('div');
+                            note.className = 'product-additional-note';
+                            note.innerHTML = '<i class="fas fa-note-sticky" aria-hidden="true"></i><div class="product-note-text editable-text" contenteditable="' + String(isEditMode) + '" role="textbox" aria-label="Anotación adicional opcional" data-product-field="note"></div>';
+                            details.insertBefore(note, details.firstChild);
+                        }
+                        const toggle = header.querySelector('button');
+                        if (toggle) {
+                            const expanded = !details.classList.contains('hidden');
+                            toggle.setAttribute('type', 'button');
+                            toggle.setAttribute('aria-expanded', String(expanded));
+                            toggle.setAttribute('aria-label', expanded ? 'Ocultar detalles del producto' : 'Mostrar detalles del producto');
+                        }
+                    }
+                }
+
                 const footer = card.querySelector('.price-val-element')?.parentElement;
                 if (!footer) return;
                 if (!card.querySelector('.delivery-choice')) {
@@ -3832,6 +3898,7 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
                     footer.appendChild(badge);
                 }
             });
+            ensureProposalEndCard();
         }
         document.addEventListener('change', function(event) {
             if (!event.target.matches('#z7-products-container .delivery-choice select')) return;
@@ -3999,7 +4066,7 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
 
                 let productosHTML = '';
                 const prodCont = document.getElementById('z7-products-container');
-                if(prodCont) productosHTML = prodCont.innerHTML;
+                if(prodCont) productosHTML = serializedProductCardsHTML();
 
                 let compHTML = '';
                 const compCont = document.getElementById('comp-carousel-container');
@@ -4064,7 +4131,7 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
                 
                 let productosHTML = '';
                 const prodCont = document.getElementById('z7-products-container');
-                if(prodCont) productosHTML = prodCont.innerHTML;
+                if(prodCont) productosHTML = serializedProductCardsHTML();
 
                 let compHTML = '';
                 const compCont = document.getElementById('comp-carousel-container');
@@ -4717,6 +4784,31 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
         }
 
         function toggleAccordion(btn) {
+            const productCard = btn.closest('#z7-products-container .product-card');
+            if (productCard) {
+                const panel = productCard.querySelector('.accordion-wrapper > .acc-content');
+                if (!panel) return;
+                const opening = panel.classList.contains('hidden');
+                // Una sola tarjeta detallada a la vez, sin alterar precios ni los otros acordeones.
+                document.querySelectorAll('#z7-products-container .product-card').forEach(other => {
+                    const body = other.querySelector('.accordion-wrapper > .acc-content');
+                    const toggle = other.querySelector('.accordion-wrapper > div:first-child button');
+                    if (!body || !toggle) return;
+                    body.classList.add('hidden');
+                    body.classList.remove('block');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.setAttribute('aria-label', 'Mostrar detalles del producto');
+                    toggle.querySelector('.fa-chevron-down')?.classList.remove('rotate-180');
+                });
+                if (opening) {
+                    panel.classList.remove('hidden');
+                    panel.classList.add('block');
+                    btn.setAttribute('aria-expanded', 'true');
+                    btn.setAttribute('aria-label', 'Ocultar detalles del producto');
+                    btn.querySelector('.fa-chevron-down')?.classList.add('rotate-180');
+                }
+                return;
+            }
             const container = btn.closest('.bg-brand-panel') || btn.closest('.dynamic-block') || btn.closest('.accordion-wrapper');
             const content = container.querySelector('.acc-content'); 
             const icon = btn.querySelector('.fa-chevron-down');
@@ -4802,7 +4894,7 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
         function navigateDeliveryCards(direction) {
             const track = document.getElementById('z7-products-container');
             if (!track) return;
-            const cards = [...track.querySelectorAll(':scope > .product-card')];
+            const cards = [...track.querySelectorAll(':scope > .product-card, :scope > .proposal-final-card')];
             if (!cards.length) return;
             const left = track.scrollLeft;
             const trackLeft = track.getBoundingClientRect().left;
@@ -4825,6 +4917,38 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
             updateDeliveryNavButtons();
         }
 
+
+        // Cabecera completa pulsable en modo presentación, sin interferir con edición.
+        document.addEventListener('click', function(event) {
+            const header = event.target.closest('#z7-products-container .product-card .accordion-wrapper > div:first-child');
+            if (!header || event.target.closest('button') || event.target.closest('[contenteditable="true"]')) return;
+            const toggle = header.querySelector('button');
+            if (toggle) toggleAccordion(toggle);
+        });
+        // Descripción y anotación: guardar contenido editable sin crear almacenamiento paralelo.
+        document.addEventListener('focusout', function(event) {
+            if (isEditMode && event.target.matches('#z7-products-container [data-product-field]')) saveCurrentState();
+        });
+        // La propuesta se revela como última tarjeta, a la derecha; nunca en una segunda fila.
+        function ensureProposalEndCard() {
+            const track = document.getElementById('z7-products-container');
+            if (!track) return;
+            let card = track.querySelector(':scope > .proposal-final-card');
+            if (!card) {
+                card = document.createElement('section');
+                card.className = 'proposal-final-card';
+                card.setAttribute('aria-label', 'Presentación final de propuesta económica');
+                card.innerHTML = '<div class="proposal-final-icon"><i class="fas fa-file-invoice-dollar" aria-hidden="true"></i></div><h3>Tu propuesta personalizada</h3><p>Al terminar de revisar las soluciones, presenta el detalle de entregables, bonos y la inversión acordada.</p><button type="button" onclick="toggleProposalReveal(true)"><i class="fas fa-arrow-right" aria-hidden="true"></i> Presentar propuesta económica</button>';
+            }
+            if (track.lastElementChild !== card) track.appendChild(card);
+        }
+        function serializedProductCardsHTML() {
+            const track = document.getElementById('z7-products-container');
+            if (!track) return '';
+            const copy = track.cloneNode(true);
+            copy.querySelectorAll('.proposal-final-card').forEach(el => el.remove());
+            return copy.innerHTML;
+        }
 
         // Banco maestro: información independiente del HTML del perfil; datos locales en IndexedDB.
         // Nunca enviamos claves administrativas al navegador ni alteramos el servidor de licencias.
@@ -5049,6 +5173,7 @@ body.edit-mode-active [data-slide="7"] .bank-card-utilities{display:flex}
                 });
             }
             
+            enhanceProductChoices();
             auditInit();
             updateUI();
             syncWhiteDocumentHeaders(); 
